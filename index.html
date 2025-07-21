@@ -271,6 +271,23 @@
 
 
 
+<script>
+  const openBtn = document.getElementById('open-menu-btn');
+  const closeBtn = document.getElementById('close-menu-btn');
+  const navMenu = document.querySelector('.nav__menu');
+
+  openBtn.addEventListener('click', () => {
+    navMenu.classList.add('active');
+    openBtn.style.display = 'none';
+    closeBtn.style.display = 'inline-block';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+    openBtn.style.display = 'inline-block';
+    closeBtn.style.display = 'none';
+  });
+</script>
 
 
 <script src="main.js"></script>
