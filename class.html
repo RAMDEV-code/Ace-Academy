@@ -6,96 +6,161 @@
     <title>Ace Academy</title>
 
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/class.css">
+<style>
+/* ========== CLASS GRID SECTION ========== */
+/* ========== CLASS GRID SECTION ========== */
+.class-grid-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 6rem 2rem 4rem; /* Top padding accounts for fixed navbar */
+  background-color: #f8f9fc;
+  max-width: 1200px;
+  margin: auto;
+  min-height: 100vh; /* Ensures it fills the screen */
+  box-sizing: border-box;
+}
 
+.class-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.class-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
 
- <!--============IONICON=====================-->
+.class-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
 
-     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+.class-card h3 {
+  font-size: 1.5rem;
+  color: #3f3b82;
+  margin-bottom: 1rem;
+}
 
+.class-card p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* ========== Scroll Animation ========== */
+.class-grid-section.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.class-grid-section.animate-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== Responsive Layout ========== */
+@media (max-width: 1024px) {
+  .class-grid-section {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 5rem 1.5rem 3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .class-grid-section {
+    grid-template-columns: 1fr;
+    padding: 5rem 1rem 2rem;
+  }
+}
+
+</style>
 </head>
 <body>
 
+    <!-- HEADER WITH NAV -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">ACESTUDENTS</div>
 
-
-    <!--========NAVBAR==========-->
-    <nav>
-        <div class="container nav__container">
-            <a href="index.html"><h4>ACESTUDENTS</h4></a>
-            <ul class="nav__menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="class.html">Class<ion-icon name="caret-down-outline"></ion-icon></a>
-                <ul class="dropdown">
-                    <li><a href="JSS1.html">JSS1</a></li>
-                    <li><a href="JSS2.html">JSS2</a></li>
-                    <li><a href="JSS3.html">JSS3</a></li>
-                    <li><a href="SS1.html">SS1</a></li>
-                    <li><a href="SS2.html">SS2</a></li>
-                    <li><a href="SS3.html">SS3</a></li>
-                </ul>
-            </li>
-                <li><a href="About.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-            <button id="open-menu-btn"><ion-icon name="menu-outline"></ion-icon></button>
-            <button id="close-menu-btn"><ion-icon name="close-outline"></ion-icon></button>
+    <nav class="nav-links" id="navMenu">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="class.html">Class ▾</a>
+        <div class="dropdown-content">
+          <a href="JSS1.html">JSS1</a>
+          <a href="JSS2.html">JSS2</a>
+          <a href="JSS3.html">jSS3</a>
+          <a href="SS1.html">SS1</a>
+          <a href="SS2.html">SS3</a>
+          <a href="SS3.html">SS3</a>
         </div>
+      </div>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
     </nav>
 
-    <!--==========END OF NAVBAR==============-->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
+<!--===END OF NAV===-->
 
-    <section class="class-grid-section">
+<!-- Adjusted section to work with fixed navbar -->
+<section class="class-grid-section animate-on-scroll" id="classGrid">
   <div class="class-card">
     <a href="JSS1.html">
-        <h3>JSS1</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
-
+      <h3>JSS1</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
     </a>
-      </div>
+  </div>
   <div class="class-card">
     <a href="JSS2.html">
-        <h3>JSS2</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
+      <h3>JSS2</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
     </a>
   </div>
   <div class="class-card">
     <a href="JSS3.html">
-        <h3>JSS3</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
+      <h3>JSS3</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
     </a>
   </div>
   <div class="class-card">
     <a href="SS1.html">
-        <h3>SS1</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
+      <h3>SS1</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
     </a>
   </div>
   <div class="class-card">
     <a href="SS2.html">
-        <h3>SS2</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
+      <h3>SS2</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
     </a>
   </div>
   <div class="class-card">
-   <a href="SS2.html">
-     <h3>SS3</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
-   </a>
+    <a href="SS3.html">
+      <h3>SS3</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit alias et saepe, qui aliquam odit debitis.</p>
+    </a>
   </div>
 </section>
 
-   
-<!--================ END OF GRADES===================-->
+<!--========END OF CLASS==========-->
 
-
-<footer class="footer">
+<footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACE ACADEMY</h4></a>
+            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
             </p>
@@ -127,7 +192,7 @@
                 +234 7057927515
             </p>
             <P>
-                Aceacdemy1@gmail.com
+                Acestudents@gmail.com
             </P>
           <ul class="footer__socials">
                <li><a href="fabook.html"><ion-icon name="logo-facebook"></ion-icon></a></li>
@@ -139,15 +204,53 @@
         </div>
     </div>
     <div class="footer__copyright">
-            <small>Copyright &copy; ACE ACADEMY|ONLINE SCHOOL</small>
+             <p>&copy; 2025 ACESTUDENTS. All rights reserved.</p>
         </div>
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
 
 
+<!--========END OF FOOTER==========-->
 
 
 
-<script src="./main.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('show');
+  });
+
+  // Optional: Close menu when a link is clicked (mobile only)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
+</script>
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.8;
+
+      if (sectionTop < triggerPoint && !section.classList.contains('active')) {
+        section.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
 
 </body>
 </html>

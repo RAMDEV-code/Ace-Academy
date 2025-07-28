@@ -6,70 +6,156 @@
     <title>Ace Academy</title>
 
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/about.css">
+<style>
+  /* ====== ABOUT FULL PAGE SECTION (Adjusted for Footer Fit) ====== */
+  .about-full-section {
+    background-color: #f9f9f9;
+    padding: 6rem 2rem 2rem; /* reduced bottom padding */
+    box-sizing: border-box;
+    min-height: calc(100vh - 120px); /* ensures it fills viewport but doesn't overflow with footer */
+    display: flex;
+    align-items: center;
+  }
 
+  .about-content {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
 
+  .about-text {
+    flex: 1 1 500px;
+  }
 
- <!--=============================================IONICON===========================================================-->
+  .about-text h2 {
+    font-size: 2.5rem;
+    color: #3f3b82;
+    margin-bottom: 1.5rem;
+  }
 
-     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  .about-text p {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
 
+  .about-image {
+    flex: 1 1 400px;
+    text-align: center;
+  }
+
+  .about-image img {
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ====== Animation on scroll ====== */
+  .about-full-section.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s ease-in-out;
+  }
+
+  .about-full-section.animate-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ====== Responsive Styles ====== */
+  @media (max-width: 1024px) {
+    .about-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about-full-section {
+      padding: 5rem 1rem 1.5rem; /* reduce bottom padding on mobile */
+    }
+
+    .about-text h2 {
+      font-size: 1.75rem;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+    }
+  }
+</style>
 </head>
 <body>
 
+    <!-- HEADER WITH NAV -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">ACESTUDENTS</div>
 
-
-    <!--====================================NAVBAR============================-->
-    <nav>
-        <div class="container nav__container">
-            <a href="index.html"><h4>ACE ACEDEMY</h4></a>
-            <ul class="nav__menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="class.html">Class<ion-icon name="caret-down-outline"></ion-icon></a>
-                <ul class="dropdown">
-                    <li><a href="JSS1.html">JSS1</a></li>
-                    <li><a href="JSS2.html">JSS2</a></li>
-                    <li><a href="JSS3.html">JSS3</a></li>
-                    <li><a href="SS1.html">SS1</a></li>
-                    <li><a href="SS2.html">SS2</a></li>
-                    <li><a href="SS3.html">SS3</a></li>
-                </ul>
-            </li>
-                <li><a href="About.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-            <button id="open-menu-btn"><ion-icon name="menu-outline"></ion-icon></button>
-            <button id="close-menu-btn"><ion-icon name="close-outline"></ion-icon></button>
+    <nav class="nav-links" id="navMenu">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="class.html">Class ▾</a>
+        <div class="dropdown-content">
+          <a href="JSS1.html">JSS1</a>
+          <a href="JSS2.html">JSS2</a>
+          <a href="JSS3.html">jSS3</a>
+          <a href="SS1.html">SS1</a>
+          <a href="SS2.html">SS3</a>
+          <a href="SS3.html">SS3</a>
         </div>
+      </div>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
     </nav>
 
-    <!--====================================END OF NAVBAR============================-->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
+<!--===END OF NAV===-->
 
-    <section class="about">
-    <div class="container about__container">
-        <div class="about__left">
-            <h1>ABOUT</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa repellat id commodi quibusdam consequatur enim quo maiores reprehenderit animi hic.
-            </p>
-            <a href="About.html" class="btn">Learn more about our tutor</a>
-        </div>
-
-        <div class="about__left">
-            <img src="img\2150379179-Picsart-BackgroundRemover.jpg">
-        </div>
+<section class="about-full-section animate-on-scroll" id="about">
+  <div class="about-content">
+    <div class="about-text">
+      <h2>About ACESTUDENTS</h2>
+      <p>
+        At <strong>ACESTUDENTS</strong>, we are committed to empowering students through digital learning.
+        Our platform offers comprehensive, curriculum-aligned content for Junior and Senior Secondary classes (JSS1–SS3).
+        Whether you're preparing for exams or strengthening foundational knowledge, we’ve got you covered.
+      </p>
+      <p>
+        Our vision is to create an accessible, high-quality education experience where every student can learn at their own pace — anytime, anywhere.
+      </p>
+      <p>
+        With interactive lessons, video explanations, subject breakdowns, and class-based resources, we are building the future of learning — today.
+      </p>
     </div>
+    <div class="about-image">
+      <img src="images/about-img.png" alt="Ace Academy" />
+    </div>
+  </div>
 </section>
 
-<!--=========================================== END OF ABOUT ============================================-->
 
-<footer class="footer">
+<!--========END OF ABOUT==========-->
+
+<footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACE ACADEMY</h4></a>
+            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
             </p>
@@ -101,7 +187,7 @@
                 +234 7057927515
             </p>
             <P>
-                Aceacdemy1@gmail.com
+                Acestudents@gmail.com
             </P>
           <ul class="footer__socials">
                <li><a href="fabook.html"><ion-icon name="logo-facebook"></ion-icon></a></li>
@@ -113,15 +199,68 @@
         </div>
     </div>
     <div class="footer__copyright">
-            <small>Copyright &copy; ACE ACADEMY|ONLINE SCHOOL</small>
+             <p>&copy; 2025 ACESTUDENTS. All rights reserved.</p>
         </div>
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
 
 
+<!--========END OF FOOTER==========-->
 
 
 
-<script src="./main.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('show');
+  });
+
+  // Optional: Close menu when a link is clicked (mobile only)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
+</script>
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      const trigger = window.innerHeight * 0.8;
+      if (top < trigger) section.classList.add('active');
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.8;
+
+      if (sectionTop < triggerPoint && !section.classList.contains('active')) {
+        section.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
 
 </body>
 </html>

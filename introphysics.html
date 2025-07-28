@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ace Academy</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="./css/JSS1.css">
+    <link rel="stylesheet" href="./css/style.css">
 
 
-
- <!--================IONICON=================-->
+ <!--=============================================IONICON===========================================================-->
 
      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-
 <style>
- .video-learning-section {
+   .video-learning-section {
   padding: 2rem;
   background: #f5f9ff;
   font-family: 'Segoe UI', sans-serif;
@@ -126,21 +123,21 @@
 }
 
 </style>
-
-
 </head>
 <body>
+<!-- Hamburger Buttons -->
+<button id="open-menu-btn">☰</button>
 
 
-
-    <!--=================NAVBAR==================-->
+    <!--===================NAVBAR===========-->
     <nav>
-        <div class="container nav__container">
-            <a href="/index.html"><h4>ACESTUDENTS</h4></a>
+        <a href="index.html"><h4>ACESTUDENTS <button id="close-menu-btn">✖</button></h4></a>
             <ul class="nav__menu">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/class.html">Class<ion-icon name="caret-down-outline"></ion-icon></a>
-                <ul class="dropdown">
+                
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="class.html">Class ▾</a>
+                <ul class="dropdown-menu">
                     <li><a href="JSS1.html">JSS1</a></li>
                     <li><a href="JSS2.html">JSS2</a></li>
                     <li><a href="JSS3.html">JSS3</a></li>
@@ -149,17 +146,15 @@
                     <li><a href="SS3.html">SS3</a></li>
                 </ul>
             </li>
-                <li><a href="/About.html">About</a></li>
-                <li><a href="/contact.html">Contact</a></li>
-                <li><a href="/login.html">Login</a></li>
+
+                <li><a href="About.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
-            <button id="open-menu-btn"><ion-icon name="menu-outline"></ion-icon></button>
-            <button id="close-menu-btn"><ion-icon name="close-outline"></ion-icon></button>
-        </div>
     </nav>
 
-    <!--=============END OF NAVBAR============-->
- 
+    <!--============END OF NAVBAR=============-->
+
 
 <section class="video-learning-section">
   <div class="video-container">
@@ -188,13 +183,9 @@
     </div>
   </div>
 </section>
+<!--=========================================== END OF ABOUT ============================================-->
 
-
-
-
-
-
-    <footer class="footer">
+<footer class="footer">
     <div class="container footer__container">
         <div class="footer__1">
             <a href="index.html" class="footer__logo"><h4>ACE ACADEMY</h4></a>
@@ -246,45 +237,30 @@
 </footer>
 
 
+
+
 <script>
-  const topicLinks = document.querySelectorAll('.topic-list a');
-  const videoPlayer = document.getElementById('topic-video');
-  const videoTitle = document.querySelector('.video-title');
+  const menu = document.querySelector('nav');
+  const openBtn = document.querySelector('#open-menu-btn');
+  const closeBtn = document.querySelector('#close-menu-btn');
+  const navLinks = document.querySelectorAll('nav a');
 
-  topicLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const newVideo = link.getAttribute('data-video');
-      const newTitle = link.textContent;
+  openBtn.addEventListener('click', () => {
+    menu.classList.add('nav-open');
+  });
 
-      videoPlayer.src = newVideo;
-      videoTitle.textContent = newTitle;
+  closeBtn.addEventListener('click', () => {
+    menu.classList.remove('nav-open');
+  });
 
-      // Optional: scroll video into view
-      videoPlayer.scrollIntoView({ behavior: "smooth" });
+  // Close menu on any link click
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('nav-open');
     });
   });
 </script>
 
-<script>
-  const openBtn = document.getElementById('open-menu-btn');
-  const closeBtn = document.getElementById('close-menu-btn');
-  const navMenu = document.querySelector('.nav__menu');
-
-  openBtn.addEventListener('click', () => {
-    navMenu.classList.add('active');
-    openBtn.style.display = 'none';
-    closeBtn.style.display = 'inline-block';
-  });
-
-  closeBtn.addEventListener('click', () => {
-    navMenu.classList.remove('active');
-    openBtn.style.display = 'inline-block';
-    closeBtn.style.display = 'none';
-  });
-</script>
-
-<script src="main.js"></script>
 
 </body>
 </html>
