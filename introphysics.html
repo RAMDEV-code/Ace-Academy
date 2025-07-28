@@ -6,115 +6,140 @@
     <title>Ace Academy</title>
 
     <link rel="stylesheet" href="./css/style.css">
-
-
- <!--=============================================IONICON===========================================================-->
-
-     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 <style>
-   .video-learning-section {
-  padding: 2rem;
-  background: #f5f9ff;
-  font-family: 'Segoe UI', sans-serif;
-  animation: fadeInSlide 0.8s ease-in;
+.subject-section {
+  padding: 6rem 1rem 3rem;
+  background: #f5f7fa;
 }
 
-.video-container {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 2rem;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* SIDEBAR */
-.sidebar {
-  background: #007bff;
-  color: #ffffff;
-  padding: 1rem;
-  border-radius: 10px;
-}
-
-.sidebar h3 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+.subject-title {
   text-align: center;
+  font-size: 2rem;
+  color: #3f3b82;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.8s ease;
 }
 
-.topic-list {
-  list-style: none;
-  padding: 0;
+.term-selector {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.topic-list li {
-  margin: 0.5rem 0;
-}
-
-.topic-list a {
-  color: #ffffff;
-  text-decoration: none;
-  display: block;
-  padding: 0.4rem 0.6rem;
+.term-selector button {
+  background-color: #3f3b82;
+  color: white;
+  border: none;
+  margin: 0 0.5rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 6px;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
-.topic-list a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.term-selector .active {
+  background-color: #ff5e57;
 }
 
-/* VIDEO AREA */
-.video-player-area {
+.subject-layout {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.video-player-area video {
-  width: 100%;
-  max-height: 400px;
+.topics-menu {
+  flex: 1;
+  min-width: 220px;
+  background: #1f1a4f;
   border-radius: 10px;
-  background: #000;
+  padding: 1rem;
+  color: white;
 }
 
-.video-title {
-  margin-top: 1rem;
+.topics-menu button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  background: #3f3b82;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.topics-menu button:hover {
+  background-color: #574fcf;
+}
+
+.topic-content {
+  flex: 3;
+  min-width: 280px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.topic-content video {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+#topicTitle {
   font-size: 1.5rem;
+  color: #3f3b82;
+  margin-bottom: 1rem;
+}
+
+.worksheet {
+  margin-top: 1.5rem;
+}
+
+.worksheet h4 {
+  font-size: 1.2rem;
+  color: #1f1a4f;
+}
+
+.worksheet ul {
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+.worksheet li {
+  margin-bottom: 0.8rem;
   color: #333;
+  font-size: 1rem;
 }
 
-/* RESPONSIVE: TABLETS */
-@media (max-width: 1024px) {
-  .video-container {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    margin-bottom: 1rem;
-  }
+.term-selector button {
+  background-color: #3f3b82;
+  color: white;
+  border: none;
+  margin: 0 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
-/* RESPONSIVE: MOBILE */
-@media (max-width: 600px) {
-  .video-title {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-
-  .topic-list a {
-    font-size: 0.95rem;
-  }
+.term-selector button:hover {
+  background-color: #574fcf;
+  transform: translateY(-2px);
 }
 
-/* ANIMATION */
-@keyframes fadeInSlide {
+.term-selector .active {
+  background-color: #ff5e57;
+  color: #fff;
+}
+
+
+@keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
@@ -122,73 +147,100 @@
   }
 }
 
-</style>
-</head>
+@media (max-width: 1024px) {
+  .subject-layout {
+    flex-direction: column;
+  }
+
+  .topics-menu,
+  .topic-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .subject-title {
+    font-size: 1.5rem;
+  }
+
+  .term-selector button {
+    display: block;
+    margin: 0.5rem auto;
+    width: 90%;
+  }
+
+  .topics-menu button {
+    font-size: 0.95rem;
+  }
+}
+  </style>
+  
+  </head>
 <body>
-<!-- Hamburger Buttons -->
-<button id="open-menu-btn">☰</button>
 
+    <!-- HEADER WITH NAV -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">ACESTUDENTS</div>
 
-    <!--===================NAVBAR===========-->
-    <nav>
-        <a href="index.html"><h4>ACESTUDENTS <button id="close-menu-btn">✖</button></h4></a>
-            <ul class="nav__menu">
-                
-                <li><a href="index.html">Home</a></li>
-                <li class="dropdown">
-                    <a href="class.html">Class ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="JSS1.html">JSS1</a></li>
-                    <li><a href="JSS2.html">JSS2</a></li>
-                    <li><a href="JSS3.html">JSS3</a></li>
-                    <li><a href="SS1.html">SS1</a></li>
-                    <li><a href="SS2.html">SS2</a></li>
-                    <li><a href="SS3.html">SS3</a></li>
-                </ul>
-            </li>
-
-                <li><a href="About.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
+    <nav class="nav-links" id="navMenu">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="class.html">Class ▾</a>
+        <div class="dropdown-content">
+          <a href="JSS1.html">JSS1</a>
+          <a href="JSS2.html">JSS2</a>
+          <a href="JSS3.html">jSS3</a>
+          <a href="SS1.html">SS1</a>
+          <a href="SS2.html">SS3</a>
+          <a href="SS3.html">SS3</a>
+        </div>
+      </div>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
     </nav>
 
-    <!--============END OF NAVBAR=============-->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
+<!--===END OF NAV===-->
+ <section class="subject-section animate-on-scroll" id="physics-section">
+  <h2 class="subject-title">Physics</h2>
 
-<section class="video-learning-section">
-  <div class="video-container">
-    <div class="sidebar">
-      <h3>Topics</h3>
-      <ul class="topic-list">
-        <li><a href="#" data-video="video1.mp4">Introduction to Physics</a></li>
-        <li><a href="#" data-video="video2.mp4">Matter and Its Properties</a></li>
-        <li><a href="#" data-video="video3.mp4">Measurement</a></li>
-        <li><a href="#" data-video="video4.mp4">Motion and Speed</a></li>
-        <li><a href="#" data-video="video5.mp4">Force and Energy</a></li>
-        <li><a href="#" data-video="video5.mp4">Force and Energy</a></li>
-        <li><a href="#" data-video="video5.mp4">Force and Energy</a></li>
-        <li><a href="#" data-video="video5.mp4">Force and Energy</a></li>
-        <li><a href="#" data-video="video5.mp4">Force and Energy</a></li>
-        <li><a href="#" data-video="video5.mp4">Force and Energy</a></li>
-      </ul>
-    </div>
+  <div class="term-selector">
+    <button class="term-btn active" data-term="first">First Term</button>
+    <button class="term-btn" data-term="second">Second Term</button>
+    <button class="term-btn" data-term="third">Third Term</button>
+  </div>
 
-    <div class="video-player-area">
-      <video id="topic-video" controls autoplay>
-        <source src="video1.mp4" type="video/mp4">
+  <div class="subject-layout">
+    <div class="topics-menu" id="topicsMenu"></div>
+
+    <div class="topic-content">
+      <video id="topicVideo" controls>
+        <source src="" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <h2 class="video-title">Introduction to Physics</h2>
+      <h3 id="topicTitle">Select a Topic</h3>
+
+      <div class="worksheet" id="worksheetArea">
+        <h4>Worksheet Questions</h4>
+        <ul id="worksheetQuestions"></ul>
+      </div>
     </div>
   </div>
 </section>
-<!--=========================================== END OF ABOUT ============================================-->
 
-<footer class="footer">
+
+<!--===================END OF LESSONS======================-->
+
+<footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACE ACADEMY</h4></a>
+            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
             </p>
@@ -220,7 +272,7 @@
                 +234 7057927515
             </p>
             <P>
-                Aceacdemy1@gmail.com
+                Acestudents@gmail.com
             </P>
           <ul class="footer__socials">
                <li><a href="fabook.html"><ion-icon name="logo-facebook"></ion-icon></a></li>
@@ -232,34 +284,238 @@
         </div>
     </div>
     <div class="footer__copyright">
-            <small>Copyright &copy; ACE ACADEMY|ONLINE SCHOOL</small>
+             <p>&copy; 2025 ACESTUDENTS. All rights reserved.</p>
         </div>
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
 
+
+<!--========END OF FOOTER==========-->
 
 
 
 <script>
-  const menu = document.querySelector('nav');
-  const openBtn = document.querySelector('#open-menu-btn');
-  const closeBtn = document.querySelector('#close-menu-btn');
-  const navLinks = document.querySelectorAll('nav a');
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+  const navMenu = document.getElementById('navMenu');
 
-  openBtn.addEventListener('click', () => {
-    menu.classList.add('nav-open');
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
   });
 
   closeBtn.addEventListener('click', () => {
-    menu.classList.remove('nav-open');
+    navMenu.classList.remove('show');
   });
 
-  // Close menu on any link click
-  navLinks.forEach(link => {
+  // Optional: Close menu when a link is clicked (mobile only)
+  document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-      menu.classList.remove('nav-open');
+      navMenu.classList.remove('show');
     });
   });
 </script>
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.8;
+
+      if (sectionTop < triggerPoint && !section.classList.contains('active')) {
+        section.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+
+<script>
+const topics = {
+  first: [
+    {
+      title: "Week 1: Introduction to Physics",
+      video: "videos/physics/introduction.mp4",
+      questions: ["What is physics?", "Mention 3 branches of physics."]
+    },
+    {
+      title: "Week 2: Motion",
+      video: "videos/physics/motion.mp4",
+      questions: ["Define motion.", "Differentiate between speed and velocity."]
+    },
+    {
+      title: "Week 3: Matter",
+      video: "videos/physics/matter.mp4",
+      questions: ["List the states of matter.", "Explain their differences."]
+    },
+    {
+      title: "Week 4: Measurement",
+      video: "videos/physics/measurement.mp4",
+      questions: ["What are base quantities?", "What is an SI unit?"]
+    },
+    {
+      title: "Week 5: Density",
+      video: "videos/physics/density.mp4",
+      questions: ["State the formula for density.", "Calculate density of a 200g object in 50cm³."]
+    },
+    {
+      title: "Week 6: Temperature",
+      video: "videos/physics/temperature.mp4",
+      questions: ["What device is used to measure temperature?", "List 2 temperature scales."]
+    },
+    {
+      title: "Week 7: Heat Energy",
+      video: "videos/physics/heat-energy.mp4",
+      questions: ["Differentiate heat and temperature.", "Mention 3 methods of heat transfer."]
+    },
+    {
+      title: "Week 8: Revision",
+      video: "videos/physics/revision1.mp4",
+      questions: ["Revise all topics from Week 1 to Week 7."]
+    },
+    {
+      title: "Week 9: Examination",
+      video: "videos/physics/exam1.mp4",
+      questions: ["Practice answering 10 past questions on physics."]
+    }
+  ],
+  second: [
+    {
+      title: "Week 1: Work, Energy and Power",
+      video: "videos/physics/work-energy.mp4",
+      questions: ["Define work.", "What is the formula for power?"]
+    },
+    {
+      title: "Week 2: Simple Machines",
+      video: "videos/physics/simple-machines.mp4",
+      questions: ["Give 4 examples of simple machines.", "State the use of pulleys."]
+    },
+    {
+      title: "Week 3: Sound",
+      video: "videos/physics/sound.mp4",
+      questions: ["What causes sound?", "State 2 properties of sound."]
+    },
+    {
+      title: "Week 4: Reflection of Light",
+      video: "videos/physics/light.mp4",
+      questions: ["Define reflection.", "Draw a diagram showing reflection."]
+    },
+    {
+      title: "Week 5: Refraction",
+      video: "videos/physics/refraction.mp4",
+      questions: ["What is refraction?", "State 2 real life examples."]
+    },
+    {
+      title: "Week 6: Magnetism",
+      video: "videos/physics/magnetism.mp4",
+      questions: ["What are magnetic materials?", "List 2 uses of magnets."]
+    },
+    {
+      title: "Week 7: Electricity",
+      video: "videos/physics/electricity.mp4",
+      questions: ["State Ohm's law.", "List 3 electrical appliances."]
+    },
+    {
+      title: "Week 8: Revision",
+      video: "videos/physics/revision2.mp4",
+      questions: ["Summarize topics from week 1 to 7."]
+    },
+    {
+      title: "Week 9: Examination",
+      video: "videos/physics/exam2.mp4",
+      questions: ["Answer 5 questions from your textbook."]
+    }
+  ],
+  third: [
+    {
+      title: "Week 1: Pressure",
+      video: "videos/physics/pressure.mp4",
+      questions: ["Define pressure.", "What is the SI unit of pressure?"]
+    },
+    {
+      title: "Week 2: Atmospheric Pressure",
+      video: "videos/physics/atmosphere.mp4",
+      questions: ["What is atmospheric pressure?", "State 2 instruments used to measure it."]
+    },
+    {
+      title: "Week 3: States of Matter (Revision)",
+      video: "videos/physics/states-of-matter.mp4",
+      questions: ["List 4 states of matter.", "Explain plasma."]
+    },
+    {
+      title: "Week 4: Change of State",
+      video: "videos/physics/change-of-state.mp4",
+      questions: ["What is condensation?", "What causes melting?"]
+    },
+    {
+      title: "Week 5: Expansion",
+      video: "videos/physics/expansion.mp4",
+      questions: ["Define expansion.", "State one practical application."]
+    },
+    {
+      title: "Week 6: Revision",
+      video: "videos/physics/revision3.mp4",
+      questions: ["Review Weeks 1–5 in your notes."]
+    },
+    {
+      title: "Week 7: Examination",
+      video: "videos/physics/exam3.mp4",
+      questions: ["Solve 3 questions based on change of state and pressure."]
+    }
+  ]
+};
+
+function loadTopics(term) {
+  const menu = document.getElementById("topicsMenu");
+  const video = document.getElementById("topicVideo");
+  const title = document.getElementById("topicTitle");
+  const questions = document.getElementById("worksheetQuestions");
+
+  menu.innerHTML = "";
+  document.querySelectorAll(".term-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`[data-term="${term}"]`).classList.add("active");
+
+  topics[term].forEach((topic, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = topic.title;
+    btn.onclick = () => {
+      video.querySelector("source").src = topic.video;
+      video.load();
+      title.textContent = topic.title;
+      questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
+    };
+    menu.appendChild(btn);
+  });
+
+  if (topics[term].length > 0) {
+    const first = topics[term][0];
+    video.querySelector("source").src = first.video;
+    video.load();
+    title.textContent = first.title;
+    questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+  }
+}
+
+window.onload = () => loadTopics("first");
+
+
+
+
+// Enable switching between terms
+document.querySelectorAll(".term-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const term = btn.getAttribute("data-term");
+    loadTopics(term);
+  });
+});
+
+</script>
+
+
 
 
 </body>

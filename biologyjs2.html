@@ -7,123 +7,139 @@
 
     <link rel="stylesheet" href="./css/style.css">
 <style>
-/* Subject Header with original gradient and animation */
-.subject-header {
-  padding-top: 7rem; /* Prevent navbar overlap */
-  padding-bottom: 3rem;
-  background: linear-gradient(to right, #3f3b82, #554ccf);
-  color: white;
-  text-align: center;
-  animation: slideInDown 1s ease;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-}
+/* Biology term buttons */
+    .term-btn-bio {
+      background-color: #3f3b82;
+      color: white;
+      border: none;
+      margin: 0 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-.subject-header h1 {
-  font-size: 2.8rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
+    .term-btn-bio:hover {
+      background-color: #574fcf;
+      transform: translateY(-2px);
+    }
 
-/* Term Section Cards */
-.term-section {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  padding: 3rem 1rem;
-  background-color: #f9f9f9;
-  animation: fadeInUp 1s ease;
-}
+    .term-btn-bio.active {
+      background-color: #ff5e57;
+      color: #fff;
+    }
 
-.term-card {
-  background-color: #2c2359;
-  color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  width: 300px;
-  max-width: 90%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .subject-section {
+      padding: 6rem 2rem 2rem;
+      background-color: #fff;
+      color: #333;
+    }
 
-.term-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-}
+    .subject-title {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #3f3b82;
+    }
 
-.term-card h2 {
-  color: #ff5e57;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #ff5e57;
-  padding-bottom: 0.5rem;
-}
+    .term-selector {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
 
-.term-card ul {
-  list-style: none;
-  padding: 0;
-}
+    .subject-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-.term-card li {
-  margin-bottom: 0.9rem;
-}
+    .topics-menu {
+      flex: 1 1 25%;
+      background: #f1f1f1;
+      padding: 1rem;
+      border-radius: 6px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
 
-.term-card li a {
-  background-color: #3f3b82;
-  display: block;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 0.95rem;
-  text-decoration: none;
-  border: 1px solid #4d48a3;
-  transition: background-color 0.3s ease;
-}
+    .topics-menu button {
+      display: block;
+      width: 100%;
+      background: #3f3b82;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.6rem;
+      text-align: left;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-.term-card li a:hover {
-  background-color: #554ccf;
-}
+    .topics-menu button:hover {
+      background: #574fcf;
+    }
 
-/* Animations */
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .topic-content {
+      flex: 1 1 70%;
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 6px;
+    }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .video-wrapper iframe {
+      width: 100%;
+      height: 320px;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      border: none;
+    }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .term-section {
-    gap: 1.5rem;
-  }
-  .term-card {
-    width: 45%;
-  }
-}
+    .worksheet h4 {
+      margin-top: 1.2rem;
+      font-size: 1.2rem;
+      color: #3f3b82;
+    }
 
-@media (max-width: 600px) {
-  .term-card {
-    width: 100%;
-  }
-}
+    .worksheet ul {
+      margin-top: 0.5rem;
+      padding-left: 1.2rem;
+    }
+
+    .worksheet li {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1024px) {
+      .subject-layout {
+        flex-direction: column;
+      }
+
+      .topics-menu, .topic-content {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .term-selector button {
+        display: block;
+        width: 100%;
+        margin: 0.5rem auto;
+      }
+
+      .subject-title {
+        font-size: 1.5rem;
+      }
+
+      .topics-menu button {
+        font-size: 0.9rem;
+      }
+
+      .video-wrapper iframe {
+        height: 200px;
+      }
+    }
   </style>
   
   </head>
@@ -158,72 +174,32 @@
 </header>
 
 <!--===END OF NAV===-->
-  <!-- Subject Header -->
-  <section class="subject-header">
-    <h1>PHYSICS</h1>
-  </section>
+  <section class="subject-section" id="biology-section">
+    <h2 class="subject-title">Biology</h2>
 
-  <!-- Term Sections -->
-  <section class="term-section">
-    <!-- First Term -->
-    <div class="term-card">
-      <h2>First Term</h2>
-      <ul>
-        <li><a href="#">Week 1: Introduction to Physics</a></li>
-        <li><a href="#">Week 2: Motion</a></li>
-        <li><a href="#">Week 3: Matter</a></li>
-        <li><a href="#">Week 4: Measurement</a></li>
-        <li><a href="#">Week 5: Density</a></li>
-        <li><a href="#">Week 6: Temperature</a></li>
-        <li><a href="#">Week 7: Heat Energy</a></li>
-        <li><a href="#">Week 8: Heat Transfer</a></li>
-        <li><a href="#">Week 9: Expansion of Solids</a></li>
-        <li><a href="#">Week 10: Liquids and Gases</a></li>
-        <li><a href="#">Week 11: Revision</a></li>
-        <li><a href="#">Week 12: Exam</a></li>
-      </ul>
+    <div class="term-selector">
+      <button class="term-btn-bio active" data-term="first">First Term</button>
+      <button class="term-btn-bio" data-term="second">Second Term</button>
+      <button class="term-btn-bio" data-term="third">Third Term</button>
     </div>
 
-    <!-- Second Term -->
-    <div class="term-card">
-      <h2>Second Term</h2>
-      <ul>
-        <li><a href="#">Week 1: Reflection of Light</a></li>
-        <li><a href="#">Week 2: Refraction of Light</a></li>
-        <li><a href="#">Week 3: Dispersion</a></li>
-        <li><a href="#">Week 4: Sound</a></li>
-        <li><a href="#">Week 5: Sources of Sound</a></li>
-        <li><a href="#">Week 6: Propagation of Sound</a></li>
-        <li><a href="#">Week 7: Echo</a></li>
-        <li><a href="#">Week 8: Magnetism</a></li>
-        <li><a href="#">Week 9: Properties of Magnets</a></li>
-        <li><a href="#">Week 10: Electromagnets</a></li>
-        <li><a href="#">Week 11: Revision</a></li>
-        <li><a href="#">Week 12: Exam</a></li>
-      </ul>
-    </div>
+    <div class="subject-layout">
+      <div class="topics-menu" id="bioTopicsMenu"></div>
 
-    <!-- Third Term -->
-    <div class="term-card">
-      <h2>Third Term</h2>
-      <ul>
-        <li><a href="#">Week 1: Electricity</a></li>
-        <li><a href="#">Week 2: Electric Circuits</a></li>
-        <li><a href="#">Week 3: Conductors & Insulators</a></li>
-        <li><a href="#">Week 4: Simple Circuit Diagrams</a></li>
-        <li><a href="#">Week 5: Current & Voltage</a></li>
-        <li><a href="#">Week 6: Magnetism and Electricity</a></li>
-        <li><a href="#">Week 7: Lightning & Safety</a></li>
-        <li><a href="#">Week 8: Machines</a></li>
-        <li><a href="#">Week 9: Force and Pressure</a></li>
-        <li><a href="#">Week 10: Friction</a></li>
-        <li><a href="#">Week 11: Revision</a></li>
-        <li><a href="#">Week 12: Exam</a></li>
-      </ul>
+      <div class="topic-content">
+        <div class="video-wrapper">
+          <iframe id="bioVideoFrame" src="" allowfullscreen></iframe>
+        </div>
+
+        <h3 id="bioTopicTitle">Select a Topic</h3>
+
+        <div class="worksheet">
+          <h4>Worksheet Questions</h4>
+          <ul id="bioWorksheetQuestions"></ul>
+        </div>
+      </div>
     </div>
   </section>
-
-
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
@@ -320,6 +296,92 @@
   window.addEventListener('scroll', handleScrollAnimations);
   window.addEventListener('load', handleScrollAnimations);
 </script>
+
+
+<script>
+    const bioTopics = {
+      first: [
+        {
+          title: "Week 1: Introduction to Biology",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
+          questions: ["What is biology?", "Mention 3 branches of biology."]
+        },
+        {
+          title: "Week 2: Living and Non-Living Things",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
+          questions: ["List 5 characteristics of living things.", "Give 3 examples of non-living things."]
+        },
+        {
+          title: "Week 3: Cells",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
+          questions: ["What is a cell?", "Differentiate between plant and animal cells."]
+        }
+        // Add more weeks as needed
+      ],
+      second: [
+        {
+          title: "Week 1: Respiratory System",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
+          questions: ["Define respiration.", "Mention parts of the respiratory system."]
+        },
+        {
+          title: "Week 2: Circulatory System",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
+          questions: ["List components of blood.", "What is the function of the heart?"]
+        }
+        // Add more weeks
+      ],
+      third: [
+        {
+          title: "Week 1: Ecology and Environment",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
+          questions: ["What is ecology?", "Define ecosystem."]
+        },
+        {
+          title: "Week 2: Food Chain and Web",
+          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
+          questions: ["Define food chain.", "Difference between food chain and food web?"]
+        }
+        // Add more weeks
+      ]
+    };
+
+    function loadBioTopics(term) {
+      const menu = document.getElementById("bioTopicsMenu");
+      const videoFrame = document.getElementById("bioVideoFrame");
+      const title = document.getElementById("bioTopicTitle");
+      const questions = document.getElementById("bioWorksheetQuestions");
+
+      menu.innerHTML = "";
+      document.querySelectorAll(".term-btn-bio").forEach(btn => btn.classList.remove("active"));
+      document.querySelector(`.term-btn-bio[data-term="${term}"]`).classList.add("active");
+
+      bioTopics[term].forEach((topic, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = topic.title;
+        btn.onclick = () => {
+          videoFrame.src = topic.video;
+          title.textContent = topic.title;
+          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
+        };
+        menu.appendChild(btn);
+      });
+
+      // Load first topic by default
+      if (bioTopics[term].length > 0) {
+        const first = bioTopics[term][0];
+        videoFrame.src = first.video;
+        title.textContent = first.title;
+        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      }
+    }
+
+    document.querySelectorAll(".term-btn-bio").forEach(btn => {
+      btn.addEventListener("click", () => loadBioTopics(btn.dataset.term));
+    });
+
+    window.addEventListener("load", () => loadBioTopics("first"));
+  </script>
 
 </body>
 </html>

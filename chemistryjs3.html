@@ -7,121 +7,153 @@
 
     <link rel="stylesheet" href="./css/style.css">
 <style>
-/* Subject Header with original gradient and animation */
-.subject-header {
-  padding-top: 7rem; /* Prevent navbar overlap */
-  padding-bottom: 3rem;
-  background: linear-gradient(to right, #3f3b82, #554ccf);
-  color: white;
+/* Core Layout */
+#chemistry-section {
+  padding: 7rem 2rem 4rem;
+  background: #f0f3f8;
+  box-sizing: border-box;
+}
+
+#chemistry-section .subject-header h2 {
+  font-size: 2.5rem;
+  color: #1a2b4c;
   text-align: center;
-  animation: slideInDown 1s ease;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2rem;
 }
 
-.subject-header h1 {
-  font-size: 2.8rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-/* Term Section Cards */
-.term-section {
+#chemistry-section .term-buttons {
   display: flex;
   justify-content: center;
-  gap: 2rem;
   flex-wrap: wrap;
-  padding: 3rem 1rem;
-  background-color: #f9f9f9;
-  animation: fadeInUp 1s ease;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.term-card {
-  background-color: #2c2359;
-  color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  width: 300px;
-  max-width: 90%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.term-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-}
-
-.term-card h2 {
-  color: #ff5e57;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #ff5e57;
-  padding-bottom: 0.5rem;
-}
-
-.term-card ul {
-  list-style: none;
-  padding: 0;
-}
-
-.term-card li {
-  margin-bottom: 0.9rem;
-}
-
-.term-card li a {
+#chemistry-section .term-btn {
   background-color: #3f3b82;
-  display: block;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 0.95rem;
-  text-decoration: none;
-  border: 1px solid #4d48a3;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.term-card li a:hover {
-  background-color: #554ccf;
+#chemistry-section .term-btn.active {
+  background-color: #ff5e57;
 }
 
-/* Animations */
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+#chemistry-section .subject-layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+#chemistry-section .topics-menu {
+  flex: 1;
+  min-width: 240px;
+  background-color: #1f1a4f;
+  border-radius: 10px;
+  padding: 1rem;
 }
 
-/* Responsive Design */
+#chemistry-section .topics-menu button {
+  display: block;
+  width: 100%;
+  background: #3f3b82;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#chemistry-section .topics-menu button.active {
+  background-color: #ff5e57;
+}
+
+#chemistry-section .topics-menu button:hover {
+  background-color: #574fcf;
+}
+
+#chemistry-section .topic-content {
+  flex: 3;
+  min-width: 280px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Video Embed */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  margin-bottom: 2rem;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Worksheet */
+.worksheet-questions h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #3f3b82;
+}
+
+.worksheet-questions ul {
+  list-style-type: disc;
+  padding-left: 1.2rem;
+}
+
+.worksheet-questions li {
+  margin-bottom: 0.7rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Scroll animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.animate-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
-  .term-section {
-    gap: 1.5rem;
-  }
-  .term-card {
-    width: 45%;
+  #chemistry-section .subject-layout {
+    flex-direction: column;
   }
 }
 
 @media (max-width: 600px) {
-  .term-card {
-    width: 100%;
+  #chemistry-section {
+    padding: 6rem 1rem 3rem;
+  }
+
+  #chemistry-section .term-btn {
+    width: 90%;
+    margin: 0.5rem auto;
+  }
+
+  #chemistry-section .topics-menu button {
+    font-size: 0.95rem;
   }
 }
   </style>
@@ -158,70 +190,31 @@
 </header>
 
 <!--===END OF NAV===-->
-  <!-- Subject Header -->
-  <section class="subject-header">
-    <h1>PHYSICS</h1>
-  </section>
+  <section class="subject-section animate-on-scroll" id="chemistry-section">
+  <div class="subject-header">
+    <h2>CHEMISTRY</h2>
+  </div>
 
-  <!-- Term Sections -->
-  <section class="term-section">
-    <!-- First Term -->
-    <div class="term-card">
-      <h2>First Term</h2>
-      <ul>
-        <li><a href="#">Week 1: Introduction to Physics</a></li>
-        <li><a href="#">Week 2: Motion</a></li>
-        <li><a href="#">Week 3: Matter</a></li>
-        <li><a href="#">Week 4: Measurement</a></li>
-        <li><a href="#">Week 5: Density</a></li>
-        <li><a href="#">Week 6: Temperature</a></li>
-        <li><a href="#">Week 7: Heat Energy</a></li>
-        <li><a href="#">Week 8: Heat Transfer</a></li>
-        <li><a href="#">Week 9: Expansion of Solids</a></li>
-        <li><a href="#">Week 10: Liquids and Gases</a></li>
-        <li><a href="#">Week 11: Revision</a></li>
-        <li><a href="#">Week 12: Exam</a></li>
-      </ul>
-    </div>
+  <div class="term-buttons">
+    <button class="term-btn active" data-term="first">First Term</button>
+    <button class="term-btn" data-term="second">Second Term</button>
+    <button class="term-btn" data-term="third">Third Term</button>
+  </div>
 
-    <!-- Second Term -->
-    <div class="term-card">
-      <h2>Second Term</h2>
-      <ul>
-        <li><a href="#">Week 1: Reflection of Light</a></li>
-        <li><a href="#">Week 2: Refraction of Light</a></li>
-        <li><a href="#">Week 3: Dispersion</a></li>
-        <li><a href="#">Week 4: Sound</a></li>
-        <li><a href="#">Week 5: Sources of Sound</a></li>
-        <li><a href="#">Week 6: Propagation of Sound</a></li>
-        <li><a href="#">Week 7: Echo</a></li>
-        <li><a href="#">Week 8: Magnetism</a></li>
-        <li><a href="#">Week 9: Properties of Magnets</a></li>
-        <li><a href="#">Week 10: Electromagnets</a></li>
-        <li><a href="#">Week 11: Revision</a></li>
-        <li><a href="#">Week 12: Exam</a></li>
-      </ul>
-    </div>
+  <div class="subject-layout">
+    <div class="topics-menu" id="chemistryTopicsList"></div>
 
-    <!-- Third Term -->
-    <div class="term-card">
-      <h2>Third Term</h2>
-      <ul>
-        <li><a href="#">Week 1: Electricity</a></li>
-        <li><a href="#">Week 2: Electric Circuits</a></li>
-        <li><a href="#">Week 3: Conductors & Insulators</a></li>
-        <li><a href="#">Week 4: Simple Circuit Diagrams</a></li>
-        <li><a href="#">Week 5: Current & Voltage</a></li>
-        <li><a href="#">Week 6: Magnetism and Electricity</a></li>
-        <li><a href="#">Week 7: Lightning & Safety</a></li>
-        <li><a href="#">Week 8: Machines</a></li>
-        <li><a href="#">Week 9: Force and Pressure</a></li>
-        <li><a href="#">Week 10: Friction</a></li>
-        <li><a href="#">Week 11: Revision</a></li>
-        <li><a href="#">Week 12: Exam</a></li>
-      </ul>
+    <div class="topic-content">
+      <div class="video-wrapper">
+        <iframe id="chemistryVideoFrame" src="" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="worksheet-questions" id="chemistryQuestions">
+        <h3>Worksheet Questions</h3>
+        <ul></ul>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
 <!--===================END OF LESSONS======================-->
@@ -319,6 +312,206 @@
 
   window.addEventListener('scroll', handleScrollAnimations);
   window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+<script>
+const chemistryTopics = {
+  first: [
+    {
+      title: "Week 1: Introduction to Chemistry",
+      video: "https://www.youtube.com/embed/xOKiHhuCnFw",
+      questions: [
+        "Define chemistry.",
+        "List 3 reasons why we study chemistry."
+      ]
+    },
+    {
+      title: "Week 2: States of Matter",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_2",
+      questions: [
+        "Mention the 3 states of matter.",
+        "Differentiate between solid and gas."
+      ]
+    },
+    {
+      title: "Week 3: Elements and Compounds",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_3",
+      questions: [
+        "What is an element?",
+        "Give 2 examples of compounds."
+      ]
+    },
+    {
+      title: "Week 4: Separation Techniques",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_4",
+      questions: [
+        "Name 3 separation techniques.",
+        "State their uses."
+      ]
+    },
+    {
+      title: "Week 5: Physical & Chemical Changes",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_5",
+      questions: [
+        "What is a physical change?",
+        "Give examples of chemical changes."
+      ]
+    },
+    {
+      title: "Week 6: Mixtures",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_6",
+      questions: [
+        "Define mixture.",
+        "Differentiate homogeneous and heterogeneous mixtures."
+      ]
+    },
+    {
+      title: "Week 7: Revision",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_7",
+      questions: [
+        "Revise all topics from week 1–6."
+      ]
+    },
+    {
+      title: "Week 8: Examination",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_8",
+      questions: [
+        "Attempt mock exam questions."
+      ]
+    }
+  ],
+  second: [
+    {
+      title: "Week 1: Atomic Structure",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_9",
+      questions: [
+        "What are atoms?",
+        "List 3 subatomic particles."
+      ]
+    },
+    {
+      title: "Week 2: Periodic Table",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_10",
+      questions: [
+        "Who developed the periodic table?",
+        "List 3 Group I elements."
+      ]
+    },
+    {
+      title: "Week 3: Chemical Equations",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_11",
+      questions: [
+        "Write H₂ + O₂ → H₂O in balanced form."
+      ]
+    },
+    {
+      title: "Week 4: Acids and Bases",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_12",
+      questions: [
+        "Define acid and base.",
+        "Give examples."
+      ]
+    },
+    {
+      title: "Week 5: Salts",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_13",
+      questions: [
+        "What are salts?",
+        "Mention types of salts."
+      ]
+    },
+    {
+      title: "Week 6: Revision",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_14",
+      questions: ["Revise all topics."]
+    },
+    {
+      title: "Week 7: Examination",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_15",
+      questions: ["Solve practice questions."]
+    }
+  ],
+  third: [
+    {
+      title: "Week 1: Organic Chemistry Intro",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_16",
+      questions: [
+        "Define organic chemistry.",
+        "What are hydrocarbons?"
+      ]
+    },
+    {
+      title: "Week 2: Hydrocarbons",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_17",
+      questions: [
+        "Difference between alkanes and alkenes."
+      ]
+    },
+    {
+      title: "Week 3: Combustion",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_18",
+      questions: ["Define combustion.", "Products of complete combustion."]
+    },
+    {
+      title: "Week 4: Chemical Pollution",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_19",
+      questions: ["Mention pollutants from chemical industries."]
+    },
+    {
+      title: "Week 5: Revision",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_20",
+      questions: ["Review all topics."]
+    },
+    {
+      title: "Week 6: Examination",
+      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_21",
+      questions: ["Attempt full mock exam."]
+    }
+  ]
+};
+
+const topicList = document.getElementById("chemistryTopicsList");
+const videoFrame = document.getElementById("chemistryVideoFrame");
+const questionList = document.getElementById("chemistryQuestions").querySelector("ul");
+const termButtons = document.querySelectorAll(".term-btn");
+
+let currentTerm = "first";
+
+function displayTopics(term) {
+  topicList.innerHTML = "";
+  chemistryTopics[term].forEach((topic, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = topic.title;
+    btn.className = "topic-btn";
+    btn.addEventListener("click", () => {
+      videoFrame.src = topic.video;
+      document.querySelectorAll(".topic-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      questionList.innerHTML = "";
+      topic.questions.forEach(q => {
+        const li = document.createElement("li");
+        li.textContent = q;
+        questionList.appendChild(li);
+      });
+    });
+    topicList.appendChild(btn);
+  });
+}
+
+termButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    termButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentTerm = btn.getAttribute("data-term");
+    displayTopics(currentTerm);
+    videoFrame.src = "";
+    questionList.innerHTML = "";
+  });
+});
+
+displayTopics(currentTerm);
 </script>
 
 </body>
