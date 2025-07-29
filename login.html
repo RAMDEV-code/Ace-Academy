@@ -3,78 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN BOX</title>
-    <link rel="stylesheet" href="./css/login.css">
+    <title>Ace Academy</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+<style>
+  /* Ensures section appears below fixed navbar */
+.auth-section {
+  padding: 6rem 2rem 4rem;
+  background: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.auth-container {
+  background: white;
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease;
+}
+
+.auth-toggle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.auth-toggle button {
+  flex: 1;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-toggle button.active {
+  background: #2c2c6c;
+  color: white;
+  font-weight: bold;
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.show {
+  display: block;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #2c2c6c;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 0.9rem;
+  background: #ff5e5e;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-form button:hover {
+  background: #e14b4b;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.switch-link span {
+  color: #2c2c6c;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+.animate-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .auth-container {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .auth-toggle {
+    flex-direction: column;
+  }
+
+  .auth-toggle button {
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-container {
+    padding: 1.5rem;
+  }
+}
+</style>
 </head>
 <body>
 
-  <nav>
-        <div class="container nav__container">
-            <a href="login.html"><h4>ACE ACADEMY</h4></a>
-            <ul class="nav__menu">
-                <li><a href="index.html">Home</a></li>
+    <!-- HEADER WITH NAV -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">ACESTUDENTS</div>
+
+    <nav class="nav-links" id="navMenu">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="class.html">Class ▾</a>
+        <div class="dropdown-content">
+          <a href="JSS1.html">JSS1</a>
+          <a href="JSS2.html">JSS2</a>
+          <a href="JSS3.html">jSS3</a>
+          <a href="SS1.html">SS1</a>
+          <a href="SS2.html">SS3</a>
+          <a href="SS3.html">SS3</a>
+        </div>
+      </div>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
+
+<!--===END OF NAV===-->
+<section class="auth-section animate-on-scroll">
+  <div class="auth-container">
+    <!-- Toggle Buttons -->
+    <div class="auth-toggle">
+      <button id="loginBtn" class="active">Login</button>
+      <button id="signupBtn">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <form class="auth-form login-form show" id="loginForm">
+      <h2>Welcome Back</h2>
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+      <p class="switch-link">Don't have an account? <span id="toSignup">Sign up</span></p>
+    </form>
+
+    <!-- Signup Form -->
+    <form class="auth-form signup-form" id="signupForm">
+      <h2>Create Account</h2>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+      <p class="switch-link">Already have an account? <span id="toLogin">Login</span></p>
+    </form>
+  </div>
+</section>
+
+<!--========END OF ABOUT==========-->
+
+<footer class="footer animate-on-scroll" id="footer">
+    <div class="container footer__container">
+        <div class="footer__1">
+            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
+            </p>
+        </div>
+
+        <div class="footer__2">
+            <h4>Permalinks</h4>
+            <ul class="permalinks">
+                 <li><a href="index.html">Home</a></li>
                 <li><a href="class.html">Class</a></li>
                 <li><a href="About.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+             </ul>
+        </div>
+          
+        <div class="footer__3">
+            <h4>Primacy</h4>
+            <ul class="privacy">
+                <li><a href="privacy.html">Privacy policy</a></li>
+                <li><a href="privacy.html">Terms & conditions</a></li>
+                <li><a href="privacy.html">Refund Policy</a></li>
             </ul>
         </div>
-    </nav>
 
-    <div class="wrapper">
-        <div class="form__login">
-          <h2>Login</h2>
-          <form action="#">
-            <div class="input-box">
-                <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                <input type="Email" required>
-                <label>Email</label>
-            </div>
-            <div class="input-box">
-                <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                <input type="Password" required>
-                <label>Password</label>
-           </div>
-           <div class="remember-forgot">
-            <label><input type="checkbox">Remember me</label>
-            <a href="#">Forgot password</a>
-           </div>
-           <button type="submit" class="btn">Login</button>
-           <div class="login-register">
-            <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
-           </div>
-          </form>
+        <div class="footer__4">
+            <h4>Contact Us</h4>
+            <p>
+                +234 7057927515
+            </p>
+            <P>
+                Acestudents@gmail.com
+            </P>
+          <ul class="footer__socials">
+               <li><a href="fabook.html"><ion-icon name="logo-facebook"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+          </ul>
         </div>
-
-        <div class="form__register">
-            <h2>Registration</h2>
-            <form action="#">
-              <div class="input-box">
-                  <span class="icon"><ion-icon name="person"></ion-icon></span>
-                  <input type="text" required>
-                  <label>Username</label>
-              </div>
-              <div class="input-box">
-                <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                <input type="Email" required>
-                <label>Email</label>
-            </div>
-              <div class="input-box">
-                  <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                  <input type="Password" required>
-                  <label>Password</label>
-             </div>
-             <div class="remember-forgot">
-              <label><input type="checkbox">I agree to the tems & conditions</label>
-             </div>
-             <button type="submit" class="btn">Register</button>
-             <div class="login-register">
-              <p>Already have an account? <a href="#" class="login-link">Login</a></p>
-             </div>
-            </form>
-          </div>
     </div>
-    <script src="script.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <div class="footer__copyright">
+             <p>&copy; 2025 ACESTUDENTS. All rights reserved.</p>
+        </div>
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
+</footer>
+
+
+<!--========END OF FOOTER==========-->
+
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('show');
+  });
+
+  // Optional: Close menu when a link is clicked (mobile only)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
+</script>
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      const trigger = window.innerHeight * 0.8;
+      if (top < trigger) section.classList.add('active');
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.8;
+
+      if (sectionTop < triggerPoint && !section.classList.contains('active')) {
+        section.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+<script>
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const toLogin = document.getElementById("toLogin");
+  const toSignup = document.getElementById("toSignup");
+
+  loginBtn.addEventListener("click", () => {
+    loginForm.classList.add("show");
+    signupForm.classList.remove("show");
+    loginBtn.classList.add("active");
+    signupBtn.classList.remove("active");
+  });
+
+  signupBtn.addEventListener("click", () => {
+    signupForm.classList.add("show");
+    loginForm.classList.remove("show");
+    signupBtn.classList.add("active");
+    loginBtn.classList.remove("active");
+  });
+
+  toLogin.addEventListener("click", () => loginBtn.click());
+  toSignup.addEventListener("click", () => signupBtn.click());
+
+  // Scroll animation
+  const scrollElements = document.querySelectorAll('.animate-on-scroll');
+  const elementInView = (el, offset = 100) =>
+    el.getBoundingClientRect().top <= window.innerHeight - offset;
+  const displayScrollElement = el => el.classList.add('active');
+  const hideScrollElement = el => el.classList.remove('active');
+  const handleScrollAnimation = () => {
+    scrollElements.forEach(el => {
+      if (elementInView(el)) displayScrollElement(el);
+      else hideScrollElement(el);
+    });
+  };
+  window.addEventListener('scroll', handleScrollAnimation);
+  handleScrollAnimation();
+</script>
 </body>
 </html>

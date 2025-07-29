@@ -33,6 +33,12 @@ body {
   font-weight: bold;
   color: white;
 }
+
+.logo img {
+  height: 40px; /* or your preferred size */
+  width: auto;
+}
+
 .nav-links {
   display: flex;
   align-items: center;

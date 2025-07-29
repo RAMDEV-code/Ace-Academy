@@ -6,108 +6,195 @@
     <title>Ace Academy</title>
 
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/contact.css">
+<style>
+.contact-section {
+  padding: 6rem 2rem 4rem;
+  background-color: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.contact-container {
+  display: flex;
+  max-width: 1100px;
+  width: 100%;
+  gap: 3rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
 
+.contact-info {
+  flex: 1;
+  color: #333;
+}
 
- <!--=============================================IONICON===========================================================-->
+.contact-info h2 {
+  color: #2c2c6c;
+  margin-bottom: 1rem;
+}
 
-     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+.contact-info p {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
 
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-info li {
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.contact-form {
+  flex: 1;
+}
+
+.contact-form h2 {
+  color: #2c2c6c;
+  margin-bottom: 1.5rem;
+}
+
+.contact-form .form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.contact-form button {
+  background-color: #ff5e5e;
+  color: white;
+  padding: 0.9rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #e14b4b;
+}
+
+/* Scroll Animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .contact-section {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .contact-info, .contact-form {
+    width: 100%;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+  }
+}
+</style>
 </head>
 <body>
 
+    <!-- HEADER WITH NAV -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">ACESTUDENTS</div>
 
-
-    <!--====================================NAVBAR============================-->
-    <nav>
-        <div class="container nav__container">
-            <a href="index.html"><h4>ACE ACEDEMY</h4></a>
-            <ul class="nav__menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="class.html">Class<ion-icon name="caret-down-outline"></ion-icon></a>
-                <ul class="dropdown">
-                    <li><a href="JSS1.html">JSS1</a></li>
-                    <li><a href="JSS2.html">JSS2</a></li>
-                    <li><a href="JSS3.html">JSS3</a></li>
-                    <li><a href="SS1.html">SS1</a></li>
-                    <li><a href="SS2.html">SS2</a></li>
-                    <li><a href="SS3.html">SS3</a></li>
-                </ul>
-            </li>
-                <li><a href="About.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-            <button id="open-menu-btn"><ion-icon name="menu-outline"></ion-icon></button>
-            <button id="close-menu-btn"><ion-icon name="close-outline"></ion-icon></button>
+    <nav class="nav-links" id="navMenu">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="class.html">Class ▾</a>
+        <div class="dropdown-content">
+          <a href="JSS1.html">JSS1</a>
+          <a href="JSS2.html">JSS2</a>
+          <a href="JSS3.html">jSS3</a>
+          <a href="SS1.html">SS1</a>
+          <a href="SS2.html">SS3</a>
+          <a href="SS3.html">SS3</a>
         </div>
+      </div>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
     </nav>
 
-    <!--====================================END OF NAVBAR============================-->
-   <section class="contact">
-    <div class="container contact__container">
-        <aside class="contact__aside">
-            <div class="aside__image">
-                <img src="img\email-3543958_1920.jpg" alt="">
-            </div>
-            <h2>contact us</h2>
-            <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut a nobis delectus perferendis ducimus optio quidem? In, unde?
-            </p>
-            <ul class="contact__details">
-                <li>
-                    <ion-icon name="call-outline"></ion-icon>
-                    <h5>+2347057927515</h5>
-                </li>
-                <li>
-                    <ion-icon name="mail-outline"></ion-icon>
-                    <h5>support@acestudent.com</h5>
-                </li>
-                <li>
-                    <ion-icon name="location-outline"></ion-icon>
-                    <h5>Lagos,Nigeria</h5>
-                </li>
-            </ul>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
 
-            <ul class="contact__socials">
-                <li>
-                    <a href=""><ion-icon name="logo-facebook"></ion-icon></a>
-                </li>
-                 <li>
-                    <a href=""><ion-icon name="logo-twitter"></ion-icon></a>
-                 </li>
-                 <li>
-                    <a href=""><ion-icon name="logo-instagram"></ion-icon></a>
-                 </li>
-                 <li>
-                    <a href=""><ion-icon name="logo-linkedin"></ion-icon></a>
-                 </li>
-            </ul>
-        </aside>
+<!--===END OF NAV===-->
+<section class="contact-section animate-on-scroll">
+  <div class="contact-container">
+    <!-- Contact Info -->
+    <aside class="contact-info">
+      <h2>Contact Us</h2>
+      <p>We’re always available to help and guide you through your learning journey.</p>
+      <ul>
+        <li><strong>Phone:</strong> +234 705 792 7515</li>
+        <li><strong>Email:</strong> support@acestudent.com</li>
+        <li><strong>Location:</strong> Lagos, Nigeria</li>
+      </ul>
+    </aside>
 
+    <!-- Contact Form -->
+    <form class="contact-form">
+      <h2>Get In Touch</h2>
+      <div class="form-row">
+        <input type="text" placeholder="First Name" required />
+        <input type="text" placeholder="Last Name" required />
+      </div>
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+<!--========END OF CONTACT==========-->
 
-
-       <form class="contact__form">
-        <div class="form__name">
-            <input type="text" name="First Name" placeholder="First Name" required>
-            <input type="text" name="Last Name" placeholder="Last Name" required>
-        </div>
-        <input type="Email" name="Email Address" placeholder="Email" required>
-        <textarea name="Message" placeholder="Message" rows="7" required></textarea>
-        <button type="submit" class="btn btn-primary">Submit Message</button>
-       </form>
-
-
-    </div>
-   </section>
-
-
-    <footer class="footer">
+<footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACE ACADEMY</h4></a>
+            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
             </p>
@@ -139,7 +226,7 @@
                 +234 7057927515
             </p>
             <P>
-                Aceacdemy1@gmail.com
+                Acestudents@gmail.com
             </P>
           <ul class="footer__socials">
                <li><a href="fabook.html"><ion-icon name="logo-facebook"></ion-icon></a></li>
@@ -151,15 +238,72 @@
         </div>
     </div>
     <div class="footer__copyright">
-            <small>Copyright &copy; ACE ACADEMY|ONLINE SCHOOL</small>
+             <p>&copy; 2025 ACESTUDENTS. All rights reserved.</p>
         </div>
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
 
 
+<!--========END OF FOOTER==========-->
 
 
 
-<script src="./main.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('show');
+  });
+
+  // Optional: Close menu when a link is clicked (mobile only)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
+</script>
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      const trigger = window.innerHeight * 0.8;
+      if (top < trigger) section.classList.add('active');
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+
+<script>
+  const scrollElements = document.querySelectorAll('.animate-on-scroll');
+
+  const elementInView = (el, offset = 100) =>
+    el.getBoundingClientRect().top <= window.innerHeight - offset;
+
+  const displayScrollElement = el => el.classList.add('active');
+  const hideScrollElement = el => el.classList.remove('active');
+
+  const handleScrollAnimation = () => {
+    scrollElements.forEach(el => {
+      if (elementInView(el)) displayScrollElement(el);
+      else hideScrollElement(el);
+    });
+  };
+
+  window.addEventListener('scroll', handleScrollAnimation);
+  handleScrollAnimation();
+</script>
 
 </body>
 </html>
