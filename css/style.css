@@ -28,14 +28,9 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-}
 
 .logo img {
-  height: 40px; /* or your preferred size */
+  height: 60px; /* or your preferred size */
   width: auto;
 }
 
@@ -585,6 +580,103 @@ body {
 }
 
 /* ========END OF POPULAR COURSES ====== */
+
+.our-classes-section {
+  padding: 4rem 1rem;
+  background-color: #f1f5f9;
+  text-align: center;
+}
+
+.our-classes-section .section-title {
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.class-card {
+  background: white;
+  text-decoration: none;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 1.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.class-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.class-card:hover::before {
+  opacity: 0.08;
+}
+
+.class-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.class-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .classes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .class-card {
+    font-size: 1.4rem;
+    padding: 1.8rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .classes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .class-card {
+    font-size: 1.2rem;
+    padding: 1.5rem;
+  }
+
+  .our-classes-section .section-title {
+    font-size: 2rem;
+  }
+}
+
+
 /* ======= ABOUT SECTION ======= */
 .about-section {
   background-color: #c9c6f5;
