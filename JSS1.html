@@ -23,10 +23,8 @@
 }
 
 .subjects-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
 }
 
 .subject-card {
@@ -97,6 +95,8 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .subjects-container {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   .subject-card {
@@ -113,11 +113,13 @@
   </style>
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -127,9 +129,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -141,6 +143,7 @@
     <button class="hamburger" id="hamburger">&#9776;</button>
   </div>
 </header>
+
 
 <!--===END OF NAV===-->
 
@@ -162,7 +165,13 @@
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ea et porro iusto in deserunt totam.</p>
       <a href="biologyjs1.html" class="subject-btn">Go to Class</a>
     </div>
+    <div class="subject-card">
+      <h3>BASIC SCIENCE</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ea et porro iusto in deserunt totam.</p>
+      <a href="biologyjs1.html" class="subject-btn">Go to Class</a>
+    </div>
   </div>
+  
 </section>
 
 <!--========END OF CLASS==========-->

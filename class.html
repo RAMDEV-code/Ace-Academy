@@ -13,12 +13,13 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  padding: 6rem 2rem 4rem; /* Top padding accounts for fixed navbar */
+  padding: 10rem 2rem 4rem; /* Top padding accounts for fixed navbar */
   background-color: #f8f9fc;
   max-width: 1200px;
   margin: auto;
   min-height: 100vh; /* Ensures it fills the screen */
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .class-card {
@@ -70,25 +71,27 @@
 @media (max-width: 1024px) {
   .class-grid-section {
     grid-template-columns: repeat(2, 1fr);
-    padding: 5rem 1.5rem 3rem;
+    padding: 7rem 1.5rem 3rem;
   }
 }
 
 @media (max-width: 600px) {
   .class-grid-section {
     grid-template-columns: 1fr;
-    padding: 5rem 1rem 2rem;
+    padding: 7rem 1rem 2rem;
   }
 }
 
 </style>
 </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -98,9 +101,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
