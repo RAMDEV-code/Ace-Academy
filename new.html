@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+   
+<div class="content-wrapper">
+        <!-- Side Navigation -->
+        <aside class="side-nav">
+            <button class="topic-btn active" onclick="loadTopic(1)">Week 1: Introduction to Physics</button>
+            <button class="topic-btn" onclick="loadTopic(2)">Week 1: Introduction to Momentum</button>
+            <button class="topic-btn" onclick="loadTopic(3)">Week 2: Measurement</button>
+            <button class="topic-btn" onclick="loadTopic(4)">Week 3: Motion</button>
+            <button class="topic-btn" onclick="loadTopic(6)">Week 6: Motor</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Embedded YouTube Video -->
+            <div class="video-container">
+                <iframe id="videoFrame" width="100%" height="400"
+                    src="https://www.youtube.com/embed/PUT_YOUR_VIDEO_ID_HERE"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Summarised Note -->
+            <div class="note-section">
+                <h2>Week 2: Matter</h2>
+                <p id="noteContent">
+                    Matter is anything that has mass and occupies space. <br>
+                    It exists in three main states: solid, liquid, and gas.<br>
+
+Solids have definite shape and volume.<br>
+
+Liquids have definite volume but no definite shape.<br>
+
+Gases have neither definite shape nor volume.<br>
+
+Matter is made up of tiny particles called atoms or molecules.<br>
+
+These particles are always in motion.<br>
+
+The arrangement of particles differs in solids, liquids, and gases.<br>
+
+Matter can undergo physical or chemical changes.<br>
+
+Examples of matter include water, air, stone, and iron.<br>
+                </p>
+              </div>
+
+            <!-- Worksheet Questions -->
+            <div class="worksheet-section">
+                <h2>Evaluation Questions – Matter</h2>
+                <ul id="questionsList">
+                    <li>What is matter?</li>
+                    <li>Name the three states of matter.</li>
+                    <li>Which state of matter has a fixed shape?</li>
+                    <li>What is the smallest unit of matter called?</li>
+                    <li>What determines the state of matter?</li>
+                    <li>Give two examples of matter.</li>
+                    <li>True or False: Gases have fixed volume.</li>
+                    <li>What type of change does not form a new substance?</li>
+                    <li>What is the difference between solid and liquid?</li>
+                    <li>Describe the arrangement of particles in a gas.</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</section>
+
+
+
+
+<script>
+    function changeTerm(term) {
+    document.querySelectorAll('.term-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    // Add logic to load term-specific topics
+}
+
+function loadTopic(week) {
+    document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Example: Change video and note
+    if (week === 1) {
+        document.getElementById("videoFrame").src = "https://www.youtube.com/embed/PUT_YOUR_VIDEO_ID_HERE";
+        document.getElementById("noteContent").textContent = "Summary for Introduction to Physics...";
+    }
+}
+
+</script>
+</body>
+</html>

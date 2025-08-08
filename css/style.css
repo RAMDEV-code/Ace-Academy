@@ -98,7 +98,7 @@ body {
 /* Hero */
 .hero {
   padding-top: 100px;
-  background: #aaa;
+  background-color: white;
   color: #111;
   padding-bottom: 4rem;
 }
@@ -205,8 +205,8 @@ body {
 /* ========END OF HEADER============== */
 
 .video-notes-section {
-  background-color: #3f3b82;
-  color: white;
+  background-color: #f1f5f9;
+  color: black;
   padding: 4rem 1rem;
   overflow: hidden;
 }
@@ -230,7 +230,7 @@ body {
   margin-bottom: 1rem;
   font-size: 1.8rem;
   text-align: center;
-  color: #fff;
+  color: #2f2f75;
 }
 
 .text-block p {
@@ -460,13 +460,18 @@ body {
   .subjects-content {
     grid-template-columns: 1fr;
     text-align: center;
+    
   }
 
   .intro-text {
     margin-bottom: 2rem;
     transform: translateY(30px);
+    
   }
 
+.intro-text li{
+  list-style: none;
+}
   .subjects-grid {
     grid-template-columns: 1fr 1fr;
   }
