@@ -3,148 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Physics specific term buttons */
-    .term-btn-phy {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-phy:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-phy.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
 <!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
@@ -177,38 +167,1556 @@
 </header>
 
 <!--===END OF NAV===-->
- <section class="subject-section" id="physics-section">
-    <h2 class="subject-title">PHYSICS</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">PHYSICS</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-phy active" data-term="first">First Term</button>
-      <button class="term-btn-phy" data-term="second">Second Term</button>
-      <button class="term-btn-phy" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="phyTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Introduction to Physics
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="phyVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Measurements and Units in Science
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Energy
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Renewable and Non-renewable Energy
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Energy Transfer
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Food Fuel (Energy in Our Body)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Nuclear Energy vs Hydroeletric Energy
+          </button>
         </div>
 
-        <h3 id="phyTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Force
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="phyWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Frictional Force
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Calculations on Force I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Calculations on Force II
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Balanced and Unbalanced Forces
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Gravitational Force
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Mass and Weight
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: The Solar System
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Earth's Rotation and Revolution
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Climate and Weather
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Eclispe
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Satellite
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Tides
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Eletrical Circuit
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarize Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
-  <!--===================END OF LESSONS======================-->
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Physics is a branch of science that studies matter, energy, and how they interact.
+
+
+It helps us understand natural phenomena such as motion, heat, light, sound, and electricity.
+
+
+Physics is divided into various branches like mechanics, optics, thermodynamics, and electromagnetism.
+
+
+It plays a vital role in technology, transportation, medicine, and communication.
+
+
+Physicists use observation and experiments to test ideas and make discoveries.
+
+
+Physics uses mathematical formulas to describe and predict how things behave.
+
+
+It explains real-life concepts like why things fall, how machines work, and why the sky is blue.
+
+
+Physics encourages critical thinking and problem-solving skills.
+
+
+It forms the foundation for careers in engineering, astronomy, robotics, and more.
+
+
+Understanding physics improves our quality of life and innovations in the modern world.
+</pre>
+      <pre class="panel-worksheet">What is physics?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+
+Name two branches of physics.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two tools used in physics.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of careers related to physics.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one importance of physics in everyday life.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does physics relate to technology?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one method physicists use to test ideas.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is mathematics important in physics?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define mechanics in physics.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one benefit of studying physics.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Measurement is the process of finding the size, quantity, or amount of something.
+
+
+Standard units are used in science to ensure consistency and accuracy.
+
+
+The SI system (International System of Units) is the most widely used system.
+
+
+Basic quantities include length (meter), mass (kilogram), and time (second).
+
+
+Instruments used include rulers (length), stopwatches (time), and balances (mass).
+
+
+Derived quantities include area, volume, speed, and density.
+
+
+Proper use of measuring instruments helps avoid errors in scientific experiments.
+
+
+Accuracy and precision are important in scientific measurements.
+
+
+Prefixes like milli-, centi-, and kilo- help express measurements in different scales.
+
+
+Unit conversion is necessary when comparing or calculating measurements.
+</pre>
+      <pre class="panel-worksheet">
+        What is measurement in science?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name three basic quantities and their SI units.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does SI stand for?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two instruments used in measurement.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What unit is used to measure time?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define derived quantity and give an example.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the unit of mass in SI?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What prefix represents one-thousandth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is accuracy important in measurement?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Convert 2000 milliliters to liters.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/zHbpphfvHzM?si=HUWVr3HrXpDNcyW2" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Energy is the ability to do work or cause change.
+
+
+It exists in many forms, such as heat, light, sound, chemical, and kinetic energy.
+
+
+Energy can be transformed from one form to another.
+
+
+It cannot be created or destroyed, only changed in form (Law of Conservation of Energy).
+
+
+Kinetic energy is the energy of motion, while potential energy is stored energy.
+
+
+The SI unit of energy is the joule (J).
+
+
+The sun is the primary source of most energy on Earth.
+
+
+Machines use energy to perform tasks.
+
+
+Food gives living things energy to move and grow.
+
+
+Understanding energy helps in efficient energy use and conservation.
+</pre>
+      <pre class="panel-worksheet">
+
+        Define energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the SI unit of energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List three forms of energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is kinetic energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain potential energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State the law of conservation of energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the main source of energy on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of energy transformation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do living things need energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two uses of energy in everyday life.
+—------------------------------------------------------------------------------------------------
+—-----------------------------------------------------------------------------------------------
+
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Energy sources are classified into renewable and non-renewable.
+
+
+Renewable energy can be replenished naturally and is sustainable.
+
+
+Examples include solar, wind, hydroelectric, geothermal, and biomass energy.
+
+
+Non-renewable energy exists in limited amounts and cannot be quickly replaced.
+
+
+Examples are coal, oil, natural gas, and nuclear energy.
+
+
+Renewable sources are cleaner and safer for the environment.
+
+
+Non-renewable sources often cause pollution and environmental damage.
+
+
+The world is shifting towards renewable energy to reduce climate change.
+
+
+Energy conservation means using energy efficiently to avoid wastage.
+
+
+Developing renewable energy technologies helps ensure energy security.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is renewable energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of renewable energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is non-renewable energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List two non-renewable energy sources.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is solar energy considered renewable?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is one disadvantage of non-renewable energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does wind energy work?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one environmental benefit of renewable energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define energy conservation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is there a need to develop renewable energy technologies?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Energy transfer occurs when energy moves from one object or system to another.
+
+
+It can happen through conduction, convection, or radiation.
+
+
+In conduction, heat transfers through direct contact (e.g., metal rod).
+
+
+Convection involves movement in fluids (liquids/gases) as heated particles rise.
+
+
+Radiation is energy transfer through electromagnetic waves, like sunlight.
+
+
+Energy changes form in systems, such as chemical to thermal in burning wood.
+
+
+Machines transfer energy but some is always lost as heat or sound.
+
+
+The Law of Conservation of Energy states energy cannot be created or destroyed.
+
+
+Useful energy is the energy that performs the intended task.
+
+
+Sankey diagrams show energy transfers and energy loss in systems.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are the three main methods of energy transfer?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which form of energy transfer occurs through electromagnetic waves?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+In which medium does convection primarily occur?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do metal objects feel cold in a cold room?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to the total energy in a closed system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is meant by ‘useful energy’?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a Sankey diagram represent?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why are energy transfers not 100% efficient?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of energy is lost in most machines?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one real-life example of energy transfer through conduction.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The body gets energy from the food we eat, especially carbohydrates and fats.
+
+
+This energy is measured in joules or calories.
+
+
+Glucose is a key fuel broken down in cells through respiration.
+
+
+Respiration can be aerobic (with oxygen) or anaerobic (without oxygen).
+
+
+The mitochondria in cells are the site of aerobic respiration.
+
+
+Energy is used for movement, growth, repair, and maintaining body temperature.
+
+
+Protein provides energy only when fats and carbohydrates are insufficient.
+
+
+Excess energy intake is stored as fat, leading to weight gain.
+
+
+A balanced diet is crucial for proper energy supply and health.
+
+
+Basal Metabolic Rate (BMR) is the minimum energy needed for body functions.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the main source of energy in our body?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+In which cell organelle does aerobic respiration occur?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between aerobic and anaerobic respiration?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which food group is the body’s first energy source?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What unit is used to measure energy in food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to excess energy not used by the body?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+When does the body use protein for energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does BMR stand for?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is a balanced diet important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one function of energy in the human body.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Week 7: Nuclear Energy vs Hydroelectric Energy 
+Nuclear energy is produced from nuclear fission of uranium or plutonium atoms.
+
+
+Hydroelectric energy is generated from the movement of water through turbines.
+
+
+Nuclear power plants produce large amounts of energy with little CO₂ emission.
+
+
+Hydroelectric power is renewable and depends on water flow from dams or rivers.
+
+
+Nuclear energy produces radioactive waste, which must be handled carefully.
+
+
+Hydroelectric plants can affect aquatic life and local ecosystems.
+
+
+Both energy sources are used to generate electricity for homes and industries.
+
+
+Nuclear energy is reliable but non-renewable; hydroelectric is renewable.
+
+
+Initial setup for both types is expensive but long-term costs vary.
+
+
+Energy choice depends on environmental, economic, and location factors.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What element is commonly used in nuclear power plants?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does hydroelectric power generate electricity?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which energy type produces radioactive waste?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which energy source is considered renewable?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What are two disadvantages of nuclear energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is hydroelectric energy considered environmentally friendly?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which energy source can impact river ecosystems?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is a similarity between nuclear and hydroelectric energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Is nuclear energy renewable or non-renewable?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What factor affects the efficiency of hydroelectric power stations?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A force is a push or pull that can change the motion of an object.
+
+
+Forces are measured in newtons (N) using a spring balance.
+
+
+Types of forces include gravitational, magnetic, electrostatic, and applied force.
+
+
+Balanced forces do not change motion, while unbalanced forces cause motion.
+
+
+Force can change the shape, direction, and speed of an object.
+
+
+Contact forces require touching, e.g., friction, tension.
+
+
+Non-contact forces act at a distance, e.g., gravity, magnetism.
+
+
+Net force is the overall force acting on an object.
+
+
+Newton’s First Law explains the effect of balanced forces.
+
+
+Newton’s Second Law relates force, mass, and acceleration (F = m × a).
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Define force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State the SI unit of force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two examples of contact forces.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the effect of balanced forces on a moving object?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to an object when unbalanced forces act on it?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain what net force means.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Differentiate between contact and non-contact forces.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of non-contact forces.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State Newton’s First Law of Motion.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Write the formula from Newton’s Second Law.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Friction is a force that opposes motion between two surfaces in contact.
+
+
+It acts in the opposite direction to movement.
+
+
+There are types of friction: static, sliding, rolling, and fluid friction.
+
+
+Static friction prevents motion from starting.
+
+
+Sliding friction acts when two objects slide over each other.
+
+
+Rolling friction is smaller and acts on rolling objects.
+
+
+Lubricants help reduce friction.
+
+
+Friction can wear out machine parts.
+
+
+Friction is necessary for walking and braking.
+
+
+Too much friction leads to energy loss and heating.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is friction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List three types of friction.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which type of friction acts when a car tire rolls on the road?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does static friction do?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does friction affect moving parts of a machine?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two ways to reduce friction.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one advantage and one disadvantage of friction.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of friction acts when a person walks?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define rolling friction.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is sliding friction greater than rolling friction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Force (F) is calculated using the formula: F = m × a.
+
+
+m is mass (kg), and a is acceleration (m/s²).
+
+
+Net force is the vector sum of all forces acting on a body.
+
+
+When two forces act in the same direction, they add up.
+
+
+When two forces act in opposite directions, subtract the smaller from the larger.
+
+
+If net force = 0, the object is in equilibrium.
+
+
+Example: A 5 kg object accelerated at 2 m/s² has a force of 10 N.
+
+
+Use appropriate units during calculations.
+
+
+Force causes acceleration in the direction of the net force.
+
+
+Diagrams help visualize force directions.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Write the formula for calculating force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Calculate the force when mass = 3 kg and acceleration = 4 m/s².
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the net force if 6 N acts right and 2 N acts left?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+A 10 kg object is accelerated at 1.5 m/s². Find the force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens when net force on a body is zero?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What unit is used for mass in the formula F = m × a?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a positive net force indicate?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Calculate the net force: 7 N forward, 4 N backward.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain how direction affects net force calculation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is acceleration if 12 N acts on a 6 kg object?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+More complex force problems involve friction or tension.
+
+
+Tension is the pulling force through a string or rope.
+
+
+Frictional force must be subtracted from applied force to find net force.
+
+
+Net Force = Applied Force – Friction (if both act opposite).
+
+
+Newton’s Second Law still applies: F = m × a.
+
+
+Tension is equal in a rope pulling a load at constant speed.
+
+
+On an inclined plane, resolve forces into components.
+
+
+Free-body diagrams help to solve force problems.
+
+
+Consider direction: assign positive and negative signs.
+
+
+Use Newton’s Laws to analyze real-life motion problems.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Define tension force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do you calculate net force when friction is involved?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+
+A 10 N force is applied to move a box, and friction is 3 N. Find net force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+A 15 kg object accelerates at 2 m/s². Find the applied force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the role of friction in motion calculation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is direction important in force calculation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a free-body diagram show?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the tension in a rope pulling a 5 kg load at constant speed?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do you resolve forces on an inclined plane?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+When does tension remain constant in a rope?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A force is a push or pull that changes the motion of an object.
+
+
+Balanced forces are equal in size and opposite in direction.
+
+
+When forces are balanced, there is no change in the object’s motion.
+
+
+Balanced forces keep a stationary object at rest or a moving object at constant speed.
+
+
+Unbalanced forces are not equal and opposite.
+
+
+They cause a change in an object’s speed or direction.
+
+
+An object accelerates in the direction of the stronger force.
+
+
+The net force is the overall force acting on an object.
+
+
+Zero net force means balanced forces; non-zero net force means unbalanced.
+
+
+Friction and air resistance are types of unbalanced forces that oppose motion.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What happens when forces acting on an object are balanced?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of the following is an effect of an unbalanced force?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the net force if two 10 N forces act in opposite directions?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Balanced forces cause what kind of motion in an object?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define unbalanced forces.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes a moving object to slow down or stop?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Two people push a box with 30 N to the right and 20 N to the left. What is the net force?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of balanced forces in everyday life.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Describe the motion of an object with zero net force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What must be true for forces to be considered balanced?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Gravity is a force that attracts objects toward each other.
+
+
+The Earth’s gravity pulls everything toward its center.
+
+
+Gravity gives objects weight.
+
+
+It keeps planets in orbit around the sun.
+
+
+Gravitational force depends on mass and distance.
+
+
+The larger the mass, the stronger the gravitational pull.
+
+
+The closer two objects are, the stronger the force.
+
+
+On Earth, gravity gives objects an acceleration of about 9.8 m/s².
+
+
+Gravity affects all objects equally, regardless of mass.
+
+
+Astronauts feel weightless in space due to microgravity.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What causes objects to fall to the ground?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What two factors affect gravitational force?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do objects weigh less on the Moon than on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does gravity affect a planet’s orbit?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the acceleration due to gravity on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to gravitational force when distance increases?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain why astronauts feel weightless in space.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is gravity and how does it work?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do heavier objects not fall faster than lighter ones in a vacuum?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What would happen if Earth had no gravity?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Mass is the amount of matter in an object.
+
+
+Mass is measured in kilograms (kg) and does not change with location.
+
+
+Weight is the force of gravity acting on mass.
+
+
+Weight is measured in newtons (N).
+
+
+Weight = Mass × Gravity (W = m × g).
+
+
+Gravity on Earth is approximately 9.8 N/kg.
+
+
+An object’s weight changes on different planets, but mass stays the same.
+
+
+A spring balance is used to measure weight.
+
+
+A beam balance is used to measure mass.
+
+
+Mass is a scalar quantity; weight is a vector.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the formula for calculating weight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+
+What is the unit of mass?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between mass and weight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why does weight change from planet to planet?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which instrument is used to measure mass?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+If a man has a mass of 70 kg, what is his weight on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the gravitational field strength on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the quantity that remains constant everywhere.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a spring balance measure?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is weight a vector quantity?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The solar system consists of the Sun and all celestial bodies that orbit it.
+
+
+There are 8 planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.
+
+
+The inner planets (Mercury to Mars) are rocky, while the outer planets are gas giants.
+
+
+The Sun is a star and the central source of heat and light in the solar system.
+
+
+Planets revolve around the Sun in elliptical orbits.
+
+
+The Moon is Earth’s natural satellite.
+
+
+Other objects include dwarf planets (like Pluto), asteroids, meteoroids, and comets.
+
+
+Gravity holds the solar system together.
+
+
+Each planet has unique characteristics such as size, atmosphere, and number of moons.
+
+
+The solar system is part of the Milky Way galaxy.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is at the center of the solar system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List the four inner planets.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name any two gas giants.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What force keeps the planets in orbit around the Sun?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which planet is closest to the Sun?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define a natural satellite with an example.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between a planet and a dwarf planet?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which planet is known for its rings?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one object in the solar system that is not a planet or moon.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which galaxy does the solar system belong to?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Rotation is the Earth spinning on its axis; it takes 24 hours.
+
+
+Revolution is the Earth orbiting the Sun; it takes 365 ¼ days.
+
+
+Rotation causes day and night.
+
+
+Revolution causes the seasons.
+
+
+The Earth rotates from west to east.
+
+
+The axis of Earth is tilted at 23.5 degrees, affecting the angle of sunlight.
+
+
+Different places receive varying sunlight throughout the year.
+
+
+The orbit of Earth is an ellipse, not a perfect circle.
+
+
+Leap years occur due to the extra quarter day in each revolution.
+
+
+Time zones are based on Earth's rotation.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the difference between rotation and revolution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How long does Earth take to complete one rotation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes day and night?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes the change in seasons?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+In which direction does Earth rotate?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How long is one complete revolution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do we have leap years?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the shape of Earth’s orbit?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How is sunlight affected by the Earth's tilt?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What are time zones based on?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Weather is the daily condition of the atmosphere (e.g., rain, sun).
+
+
+Climate is the average weather over a long period.
+
+
+Major elements of weather include temperature, humidity, wind, and rainfall.
+
+
+Meteorologists use instruments like thermometers and barometers to study weather.
+
+
+Tropical, temperate, and polar are the main climate zones.
+
+
+Nigeria has tropical climate with wet and dry seasons.
+
+
+Weather can change quickly, but climate changes slowly.
+
+
+Human activities like deforestation can affect climate.
+
+
+Climate influences farming, clothing, and housing.
+
+
+Weather reports help us plan our daily activities.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the main difference between weather and climate?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two elements of weather.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What instrument measures temperature?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How many main climate zones are there?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Describe the climate in Nigeria.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is climate important to farmers?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which changes faster, weather or climate?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does deforestation affect the climate?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a meteorologist study?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do we need weather forecasts?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An eclipse happens when one celestial body moves into the shadow of another.
+
+
+There are two main types: solar eclipse and lunar eclipse.
+
+
+A solar eclipse occurs when the Moon blocks sunlight from reaching Earth.
+
+
+A lunar eclipse happens when Earth’s shadow falls on the Moon.
+
+
+Solar eclipses happen during the new moon phase.
+
+
+Lunar eclipses happen during the full moon phase.
+
+
+Eclipses do not occur every month because the Moon’s orbit is tilted.
+
+
+Solar eclipses can be partial, total, or annular.
+
+
+It is dangerous to look directly at a solar eclipse without protection.
+
+
+Lunar eclipses are safe to watch with the naked eye.
+
+      </pre>
+      <pre class="panel-worksheet">
+        
+        What is an eclipse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the two main types of eclipse.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes a solar eclipse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+When does a lunar eclipse occur?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why don’t eclipses happen every month?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+During which moon phase does a solar eclipse occur?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Is it safe to look at a solar eclipse with naked eyes?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which eclipse occurs when the Moon enters Earth’s shadow?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is an annular eclipse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which eclipse is visible during a full moon?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Satellites are objects that revolve around a larger body in space, such as the Earth or the Moon. They can be natural, like the Moon, or artificial, made by humans for communication, weather monitoring, or research. Satellites move in specific paths called orbits, which can be low Earth orbit, medium Earth orbit, or geostationary orbit.
+Artificial satellites are launched using rockets and remain in orbit because of the balance between their forward speed and Earth’s gravity. Geostationary satellites appear fixed in the sky because they orbit at the same speed the Earth rotates. Satellites are important for GPS navigation, military surveillance, and studying space.
+They have solar panels for power and transmitters to send data back to Earth. Without satellites, modern communication and weather forecasting would be less accurate.
+ 
+      </pre>
+      <pre class="panel-worksheet">
+        
+        Differentiate between natural and artificial satellites with examples.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Explain why geostationary satellites appear stationary from Earth.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+List three uses of artificial satellites in modern life.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Describe how Earth’s gravity keeps satellites in orbit.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+What type of orbit is best for weather observation and why?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Explain the importance of solar panels on satellites.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Compare low Earth orbit and geostationary orbit in terms of altitude and use.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Why do satellites not fall back to Earth despite gravity?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Discuss two military applications of satellites.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Explain why communication satellites are often placed above the equator.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+
+ </pre>
+    </section>
+
+      <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Tides are the regular rise and fall of sea levels caused mainly by the gravitational pull of the Moon and the Sun.
+ The Moon’s gravity has a stronger effect because it is closer to Earth.
+ When the Moon is directly overhead or opposite a location, high tide occurs.
+ Low tide happens when the Moon is at right angles to the location.
+ Two high tides and two low tides usually occur every 24 hours.
+ Spring tides occur when the Sun, Moon, and Earth are aligned, producing the highest tides.
+ Neap tides occur when the Sun and Moon are at right angles, producing the lowest tides.
+ Tides affect fishing, shipping, and coastal activities.
+ They are also important for tidal energy generation.
+ The timing of tides can be predicted using tide tables.
+      </pre>
+      <pre class="panel-worksheet">
+
+        What causes tides, and why is the Moon’s influence stronger than the Sun’s?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Define high tide and low tide, giving the conditions for each.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Differentiate between spring tides and neap tides.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+How many tides occur in a day, and why?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Explain the role of tides in fishing activities.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Why are tide tables important for navigation?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Describe the arrangement of the Sun, Moon, and Earth during a spring tide.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Discuss one way tides can be used for renewable energy.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Why are neap tides lower than normal tides?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+How do tides affect coastal erosion?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+    
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An electrical circuit is a complete path through which electric current flows.
+ It consists of components such as a power source (battery), wires, and devices like bulbs.
+ For a circuit to work, it must be closed with no breaks in the path.
+ There are two main types of circuits: series and parallel.
+ In a series circuit, components are connected end to end; the same current flows through all parts.
+ In a parallel circuit, components are connected across common points, and each branch gets equal voltage.
+ Switches are used to open or close the circuit.
+ Fuses and circuit breakers protect the circuit from overload.
+ Ohm’s law relates voltage, current, and resistance in a circuit.
+ Good conductors like copper are used for wiring due to low resistance.
+
+
+      </pre>
+      <pre class="panel-worksheet">
+        
+        Define an electrical circuit and name its three essential components.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+
+
+Differentiate between a closed and an open circuit.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Explain two differences between series and parallel circuits.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Why is copper preferred for electrical wiring?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+What is the function of a fuse in a circuit?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Using Ohm’s law, explain how current changes when resistance increases.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+How does a switch control an electrical circuit?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Give one advantage and one disadvantage of a series circuit.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Why does each branch in a parallel circuit get the same voltage?
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+Draw and label a simple parallel circuit diagram.
+—-------------------------------------------------------------------------------
+—-------------------------------------------------------------------------------
+    </pre>
+  </section>
+</div>
+
+<!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
             </p>
@@ -226,11 +1734,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -258,8 +1767,8 @@
 </footer>
 
 
-<!--========END OF FOOTER==========-->
 
+<!--========END OF FOOTER==========-->
 
 
 <script>
@@ -302,91 +1811,85 @@
 
 
 
-<script>
-    const physicsTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Physics",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 1: Introduction to Momentum",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 2: Measurement",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["What is measurement?", "State the SI unit of length, time, and mass."]
-        },
-        {
-          title: "Week 3: Motion",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is motion?", "State Newton's first law of motion."]
-        }
-        // Add more weeks if needed
-      ],
-      second: [
-        {
-          title: "Week 1: Force",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define force.", "Mention 2 effects of force."]
-        },
-        {
-          title: "Week 2: Energy",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["What is energy?", "List 3 types of energy."]
-        }
-      ],
-      third: [
-        {
-          title: "Week 1: Electricity",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["Define electricity.", "Mention the SI unit of electric current."]
-        },
-        {
-          title: "Week 2: Magnetism",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["What is magnetism?", "List 2 types of magnets."]
-        }
-      ]
-    };
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-    function loadPhysicsTopics(term) {
-      const menu = document.getElementById("phyTopicsMenu");
-      const videoFrame = document.getElementById("phyVideoFrame");
-      const title = document.getElementById("phyTopicTitle");
-      const questions = document.getElementById("phyWorksheetQuestions");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-phy").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-phy[data-term="${term}"]`).classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      physicsTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      if (physicsTopics[term].length > 0) {
-        const first = physicsTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-phy").forEach(btn => {
-      btn.addEventListener("click", () => loadPhysicsTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadPhysicsTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
 </body>
 </html>

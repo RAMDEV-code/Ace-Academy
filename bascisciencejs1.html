@@ -3,145 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Biology term buttons */
-    .term-btn-bio {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-bio:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-bio.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
 <!-- HEADER WITH NAV -->
@@ -176,38 +167,1929 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section" id="biology-section">
-    <h2 class="subject-title">BASIC SCIENCE</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">BASIC SCIENCE</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-bio active" data-term="first">First Term</button>
-      <button class="term-btn-bio" data-term="second">Second Term</button>
-      <button class="term-btn-bio" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="bioTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Living and Non-living Things I
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="bioVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Living and Non-living Things II (Characteristics of Living Things)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Living and Non-living Things III (Difference Between Plants and Animals)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Living and Non-living Things IV (Metals and Non-metals)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Human Development (Puberty and Adolescence)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Family Health (Sanitation)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Family Health (Nutrition)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: Family Health (Drugs)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-9" type="button">
+            Week 9: Reproductive System
+          </button>
         </div>
 
-        <h3 id="bioTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Environmental Pollution
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="bioWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Environmental Pollution II
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Sexually Transmitted Infections (STIs)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: HIV/AIDS
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Energy I – Introduction to Energy
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Energy II – Energy Transformation and Uses
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Renewable and Non-Renewable Energy
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Human Reproduction I – Male and Female Reproductive Systems
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Human Reproduction II – Fertilization, Pregnancy, and Birth
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Forces
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Calculation of Gravitational Forces
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Space Travel
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Gravitation and Weightlessness
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Earth in Space I
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-8" type="button">
+            Week 8: Earth in Space II
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-9" type="button">
+            Week 9: Satellite
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        All things around us are classified into living and non-living things.
+Living things are things that are alive and carry out life processes.
+
+
+Examples of living things include humans, animals, and plants.
+
+
+Non-living things do not have life and cannot perform life processes.
+
+
+Examples of non-living things are stones, books, chairs, and air.
+
+
+Living things grow, reproduce, respond to stimuli, and need food.
+
+
+Non-living things do not grow, reproduce, or need food.
+
+
+Some non-living things are made by man (artificial), e.g. tables.
+
+
+Others are found in nature (natural), e.g. water and rocks.
+
+
+Understanding the differences helps us take care of our environment.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are the two main categories of things in our environment?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of living things.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of non-living things.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one difference between living and non-living things.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Do non-living things grow?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Is a tree a living or non-living thing?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of these is not living? A. Goat B. Rock C. Fish
+
+
+Can non-living things respond to changes in the environment?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of thing is water—living or non-living?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of these is an artificial non-living thing? A. River B. Book C. Tree
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Living things show specific characteristics that make them unique.
+These characteristics are called life processes.
+
+
+The key characteristics are Movement, Respiration, Sensitivity, Growth, Reproduction, Excretion, and Nutrition (MRS GREN).
+
+
+Movement is the ability to change position.
+
+
+Respiration is the release of energy from food.
+
+
+Sensitivity means responding to changes in the environment.
+
+
+Growth is an increase in size and complexity.
+
+
+Reproduction is the ability to produce offspring.
+
+
+Excretion is the removal of waste products from the body.
+
+
+Nutrition is the intake of food for energy and growth.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What does the acronym MRS GREN stand for?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which characteristic allows animals to produce young ones?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which life process helps living things respond to changes?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the removal of waste called?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do living things need food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two characteristics of living things.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which life process involves using oxygen to get energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the process of increasing in size called?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Does a car grow or reproduce?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which one is not a characteristic of living things? A. Eating B. Talking C. Reproduction
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Both plants and animals are living things but have differences.
+Plants make their own food through photosynthesis.
+
+
+Animals cannot make their own food; they eat plants or other animals.
+
+
+Plants do not move from place to place.
+
+
+Animals can move from one location to another.
+
+
+Plants have no specialized sense organs.
+
+
+Animals have sense organs like eyes, ears, and nose.
+
+
+Most plants have green leaves and grow upright.
+
+
+Animals have different shapes and body structures.
+
+
+Plants reproduce mainly by seeds, while animals reproduce by giving birth or laying eggs.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Do plants move from one place to another?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do plants make their own food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one sense organ found in animals.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of reproduction do most animals undergo?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of the two has no brain—plants or animals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one similarity between plants and animals.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of these can move from place to place? A. Dog B. Tree C. Leaf
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Do animals carry out photosynthesis?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What do we call animals that eat plants?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one way in which plants are different from animals.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Metals and non-metals are examples of non-living things.
+Metals are hard, shiny, and good conductors of heat and electricity.
+
+
+Examples of metals include iron, copper, and gold.
+
+
+Non-metals are usually dull and poor conductors.
+
+
+Examples of non-metals are oxygen, sulfur, and carbon.
+
+
+Metals can be hammered into shapes (malleable).
+
+
+Non-metals are usually brittle and break easily.
+
+
+Metals are used to make tools, wires, and machines.
+
+
+Non-metals are used in making medicines, fertilizers, and gases.
+
+
+Knowing their properties helps us choose them for the right use.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Name one example of a metal.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one example of a non-metal.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which is a good conductor of electricity: metal or non-metal?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What property makes metals suitable for making tools?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Are non-metals shiny or dull?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which is brittle: metals or non-metals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one use of metals.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What gas is a non-metal and needed for breathing?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which is used in making fertilizers: metal or non-metal?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of these is a metal? A. Iron B. Oxygen C. Sulfur
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Puberty is the stage when a child's body changes into an adult body.
+
+
+It is controlled by hormones like estrogen and testosterone.
+
+
+Girls develop breasts, wider hips, and begin menstruation.
+
+
+Boys grow facial hair, deeper voices, and broader shoulders.
+
+
+Both boys and girls grow taller rapidly.
+
+
+Emotional and social changes also occur during puberty.
+
+
+Adolescence is the period between childhood and adulthood.
+
+
+Adolescents may feel confused or moody due to hormonal changes.
+
+
+Personal hygiene becomes very important during this stage.
+
+
+Support from family, school, and peers is vital for healthy development.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is puberty?
+        —------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+Name one physical change that occurs in girls during puberty.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which hormone causes changes in boys?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+At what stage does menstruation begin?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is adolescence?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one emotional change in adolescence.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one reason why hygiene is important during puberty.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List two physical changes common to both boys and girls.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who plays a vital role in helping adolescents adjust?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes mood swings during adolescence?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Sanitation is the practice of keeping clean to prevent diseases.
+
+
+It involves proper disposal of human and household waste.
+
+
+Good sanitation reduces the spread of diseases like cholera.
+
+
+Clean water and toilets are essential for proper sanitation.
+
+
+Waste should be disposed of in covered bins.
+
+
+Washing hands after using the toilet is crucial.
+
+
+Community sanitation prevents outbreaks of illnesses.
+
+
+Government agencies also help promote public sanitation.
+
+
+Personal cleanliness improves family health.
+
+
+Clean surroundings keep pests and germs away.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is sanitation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is sanitation important in the home?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one disease caused by poor sanitation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one way to dispose of household waste.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What should be done after using the toilet?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can poor sanitation affect a family?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who is responsible for public sanitation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State two items needed for good sanitation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the role of clean water in sanitation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two practices that improve sanitation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Nutrition is the process of getting and using food for health.
+
+
+Good nutrition provides energy and supports body growth.
+
+
+A balanced diet contains all the food classes in right amounts.
+
+
+The main food classes are carbohydrates, proteins, fats, vitamins, minerals, and water.
+
+
+Carbohydrates provide energy; proteins build body tissues.
+
+
+Vitamins and minerals support body functions and prevent diseases.
+
+
+Malnutrition results from eating too little or the wrong types of food.
+
+
+Children need nutritious food to grow properly.
+
+
+Overeating can lead to obesity and related illnesses.
+
+
+Families should plan healthy meals daily.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is nutrition?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the six classes of food.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is a balanced diet?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which nutrient gives energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does protein do in the body?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of malnutrition.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do children need good food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What can happen if we eat too much?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one function of vitamins.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can families promote good nutrition?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+    
+    <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Drugs are substances used to treat or prevent illness.
+
+
+Some drugs are helpful, while others can be harmful.
+
+
+Drugs must be taken only under a doctor’s prescription.
+
+
+Misuse of drugs leads to drug abuse.
+
+
+Drug abuse can damage organs and mental health.
+
+
+Commonly abused drugs include alcohol, cigarettes, and hard drugs.
+
+
+Drug abuse can lead to addiction and crime.
+
+
+Children should avoid unknown substances.
+
+
+Parents and schools should teach drug dangers.
+
+
+Say NO to peer pressure about drugs.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are drugs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one reason why people take drugs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is drug abuse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two harmful drugs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who should prescribe drugs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one danger of drug abuse.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is drug addiction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why should children avoid drugs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who should educate children about drugs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What should you do when offered a drug?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-9">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The reproductive system allows humans to produce offspring.
+
+
+Males have organs like the penis and testes.
+
+
+Testes produce sperm cells.
+
+
+Females have organs like the vagina, uterus, and ovaries.
+
+
+Ovaries produce egg cells.
+
+
+Fertilization occurs when a sperm and egg meet.
+
+
+The uterus is where a baby grows during pregnancy.
+
+
+Puberty activates the reproductive system.
+
+
+Reproductive health means keeping the system clean and safe.
+
+
+Education on this system helps prevent early pregnancy and diseases.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the function of the reproductive system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two male reproductive organs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What do the testes produce?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two female reproductive organs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What do the ovaries produce?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Where does fertilization take place?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Where does a baby grow in the female body?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What starts the reproductive system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is reproductive health important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is one benefit of learning about reproduction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+   
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Environmental pollution is the introduction of harmful substances into the environment.
+
+
+Major types include air, water, land, and noise pollution.
+
+
+Air pollution is caused by smoke, gases, and industrial emissions.
+
+
+Water pollution occurs from waste dumping and oil spills.
+
+
+Land pollution comes from garbage, plastics, and chemicals.
+
+
+Noise pollution results from loud sounds from vehicles, factories, and music.
+
+
+Pollution affects human health, wildlife, and ecosystems.
+
+
+It leads to diseases, global warming, and habitat destruction.
+
+
+Pollution can be controlled by proper waste disposal and environmental laws.
+
+
+Everyone has a role to play in reducing pollution.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is environmental pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name four types of pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two causes of air pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List two effects of water pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does land pollution affect the environment?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is noise pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one source of noise pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does pollution affect human health?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State two ways to control pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who is responsible for controlling pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Pollution continues to damage air, water, land, and living organisms.
+
+
+Greenhouse gases from pollution cause climate change.
+
+
+Acid rain from air pollution harms plants and aquatic life.
+
+
+Oil spills destroy marine ecosystems.
+
+
+Plastics in landfills pollute the soil and groundwater.
+
+
+Pollution leads to respiratory and water-borne diseases.
+
+
+Recycling helps reduce environmental waste.
+
+
+Planting trees improves air quality.
+
+
+Government laws and public awareness are vital in pollution control.
+
+
+Clean environment means better health and sustainable living.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are greenhouse gases?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does pollution lead to climate change?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain how acid rain is formed.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one effect of acid rain.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do oil spills affect marine life?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is plastic pollution dangerous?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is recycling?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can tree planting reduce pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one government action that helps control pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is a clean environment important?
+
+—------------------------------------------------------------------------------------------------
+—-----------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        STIs are infections passed through sexual contact.
+
+
+Examples include gonorrhea, syphilis, and chlamydia.
+
+
+STIs can affect both males and females.
+
+
+Symptoms include itching, sores, and discharge.
+
+
+Some STIs may show no symptoms at all.
+
+
+Untreated STIs can cause infertility and other complications.
+
+
+STIs are diagnosed through medical tests.
+
+
+They are treated with antibiotics or other medication.
+
+
+Abstinence and proper use of condoms can prevent STIs.
+
+
+Seeking medical help early is very important.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are sexually transmitted infections?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name three examples of STIs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List two symptoms of STIs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Can STIs affect both males and females?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why are STIs dangerous if untreated?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can STIs be diagnosed?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the treatment for most STIs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can STIs be prevented?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens if STIs are not treated?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is early treatment of STIs important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        HIV stands for Human Immunodeficiency Virus.
+
+
+It attacks the immune system, making it weak.
+
+
+AIDS is the final stage of HIV infection.
+
+
+HIV is spread through blood, sex, and from mother to child.
+
+
+Sharing needles or unprotected sex can spread HIV.
+
+
+HIV cannot be spread through hugging or sharing food.
+
+
+There is no cure, but antiretroviral drugs help manage it.
+
+
+People with HIV can live long with proper care.
+
+
+Testing and knowing one’s status is important.
+
+
+Avoiding risky behaviour prevents HIV infection.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What does HIV stand for?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does AIDS mean?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How is HIV transmitted?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Can HIV be spread through handshakes?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What part of the body does HIV attack?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Is there a cure for HIV?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How is HIV managed?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is testing for HIV important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one way to prevent HIV infection.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Can a person with HIV live a long life?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Energy is the ability to do work or cause change.
+
+
+It exists in different forms: kinetic, potential, thermal, chemical, electrical, and nuclear.
+
+
+Kinetic energy is energy of motion, while potential energy is stored energy.
+
+
+Energy can be transferred (moved from one object to another).
+
+
+It can also be transformed (changed from one form to another).
+
+
+The unit of energy is the joule (J).
+
+
+An object in motion possesses kinetic energy proportional to its mass and speed.
+
+
+Energy stored in food, fuel, or batteries is chemical energy.
+
+
+Law of conservation of energy states energy cannot be created or destroyed.
+
+
+Energy is always conserved, but some is often lost as heat during transformation.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the SI unit of energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define energy in simple terms.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two types of energy and give one example each.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State the law of conservation of energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which type of energy is stored in a battery?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of energy does a moving car possess?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain the difference between energy transfer and energy transformation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of chemical energy in everyday life.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+When you lift an object, what type of energy does it gain?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: Energy can be destroyed.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Energy transformation is the change of energy from one form to another.
+
+
+A toaster transforms electrical energy into heat and light energy.
+
+
+In photosynthesis, light energy transforms into chemical energy.
+
+
+A car engine converts chemical energy in fuel into kinetic and heat energy.
+
+
+Energy is essential in powering machines, lighting homes, and cooking.
+
+
+The human body transforms chemical energy from food into kinetic and heat energy.
+
+
+A microphone changes sound energy into electrical energy.
+
+
+Energy transformations are never 100% efficient; some energy is lost as heat.
+
+
+Electrical energy is the most commonly transformed energy form.
+
+
+Everyday appliances use energy transformations to work effectively.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is energy transformation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which energy form is used in powering light bulbs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of energy transformation in a car engine.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What form of energy is stored in food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: Energy transformations are always 100% efficient.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one energy change that occurs in a blender.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does a solar panel transform energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two appliances that transform electrical energy into heat energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of energy is released when fuel burns?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain how the human body uses energy from food.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Renewable energy comes from sources that are naturally replenished.
+
+
+Examples of renewable energy include solar, wind, hydro, biomass, and geothermal.
+
+
+Non-renewable energy comes from sources that will eventually run out.
+
+
+Fossil fuels such as coal, oil, and natural gas are non-renewable.
+
+
+Renewable sources are more environmentally friendly.
+
+
+Non-renewable energy releases greenhouse gases when burned.
+
+
+Solar panels convert sunlight into electricity.
+
+
+Wind turbines use moving air to generate electricity.
+
+
+Hydro energy comes from moving water (dams or rivers).
+
+
+The world is shifting towards renewable energy to reduce pollution and conserve resources.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Define renewable energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of renewable energy sources.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the major disadvantage of non-renewable energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which energy type uses sunlight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: Coal is a renewable source of energy.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is hydro energy derived from?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two non-renewable energy sources.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is renewable energy considered better for the environment?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do wind turbines generate electricity?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which energy source produces the least air pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Human reproduction involves the union of male and female gametes.
+
+
+The male reproductive system includes testes, sperm ducts, urethra, penis, and accessory glands.
+
+
+The testes produce sperm and the hormone testosterone.
+
+
+The sperm duct transports sperm to the urethra during ejaculation.
+
+
+The female reproductive system includes ovaries, oviducts, uterus, cervix, and vagina.
+
+
+Ovaries produce eggs (ova) and the hormones oestrogen and progesterone.
+
+
+Fertilization usually occurs in the oviduct.
+
+
+The uterus is where the embryo implants and grows into a fetus.
+
+
+The cervix opens during childbirth to allow the baby to pass through the vagina.
+
+
+Puberty triggers the development of reproductive organs and secondary sexual characteristics.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the primary function of the testes?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Where does fertilization occur in the female body?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two hormones produced by the female reproductive system.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the function of the uterus?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Describe the path sperm travels from production to ejaculation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What are the secondary sexual characteristics in males?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the organ that produces ova.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the role of the cervix during childbirth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which hormone is responsible for male sexual characteristics?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State the function of the oviduct.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Fertilization is the fusion of a sperm and egg to form a zygote.
+
+
+The zygote divides to form an embryo, which implants in the uterus.
+
+
+The placenta develops to provide nutrients and oxygen to the fetus.
+
+
+The amniotic sac surrounds and protects the developing baby.
+
+
+Pregnancy typically lasts about 9 months (40 weeks).
+
+
+The umbilical cord connects the fetus to the placenta.
+
+
+Labour involves contraction of the uterus to push the baby out.
+
+
+Birth occurs when the baby is delivered through the vagina.
+
+
+After birth, the placenta is expelled in a process called afterbirth.
+
+
+Proper maternal care is essential for healthy fetal development.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is fertilization?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define zygote and embryo.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the function of the placenta?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How long does a normal human pregnancy last?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the structure that protects the fetus in the womb.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What connects the fetus to the placenta?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the role of the amniotic fluid?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is afterbirth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What changes occur during labour?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is maternal care important during pregnancy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A force is a push or pull that can change the state of motion of an object.
+
+
+Forces can change the shape, speed, or direction of an object.
+
+
+The SI unit of force is the Newton (N).
+
+
+Contact forces include friction, tension, and normal force.
+
+
+Non-contact forces include gravitational, magnetic, and electrostatic forces.
+
+
+Balanced forces do not cause a change in motion.
+
+
+Unbalanced forces cause acceleration or deceleration.
+
+
+Friction opposes motion between two surfaces.
+
+
+Air resistance is a type of friction that acts on objects moving through air.
+
+
+Forces are vector quantities – they have both magnitude and direction.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Define force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two effects a force can have on an object.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the unit of force?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Differentiate between contact and non-contact forces.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give an example of a non-contact force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens when forces on an object are balanced?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is friction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is air resistance important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define vector quantity.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of force is tension?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Gravitational force is the attractive force between two masses.
+
+
+It is calculated using the formula: F = G × (m₁ × m₂) / r².
+
+
+G is the gravitational constant: 6.674 × 10⁻¹¹ Nm²/kg².
+
+
+m₁ and m₂ are the masses of the two objects in kilograms.
+
+
+r is the distance between the centers of the two masses in meters.
+
+
+Gravity acts downward towards the center of Earth.
+
+
+On Earth, weight is the gravitational force acting on an object.
+
+
+Weight = mass × gravitational field strength (g = 9.8 N/kg).
+
+
+As distance increases, gravitational force decreases.
+
+
+The gravitational force is always attractive, never repulsive.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        State the formula for gravitational force.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does G represent in the formula?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the unit of gravitational force?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to the gravitational force if distance increases?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Calculate the gravitational force between two 5 kg masses 2 m apart.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define weight in terms of gravity.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the gravitational field strength on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does mass affect gravitational force?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between mass and weight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Is gravitational force repulsive or attractive?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Space travel is the journey of humans or machines beyond Earth's atmosphere.
+
+
+It began with satellites like Sputnik and manned missions like Apollo 11.
+
+
+Rockets are used to launch spacecraft into space.
+
+
+Astronauts wear space suits for protection in space.
+
+
+Spacecrafts must escape Earth’s gravity using high velocity.
+
+
+Space shuttles and space stations are used for long-term missions.
+
+
+Space travel allows scientific research in zero gravity.
+
+
+Challenges include radiation, lack of air, and extreme temperatures.
+
+
+Satellites help in weather prediction, GPS, and communication.
+
+
+Space exploration expands our knowledge of planets and galaxies.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is space travel?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the first manned mission to the Moon.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What force must a spacecraft overcome to leave Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What do astronauts wear to survive in space?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two examples of manned space vehicles.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two uses of satellites.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is a rocket needed for space travel?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What are the dangers of space travel?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the first artificial satellite.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does space travel benefit science?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Gravitation is the force of attraction between two masses.
+
+
+Earth's gravity pulls everything toward its center.
+
+
+The strength of gravity depends on mass and distance.
+
+
+Weight is the force of gravity acting on an object.
+
+
+Weightlessness occurs when there is no support force on the body.
+
+
+Astronauts feel weightless in orbit due to free fall.
+
+
+Gravity on the Moon is weaker than on Earth.
+
+
+In space, objects float because of microgravity.
+
+
+Weight = mass × gravitational acceleration.
+
+
+Mass stays constant, but weight changes with gravity.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Define gravitation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes weight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do astronauts feel weightless in space?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the formula for weight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to your weight on the Moon?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between mass and weight?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the gravitational acceleration on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Explain microgravity.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Does mass change in space?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What makes objects fall to the ground?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Earth is the third planet from the Sun in our solar system.
+
+
+It rotates on its axis and revolves around the Sun.
+
+
+Earth’s rotation causes day and night.
+
+
+One full rotation takes about 24 hours.
+
+
+The revolution around the Sun causes seasons.
+
+
+Earth takes 365.25 days to complete one revolution.
+
+
+The Earth's axis is tilted, which affects the seasons.
+
+
+The Sun appears to move across the sky due to Earth's rotation.
+
+
+The equator receives more sunlight than the poles.
+
+
+Earth's movement affects time zones around the world.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        How many planets are in the solar system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes day and night?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How long does Earth take to complete one rotation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes the seasons on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the shape of Earth’s orbit?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is there more sunlight at the equator?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How long is one year?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes time zones?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why does the Sun appear to move in the sky?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the Earth’s axis?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The Moon is Earth’s natural satellite.
+
+
+The Moon orbits the Earth every 27.3 days.
+
+
+The Moon reflects sunlight; it does not produce its own light.
+
+
+The Moon affects tides on Earth.
+
+
+There are four main Moon phases: new, first quarter, full, last quarter.
+
+
+Eclipses occur when the Sun, Earth, and Moon align.
+
+
+A solar eclipse happens when the Moon blocks the Sun.
+
+
+A lunar eclipse happens when Earth blocks sunlight from the Moon.
+
+
+The Moon has no atmosphere, so temperatures vary greatly.
+
+
+The same side of the Moon always faces Earth.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the Moon?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How long does it take the Moon to orbit Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes tides on Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Does the Moon produce light?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the four main phases of the Moon.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes a solar eclipse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes a lunar eclipse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is the Moon's surface temperature extreme?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is an eclipse?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do we always see the same side of the Moon?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+    
+    <section class="topic-panel" id="tt-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A satellite is an object that orbits a planet.
+
+
+There are natural (like the Moon) and artificial satellites.
+
+
+Artificial satellites are launched for communication and observation.
+
+
+Satellites orbit the Earth in space.
+
+
+They help in GPS navigation and weather forecasting.
+
+
+Satellites are launched using rockets.
+
+
+Geostationary satellites stay fixed over one point on Earth.
+
+
+Satellites collect data for scientific research.
+
+
+Some satellites are used for spying and defense.
+
+
+Satellites must overcome gravity to stay in orbit.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is a satellite?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of a natural satellite.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two uses of artificial satellites.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What launches a satellite into space?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does GPS stand for?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is a geostationary satellite?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do satellites help in weather forecasting?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What force keeps a satellite in orbit?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Are all satellites used for peaceful purposes?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do satellites stay above Earth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+  </div>
+
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
             </p>
@@ -225,11 +2107,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -257,8 +2140,8 @@
 </footer>
 
 
-<!--========END OF FOOTER==========-->
 
+<!--========END OF FOOTER==========-->
 
 
 <script>
@@ -300,90 +2183,86 @@
 </script>
 
 
-<script>
-    const bioTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Biology",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["What is biology?", "Mention 3 branches of biology."]
-        },
-        {
-          title: "Week 2: Living and Non-Living Things",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["List 5 characteristics of living things.", "Give 3 examples of non-living things."]
-        },
-        {
-          title: "Week 3: Cells",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is a cell?", "Differentiate between plant and animal cells."]
-        }
-        // Add more weeks as needed
-      ],
-      second: [
-        {
-          title: "Week 1: Respiratory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define respiration.", "Mention parts of the respiratory system."]
-        },
-        {
-          title: "Week 2: Circulatory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["List components of blood.", "What is the function of the heart?"]
-        }
-        // Add more weeks
-      ],
-      third: [
-        {
-          title: "Week 1: Ecology and Environment",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["What is ecology?", "Define ecosystem."]
-        },
-        {
-          title: "Week 2: Food Chain and Web",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["Define food chain.", "Difference between food chain and food web?"]
-        }
-        // Add more weeks
-      ]
-    };
 
-    function loadBioTopics(term) {
-      const menu = document.getElementById("bioTopicsMenu");
-      const videoFrame = document.getElementById("bioVideoFrame");
-      const title = document.getElementById("bioTopicTitle");
-      const questions = document.getElementById("bioWorksheetQuestions");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-bio").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-bio[data-term="${term}"]`).classList.add("active");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      bioTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
+
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      // Load first topic by default
-      if (bioTopics[term].length > 0) {
-        const first = bioTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-bio").forEach(btn => {
-      btn.addEventListener("click", () => loadBioTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadBioTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
-
 </body>
 </html>

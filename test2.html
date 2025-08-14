@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology</title>
+    <link rel="stylesheet" href="biology.css">
+    <style>
+        .subject-section {
+    padding: 20px;
+    background-color: white;
+    color: black;
+}
+
+.subject-title {
+    text-align: center;
+    color: #0044cc;
+    margin-bottom: 20px;
+}
+
+.term-buttons {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.term-btn {
+    padding: 10px 15px;
+    background-color: #0044cc;
+    color: white;
+    border: none;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.term-btn.active {
+    background-color: #002a80;
+}
+
+.content-area {
+    display: flex;
+    gap: 20px;
+}
+
+.topics-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.topic-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.topic-btn.active {
+    background-color: #0044cc;
+    color: white;
+}
+
+.topic-content {
+    flex: 3;
+}
+
+.topic-details iframe {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+pre {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid #ddd;
+    white-space: pre-wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .content-area {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .term-btn {
+        display: block;
+        margin: 5px auto;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar stays the same from your site -->
+    
+    <section class="subject-section">
+        <h1 class="subject-title">Biology</h1>
+
+        <!-- Term buttons -->
+        <div class="term-buttons">
+            <button class="term-btn active" data-term="first-term">First Term</button>
+            <button class="term-btn" data-term="second-term">Second Term</button>
+            <button class="term-btn" data-term="third-term">Third Term</button>
+        </div>
+
+        <div class="content-area">
+            <!-- Topics list -->
+            <div class="topics-list">
+                <!-- Example: First Term Topics -->
+                <div class="term-topics" id="first-term">
+                    <button class="topic-btn active" data-topic="topic1">Cell Structure</button>
+                    <button class="topic-btn" data-topic="topic2">Respiration</button>
+                    <button class="topic-btn" data-topic="topic3">Respiration</button>
+                    <button class="topic-btn" data-topic="topic4">Respiration</button>
+                    <button class="topic-btn" data-topic="topic5">Respiration</button>
+                </div>
+
+                <!-- Example: Second Term Topics -->
+                <div class="term-topics hidden" id="second-term">
+                    <button class="topic-btn active" data-topic="topic3">Photosynthesis</button>
+                    <button class="topic-btn" data-topic="topic4">Transport System</button>
+                </div>
+
+                <!-- Example: Third Term Topics -->
+                <div class="term-topics hidden" id="third-term">
+                    <button class="topic-btn active" data-topic="topic5">Reproduction</button>
+                    <button class="topic-btn" data-topic="topic6">Ecology</button>
+                </div>
+            </div>
+
+            <!-- Topic content -->
+            <div class="topic-content">
+                <!-- Topic 1 -->
+                <div class="topic-details" id="topic1">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allowfullscreen></iframe>
+                    <h2>Summary Notes</h2>
+                    <pre>
+Chemistry is the branch of science that studies the composition, structure, properties, and changes of matter.
+Matter is anything that has mass and occupies space.
+Chemistry explains how substances are formed, their uses, and how they react with each other.
+It is divided into branches such as organic chemistry, inorganic chemistry, physical chemistry, analytical chemistry, and biochemistry.
+Chemistry is important in medicine, agriculture, food production, industry, and environmental protection.
+The study of chemistry involves laboratory work, experiments, and observation.
+Laboratory safety rules must be followed to prevent accidents.
+Some basic laboratory equipment includes test tubes, beakers, measuring cylinders, Bunsen burners, and thermometers.
+Common careers in chemistry include pharmacists, chemical engineers, laboratory scientists, and forensic scientists.
+Understanding chemistry helps us solve everyday problems and improve life.
+
+                    </pre>
+                    <h2>Worksheet Questions</h2>
+                    <pre>
+What is chemistry?
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Mention two characteristics of matter.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+List three branches of chemistry.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+State two importance of chemistry in everyday life.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Give two examples of laboratory safety rules.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Name three common laboratory equipment.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Define matter.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Mention two careers related to chemistry.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Why is it important to study chemistry?
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+Differentiate between chemistry and biology.
+—--------------------------------------------------------------------------------------------------------------
+—--------------------------------------------------------------------------------------------------------------
+
+                    </pre>
+                </div>
+
+                <!-- Topic 2 -->
+                <div class="topic-details hidden" id="topic2">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
+                    <h2>Summary Notes</h2>
+                    <pre>
+Respiration is the process of releasing energy...
+                    </pre>
+                    <h2>Worksheet Questions</h2>
+                    <pre>
+1. Define respiration.
+2. Differentiate between aerobic and anaerobic respiration.
+                    </pre>
+                </div>
+
+                <!-- You can add more topics here for other terms in the same way -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer stays the same from your site -->
+
+    <script src="biology.js"></script>
+
+    <script>
+// Switch between terms
+document.querySelectorAll('.term-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.term-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.term-topics').forEach(t => t.classList.add('hidden'));
+        document.getElementById(btn.dataset.term).classList.remove('hidden');
+    });
+});
+
+// Switch between topics
+document.querySelectorAll('.topic-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.topic-details').forEach(detail => detail.classList.add('hidden'));
+        document.getElementById(btn.dataset.topic).classList.remove('hidden');
+    });
+});
+
+    </script>
+</body>
+</html>
