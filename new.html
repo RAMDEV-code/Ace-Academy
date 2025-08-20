@@ -3,14 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-       
-    </style>
-</head>
+    <title>Ace Academy</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+<style>
+ .subject-container {
+    padding: 20px;
+    padding-top: 7rem;
+}
+
+.subject-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2f2f75;
+}
+
+.term-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.term-btn {
+    background-color: #4d4d99;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.term-btn.active {
+    background-color: #ff5c5c;
+}
+
+.term-btn:hover {
+    opacity: 0.9;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.side-nav {
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.topic-btn {
+    background-color: #2f2f75;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.topic-btn.active {
+    background-color: #ff5c5c;
+}
+
+.topic-btn:hover {
+    opacity: 0.9;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.video-container iframe {
+    border-radius: 8px;
+    width: 100%;
+}
+
+.note-section, .worksheet-section {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.note-section h2, .worksheet-section h2 {
+    color: #2f2f75;
+}
+
+/* Fade-in animation for content */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content, .note-section, .worksheet-section, .video-container {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Button press animation */
+.term-btn, .topic-btn {
+    transition: all 0.2s ease;
+}
+
+.term-btn:active, .topic-btn:active {
+    transform: scale(0.97);
+}
+
+/* Hover glow */
+.term-btn:hover, .topic-btn:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+
+/* Responsive 1024px */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .side-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .side-nav button {
+        flex: 1 1 45%;
+    }
+}
+
+/* Responsive 600px */
+@media (max-width: 600px) {
+    .term-buttons {
+        flex-wrap: wrap;
+    }
+
+    .side-nav button {
+        flex: 1 1 100%;
+    }
+}
+</style> 
+  </head>
 <body>
-   
-<div class="content-wrapper">
+<!-- HEADER WITH NAV -->
+<header class="navbar">
+  <div class="container">
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
+
+    <nav class="nav-links" id="navMenu">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="class.html">Class ▾</a>
+        <div class="dropdown-content">
+          <a href="JSS1.html">JSS1</a>
+          <a href="JSS2.html">JSS2</a>
+          <a href="JSS3.html">JSS3</a>
+          <a href="SS1.html">SS1</a>
+          <a href="SS2.html">SS2</a>
+          <a href="SS3.html">SS3</a>
+        </div>
+      </div>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
+
+<!--===END OF NAV===-->
+   <!-- Subject Section -->
+<section class="subject-container">
+    <h1 class="subject-title">PHYSICS</h1>
+
+    <!-- Term Buttons -->
+    <div class="term-buttons">
+        <button class="term-btn active" onclick="changeTerm('first')">First Term</button>
+        <button class="term-btn" onclick="changeTerm('second')">Second Term</button>
+        <button class="term-btn" onclick="changeTerm('third')">Third Term</button>
+    </div>
+
+    <div class="content-wrapper">
         <!-- Side Navigation -->
         <aside class="side-nav">
             <button class="topic-btn active" onclick="loadTopic(1)">Week 1: Introduction to Physics</button>
@@ -20,6 +206,7 @@
             <button class="topic-btn" onclick="loadTopic(6)">Week 6: Motor</button>
         </aside>
 
+        
         <!-- Main Content -->
         <main class="main-content">
             <!-- Embedded YouTube Video -->
@@ -61,16 +248,55 @@ Examples of matter include water, air, stone, and iron.<br>
             <div class="worksheet-section">
                 <h2>Evaluation Questions – Matter</h2>
                 <ul id="questionsList">
-                    <li>What is matter?</li>
-                    <li>Name the three states of matter.</li>
-                    <li>Which state of matter has a fixed shape?</li>
-                    <li>What is the smallest unit of matter called?</li>
-                    <li>What determines the state of matter?</li>
-                    <li>Give two examples of matter.</li>
-                    <li>True or False: Gases have fixed volume.</li>
-                    <li>What type of change does not form a new substance?</li>
-                    <li>What is the difference between solid and liquid?</li>
-                    <li>Describe the arrangement of particles in a gas.</li>
+                    <li>What is matter? <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+
+                    </li>
+                    <li>Name the three states of matter.
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>Which state of matter has a fixed shape?
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>What is the smallest unit of matter called?
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>What determines the state of matter?
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>Give two examples of matter.
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>True or False: Gases have fixed volume.<br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>What type of change does not form a new substance?
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>What is the difference between solid and liquid?
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
+                    <li>Describe the arrangement of particles in a gas.
+                      <br>
+                      —-------------------------------------------------------------- <br>
+                      ------------------------------------------------—-------------
+                    </li>
                 </ul>
             </div>
         </main>
@@ -80,24 +306,243 @@ Examples of matter include water, air, stone, and iron.<br>
 
 
 
+<!--===================END OF LESSONS======================-->
+
+<footer class="footer animate-on-scroll" id="footer">
+    <div class="container footer__container">
+        <div class="footer__1">
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
+            </p>
+        </div>
+
+        <div class="footer__2">
+            <h4>Permalinks</h4>
+            <ul class="permalinks">
+                 <li><a href="index.html">Home</a></li>
+                <li><a href="class.html">Class</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+             </ul>
+        </div>
+          
+        <div class="footer__3">
+            <h4>Privacy</h4>
+            <ul class="privacy">
+                <li><a href="privacy.html">Privacy policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__4">
+            <h4>Contact Us</h4>
+            <p>
+                +234 7057927515
+            </p>
+            <P>
+                Acestudents@gmail.com
+            </P>
+          <ul class="footer__socials">
+               <li><a href="fabook.html"><ion-icon name="logo-facebook"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+               <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+          </ul>
+        </div>
+    </div>
+    <div class="footer__copyright">
+             <p>&copy; 2025 ACESTUDENTS. All rights reserved.</p>
+        </div>
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
+</footer>
+
+
+
+<!--========END OF FOOTER==========-->
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('show');
+  });
+
+  // Optional: Close menu when a link is clicked (mobile only)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
+</script>
+
+
+<script>
+  function handleScrollAnimations() {
+    document.querySelectorAll('.animate-on-scroll').forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.8;
+
+      if (sectionTop < triggerPoint && !section.classList.contains('active')) {
+        section.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  window.addEventListener('load', handleScrollAnimations);
+</script>
+
+
+
 <script>
     function changeTerm(term) {
     document.querySelectorAll('.term-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
-    // Add logic to load term-specific topics
+
+    const mainContent = document.querySelector('.main-content');
+    mainContent.style.animation = "none";
+    mainContent.offsetHeight; // Trigger reflow
+    mainContent.style.animation = "fadeIn 0.4s ease-in-out";
 }
 
 function loadTopic(week) {
     document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
 
-    // Example: Change video and note
+    const videoFrame = document.getElementById("videoFrame");
+    const noteContent = document.getElementById("noteContent");
+    const questionsList = document.getElementById("questionsList");
+
+    // Trigger fade-in animation for main content
+    const mainContent = document.querySelector('.main-content');
+    mainContent.style.animation = "none";
+    mainContent.offsetHeight; // Trigger reflow
+    mainContent.style.animation = "fadeIn 0.4s ease-in-out";
+
+    // Example topic data
     if (week === 1) {
-        document.getElementById("videoFrame").src = "https://www.youtube.com/embed/PUT_YOUR_VIDEO_ID_HERE";
-        document.getElementById("noteContent").textContent = "Summary for Introduction to Physics...";
+        videoFrame.src = "https://www.youtube.com/embed/PUT_YOUR_VIDEO_ID_HERE";
+        noteContent.textContent = "Summary for Introduction to Physics...";
+        questionsList.innerHTML = `
+            <li>What is Physics?</li>
+            <li>Explain the importance of Physics in everyday life.</li>
+        `;
+    }
+    if (week === 2) {
+        videoFrame.src = "https://www.youtube.com/embed/PUT_ANOTHER_VIDEO_ID";
+        noteContent.textContent = "Summary for Introduction to Momentum...";
+        questionsList.innerHTML = `
+            <li>Define momentum.</li>
+            <li>State the principle of conservation of momentum.</li>
+        `;
+    }
+
+     if (week === 6) {
+        videoFrame.src = "https://www.youtube.com/embed/03B0ijouNNU?si=DGonIj4kW_Zn366K";
+        noteContent.textContent = "Summary for Introduction to Physics...";
+        questionsList.innerHTML = `
+            <li>What is Physics?</li>
+            <li>Explain the importance of Physics in everyday life.</li>
+        `;
     }
 }
 
 </script>
+
+<script>
+  function changeTerm(term) {
+    document.querySelectorAll('.term-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Hide all topic groups
+    document.querySelectorAll('.topics').forEach(group => group.style.display = "none");
+
+    // Show only selected term's topics
+    document.querySelector(`.${term}-term-topics`).style.display = "flex";
+
+    // Reset video and note when switching terms
+    document.getElementById("videoFrame").src = "";
+    document.getElementById("noteContent").textContent = "";
+    document.getElementById("questionsList").innerHTML = "";
+}
+
+function loadTopic(term, week) {
+    document.querySelectorAll(`.${term}-term-topics .topic-btn`).forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const videoFrame = document.getElementById("videoFrame");
+    const noteContent = document.getElementById("noteContent");
+    const questionsList = document.getElementById("questionsList");
+
+    // Fade-in effect
+    const mainContent = document.querySelector('.main-content');
+    mainContent.style.animation = "none";
+    mainContent.offsetHeight;
+    mainContent.style.animation = "fadeIn 0.4s ease-in-out";
+
+    // Example Data for all terms
+    const topicData = {
+        first: {
+            1: {
+                video: "https://www.youtube.com/embed/PUT_VIDEO_ID_1",
+                note: "Summary for Introduction to Physics...",
+                questions: [
+                    "What is Physics?",
+                    "Explain its importance."
+                ]
+            },
+            2: {
+                video: "https://www.youtube.com/embed/PUT_VIDEO_ID_2",
+                note: "Summary for Introduction to Momentum...",
+                questions: [
+                    "Define momentum.",
+                    "State the conservation principle."
+                ]
+            }
+        },
+        second: {
+            1: {
+                video: "https://www.youtube.com/embed/PUT_VIDEO_ID_3",
+                note: "Summary for Heat Energy...",
+                questions: [
+                    "Define heat energy.",
+                    "Explain conduction."
+                ]
+            }
+        },
+        third: {
+            1: {
+                video: "https://www.youtube.com/embed/PUT_VIDEO_ID_4",
+                note: "Summary for Electricity...",
+                questions: [
+                    "What is electricity?",
+                    "Name two types of electricity."
+                ]
+            }
+        }
+    };
+
+    // Load selected topic's data
+    const selectedTopic = topicData[term][week];
+    videoFrame.src = selectedTopic.video;
+    noteContent.textContent = selectedTopic.note;
+    questionsList.innerHTML = selectedTopic.questions.map(q => `<li>${q}</li>`).join('');
+}
+
+</script>
+
+
 </body>
 </html>
