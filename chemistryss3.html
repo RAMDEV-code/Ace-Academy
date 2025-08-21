@@ -3,168 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Core Layout */
-#chemistry-section {
-  padding: 7rem 2rem 4rem;
-  background: #f0f3f8;
-  box-sizing: border-box;
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
 }
 
-#chemistry-section .subject-header h2 {
-  font-size: 2.5rem;
-  color: #1a2b4c;
-  text-align: center;
-  margin-bottom: 2rem;
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
+
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
 }
 
-#chemistry-section .term-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
 }
 
-#chemistry-section .term-btn {
-  background-color: #3f3b82;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
+
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
 }
 
-#chemistry-section .term-btn.active {
-  background-color: #ff5e57;
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
+
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
+
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
 }
 
-#chemistry-section .subject-layout {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
 }
 
-#chemistry-section .topics-menu {
-  flex: 1;
-  min-width: 240px;
-  background-color: #1f1a4f;
-  border-radius: 10px;
-  padding: 1rem;
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
 }
 
-#chemistry-section .topics-menu button {
-  display: block;
-  width: 100%;
-  background: #3f3b82;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.6rem;
-  border-radius: 6px;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
+
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
 }
 
-#chemistry-section .topics-menu button.active {
-  background-color: #ff5e57;
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
 }
 
-#chemistry-section .topics-menu button:hover {
-  background-color: #574fcf;
-}
-
-#chemistry-section .topic-content {
-  flex: 3;
-  min-width: 280px;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-/* Video Embed */
-.video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  margin-bottom: 2rem;
-}
-
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Worksheet */
-.worksheet-questions h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #3f3b82;
-}
-
-.worksheet-questions ul {
-  list-style-type: disc;
-  padding-left: 1.2rem;
-}
-
-.worksheet-questions li {
-  margin-bottom: 0.7rem;
-  color: #333;
-  font-size: 1rem;
-}
-
-/* Scroll animation */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease;
-}
-
-.animate-on-scroll.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  #chemistry-section .subject-layout {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 600px) {
-  #chemistry-section {
-    padding: 6rem 1rem 3rem;
-  }
-
-  #chemistry-section .term-btn {
-    width: 90%;
-    margin: 0.5rem auto;
-  }
-
-  #chemistry-section .topics-menu button {
-    font-size: 0.95rem;
-  }
-}
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -174,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -190,42 +168,1451 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section animate-on-scroll" id="chemistry-section">
-  <div class="subject-header">
-    <h2>CHEMISTRY</h2>
-  </div>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">CHEMISTRY</h1>
 
-  <div class="term-buttons">
-    <button class="term-btn active" data-term="first">First Term</button>
-    <button class="term-btn" data-term="second">Second Term</button>
-    <button class="term-btn" data-term="third">Third Term</button>
-  </div>
-
-  <div class="subject-layout">
-    <div class="topics-menu" id="chemistryTopicsList"></div>
-
-    <div class="topic-content">
-      <div class="video-wrapper">
-        <iframe id="chemistryVideoFrame" src="" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="worksheet-questions" id="chemistryQuestions">
-        <h3>Worksheet Questions</h3>
-        <ul></ul>
-      </div>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
-  </div>
-</section>
 
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Introduction to Chemistry
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Nature of Matter
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Elements
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Particulate Nature of Matter (Atomicity, Ions, Molecules)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Atomic Structure
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: The Relative Atomic Masses of Elements
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Compounds
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: IUPAC Nomenclature of Chemical Compounds
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-9" type="button">
+            Week 9: Mixture
+          </button>
+        </div>
+
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: INTRODUCTION TO MOLE CONCEPT I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: INTRODUCTION TO MOLE CONCEPT II
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: INTRODUCTION TO MOLE CONCEPT III.
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: CHEMICAL EQUATION & LAWS OF CHEMICAL COMBINATION
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: LAWS OF CHEMICAL COMBINATION (Law of Combining Volumes)
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: IONIC BONDING
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: COVALENT BONDING
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-8" type="button">
+            Week 8: KINETIC THEORY OF GAS/GAS LAWS I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-9" type="button">
+            Week 9: GAS LAWS I (General Gas Equation & Ideal Gas Equation)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-10" type="button">
+            Week 10: GAS LAWS II (Graham’s Law of Diffusion)
+          </button>
+        </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: ACIDS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: BASES AND ALKALIS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: SALTS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: ACIDITY AND ALKALINITY 
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: CARBON (Allotropes of Carbon)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: OXIDES OF CARBON
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: HYDROCARBONS I 
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-8" type="button">
+            Week 8: HYDROCARBONS II
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-9" type="button">
+            Week 9: CHEMICAL INDUSTRIES
+          </button>
+        </div>
+      </aside>
+ 
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
+    </div>
+  </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+        Chemistry is the branch of science that studies the composition, structure, properties, and changes of matter. It explains how substances interact, combine, and change into new materials. 
+Chemistry connects with physics, biology, agriculture, engineering, and medicine. It is divided into branches such as organic chemistry, inorganic chemistry, analytical chemistry, physical chemistry, and biochemistry. 
+The scientific method—observation, hypothesis, experiment, and conclusion—is key in chemistry. Chemistry plays vital roles in industries, food production, health, environmental protection, and technological development. Laboratory safety rules must always be followed to prevent accidents and injuries.
+      </pre>
+      <pre class="panel-worksheet">
+
+       1.Explain three ways chemistry relates to other sciences.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between organic and inorganic chemistry with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.State and explain four steps of the scientific method.
+—-------------------------------------------
+—-------------------------------------------
+4.List five applications of chemistry in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is observation important in chemical investigations?
+—-------------------------------------------
+—-------------------------------------------
+6.State three branches of chemistry and the main focus of each.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the importance of safety rules in chemical laboratories.
+—-------------------------------------------
+—-------------------------------------------
+8.Mention two adverse effect of chemistry.
+—-------------------------------------------
+—-------------------------------------------
+9.Give reasons why chemistry is called the “central science.”
+—-------------------------------------------
+—-------------------------------------------
+10.Describe two roles of chemistry in medicine and agriculture.
+—-------------------------------------------
+—-------------------------------------------
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+        Matter is anything that has mass and occupies space. It exists in three main states: solid, liquid, and gas, each with distinct particle arrangements and properties. Solids have fixed shapes and volumes; liquids have fixed volumes but take the shape of their container; gases have neither fixed shape nor volume. 
+Matter is made of tiny particles—atoms, molecules, or ions—held together by forces. Physical properties (colour, density, boiling point) and chemical properties (reactivity, flammability) describe matter. Matter can change state through melting, freezing, boiling, condensation, and sublimation, all influenced by temperature and pressure.
+</pre>
+      <pre class="panel-worksheet">
+        1.Define matter and state two characteristics.
+—-------------------------------------------
+—-------------------------------------------
+2.Compare and contrast solids, liquids, and gases in terms of particle arrangement and movement.
+—-------------------------------------------
+—-------------------------------------------
+3.Give two examples each of physical and chemical properties of matter.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the effect of heat on the arrangement of particles in solids.
+—-------------------------------------------
+—-------------------------------------------
+5.State two differences between physical and chemical changes.
+—-------------------------------------------
+—-------------------------------------------
+6.Describe sublimation with one example.
+—-------------------------------------------
+—-------------------------------------------
+7.How does temperature affect the state of matter?
+—-------------------------------------------
+—-------------------------------------------
+8.Give two differences between boiling and evaporation.
+—-------------------------------------------
+—-------------------------------------------
+9.Using the kinetic theory, explain why gases expand to fill their container.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss how pressure can change the boiling point of a liquid.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        An element is a pure substance made up of only one kind of atom, which cannot be broken down into simpler substances by chemical means. Each element is represented by a chemical symbol, usually derived from its English or Latin name. 
+Elements are classified as metals, non-metals, and metalloids based on their physical and chemical properties. Metals are generally shiny, good conductors, and malleable; non-metals are often dull, poor conductors, and brittle. 
+The periodic table arranges elements in order of increasing atomic number, grouping them by similar properties. Some elements occur naturally, while others are artificially made in laboratories.
+      </pre>
+      <pre class="panel-worksheet">
+
+        1.Define an element and give three examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between metals and non-metals in terms of three properties each.
+—-------------------------------------------
+—-------------------------------------------
+3.What is the significance of chemical symbols in chemistry?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the origin of the symbols for sodium, potassium, and iron.
+—-------------------------------------------
+—-------------------------------------------
+5.State two uses each of any three metals.
+—-------------------------------------------
+—-------------------------------------------
+6.Why are metalloids considered to have “dual” properties? Give two examples.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss how elements are arranged in the periodic table.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the difference between naturally occurring and synthetic elements.
+—-------------------------------------------
+—-------------------------------------------
+9.Give three differences between an element and a compound.
+—-------------------------------------------
+—-------------------------------------------
+10.Why is it important for chemists to use standard symbols for elements?
+—-------------------------------------------
+—-------------------------------------------
+      </pre>
+    </section>
+
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Matter is made of tiny particles: atoms, ions, and molecules. 
+Atomicity is the number of atoms in a molecule—monatomic (e.g., He), diatomic (e.g., O₂), triatomic (e.g., O₃), or polyatomic (e.g., P₄). 
+An atom is the smallest particle of an element that retains its properties. 
+Ions are charged particles formed when atoms lose or gain electrons: cations (positive) and anions (negative). 
+Molecules are two or more atoms chemically bonded together; they can be elements (H₂, O₂) or compounds (H₂O, CO₂). The behaviour of atoms, ions, and molecules determines the physical and chemical properties of substances.
+      </pre>
+      <pre class="panel-worksheet">
+
+1.Define atomicity and give four examples of molecules with different atomicities.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the difference between an atom and a molecule with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.What is an ion? Distinguish between cations and anions with examples.
+—-------------------------------------------
+—-------------------------------------------
+4.Give three examples each of monatomic, diatomic, and polyatomic molecules.
+—-------------------------------------------
+—-------------------------------------------
+5.How do molecules of elements differ from molecules of compounds?
+—-------------------------------------------
+—-------------------------------------------
+6.State the relationship between atomicity and molecular mass.
+—-------------------------------------------
+—-------------------------------------------
+7.Describe how ions are formed from neutral atoms.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why noble gases exist as monatomic molecules.
+—-------------------------------------------
+—-------------------------------------------
+9.Give three examples of compounds that exist as diatomic molecules.
+—-------------------------------------------
+—-------------------------------------------
+10.How do atoms, ions, and molecules contribute to the structure of matter?
+—-------------------------------------------
+—-------------------------------------------
+    </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Atoms are the smallest units of matter that retain the properties of an element. They consist of three subatomic particles: protons (positively charged, found in the nucleus), neutrons (neutral, also in the nucleus), and electrons (negatively charged, orbiting the nucleus). 
+The atomic number (Z) equals the number of protons, determining the element’s identity. The mass number (A) equals protons plus neutrons. Electrons occupy energy levels or shells, arranged according to the 2n² rule. The nucleus contains most of the atom’s mass, while electrons determine its chemical properties. Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons. The modern atomic theory builds on Dalton’s ideas, refined by discoveries from Rutherford, Bohr, and quantum mechanics.
+      </pre>
+      <pre class="panel-worksheet">
+1.Define atomic number and explain its significance in identifying an element.
+—-------------------------------------------
+—-------------------------------------------
+2.Calculate the number of neutrons in an atom with mass number 23 and atomic number 11.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between isotopes and isobars with one example each.
+—-------------------------------------------
+—-------------------------------------------
+4.State two limitations of Dalton’s atomic theory.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe Rutherford’s gold foil experiment and its conclusions.
+—-------------------------------------------
+—-------------------------------------------
+6.Write the electronic configuration of Neon (Z = 10) sulfur (Z = 16), Calcium (Z = 20).
+—-------------------------------------------
+—-------------------------------------------
+7.Why is the nucleus considered the densest part of the atom?
+—-------------------------------------------
+—-------------------------------------------
+8.Calculate the total number of proton, neutron and electron in the following atoms Aluminium-27, Iron-56, Chlorine-35 
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the relationship between atomic number, mass number, and neutron number.
+—-------------------------------------------
+—-------------------------------------------
+10.Draw and label a simple diagram of an atom showing protons, neutrons, and electrons.
+—-------------------------------------------
+—-------------------------------------------
+    </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Relative Atomic Mass (Aᵣ) is the weighted average mass of an element’s atoms compared to 1/12 the mass of a carbon-12 atom. It accounts for the natural abundance of isotopes. The unit used is atomic mass unit (amu), where 1 amu = 1/12 of the mass of carbon-12. 
+To calculate Relative atomic mass, Aᵣ, multiply each isotope’s mass by its percentage abundance, sum the results, and divide by 100. For example, chlorine has isotopes Cl-35 (75%) and Cl-37 (25%), giving Aᵣ = (35 × 75 + 37 × 25) ÷ 100 = 35.5. Relative Atomic Mass is dimensionless and used in chemical equations for molar calculations. It is different from atomic mass, which refers to the actual mass in kilograms.
+      </pre>
+      <pre class="panel-worksheet">
+1.Define relative atomic mass and state its reference standard.
+—-------------------------------------------
+—-------------------------------------------
+2.Why is relative atomic mass not always a whole number?
+—-------------------------------------------
+—-------------------------------------------
+3.Calculate the R.A,M of bromine with Br-79 (50.7%) and Br-81 (49.3%).
+—-------------------------------------------
+—-------------------------------------------
+4.State the difference between relative atomic mass and mass number.
+—-------------------------------------------
+—-------------------------------------------
+5.What is the significance of using carbon-12 as the standard?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the term “weighted average” in the context of atomic masses.
+—-------------------------------------------
+—-------------------------------------------
+7.Calculate the Aᵣ of copper with Cu-63 (69.2%) and Cu-65 (30.8%).
+—-------------------------------------------
+—-------------------------------------------
+8.If magnesium has isotopes Mg-24, Mg-25, Mg-26 in abundances 79%, 10%, 11%, find the R.A.M
+—-------------------------------------------
+—-------------------------------------------
+9.How is the concept of Aᵣ used in determining molar masses?
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss how mass spectrometry helps in determining relative atomic mass.
+—-------------------------------------------
+—-------------------------------------------
+     </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A compound is a pure substance formed when two or more elements chemically combine in a fixed ratio. The properties of a compound differ from those of its constituent elements. Compounds can be molecular (covalent) or ionic, depending on the type of bonding. Molecular compounds share electrons, while ionic compounds transfer electrons. 
+The smallest unit of a molecular compound is a molecule, whereas that of an ionic compound is a formula unit. Compounds have definite chemical formulas and can only be separated into elements by chemical means. Examples include water (H₂O) and sodium chloride (NaCl). The law of definite proportions states that a chemical compound always contains the same proportion of elements by mass.
+Some examples of chemical compounds
+Water – H₂O
+Carbon dioxide – CO₂
+Sodium chloride (table salt) – NaCl
+Ammonia – NH₃
+Calcium carbonate – CaCO₃
+Sulfuric acid – H₂SO₄
+Glucose – C₆H₁₂O₆
+
+      </pre>
+      <pre class="panel-worksheet">
+1.Define a compound and give two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between a compound and a mixture.
+—-------------------------------------------
+—-------------------------------------------
+3.State two properties of ionic compounds and two of covalent compounds.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the law of definite proportions with an example.
+—-------------------------------------------
+—-------------------------------------------
+5.Write the formula of a compound formed from aluminum and oxygen.
+—-------------------------------------------
+—-------------------------------------------
+6.How can compounds be broken down into their elements?
+—-------------------------------------------
+—-------------------------------------------
+7.Describe two differences between molecular and ionic compounds.
+—-------------------------------------------
+—-------------------------------------------
+8.Why do the properties of a compound differ from its constituent elements?
+—-------------------------------------------
+—-------------------------------------------
+9.Give one example each of an organic and an inorganic compound.
+—-------------------------------------------
+—-------------------------------------------
+10.Write the names and formulas of two compounds used in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+      </pre>
+
+    <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+IUPAC nomenclature is a standardized system for naming chemical compounds to avoid ambiguity. 
+Rules for Naming Compounds
+1. Binary Compounds (Contain two different elements)
+Name the metal (positive ion) first, then the non-metal (negative ion).
+Change the ending of the non-metal to “-ide”.
+If both elements are non-metals, use prefixes (mono-, di-, tri-, etc.) to show the number of atoms.
+No prefix “mono-” for the first element’s name.
+ Examples:
+NaCl → Sodium chloride
+CO₂ → Carbon dioxide
+
+
+2. Ternary Compounds (Contain three or more different elements)
+Often contain a polyatomic ion (e.g., SO₄²⁻, NO₃⁻, CO₃²⁻).
+Name the metal (or positive ion) first, then the polyatomic ion as it appears.
+If the metal has more than one charge, write its charge in Roman numerals.
+For acids or bases, follow special naming rules (e.g., H₂SO₄ → Sulfuric acid).
+ Examples:
+KNO₃ → Potassium nitrate
+FeSO₄ → Iron(II) sulfate
+
+
+Complex compounds and organic compounds have their own systematic naming methods.
+  </pre>
+      <pre class="panel-worksheet">
+1.State the meaning of IUPAC.
+—-------------------------------------------
+—-------------------------------------------
+2.Give the IUPAC names of Na₂O, CaCl₂, and Fe₂O₃.
+—-------------------------------------------
+—-------------------------------------------
+3.Name P₂O₅ and N₂O₃ using covalent compound rules.
+—-------------------------------------------
+—-------------------------------------------
+4.Write the formula for potassium nitrate and magnesium hydroxide.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why Roman numerals are used in naming some compounds.
+—-------------------------------------------
+—-------------------------------------------
+6.Give the IUPAC name of CuSO₄·5H₂O.
+—-------------------------------------------
+—-------------------------------------------
+7.Name two acids and give their formulas.
+—-------------------------------------------
+—-------------------------------------------
+8.Convert the following common names to IUPAC: baking soda, quicklime.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between the naming of covalent and ionic compounds.
+—-------------------------------------------
+—-------------------------------------------
+10.Write the names of NH₃, CH₄, and HNO₃.
+—-------------------------------------------
+—-------------------------------------------
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-9">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A mixture is a physical combination of two or more substances that are not chemically bonded. The components retain their individual properties and can be separated by physical methods such as filtration, distillation, evaporation, or chromatography. 
+Mixtures can be homogeneous (uniform composition, e.g., salt solution) or heterogeneous (non-uniform composition, e.g., sand in water). Unlike compounds, mixtures have no fixed ratio of components. Alloys, such as brass and bronze, are examples of solid mixtures. Air is a gaseous mixture. The properties of mixtures depend on the properties of their constituents, and no chemical change occurs in their formation.
+Some examples of mixtures and their constituents
+Air – nitrogen, oxygen, carbon dioxide, water vapour, and other gases
+Salt water – salt (sodium chloride) and water
+Steel – iron and carbon (sometimes other metals like chromium)
+Fruit salad – apples, bananas, oranges, grapes, and other fruits
+Sand and salt – sand and salt
+Oil and water – oil and water
+Milk – water, fats, proteins, minerals, and sugars
+   </pre>
+      <pre class="panel-worksheet">
+1.Define a mixture and state two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between homogeneous and heterogeneous mixtures.
+—-------------------------------------------
+—-------------------------------------------
+3.Give three differences between mixtures and compounds.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why the composition of a mixture is not fixed.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe one method to separate salt from seawater.
+—-------------------------------------------
+—-------------------------------------------
+6.Why does air qualify as a mixture?
+—-------------------------------------------
+—-------------------------------------------
+7.Give two examples of alloys and state their components.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe the principle of chromatography in separating mixtures.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why mixtures retain the properties of their components.
+—-------------------------------------------
+—-------------------------------------------
+10.State one advantage and one disadvantage of mixtures in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+    </pre>
+    </section>
+    
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+        (Calculating Relative Molecular Mass, Percentage Composition by Mass, Empirical & Molecular Formula)
+The mole is the amount of substance containing 6.022 × 10²³ particles (Avogadro’s number).
+Relative molecular mass (Mᵣ) is the sum of the relative atomic masses of all atoms in a molecule.
+Example: Mᵣ of H₂O = 2(1.0) + 16.0 = 18.0.
+Percentage composition by mass:
+ % by mass = (Mass of element ÷ Molar mass of compound) × 100.
+Empirical formula shows the simplest whole-number ratio of atoms in a compound.
+Steps to find empirical formula:
+ ① Find mass (or % mass) of each element.
+ ② Convert mass to moles.
+ ③ Divide all mole values by the smallest mole value.
+ ④ Multiply to get whole numbers if needed.
+Molecular formula = Empirical formula × n, where n = Molar mass ÷ Empirical formula mass.
+Empirical and molecular formulas are essential in chemical analysis.
+      </pre>
+      <pre class="panel-worksheet">1.Calculate Mᵣ of Na₂SO₄.
+—-------------------------------------------
+—-------------------------------------------
+2.A compound contains 40% C, 6.7% H, and 53.3% O. Find its empirical formula.
+—-------------------------------------------
+—-------------------------------------------
+3.The empirical formula of a compound is CH₂, molar mass = 56 g/mol. Find the molecular formula.
+—-------------------------------------------
+—-------------------------------------------
+4.Calculate the % composition by mass of each element in Al₂(SO₄)₃.
+—-------------------------------------------
+—-------------------------------------------
+5.Determine the empirical formula of a compound containing 70% Fe and 30% O.
+—-------------------------------------------
+—-------------------------------------------
+6.Find the molecular formula of a compound with empirical formula CH and molar mass 78 g/mol.
+—-------------------------------------------
+—-------------------------------------------
+7.Calculate the % by mass of H in glucose (C₆H₁₂O₆).
+—-------------------------------------------
+—-------------------------------------------
+8.A hydrocarbon contains 85.7% C and 14.3% H. Find its empirical formula.
+—-------------------------------------------
+—-------------------------------------------
+9.Molar mass = 180 g/mol, empirical formula mass = 60 g/mol. Find molecular formula.
+—-------------------------------------------
+—-------------------------------------------
+10.Determine the empirical formula of a compound containing 63% Mn and 37% O.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">The mole is the standard unit for measuring the amount of a substance in chemistry. One mole is defined as the quantity containing 6.022 × 10²³ particles — atoms, molecules, or ions — and is based on the number of atoms in exactly 12 g of carbon-12.
+The number of moles (n) can be calculated from the relationship:
+n = mass ÷ molar mass
+For example, the molar mass of water (H₂O) is 18 g/mol. If we have 18 g of water, then:
+n = 18 ÷ 18 = 1 mole
+
+The mole–volume relationship applies to gases. At Standard Temperature and Pressure (STP), 1 mole of any gas occupies 22.4 dm³. This means that the volume of a gas can be calculated using:
+V = n × 22.4
+For example, 2 moles of oxygen gas (O₂) will occupy:
+V = 2 × 22.4 = 44.8 dm³
+
+Moles can also be determined from the number of particles using:
+n = number of particles ÷ 6.022 × 10²³
+For example, 1.204 × 10²⁴ molecules of carbon dioxide (CO₂) correspond to:
+n = (1.204 × 10²⁴) ÷ (6.022 × 10²³) = 2 moles
+</pre>
+      <pre class="panel-worksheet">
+1.Find n in 18 g H₂O.
+—-------------------------------------------
+—-------------------------------------------
+2.Find the mass of 0.25 mol CO₂.
+—-------------------------------------------
+—-------------------------------------------
+3.Volume at STP of 2.5 mol O₂.
+—-------------------------------------------
+—-------------------------------------------
+4.Moles in 44.8 dm³ N₂ at STP.
+—-------------------------------------------
+—-------------------------------------------
+5.Mass of 3.0 mol NaOH.
+—-------------------------------------------
+—-------------------------------------------
+6.Molecules in 0.5 mol CH₄.
+—-------------------------------------------
+—-------------------------------------------
+7.Mass of 0.1 mol H₂SO₄.
+—-------------------------------------------
+—-------------------------------------------
+8.Moles in 33.6 dm³ H₂ at STP.
+—-------------------------------------------
+—-------------------------------------------
+9.Mass of 5.6 dm³ gas (M = 28 g/mol) at STP.
+—-------------------------------------------
+—-------------------------------------------
+10.Volume of 1.5 mol Cl₂ at STP.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ A balanced chemical equation gives mole ratios; these ratios, combined with mass or volume conversions, allow calculation of moles of reactants or products.
+ Procedure: 
+① Write and balance the equation; 
+② Convert known mass/volume to moles (n = mass ÷ Mr or n = volume ÷ 22.4 dm³ at STP); 
+③ Use mole ratio from the equation to find unknown moles; 
+④ Convert moles back to mass or volume if required.
+Example 1 — Mass to mass: 8.0 g H₂ reacts with excess O₂ to form H₂O; 
+balanced equation: 2H₂ + O₂ → 2H₂O.
+ ① Step 1: Convert H₂ mass to moles: Mr(H₂) = 2.0, n(H₂) = 8.0 ÷ 2.0 = 4.0 mol.
+ ② Step 2: Use mole ratio from the equation: 2 mol H₂ produce 2 mol H₂O, so n(H₂O) = 4.0 mol.
+ ③ Step 3: Convert moles H₂O to mass: Mr(H₂O) = 18.0, mass = n × Mr = 4.0 × 18.0 = 72.0 g; therefore 72.0 g H₂O formed.
+Example 2 — Mass to volume (gas at STP): 2.00 g C burns in excess O₂ to give CO₂; 
+balanced equation: C + O₂ → CO₂.
+ ① Step 1: Convert carbon mass to moles: Mr(C) = 12.0, n(C) = 2.00 ÷ 12.0 = 0.1667 mol.
+ ② Step 2: Mole ratio 1 C : 1 CO₂ so n(CO₂) = 0.1667 mol and volume at STP = n × 22.4 dm³ = 0.1667 × 22.4 = 3.73 dm³ (to three s.f.).
+</pre>
+      <pre class="panel-worksheet">
+1.2H₂ + O₂ → 2H₂O: calculate the mass of water produced from 8 g of hydrogen.
+—-------------------------------------------
+—-------------------------------------------
+2.N₂ + 3H₂ → 2NH₃: find the mass of ammonia from 28 g of nitrogen,N₂.
+—-------------------------------------------
+—-------------------------------------------
+3.2Na + Cl₂ → 2NaCl: calculate the mass of sodium chloride from 4.6 g of sodium, Na.
+—-------------------------------------------
+—-------------------------------------------
+4.Determine the volume of CO₂ at STP produced from 10 g of CaCO₃ decomposition.
+—-------------------------------------------
+—-------------------------------------------
+5.2Mg + O₂ → 2MgO: calculate the mass of MgO from 24 g of Mg.
+—-------------------------------------------
+—-------------------------------------------
+6.C₃H₈ + 5O₂ → 3CO₂ + 4H₂O: determine the volume of CO₂ from 44 g of propane at STP. C₃H₈.
+—-------------------------------------------
+—-------------------------------------------
+7.2KClO₃ → 2KCl + 3O₂: find the mass of oxygen from 49 g of potassium chlorate KClO₃.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+        Chemical equation: symbolic representation of a reaction.
+Must be balanced to obey Law of Conservation of Mass: total mass of reactants = total mass of products.
+Law of Definite Proportions: a compound has fixed mass ratios of elements.
+Law of Multiple Proportions: masses of one element combining with a fixed mass of another are in simple whole-number ratios.
+Law of Reciprocal Proportions: elements combine in ratios related to their ratios with a third element.
+Gay-Lussac’s Law of Combining Volumes: gaseous reactants/products combine in simple whole-number volume ratios (at constant T and P).
+      </pre>
+      <pre class="panel-worksheet">
+1.State the Law of Conservation of Mass + example.
+—-------------------------------------------
+—-------------------------------------------
+2.Balance: Na + H₂O → NaOH + H₂.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain Law of Definite Proportions + example.
+—-------------------------------------------
+—-------------------------------------------
+4.Give example of Law of Multiple Proportions.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain Gay-Lussac’s Law + example.
+—-------------------------------------------
+—-------------------------------------------
+6.Difference between reactants & products.
+—-------------------------------------------
+—-------------------------------------------
+7.Balance the equation : CH₄ + O₂ → CO₂ + H₂O.
+—-------------------------------------------
+—-------------------------------------------
+8.State the Significance of Law of Reciprocal Proportions.
+—-------------------------------------------
+—-------------------------------------------
+9.State the meaning of the following description in a chemical equation s, aq, l, g.
+—-------------------------------------------
+—-------------------------------------------
+10.Balance: Fe + H₂SO₄ → Fe₂(SO₄)₃ + H₂.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Gay-Lussac’s Law of Combining Volumes states that when gases react together at the same temperature and pressure, the volumes of the reacting gases and the volumes of the gaseous products (if gaseous) are in simple whole number ratios. These ratios are determined directly from the balanced chemical equation. This law is useful in calculating residual gases and unreacted gases in reactions where one reactant is in excess.
+Example 1 – Calculating Residual Gas
+ Reaction: H2 + Cl2→2HCl
+Balanced equation shows 1 volume of H2H₂H2​ reacts with 1 volume of Cl₂​.
+Suppose 50 cm³ of H₂​ is mixed with 80 cm³ of Cl₂​
+ From the ratio 1:1, 50 cm³ of H₂​ will react with 50 cm³ of Cl₂​.
+The H₂​ is completely used, leaving 80−50 = 30 80 - 50 = 30 Cl₂​ unreacted.
+Total gas after reaction = unreacted Cl2Cl₂Cl2​ + 2 volumes of HCl formed = 30 cm³ Cl₂​ + 100 cm³ HCl = 130 cm³.
+Example 2 – Calculating Unreacted Gas and Residual Volume
+ Reaction: 2H₂ + O₂ → 2H₂O
+Balanced equation shows 2 volumes of H₂​ react with 1 volume of O₂​.
+Suppose 60 cm³ of H₂​ is mixed with 60 cm³ of O₂​.
+From the ratio 2:1, 60 cm³ of H₂​ requires 30 cm³ of O₂​.
+This leaves 60 − 30 = 30cm³ of O₂​ unreacted.
+Since H₂O is liquid at room temperature, total residual gas = 30 cm³ of O₂​ only.
+</pre>
+      <pre class="panel-worksheet">
+1.In the reaction H2+Cl2→2HCl, 40 cm³ of H₂​ is mixed with 60 cm³ of Cl₂​. Calculate the volume of each gas remaining after the reaction and the total volume of gas.
+—-------------------------------------------
+—-------------------------------------------
+2.In the reaction H₂ + O₂ ​→2H2​O, 50 cm³ of H₂​ is mixed with 50 cm³ of O₂​. Calculate the volume of residual gas after the reaction, assuming water is liquid at room temperature.
+—-------------------------------------------
+—-------------------------------------------
+3.For the reaction N₂ + 3H₂ →2NH3​, 30 cm³ of N₂​ is mixed with 90 cm³ of H₂​. Find the volume of ammonia formed and the volume of any unreacted gas.
+—-------------------------------------------
+—-------------------------------------------
+4.In the combustion of carbon monoxide CO + O₂ ​→2CO2​, 80 cm³ of CO is mixed with 50 cm³ of O₂​. Determine the limiting reactant, unreacted gas, and total gas volume after reaction.
+—-------------------------------------------
+—-------------------------------------------
+5.Reaction: CH₄ + 2O₂ ​→CO2 ​+ 2H2​O. If 40 cm³ of methane is mixed with 100 cm³ of oxygen, calculate the volume of gases remaining after reaction, assuming water is liquid.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemical bonding refers to the force that holds atoms or ions together in compounds. Atoms combine to achieve a stable electronic configuration, often a noble gas configuration, through the transfer or sharing of electrons. There are different types of bonds, with ionic bonding being one of the most common.
+Ionic bonding occurs when electrons are completely transferred from one atom to another, usually between metals and non-metals. Metals lose electrons to form positively charged ions (cations), while non-metals gain electrons to form negatively charged ions (anions). The electrostatic attraction between these oppositely charged ions forms the ionic bond.
+A classic example is sodium chloride (NaCl). Sodium (Na) has an electronic configuration of 2,8,1 and loses one electron to chlorine (Cl), which has 2,8,7, forming Na⁺ and Cl⁻ ions. These ions are held together in a giant lattice structure.
+Properties of ionic compounds include high melting and boiling points due to strong electrostatic forces, solubility in polar solvents like water, and electrical conductivity in molten or aqueous states but not in solid state.
+</pre>
+      <pre class="panel-worksheet">
+1.Define chemical bonding and state its purpose in atoms.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the process of ionic bond formation between magnesium and chlorine with diagrams.
+—-------------------------------------------
+—-------------------------------------------
+3.Why do ionic compounds have high melting points?
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the lattice structure of sodium chloride.
+—-------------------------------------------
+—-------------------------------------------
+5.Write the electron configuration of Na⁺ and Cl⁻ in NaCl.
+—-------------------------------------------
+—-------------------------------------------
+6.Compare the electrical conductivity of solid NaCl and molten NaCl.
+—-------------------------------------------
+—-------------------------------------------
+7.Give two differences between ionic and covalent bonds.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why ionic compounds are soluble in water.
+—-------------------------------------------
+—-------------------------------------------
+9.Predict the formula of the ionic compound formed between calcium and oxygen.
+—-------------------------------------------
+—-------------------------------------------
+10.Describe the role of electrostatic forces in ionic bonding.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Covalent bonding occurs when two atoms share one or more pairs of electrons to achieve stability. This bond usually occurs between non-metal atoms with similar electronegativities. The shared electrons are attracted to the nuclei of both atoms.
+There are single, double, and triple covalent bonds. A single bond involves one shared pair of electrons (e.g., H₂), a double bond has two shared pairs (e.g., O₂), and a triple bond has three shared pairs (e.g., N₂). Each shared pair is represented by a line in structural formulas.
+Examples include water (H₂O), where oxygen shares electrons with two hydrogen atoms, and carbon dioxide (CO₂), where carbon forms double bonds with each oxygen atom.
+Properties of covalent compounds include low melting and boiling points due to weak intermolecular forces, poor electrical conductivity (since no free ions exist), and varied solubility — they may dissolve in non-polar solvents but not in water.</pre>
+      <pre class="panel-worksheet">
+1.Define covalent bonding and state two conditions for its formation.
+—-------------------------------------------
+—-------------------------------------------
+2.Draw the electron-dot structure of methane (CH₄).
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between single, double, and triple covalent bonds with examples.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why covalent compounds generally have low melting points.
+—-------------------------------------------
+—-------------------------------------------
+5.Give two examples of polar covalent molecules.
+—-------------------------------------------
+—-------------------------------------------
+6.Compare the electrical conductivity of covalent and ionic compounds.
+—-------------------------------------------
+—-------------------------------------------
+7.Draw the Lewis structure for carbon dioxide.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe the bond formation in oxygen gas (O₂).
+—-------------------------------------------
+—-------------------------------------------
+9.Why are covalent bonds strong but their compounds often soft?
+—-------------------------------------------
+—-------------------------------------------
+10.Predict the number of covalent bonds nitrogen will form.
+—-------------------------------------------
+—-------------------------------------------
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The kinetic theory of matter states that matter is made up of particles (atoms or molecules) in constant motion. For gases, this motion explains gas laws.
+Boyle’s Law states that for a fixed mass of gas at constant temperature, the pressure is inversely proportional to its volume:
+ P₁V₁ = P₂V₂.
+Example: A gas has a volume of 200 cm³ at a pressure of 100 kPa. What is its volume at 250 kPa?
+ Solution: P₁V₁ = P₂V₂
+ 100 × 200 = 250 × V₂
+ V₂ = (100 × 200) / 250 = 80 cm³.
+Charles’s Law states that at constant pressure, the volume of a fixed mass of gas is directly proportional to its absolute temperature (K):
+ V₁/T₁ = V₂/T₂.
+Example: A gas at 27°C (300 K) occupies 500 cm³. What is its volume at 77°C (350 K)?
+ Solution: V₂ = (500 × 350) / 300 = 583.3 cm³.</pre>
+      <pre class="panel-worksheet">
+1.State Boyle’s Law and its mathematical expression.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the particle theory behind Boyle’s Law.
+—-------------------------------------------
+—-------------------------------------------
+3.A gas occupies 250 cm³ at 80 kPa. Find its volume at 100 kPa (T constant).
+—-------------------------------------------
+—-------------------------------------------
+4.Define Charles’s Law and its mathematical expression.
+—-------------------------------------------
+—-------------------------------------------
+5.Why must temperatures be in Kelvin when applying Charles’s Law?
+—-------------------------------------------
+—-------------------------------------------
+6.A gas has a volume of 2.5 L at 300 K. Find its volume at 360 K (P constant).
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why gas volume increases with temperature at constant pressure.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe a laboratory experiment to verify Boyle’s Law.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain how kinetic theory supports Charles’s Law.
+—-------------------------------------------
+—-------------------------------------------
+10.Derive the relationship between gas volume and absolute temperature.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ The general gas equation combines Boyle’s and Charles’s laws:
+ (P₁V₁) / T₁ = (P₂V₂) / T₂.
+ It is used when both temperature and pressure change for a fixed mass of gas.
+Example: A gas occupies 400 cm³ at 100 kPa and 27°C (300 K). What is its volume at 80 kPa and 77°C (350 K)?
+ Solution:
+ (100 × 400) / 300 = (80 × V₂) / 350
+ (40000 / 300) = (80 × V₂) / 350
+ 133.33 = (80 × V₂) / 350
+ 80 × V₂ = 46666.67
+ V₂ = 583.33 cm³.
+The ideal gas equation is PV = nRT, where:
+ P = pressure (Pa), V = volume (m³), n = moles, R = 8.314 J mol⁻¹K⁻¹, T = temperature (K).
+Example: Calculate the pressure exerted by 2 moles of gas in a 5 L container at 300 K.
+ Solution: V = 0.005 m³
+ P = (nRT) / V = (2 × 8.314 × 300) / 0.005 = 997,680 Pa or 997.68 kPa.
+</pre>
+      <pre class="panel-worksheet">
+1.State the general gas equation.
+—-------------------------------------------
+—-------------------------------------------
+2.A gas occupies 3 L at 200 kPa and 300 K. Find its volume at 150 kPa and 350 K.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the general gas equation from Boyle’s and Charles’s laws.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the value of R in SI units?
+—-------------------------------------------
+—-------------------------------------------
+5.1 mole of gas occupies 22.4 L at STP. Verify this using PV = nRT.
+—-------------------------------------------
+—-------------------------------------------
+6.Calculate the number of moles in 2 L of gas at 500 kPa and 400 K.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why the general gas equation is more versatile than Boyle’s Law alone.
+—-------------------------------------------
+—-------------------------------------------
+8.A 10 L cylinder contains 5 moles of oxygen at 300 K. Find the pressure.
+—-------------------------------------------
+—-------------------------------------------
+9.Convert 37°C to Kelvin before using in gas law calculations. Show working.
+—-------------------------------------------
+—-------------------------------------------
+10.State two assumptions of the ideal gas model.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-10">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Graham’s Law states that the rate of diffusion of a gas is inversely proportional to the square root of its molar mass:
+ Rate₁ / Rate₂ = √(M₂ / M₁).
+This means lighter gases diffuse faster than heavier gases. Diffusion is the spreading of gas particles from a region of higher concentration to lower concentration due to random motion.
+Example: Compare the rate of diffusion of hydrogen (M = 2 g/mol) to oxygen (M = 32 g/mol).
+ Rate_H₂ / Rate_O₂ = √(32 / 2) = √16 = 4.
+ So, hydrogen diffuses four times faster than oxygen.
+Example: If gas A has a molar mass of 44 g/mol and gas B has a molar mass of 4 g/mol,
+ Rate_A / Rate_B = √(4 / 44) = √(0.0909) ≈ 0.302.
+ Gas B diffuses about 3.31 times faster than gas A.
+Graham’s Law is important in separating isotopes and in effusion studies.
+</pre>
+      <pre class="panel-worksheet">
+1.State Graham’s Law of Diffusion mathematically.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why lighter gases diffuse faster than heavier gases.
+—-------------------------------------------
+—-------------------------------------------
+3.Calculate the rate ratio between helium (M = 4) and nitrogen (M = 28).
+—-------------------------------------------
+—-------------------------------------------
+4.Hydrogen gas escapes from a container in 10 s. How long will it take oxygen to escape under the same conditions?
+—-------------------------------------------
+—-------------------------------------------
+5.Derive Graham’s Law from kinetic theory principles.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is temperature assumed constant in Graham’s Law?
+—-------------------------------------------
+—-------------------------------------------
+7.Compare the diffusion rate of methane (M = 16) to CO₂ (M = 44).
+—-------------------------------------------
+—-------------------------------------------
+8.Explain a real-life application of Graham’s Law.
+—-------------------------------------------
+—-------------------------------------------
+9.Two gases have rates of diffusion in the ratio 3:1. Find the ratio of their molar masses.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss how molecular mass affects effusion speed.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Acids are substances that produce hydrogen ions (H⁺) when dissolved in water. They have a sour taste and turn blue litmus paper red. Common examples include hydrochloric acid (HCl), sulfuric acid (H₂SO₄), and citric acid.
+Acids are classified into strong acids (completely ionize in water, e.g., HCl) and weak acids (partially ionize, e.g., ethanoic acid). They can be organic (carbon-based) or inorganic (mineral acids).
+Acids react with metals to produce salt and hydrogen gas, with carbonates to produce salt, carbon dioxide, and water, and with alkalis to form salts and water (neutralization).
+The strength of an acid depends on its degree of ionization. Acids are measured on the pH scale, with values less than 7. Concentrated acids are corrosive and must be handled with care.
+Acids are used in industry for manufacturing fertilizers, dyes, batteries, and cleaning agents.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain why hydrochloric acid is considered a strong acid while ethanoic acid is weak.
+—-------------------------------------------
+—-------------------------------------------
+2.Write the balanced equation for the reaction between sulfuric acid and sodium hydroxide.
+—-------------------------------------------
+—-------------------------------------------
+3.How does an acid react with zinc? Include the ionic equation.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between organic and inorganic acids with two examples each.
+—-------------------------------------------
+—-------------------------------------------
+5.State three industrial uses of acids.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain why concentrated acids are diluted before laboratory use.
+—-------------------------------------------
+—-------------------------------------------
+7.What is the pH of a 0.001 M HCl solution?
+—-------------------------------------------
+—-------------------------------------------
+8.Compare the ionization of nitric acid and citric acid.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is phenolphthalein not suitable for titrating weak acids against weak bases?
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why acids conduct electricity in aqueous solution.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Bases are substances that react with acids to form salts and water. They are proton acceptors according to the Brønsted-Lowry definition. Alkalis are bases that are soluble in water and produce hydroxide ions (OH⁻).
+Common bases include sodium hydroxide (NaOH), calcium hydroxide (Ca(OH)₂), and ammonia (NH₃). Alkalis include NaOH, KOH, and Ca(OH)₂.
+Bases feel slippery to touch and turn red litmus paper blue. They can be strong (fully ionize in water) or weak (partially ionize).
+Bases react with acids in neutralization reactions, with ammonium salts to release ammonia gas, and with some metals to form complex compounds.
+They are used in making soap, paper, cleaning agents, and neutralizing acidic soils. Some bases, such as quicklime, are used in building.
+</pre>
+      <pre class="panel-worksheet">
+1.Distinguish between a base and an alkali with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Write the balanced equation for the reaction between NaOH and H₂SO₄.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why ammonia solution is considered a weak alkali.
+—-------------------------------------------
+—-------------------------------------------
+4.How do bases react with ammonium salts? Give an equation.
+—-------------------------------------------
+—-------------------------------------------
+5.State two laboratory tests for alkalis.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is NaOH considered more corrosive than Ca(OH)₂?
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why alkalis can conduct electricity.
+—-------------------------------------------
+—-------------------------------------------
+8.What is the product when sodium hydroxide reacts with zinc?
+—-------------------------------------------
+—-------------------------------------------
+9.Give three industrial uses of bases.
+—-------------------------------------------
+—-------------------------------------------
+10.Describe the ionization process of potassium hydroxide in water.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Salts are ionic compounds formed when the hydrogen ion in an acid is replaced by a metal ion or ammonium ion. Examples include sodium chloride (NaCl), copper(II) sulfate (CuSO₄), and ammonium nitrate (NH₄NO₃).
+Salts are classified as normal salts, acid salts, basic salts, and double salts depending on their composition. They may be soluble (e.g., NaNO₃) or insoluble (e.g., BaSO₄).
+Salts can be prepared by neutralization, precipitation, or direct combination of elements. The preparation method depends on the solubility of the salt.
+Common properties of salts include high melting points, electrical conductivity in molten or aqueous states, and crystalline structure.
+Uses of salts include food preservation (NaCl), fertilizers (NH₄NO₃), and electroplating (AgNO₃).
+</pre>
+      <pre class="panel-worksheet">
+1.Define a salt and give three examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between normal and acid salts with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.Write the balanced equation for the reaction between HCl and Na₂CO₃.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why BaSO₄ is insoluble in water.
+—-------------------------------------------
+—-------------------------------------------
+5.Outline two methods for preparing soluble salts.
+—-------------------------------------------
+—-------------------------------------------
+6.State two physical properties of salts and explain their causes.
+—-------------------------------------------
+—-------------------------------------------
+7.Why are salts generally crystalline solids?
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the role of salts in agriculture.
+—-------------------------------------------
+—-------------------------------------------
+9.What type of salt is NaHCO₃? Justify your answer.
+—-------------------------------------------
+—-------------------------------------------
+10.Describe how silver chloride can be prepared in the laboratory.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Acidity and alkalinity describe the concentration of hydrogen ions (H⁺) and hydroxide ions (OH⁻) in a solution. The pH scale, ranging from 0 to 14, measures this concentration.
+Solutions with pH less than 7 are acidic, pH equal to 7 is neutral, and pH greater than 7 is alkaline. Strong acids have pH close to 0, while strong alkalis have pH close to 14.
+Indicators such as litmus, methyl orange, and phenolphthalein are used to determine acidity or alkalinity. Universal indicator and pH meters provide more accurate measurements.
+Acidity in soils can affect crop yield; liming with CaO or Ca(OH)₂ can reduce acidity. Water bodies with extreme pH values can harm aquatic life.
+Control of acidity and alkalinity is essential in industries such as food processing, pharmaceuticals, and water treatment.
+</pre>
+      <pre class="panel-worksheet">
+1.Define pH and explain its significance.
+—-------------------------------------------
+—-------------------------------------------
+2.What is the pH of a neutral solution at 25°C?
+—-------------------------------------------
+—-------------------------------------------
+3.Describe the use of universal indicator in determining acidity.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why rainwater is slightly acidic.
+—-------------------------------------------
+—-------------------------------------------
+5.How can soil acidity be corrected?
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between strong and weak acids using pH values.
+—-------------------------------------------
+—-------------------------------------------
+7.Calculate the pH of a 0.01 M NaOH solution.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is pH control important in swimming pools?
+—-------------------------------------------
+—-------------------------------------------
+9.State two effects of acidic water on aquatic life.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain how methyl orange behaves in acidic and alkaline solutions.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Carbon exists in several physical forms called allotropes, which have different physical properties but are made of the same element. The most common crystalline allotropes are diamond, graphite, and fullerene. Diamond is transparent, extremely hard, and a poor conductor of electricity. Graphite is black, soft, slippery, and a good conductor of electricity due to delocalized electrons.
+Amorphous allotropes include coal, coke, lampblack, charcoal, and carbon black. These forms lack a regular crystal structure. Diamond is used for cutting tools and jewellery, graphite in lubricants, electrodes, and pencil leads.
+The properties of carbon allotropes are due to differences in bonding: diamond has a tetrahedral network of covalent bonds, while graphite has layers of hexagonal carbon atoms held by weak van der Waals forces. Fullerenes (like C₆₀) are spherical molecules with unique nanotechnology uses.
+Carbon’s allotropy explains its wide range of industrial applications, from construction to electronics and medicine.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between crystalline and amorphous allotropes of carbon.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why diamond is a poor conductor of electricity.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe the bonding arrangement in graphite.
+—-------------------------------------------
+—-------------------------------------------
+4.List three uses of diamond and explain how its properties suit these uses.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is graphite a good lubricant despite being solid?
+—-------------------------------------------
+—-------------------------------------------
+6.Give two industrial uses of amorphous carbon allotropes.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare the hardness of diamond and graphite with reasons.
+—-------------------------------------------
+—-------------------------------------------
+8.State two unique features of fullerenes.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain how the structure of diamond contributes to its high melting point.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss why carbon exhibits allotropy.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Carbon forms two main oxides: carbon monoxide (CO) and carbon dioxide (CO₂).
+Carbon monoxide is a colorless, odorless, and poisonous gas produced by incomplete combustion of carbon-containing fuels. It binds strongly to hemoglobin, preventing oxygen transport in the body.
+Carbon dioxide is a colorless, odorless gas produced by complete combustion of carbon, respiration, and decomposition. It is non-toxic but can cause suffocation in high concentrations. It is used in fire extinguishers, carbonated drinks, and as a refrigerant in solid form (dry ice).
+CO is a reducing agent in metallurgy, while CO₂ is an oxidizing agent in photosynthesis. Both gases play roles in environmental chemistry: CO is a pollutant, and CO₂ is a greenhouse gas linked to climate change.
+</pre>
+      <pre class="panel-worksheet">
+1.Distinguish between CO and CO₂ in terms of bonding and oxidation states.
+—-------------------------------------------
+—-------------------------------------------
+2.Write balanced equations for the formation of CO and CO₂ from carbon.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why CO is poisonous at the molecular level.
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss the environmental effects of CO₂ accumulation.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is CO₂ used in fire extinguishers?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the role of CO as a reducing agent in the extraction of iron.
+—-------------------------------------------
+—-------------------------------------------
+7.State two laboratory methods of preparing CO₂.
+—-------------------------------------------
+—-------------------------------------------
+8.Compare the densities of CO and CO₂ with air and state their implications.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe one chemical test for CO₂.
+—-------------------------------------------
+—-------------------------------------------
+10.Give one reason CO is a poor fuel compared to CH₄.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Hydrocarbons are compounds made of carbon and hydrogen only. They are classified into alkanes, alkenes, and alkynes.
+Alkanes are saturated hydrocarbons containing only single bonds, with the general formula CₙH₂ₙ₊₂. They are relatively unreactive but undergo combustion and substitution reactions. Examples include methane, ethane, and propane.
+Alkenes are unsaturated hydrocarbons with at least one double bond, formula CₙH₂ₙ. They are more reactive and undergo addition reactions, making them important in polymer production.
+Alkynes are unsaturated hydrocarbons with at least one triple bond, formula CₙH₂ₙ₋₂. They are highly reactive and used in welding (ethyne).
+Hydrocarbons occur naturally in crude oil and natural gas, serving as fuels and raw materials for the petrochemical industry.
+</pre>
+      <pre class="panel-worksheet">
+1.Define hydrocarbons and give two natural sources.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between saturated and unsaturated hydrocarbons with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.Write the molecular formula of an alkane with 7 carbon atoms.
+—-------------------------------------------
+—-------------------------------------------
+4.State two uses of alkenes in industry.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why alkanes are less reactive than alkenes.
+—-------------------------------------------
+—-------------------------------------------
+6.Draw and name the structure of ethyne.
+—-------------------------------------------
+—-------------------------------------------
+7.Write the general formula for alkynes and give an example.
+—-------------------------------------------
+—-------------------------------------------
+8.State one physical property of alkanes that makes them good fuels.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the significance of the C–C bond in catenation.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the reactivity of alkanes, alkenes, and alkynes.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="tt-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Hydrocarbons can also be classified into aliphatic and aromatic compounds.
+Aliphatic hydrocarbons include straight or branched chains (alkanes, alkenes, alkynes). Aromatic hydrocarbons contain one or more benzene rings, with delocalized electrons giving them special stability.
+Benzene (C₆H₆) is a colorless liquid with a characteristic odor, used in making dyes, detergents, plastics, and drugs. It is toxic and carcinogenic, requiring careful handling.
+Reactions of aromatic hydrocarbons differ from aliphatic ones; benzene undergoes substitution rather than addition due to its stable ring.
+Crude oil refining produces various hydrocarbon fractions like petrol, kerosene, and diesel, obtained by fractional distillation. These are vital for energy and industrial processes.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between aliphatic and aromatic hydrocarbons.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why benzene is more stable than alkenes.
+—-------------------------------------------
+—-------------------------------------------
+3.State two industrial uses of benzene.
+—-------------------------------------------
+—-------------------------------------------
+4.Write the molecular formula of methylbenzene.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe fractional distillation of crude oil.
+—-------------------------------------------
+—-------------------------------------------
+6.Why does benzene undergo substitution instead of addition?
+—-------------------------------------------
+—-------------------------------------------
+7.Name two aromatic hydrocarbons other than benzene.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the term delocalized electrons in benzene.
+—-------------------------------------------
+—-------------------------------------------
+9.State two health hazards of benzene exposure.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the reactivity of alkanes and benzene.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemical industries are grouped into fine and heavy chemical industries. Fine chemicals are pure, single chemical substances produced in small quantities for specific uses, e.g., pharmaceuticals, food additives, and dyes. Heavy chemicals are produced in large quantities, often of lower purity, for industrial use, e.g., sulphuric acid, sodium hydroxide, and ammonia.
+Raw materials for chemical industries include air, water, limestone, petroleum, and minerals. The choice of industry location depends on proximity to raw materials, energy, transport, market, and labour.
+Heavy chemical products are used in manufacturing detergents, fertilisers, and plastics. Fine chemicals are used in medicine, electronics, and high-tech industries.
+Environmental concerns include pollution, waste disposal, and energy consumption. Sustainable practices involve recycling, pollution control, and energy efficiency.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between fine and heavy chemicals with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.List three raw materials for the chemical industry.
+—-------------------------------------------
+—-------------------------------------------
+3.State three factors affecting the location of chemical industries.
+—-------------------------------------------
+—-------------------------------------------
+4.Give two examples each of heavy and fine chemical products.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is sulphuric acid considered a heavy chemical?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain one environmental problem caused by chemical industries.
+—-------------------------------------------
+—-------------------------------------------
+7.Describe one method of reducing pollution from chemical industries.
+—-------------------------------------------
+—-------------------------------------------
+8.State one use of ammonia in agriculture.
+—-------------------------------------------
+—-------------------------------------------
+9.Why are fine chemicals more expensive than heavy chemicals?
+—-------------------------------------------
+—-------------------------------------------
+10.Give two examples of industries that use fine chemicals.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+  </div>
 
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -240,11 +1627,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -270,10 +1658,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -315,204 +1700,86 @@
 </script>
 
 
-<script>
-const chemistryTopics = {
-  first: [
-    {
-      title: "Week 1: Introduction to Chemistry",
-      video: "https://www.youtube.com/embed/xOKiHhuCnFw",
-      questions: [
-        "Define chemistry.",
-        "List 3 reasons why we study chemistry."
-      ]
-    },
-    {
-      title: "Week 2: States of Matter",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_2",
-      questions: [
-        "Mention the 3 states of matter.",
-        "Differentiate between solid and gas."
-      ]
-    },
-    {
-      title: "Week 3: Elements and Compounds",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_3",
-      questions: [
-        "What is an element?",
-        "Give 2 examples of compounds."
-      ]
-    },
-    {
-      title: "Week 4: Separation Techniques",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_4",
-      questions: [
-        "Name 3 separation techniques.",
-        "State their uses."
-      ]
-    },
-    {
-      title: "Week 5: Physical & Chemical Changes",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_5",
-      questions: [
-        "What is a physical change?",
-        "Give examples of chemical changes."
-      ]
-    },
-    {
-      title: "Week 6: Mixtures",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_6",
-      questions: [
-        "Define mixture.",
-        "Differentiate homogeneous and heterogeneous mixtures."
-      ]
-    },
-    {
-      title: "Week 7: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_7",
-      questions: [
-        "Revise all topics from week 1–6."
-      ]
-    },
-    {
-      title: "Week 8: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_8",
-      questions: [
-        "Attempt mock exam questions."
-      ]
-    }
-  ],
-  second: [
-    {
-      title: "Week 1: Atomic Structure",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_9",
-      questions: [
-        "What are atoms?",
-        "List 3 subatomic particles."
-      ]
-    },
-    {
-      title: "Week 2: Periodic Table",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_10",
-      questions: [
-        "Who developed the periodic table?",
-        "List 3 Group I elements."
-      ]
-    },
-    {
-      title: "Week 3: Chemical Equations",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_11",
-      questions: [
-        "Write H₂ + O₂ → H₂O in balanced form."
-      ]
-    },
-    {
-      title: "Week 4: Acids and Bases",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_12",
-      questions: [
-        "Define acid and base.",
-        "Give examples."
-      ]
-    },
-    {
-      title: "Week 5: Salts",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_13",
-      questions: [
-        "What are salts?",
-        "Mention types of salts."
-      ]
-    },
-    {
-      title: "Week 6: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_14",
-      questions: ["Revise all topics."]
-    },
-    {
-      title: "Week 7: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_15",
-      questions: ["Solve practice questions."]
-    }
-  ],
-  third: [
-    {
-      title: "Week 1: Organic Chemistry Intro",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_16",
-      questions: [
-        "Define organic chemistry.",
-        "What are hydrocarbons?"
-      ]
-    },
-    {
-      title: "Week 2: Hydrocarbons",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_17",
-      questions: [
-        "Difference between alkanes and alkenes."
-      ]
-    },
-    {
-      title: "Week 3: Combustion",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_18",
-      questions: ["Define combustion.", "Products of complete combustion."]
-    },
-    {
-      title: "Week 4: Chemical Pollution",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_19",
-      questions: ["Mention pollutants from chemical industries."]
-    },
-    {
-      title: "Week 5: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_20",
-      questions: ["Review all topics."]
-    },
-    {
-      title: "Week 6: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_21",
-      questions: ["Attempt full mock exam."]
-    }
-  ]
-};
 
-const topicList = document.getElementById("chemistryTopicsList");
-const videoFrame = document.getElementById("chemistryVideoFrame");
-const questionList = document.getElementById("chemistryQuestions").querySelector("ul");
-const termButtons = document.querySelectorAll(".term-btn");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-let currentTerm = "first";
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-function displayTopics(term) {
-  topicList.innerHTML = "";
-  chemistryTopics[term].forEach((topic, index) => {
-    const btn = document.createElement("button");
-    btn.innerText = topic.title;
-    btn.className = "topic-btn";
-    btn.addEventListener("click", () => {
-      videoFrame.src = topic.video;
-      document.querySelectorAll(".topic-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      questionList.innerHTML = "";
-      topic.questions.forEach(q => {
-        const li = document.createElement("li");
-        li.textContent = q;
-        questionList.appendChild(li);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
-    });
-    topicList.appendChild(btn);
-  });
-}
 
-termButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    termButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentTerm = btn.getAttribute("data-term");
-    displayTopics(currentTerm);
-    videoFrame.src = "";
-    questionList.innerHTML = "";
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
+      }
+    });
   });
+
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
 });
 
-displayTopics(currentTerm);
-</script>
-
+  </script>
 </body>
 </html>

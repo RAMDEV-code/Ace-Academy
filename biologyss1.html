@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Biology term buttons */
-    .term-btn-bio {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-bio:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-bio.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +168,1620 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section" id="biology-section">
-    <h2 class="subject-title">Biology</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">BIOLOGY</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-bio active" data-term="first">First Term</button>
-      <button class="term-btn-bio" data-term="second">Second Term</button>
-      <button class="term-btn-bio" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="bioTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Introduction to Biology
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="bioVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: CHARACTERISTICS OF LIVING THINGS, PLANTS AND ANIMALS
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: CLASSIFICATION OF LIVING THINGS I
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: CLASSIFICATION OF LIVING THINGS II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: ORGANIZATION OF LIFE
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Nutrient Cycling in Nature
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Nutrition in Animals
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: Mode of Nutrition
+          </button>
+
+
+          <button class="topic-btn" data-target="#ft-topic-9" type="button">
+            Week 9: Basic Ecological Concept
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-10" type="button">
+            Week 10: Growth
+          </button>
         </div>
 
-        <h3 id="bioTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Level of Organisation of Life
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="bioWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Specialized Cells
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Pollution
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Reproductive System
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Sexually Transmitted Infections (STIs)
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Movement in Animals
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Sanitation
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Classification – Invertebrates
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Classification – Vertebrates
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Keys and Dichotomous
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Habitats and Adaptation (Aquatic)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Habitats and Adaptation (Terrestrial)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Habitats and Adaptation (Sonoran Desert)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Habitats and Adaptation (North Pole)
+          </button>
+        </div>
+      </aside>
+ 
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Biology is the scientific study of living organisms and their interactions with the environment.
+
+
+The word “Biology” is derived from Greek words: bios (life) and logos (study).
+
+
+Biologists study the structure, function, growth, origin, evolution, and distribution of living things.
+
+
+Biology is divided into major branches such as Botany (plants) and Zoology (animals).
+
+
+It also includes Microbiology—the study of microscopic organisms.
+
+
+Biology helps us understand how our bodies work and how diseases can be prevented.
+
+
+It plays a crucial role in medicine, agriculture, and environmental conservation.
+
+
+Careers in biology include doctor, pharmacist, agriculturist, and laboratory scientist.
+
+
+Biology uses scientific methods to investigate problems and find solutions.
+
+
+Observations, experiments, and analysis are key in studying Biology.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is Biology?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two major branches of Biology.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the origin of the word Biology?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List two careers related to Biology.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the importance of Biology in agriculture?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is Microbiology?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does Biology help in understanding diseases?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one difference between Zoology and Botany.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one use of Biology in environmental science.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which method is commonly used to study biology?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Living things are organisms that carry out life processes.
+
+
+The basic characteristics of living things are summarized by MRS GREN.
+
+
+M – Movement: Living things move either internally or externally.
+
+
+R – Respiration: They release energy from food.
+
+
+S – Sensitivity: They respond to stimuli in their environment.
+
+
+G – Growth: Living things increase in size and complexity.
+
+
+R – Reproduction: They produce offspring.
+
+
+E – Excretion: They remove waste products from their bodies.
+
+
+N – Nutrition: Living things take in and use nutrients.
+
+
+These characteristics differentiate living things from non-living things.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What acronym helps us remember the characteristics of living things?
+—------------------------------------------------------------------------------------------------
+Define movement in living things.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is respiration?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give an example of sensitivity in humans.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do plants reproduce?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the importance of excretion?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two nutrients that living things need.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between growth and reproduction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which life process helps in responding to danger?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does a living thing differ from a rock?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Plants and animals are both living things but have key differences.
+
+
+Plants make their own food through photosynthesis; animals cannot.
+
+
+Plants are usually rooted in one place; animals move around.
+
+
+Plants have cell walls made of cellulose; animals do not.
+
+
+Plants grow throughout their lives; animals grow to a certain stage.
+
+
+Animals have complex nervous systems; plants do not.
+
+
+Plants respond slowly to stimuli; animals respond quickly.
+
+
+Reproduction in plants may involve seeds or spores; in animals, it usually involves birth or eggs.
+
+
+Plants absorb nutrients mainly from soil; animals get theirs from food.
+
+
+These differences reflect their adaptation to different lifestyles.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What process allows plants to make their own food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one structural difference between plant and animal cells.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which can move from place to place—plants or animals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do plants not need a nervous system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do animals obtain food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one reproductive structure in plants.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Do animals grow forever like plants? Explain.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do animals need a complex nervous system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do plants respond to stimuli?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two differences between how plants and animals reproduce.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The cell is the basic unit of life in all living organisms.
+
+
+All living things are made up of cells.
+
+
+Cells can be unicellular (one-celled) or multicellular (many-celled).
+
+
+Robert Hooke discovered the cell in 1665 using a microscope.
+
+
+There are plant cells and animal cells, each with specific features.
+
+
+Common parts of a cell include the cell membrane, cytoplasm, and nucleus.
+
+
+Plant cells have additional parts like cell wall and chloroplasts.
+
+
+The nucleus controls the activities of the cell.
+
+
+Cytoplasm is the jelly-like substance where reactions occur.
+
+
+Cells work together to form tissues and organs.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the basic unit of life?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who discovered the cell and when?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is a unicellular organism?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of a multicellular organism.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name three parts common to all cells.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the function of the nucleus?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is found only in plant cells but not in animal cells?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does the cytoplasm do?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do cells form tissues?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two differences between plant and animal cells.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Human development is the process of physical, emotional, and mental changes from birth to adulthood.
+
+
+It occurs in stages: infancy, childhood, adolescence, adulthood, and old age.
+
+
+Infancy (0–2 years) involves rapid growth, development of senses, and basic motor skills.
+
+
+Childhood (3–12 years) sees steady growth, language development, and learning social skills.
+
+
+Adolescence (13–19 years) is marked by puberty, emotional changes, and independence.
+
+
+Adulthood (20–59 years) includes peak physical strength and intellectual maturity.
+
+
+Old age (60+) involves gradual decline in strength and health.
+
+
+Each stage has different physical, emotional, and mental needs.
+
+
+Balanced nutrition and care are essential at all stages.
+
+
+Understanding development helps promote healthy living and support for all age groups.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are the five main stages of human development?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+At which stage does puberty begin?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two characteristics of childhood.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What age range is classified as infancy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one physical change during adolescence.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What stage of human development is associated with wisdom and retirement?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which stage involves rapid brain development and learning to walk?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can one support healthy development during old age?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List two differences between adolescence and adulthood.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is it important to understand the stages of growth?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Nutrition is the process of taking in and using food for health and growth.
+
+
+There are six main classes of food: carbohydrates, proteins, fats, vitamins, minerals, and water.
+
+
+Carbohydrates give energy, while proteins help in growth and repair.
+
+
+Fats store energy and keep the body warm.
+
+
+Vitamins and minerals support body functions like immunity and bone strength.
+
+
+Water is vital for digestion, temperature control, and waste removal.
+
+
+A balanced diet contains the right amount of all food classes.
+
+
+Malnutrition happens when the body lacks one or more nutrients.
+
+
+Eating junk food often leads to poor health.
+
+
+Good nutrition promotes growth, development, and disease prevention.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is nutrition?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the six classes of food.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which class of food provides energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does protein do in the body?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two functions of water in the body.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is a balanced diet?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two effects of malnutrition.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What food class helps to build strong bones?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why should we avoid too much junk food?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one reason why nutrition is important to human health.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A drug is any substance that changes how the body or mind works.
+
+
+Drugs can be legal (like paracetamol) or illegal (like cocaine).
+
+
+Medicines are drugs used to treat illnesses when prescribed correctly.
+
+
+Drug abuse is the misuse of drugs for non-medical purposes.
+
+
+Commonly abused drugs include tobacco, alcohol, and marijuana.
+
+
+Drug abuse can lead to addiction and serious health problems.
+
+
+Smoking can damage the lungs and cause cancer.
+
+
+Alcohol abuse can harm the liver and impair judgment.
+
+
+Saying “NO” to drug offers is a healthy choice.
+
+
+Education, support, and good friends help prevent drug abuse.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is a drug?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of a legal drug.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does it mean to abuse drugs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one harmful effect of drug abuse.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two commonly abused drugs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does smoking affect the lungs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is drug addiction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why should we avoid taking drugs without a doctor’s advice?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+List one way to prevent drug abuse.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between a medicine and an illegal drug?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+    
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        All living organisms are made of cells — the basic unit of life.
+
+
+Cells group together to form tissues that perform specific functions.
+
+
+Tissues combine to form organs like the heart and lungs.
+
+
+Organs work together in organ systems, such as the digestive or circulatory system.
+
+
+Organ systems function together to form a complete organism.
+
+
+A group of similar cells performing a job is called a tissue (e.g., muscle tissue).
+
+
+An organ is made of different tissues (e.g., the stomach).
+
+
+Organ systems coordinate body processes (e.g., excretion, movement).
+
+
+The organization helps in efficiency and survival of the organism.
+
+
+This structure is seen in both plants and animals.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the basic unit of life?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which comes after tissues in the level of organisation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give an example of an organ in the human body.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is formed when organs work together?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which level includes muscle and nerve types?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: A single cell is an organism.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one organ system in humans.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+In what level of organisation is the heart found?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define "tissue" with an example.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the correct order: Organ, Cell, Organism, Tissue, Organ System.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Specialized cells have unique structures for specific functions.
+
+
+Examples include nerve cells, red blood cells, and root hair cells.
+
+
+Nerve cells transmit signals in the body.
+
+
+Red blood cells carry oxygen using haemoglobin.
+
+
+Root hair cells absorb water and minerals in plants.
+
+
+Muscle cells contract to cause movement.
+
+
+Sperm cells are adapted to fertilize eggs with a tail for movement.
+
+
+Cells become specialized through a process called differentiation.
+
+
+This allows multicellular organisms to function effectively.
+
+
+Each cell type is adapted for its job with distinct structures.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the function of a nerve cell?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which cell type carries oxygen?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What helps sperm cells move?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name a plant specialized cell.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is differentiation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which cell type helps plants absorb minerals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which specialized cell has no nucleus in humans?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State one function of muscle cells.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: All cells in the body have the same structure.\
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why are cells specialized?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Pollution is the contamination of the environment by harmful substances.
+
+
+There are different types: air, water, land, and noise pollution.
+
+
+Air pollution comes from smoke, factories, and vehicle emissions.
+
+
+Water pollution is caused by oil spills, sewage, and plastic waste.
+
+
+Land pollution results from improper waste disposal.
+
+
+Noise pollution affects hearing and causes stress.
+
+
+Pollution harms humans, animals, and plants.
+
+
+It also leads to climate change and health issues.
+
+
+Reducing pollution involves recycling, planting trees, and using clean energy.
+
+
+Laws and awareness campaigns help reduce pollution.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two causes of air pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one effect of noise pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does water pollution affect aquatic life?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which pollution comes from household and factory waste?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+State two ways to reduce pollution.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What kind of pollution comes from cars and trucks?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: Pollution only affects animals.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What can we do to prevent land pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is one government measure to fight pollution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The reproductive system allows organisms to produce offspring.
+
+
+Humans have male and female reproductive systems.
+
+
+The male system includes the penis, testes, and sperm ducts.
+
+
+Testes produce sperm cells.
+
+
+The female system includes the vagina, ovaries, uterus, and fallopian tubes.
+
+
+Ovaries produce egg cells (ova).
+
+
+Fertilization occurs when a sperm cell meets an egg cell.
+
+
+The uterus is where the baby develops during pregnancy.
+
+
+Puberty is the stage when reproductive organs mature.
+
+
+Hormones control changes in the reproductive system.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the function of the reproductive system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name the organs in the male reproductive system.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Where are egg cells produced?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is fertilization?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the function of the uterus?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which male organ produces sperm?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+True or False: Only females go through puberty.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two changes that happen during puberty.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What do hormones do in the reproductive system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What tube carries sperm to the penis?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        STIs are infections passed from one person to another through sexual contact.
+
+
+Common STIs include HIV/AIDS, gonorrhoea, syphilis, and chlamydia.
+
+
+Symptoms may include sores, unusual discharge, pain during urination, or no symptoms at all.
+
+
+HIV attacks the immune system and can lead to AIDS.
+
+
+Gonorrhoea and syphilis are bacterial infections that can be treated with antibiotics.
+
+
+STIs can be transmitted through vaginal, oral, or anal sex.
+
+
+Using condoms can reduce the risk of getting or spreading STIs.
+
+
+Abstinence and faithful relationships help prevent STIs.
+
+
+Regular check-ups and early treatment prevent complications.
+
+
+STIs can affect reproductive health and cause long-term damage if untreated.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What does STI stand for?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two common sexually transmitted infections.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How can HIV be transmitted?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which STI attacks the immune system?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two symptoms of STIs.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is one way to prevent STIs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which STIs are caused by bacteria?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What are the effects of untreated STIs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is early treatment of STIs important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Can someone have an STI without showing symptoms?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Movement in animals helps them find food, escape danger, and reproduce.
+
+
+Animals move using different body parts like legs, fins, wings, or muscles.
+
+
+Fish use fins and tails to swim.
+
+
+Birds use wings for flight.
+
+
+Mammals like lions walk and run on legs.
+
+
+Insects like grasshoppers jump and fly using legs and wings.
+
+
+Snakes move by slithering using their muscles.
+
+
+Frogs jump with their strong hind limbs.
+
+
+Movement is controlled by the muscular and skeletal systems.
+
+
+Adaptations in body parts help animals move in different environments.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Why do animals need to move?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What body part helps fish to swim?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which animal moves by slithering?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do birds move from place to place?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two animals that use wings to move.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What helps frogs to jump far?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which systems help animals move?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do lions move?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What movement method do insects use?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one reason movement is important to animals.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Sanitation is the process of keeping our environment clean and healthy.
+
+
+It involves proper waste disposal, clean water supply, and hygiene practices.
+
+
+Good sanitation prevents the spread of diseases.
+
+
+Poor sanitation can lead to cholera, typhoid, and diarrhoea.
+
+
+Toilets should be kept clean and used properly.
+
+
+Waste should be disposed of in covered bins.
+
+
+Water sources should be kept clean and protected from contamination.
+
+
+Washing hands regularly helps maintain personal hygiene.
+
+
+Communities must work together for good sanitation.
+
+
+Government laws and awareness programs promote sanitation.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is sanitation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two ways to maintain good sanitation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention two diseases caused by poor sanitation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why should toilets be kept clean?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How should waste be disposed of?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the importance of clean water in sanitation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does washing hands help hygiene?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one waterborne disease.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Who is responsible for good sanitation in a community?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What role does the government play in sanitation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Invertebrates are animals without a backbone.
+
+
+They make up over 95% of all animal species.
+
+
+Major invertebrate groups include insects, arachnids, mollusks, annelids, and crustaceans.
+
+
+Insects have 6 legs and 3 body parts – head, thorax, abdomen.
+
+
+Arachnids like spiders have 8 legs and no antennae.
+
+
+Mollusks (e.g., snails) have soft bodies, often with shells.
+
+
+Annelids (e.g., earthworms) have segmented bodies.
+
+
+Crustaceans (e.g., crabs) have hard exoskeletons and jointed limbs.
+
+
+Invertebrates can live in land, water, or air environments.
+
+
+They are classified based on body structure and movement.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the main characteristic of invertebrates?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two examples of mollusks.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How many legs do insects have?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What group does a spider belong to?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which invertebrates have segmented bodies?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What protects crustaceans?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one difference between insects and arachnids.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Where can invertebrates be found?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which invertebrate group has antennae?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Are all invertebrates small? (Explain briefly)
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Vertebrates are animals with a backbone.
+
+
+They belong to the phylum Chordata.
+
+
+There are five major classes: fish, amphibians, reptiles, birds, and mammals.
+
+
+Fish live in water and breathe through gills.
+
+
+Amphibians live on land and water and have moist skin.
+
+
+Reptiles have dry, scaly skin and lay eggs.
+
+
+Birds have feathers and lay hard-shelled eggs.
+
+
+Mammals have hair/fur and give birth to live young.
+
+
+All vertebrates have a well-developed brain and skeleton.
+
+
+Classification depends on body covering, reproduction, and movement.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is the key feature of vertebrates?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two animals that belong to the reptile group.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which vertebrate class lays hard-shelled eggs?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do fish breathe?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of skin do amphibians have?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which vertebrates give birth to live young?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Do all vertebrates have backbones?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What class do whales belong to?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How are birds different from mammals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which class lives both on land and in water?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Classification keys help identify organisms.
+
+
+A dichotomous key is a tool that uses two choices at each step.
+
+
+"Dichotomous" means "divided into two parts."
+
+
+The key works by comparing features of organisms.
+
+
+Each step narrows down the choices.
+
+
+The key can be presented as a list or a flowchart.
+
+
+It uses observable features like size, shape, color.
+
+
+Scientists use keys to name and classify species.
+
+
+Accurate observation is needed for correct identification.
+
+
+Keys are essential for studying biodiversity.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A habitat is the natural home of an organism.
+
+
+Aquatic habitats include freshwater and marine environments.
+
+
+Freshwater habitats: rivers, lakes, ponds.
+
+
+Marine habitats: seas, oceans, coral reefs.
+
+
+Organisms adapt to survive in aquatic habitats.
+
+
+Fish have gills to breathe in water.
+
+
+Frogs have webbed feet to swim.
+
+
+Some aquatic plants have air spaces to float.
+
+
+Salinity, light, and temperature affect aquatic life.
+
+
+Adaptation helps organisms feed, move, and reproduce
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is a habitat?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two types of aquatic habitats.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do fish breathe underwater?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one adaptation of frogs to aquatic life.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What helps aquatic plants float?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one factor that affects aquatic organisms.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the difference between freshwater and marine habitats?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do aquatic animals need adaptations?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Mention one aquatic plant and its adaptation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do adaptations help survival?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A terrestrial habitat is a land-based environment like forests, grasslands, and mountains.
+
+
+These habitats have varied temperatures, rainfall, and soil types.
+
+
+Organisms adapt to survive with limited water and extreme weather.
+
+
+Camouflage helps animals like chameleons hide from predators.
+
+
+Thick fur or feathers help animals retain heat in cold areas.
+
+
+Roots of desert plants grow deep or spread wide to find water.
+
+
+Nocturnal animals stay active at night to avoid daytime heat.
+
+
+Sharp claws or strong limbs help in climbing or digging.
+
+
+Some plants have waxy leaves to reduce water loss.
+
+
+Behavioral and physical adaptations help species thrive.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is a terrestrial habitat?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of a terrestrial animal and its adaptation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do desert plants conserve water?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why are some animals nocturnal in terrestrial habitats?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one physical adaptation in animals living in cold terrestrial habitats.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does camouflage mean in adaptation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do thick roots help desert plants survive?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give two differences between terrestrial and aquatic habitats.\
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What adaptation helps climbing animals in forests?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do some plants have waxy leaves?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The Sonoran Desert is a hot, dry habitat located in North America.
+
+
+It experiences high daytime temperatures and cold nights.
+
+
+Many animals are nocturnal to avoid heat.
+
+
+Cacti have thick stems that store water and spines instead of leaves.
+
+
+Jackrabbits have large ears to release body heat.
+
+
+Kangaroo rats can survive without drinking water.
+
+
+Snakes and lizards hide under rocks during the day.
+
+
+Plants have shallow roots to absorb rainfall quickly.
+
+
+Adaptations in desert species reduce water loss.
+
+
+These adaptations help organisms survive extreme heat and scarce water.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Where is the Sonoran Desert located?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why are many animals nocturnal in the desert?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the function of a cactus’ thick stem?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do jackrabbits stay cool in the desert?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one desert animal that doesn’t need to drink water.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do desert animals stay under rocks during the day?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What adaptation helps plants absorb water quickly in deserts?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do cacti have spines instead of leaves?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does the Sonoran Desert differ from a forest?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two animals found in the Sonoran Desert.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The North Pole is a polar region covered with ice and snow.
+
+
+It has extremely cold temperatures and long winters.
+
+
+Animals have thick fur or blubber to retain body heat.
+
+
+Polar bears have white fur for camouflage in snow.
+
+
+Seals and whales have blubber to survive cold water.
+
+
+Arctic foxes change fur color with the seasons.
+
+
+Many animals have small ears and tails to reduce heat loss.
+
+
+Penguins huddle together to stay warm (though found in South Pole).
+
+
+Plants are scarce and mostly mosses and lichens.
+
+
+Animals migrate or hibernate to survive extreme cold.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What kind of habitat is the North Pole?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do polar bears have white fur?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What adaptation helps whales stay warm?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do arctic foxes adapt to the changing seasons?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do polar animals have small ears and tails?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Give one example of a polar animal that hibernates.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why are plants scarce in the North Pole?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does blubber help marine animals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What helps polar animals retain heat?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the purpose of animal migration in polar regions?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+</pre>
+    </section>
+  </div>
+
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1796,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -256,7 +1830,6 @@
 
 
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -298,90 +1871,86 @@
 </script>
 
 
-<script>
-    const bioTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Biology",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["What is biology?", "Mention 3 branches of biology."]
-        },
-        {
-          title: "Week 2: Living and Non-Living Things",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["List 5 characteristics of living things.", "Give 3 examples of non-living things."]
-        },
-        {
-          title: "Week 3: Cells",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is a cell?", "Differentiate between plant and animal cells."]
-        }
-        // Add more weeks as needed
-      ],
-      second: [
-        {
-          title: "Week 1: Respiratory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define respiration.", "Mention parts of the respiratory system."]
-        },
-        {
-          title: "Week 2: Circulatory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["List components of blood.", "What is the function of the heart?"]
-        }
-        // Add more weeks
-      ],
-      third: [
-        {
-          title: "Week 1: Ecology and Environment",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["What is ecology?", "Define ecosystem."]
-        },
-        {
-          title: "Week 2: Food Chain and Web",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["Define food chain.", "Difference between food chain and food web?"]
-        }
-        // Add more weeks
-      ]
-    };
 
-    function loadBioTopics(term) {
-      const menu = document.getElementById("bioTopicsMenu");
-      const videoFrame = document.getElementById("bioVideoFrame");
-      const title = document.getElementById("bioTopicTitle");
-      const questions = document.getElementById("bioWorksheetQuestions");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-bio").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-bio[data-term="${term}"]`).classList.add("active");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      bioTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
+
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      // Load first topic by default
-      if (bioTopics[term].length > 0) {
-        const first = bioTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-bio").forEach(btn => {
-      btn.addEventListener("click", () => loadBioTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadBioTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
-
 </body>
 </html>
