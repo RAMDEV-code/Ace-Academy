@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Physics specific term buttons */
-    .term-btn-phy {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-phy:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-phy.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +168,1531 @@
 </header>
 
 <!--===END OF NAV===-->
- <section class="subject-section" id="physics-section">
-    <h2 class="subject-title">Physics</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">PHYSICS</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-phy active" data-term="first">First Term</button>
-      <button class="term-btn-phy" data-term="second">Second Term</button>
-      <button class="term-btn-phy" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="phyTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Introduction to Physics
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="phyVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Measurement, Fundamental and Derived Quantities, Dimensional Analysis
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Time
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Motion Types and Examples
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Friction
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Position: Distance, Displacement, Speed, Velocity, Distance-Time Graph
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Acceleration (Velocity-Time Graph)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: Density and Relative Density
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-9" type="button">
+            Week 9: Upthrust, Archimedes’ Principle, Laws of Floatation
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-10" type="button">
+            Week 10: Upthrust, Archimedes’ Principle, Laws of Floatation
+          </button>
         </div>
 
-        <h3 id="phyTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Heat Energy, Concept of Heat and Temperature
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="phyWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Thermometer
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Expansivity I (Linear and Area Expansivity)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Expansivity II (Volume Expansivity)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Heat Transfer
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: ELECTRIC CHARGES PRODUCTION
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: GOLD LEAF ELECTROSCOPE
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-8" type="button">
+            Week 8: FIELD CONCEPT AND TYPES OF FIELD
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-9" type="button">
+            Week 9: ELECTRIC FIELD
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: ELECTRICITY CONCEPT
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: OHM’S LAW
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: RESISTORS IN SERIES
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: RESISTORS IN PARALLEL
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: ELECTRICAL ENERGY AND POWER
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: SAFETY DEVICES AND DETECTING FAULTS IN CURRENT
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: PARTICULATE NATURE OF MATTER
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-8" type="button">
+            Week 8: SURFACE TENSION
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-9" type="button">
+            Week 9: CAPILLARITY
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-10" type="button">
+            Week 10: ELASTICITY
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarize Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
-  <!--===================END OF LESSONS======================-->
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Physics is the branch of science concerned with the study of matter, energy, and their interactions. It seeks to explain natural phenomena using observations, experiments, and mathematical models. The word “Physics” comes from the Greek word physis, meaning nature.
+The scope of physics covers mechanics, heat, light, sound, electricity, magnetism, atomic and nuclear physics. It overlaps with chemistry, biology, and mathematics. Physics uses scientific methods: observation, hypothesis, experimentation, theory, and law formation.
+Applications of physics include communication technology (radio, TV), medical equipment (X-ray, MRI), transportation (cars, airplanes), and energy generation. It is also essential for engineering, astronomy, and environmental studies.
+Branches of physics include classical mechanics, thermodynamics, electromagnetism, optics, and modern physics. Physics is studied with the help of instruments such as stopwatches, thermometers, voltmeters, and micrometers.
+</pre>
+      <pre class="panel-worksheet">
+1.Define physics and explain its relationship with engineering.
+—-------------------------------------------
+—------------------------------------------- 
+2.Differentiate between a hypothesis and a scientific law with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.List and explain five applications of physics in medicine.
+—-------------------------------------------
+—-------------------------------------------
+4.State the major branches of physics and their study focus.
+—-------------------------------------------
+—-------------------------------------------
+5.How does physics relate to environmental science?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain why mathematics is called the “language of physics.”
+—-------------------------------------------
+—-------------------------------------------
+7.Outline the steps of the scientific method and give an example of its application.
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss three ways physics has transformed transportation.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the origin of the word “physics” and its meaning.
+—-------------------------------------------
+—-------------------------------------------
+10.Differentiate between classical and modern physics with two examples each.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Measurement is the process of finding the numerical value of a quantity using a standard unit. Fundamental quantities are basic physical quantities that cannot be derived from others, e.g., length (metre), mass (kilogram), time (second), temperature (kelvin), electric current (ampere), luminous intensity (candela), and amount of substance (mole).
+Derived quantities are obtained by combining two or more fundamental quantities, e.g., speed (m/s), force (kg·m/s²), and density (kg/m³). The SI system is the standard measurement system used globally.
+Dimensional analysis expresses physical quantities in terms of base quantities with symbols:
+Length [L]
+Mass [M]
+Time [T]
+ Example: Force = mass × acceleration → [M][L][T⁻²].
+
+
+Applications of dimensional analysis include checking the correctness of equations, converting units, and deriving relationships. Example: Pressure = Force/Area → [M][L⁻¹][T⁻²].
+</pre>
+      <pre class="panel-worksheet">
+1.Define fundamental quantities and give seven examples with their SI units.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the difference between scalar and vector derived quantities.
+—-------------------------------------------
+—-------------------------------------------
+3.Express the dimensions of work and energy.
+—-------------------------------------------
+—-------------------------------------------
+4.Derive the dimensional formula for acceleration.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is the SI system preferred worldwide?
+—-------------------------------------------
+—-------------------------------------------
+6.Use dimensional analysis to check if v² = u² + 2as is dimensionally correct.
+—-------------------------------------------
+—-------------------------------------------
+7.Convert a speed of 72 km/h to m/s using unit conversion.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain three uses of dimensional analysis in physics.
+—-------------------------------------------
+—-------------------------------------------
+9.List four derived quantities and write their units in base units.
+—-------------------------------------------
+—-------------------------------------------
+10.What is the dimension of gravitational constant G?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/zHbpphfvHzM?si=HUWVr3HrXpDNcyW2" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Time is a fundamental physical quantity used to measure the sequence, duration, or interval of events. The SI unit of time is the second (s), defined by the vibration of cesium-133 atoms.
+In ancient times, time was measured using sundials, water clocks, and sandglasses. Modern time measurement uses mechanical, quartz, and atomic clocks for high precision.
+In physics, time measurement is essential in experiments involving speed, acceleration, and oscillations. Instruments include stopwatches (manual and digital) and pendulums. The simple pendulum measures time using the formula T = 2π√(l/g), where T is period, l is length, and g is acceleration due to gravity.
+Accurate time measurement reduces experimental error and ensures repeatable results. In astronomy, time measurement is critical for predicting eclipses and planetary motion.
+</pre>
+      <pre class="panel-worksheet">
+1.Define time and state its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how a quartz clock works.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the formula for the period of a simple pendulum.
+—-------------------------------------------
+—-------------------------------------------
+4.A pendulum of length 1.0 m swings in a region where g = 9.8 m/s². Calculate its period.
+—-------------------------------------------
+—-------------------------------------------
+5.Compare atomic clocks and mechanical clocks in terms of accuracy.
+—-------------------------------------------
+—-------------------------------------------
+6.State three reasons accurate time measurement is important in physics.
+—-------------------------------------------
+—-------------------------------------------
+7.List three ancient methods of time measurement and explain one.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the role of time measurement in determining acceleration.
+—-------------------------------------------
+—-------------------------------------------
+9.A stopwatch measures 50 oscillations of a pendulum in 100 s. Find the period of one oscillation.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the significance of the cesium-133 atom in defining the second.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Motion is the change in position of a body with time relative to a reference point. It can be classified into:
+Translational motion – straight-line (rectilinear) or curved path (curvilinear) motion.
+Rotational motion – motion about a fixed axis, e.g., a spinning fan.
+Oscillatory motion – repeated back-and-forth motion, e.g., pendulum, vibrating string.
+Random motion – motion without a definite path, e.g., gas molecules.
+
+Kinematics describes motion without considering its cause, while dynamics considers the forces producing motion. Speed = distance/time; velocity = displacement/time. Acceleration is the rate of change of velocity.
+Uniform motion has constant speed; non-uniform motion involves changing speed. Graphs (distance-time, velocity-time) help describe motion mathematically.
+</pre>
+      <pre class="panel-worksheet">
+1.Define motion and explain translational motion with an example.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between rectilinear and curvilinear motion.
+—-------------------------------------------
+—-------------------------------------------
+3.A car travels 120 km in 2 hours. Calculate its average speed.
+—-------------------------------------------
+—-------------------------------------------
+4.Distinguish between kinematics and dynamics.
+—-------------------------------------------
+—-------------------------------------------
+5.State and explain three types of motion in daily life.
+—-------------------------------------------
+—-------------------------------------------
+6.A ball rolls with an initial velocity of 10 m/s and accelerates at 2 m/s² for 5 s. Find its final velocity.
+—-------------------------------------------
+—-------------------------------------------
+7.Sketch and label a velocity-time graph for uniform acceleration.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why gas molecules are said to be in random motion.
+—-------------------------------------------
+—-------------------------------------------
+9.Give two examples each of rotational and oscillatory motion.
+—-------------------------------------------
+—-------------------------------------------
+10.Differentiate between uniform and non-uniform motion with examples.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Friction is the resistive force that opposes the relative motion of two surfaces in contact. It is caused by surface irregularities and intermolecular forces. Types of friction include:
+Static friction – prevents motion when force is applied.
+Limiting friction – maximum static friction before motion starts.
+Kinetic (dynamic) friction – resists motion once sliding begins.
+Rolling friction – occurs in rolling objects, usually smaller than sliding friction.
+
+Coefficient of friction (μ) is the ratio of frictional force to normal reaction: F = μR. Example: A 50 N block on a horizontal surface with μ = 0.2 → F = 0.2 × 50 = 10 N.
+Advantages: enables walking, writing, gripping. Disadvantages: causes wear, energy loss, and heating. Friction can be reduced by lubrication, polishing, or using ball bearings.
+</pre>
+      <pre class="panel-worksheet">
+1.Define friction and list its types.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between static and kinetic friction with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.A 10 kg box rests on a table. If μ = 0.3, calculate the limiting friction (g = 9.8 m/s²).
+—-------------------------------------------
+—-------------------------------------------
+4.Explain three disadvantages of friction in machines.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is rolling friction less than sliding friction?
+—-------------------------------------------
+—-------------------------------------------
+6.A block of weight 40 N is on a rough surface. If the limiting friction is 8 N, find μ.
+—-------------------------------------------
+—-------------------------------------------
+7.State three methods of reducing friction and explain one.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the role of friction in walking.
+—-------------------------------------------
+—-------------------------------------------
+9.Discuss the meaning of coefficient of friction and its unit.
+—-------------------------------------------
+—-------------------------------------------
+10.Give two examples where friction is beneficial and two where it is undesirable.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Position refers to the location of an object relative to a reference point. Distance is the total path covered by an object, a scalar quantity measured in metres. Displacement is the straight-line change in position from the starting point to the final point, a vector quantity with both magnitude and direction.
+Speed is the rate of change of distance with time:
+Speed = Distance/Time
+It is scalar and measured in m/s. Velocity is the rate of change of displacement with time:
+Velocity = Displacement/Time
+It is vector and measured in m/s.
+A distance-time graph shows distance on the y-axis and time on the x-axis. A straight sloping line means uniform speed, while a curve indicates changing speed. Example: A car travels 60 m in 4 s, speed = 60 ÷ 4 = 15 m/s. If the displacement is 40 m, velocity = 40 ÷ 4 = 10 m/s.
+</pre>
+      <pre class="panel-worksheet">
+1.Distinguish between distance and displacement with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.A bus travels 100 m north, then 60 m south in 20 s. Find total distance, displacement, speed, and velocity.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe the motion shown by a horizontal line on a distance-time graph.
+—-------------------------------------------
+—-------------------------------------------
+4.Draw a distance-time graph for an object moving with uniform speed of 5 m/s for 8 s.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why speed is scalar while velocity is vector.
+—-------------------------------------------
+—-------------------------------------------
+6.A cyclist covers 150 m in 10 s, then stops for 5 s. Draw the distance-time graph.
+—-------------------------------------------
+—-------------------------------------------
+7.A train travels 300 m east in 20 s. Calculate its speed and velocity.
+—-------------------------------------------
+—-------------------------------------------
+8.Give one real-life example where distance is greater than displacement.
+—-------------------------------------------
+—-------------------------------------------
+9.A distance-time graph has a steeper slope in section AB than in BC. Interpret this.
+—-------------------------------------------
+—-------------------------------------------
+10.If an object’s distance-time graph curves upward, what does that indicate?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Acceleration is the rate of change of velocity with time:
+A = (Final Velocity − Initial Velocity) / Time
+A = (v - u) / t
+Measured in m/s², it can be positive (speeding up) or negative (deceleration).
+A velocity-time graph has velocity on the y-axis and time on the x-axis. The slope of the graph gives acceleration, and the area under the graph gives displacement. For uniform acceleration, the graph is a straight sloping line; for non-uniform, it is curved.
+Example: A car increases its velocity from 10 m/s to 20 m/s in 5 s.
+ Acceleration = (20 – 10) ÷ 5 = 2 m/s².
+ If the velocity-time graph is a triangle with base 5 s and height 10 m/s, displacement = ½ × base × height = 25 m.
+</pre>
+      <pre class="panel-worksheet">
+1.Define acceleration and state its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.A car slows from 25 m/s to 10 m/s in 5 s. Find its acceleration.
+—-------------------------------------------
+—-------------------------------------------
+3.On a velocity-time graph, what does the slope represent?
+—-------------------------------------------
+—-------------------------------------------
+4.A body moves with constant velocity for 8 s. Sketch the velocity-time graph.
+—-------------------------------------------
+—-------------------------------------------
+5.A bus accelerates from rest to 15 m/s in 10 s. Find acceleration and displacement.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the difference between uniform and non-uniform acceleration.
+—-------------------------------------------
+—-------------------------------------------
+7.From a velocity-time graph, how can you determine total displacement?
+—-------------------------------------------
+—-------------------------------------------
+8.Draw a velocity-time graph for a body accelerating uniformly then moving at constant velocity.
+—-------------------------------------------
+—-------------------------------------------
+9.A ball rolls from 5 m/s to 0 in 4 s. Calculate its deceleration.
+—-------------------------------------------
+—-------------------------------------------
+10.The velocity-time graph of a motion is curved upward. Interpret this motion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Density is mass per unit volume:
+ρ = Mass/Volume
+Measured in kg/m³ or g/cm³. 
+Example: If mass = 200 g, volume = 50 cm³, density = 200 ÷ 50 = 4 g/cm³.
+Relative density (specific gravity) is the ratio of the density of a substance to the density of water at 4°C:
+Relative Density = Density of Substance/ Density of Water
+It has no unit.
+It can be measured using a density bottle or hydrometer. Knowing density helps in material selection and design.
+</pre>
+      <pre class="panel-worksheet">
+1.Define density and state its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.A metal of mass 500 g has a volume of 100 cm³. Calculate its density.
+—-------------------------------------------
+—-------------------------------------------
+3.Why does oil float on water in terms of density?
+—-------------------------------------------
+—-------------------------------------------
+4.A block has density 2,500 kg/m³. If water’s density is 1,000 kg/m³, find its relative density.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how to determine density using a density bottle.
+—-------------------------------------------
+—-------------------------------------------
+6.A stone weighs 2 N in air and 1.2 N in water. Find its relative density.
+—-------------------------------------------
+—-------------------------------------------
+7.Differentiate between density and relative density.
+—-------------------------------------------
+—-------------------------------------------
+8.How does temperature affect density?
+—-------------------------------------------
+—-------------------------------------------
+9.A metal cylinder has radius 5 cm and height 20 cm, mass 3 kg. Find density.
+—-------------------------------------------
+—-------------------------------------------
+10.Why is relative density unitless?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-9">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Upthrust is the upward force exerted by a fluid on a body immersed in it, equal to the weight of fluid displaced.
+Archimedes’ principle states: When a body is wholly or partially immersed in a fluid, it experiences an upthrust equal to the weight of fluid displaced.
+Law of floatation: A floating body displaces its own weight of fluid. This explains why ships float despite being heavy—they displace a large volume of water.
+Applications include hydrometers, ships, submarines, and hot-air balloons.
+</pre>
+      <pre class="panel-worksheet">
+1.Define upthrust and state its cause.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain Archimedes’ principle with an experiment.
+—-------------------------------------------
+—-------------------------------------------
+3.A cube weighs 50 N in air and 35 N in water. Find the upthrust.\
+—-------------------------------------------
+—-------------------------------------------
+4.How does the law of floatation explain ship design?
+—-------------------------------------------
+—-------------------------------------------
+5.Why can a steel ship float but a solid steel block sink?
+—-------------------------------------------
+—-------------------------------------------
+6.A block floats with half its volume submerged. What is its relative density?
+—-------------------------------------------
+—-------------------------------------------
+7.State two applications of Archimedes’ principle.
+—-------------------------------------------
+—-------------------------------------------
+8.A hydrometer sinks deeper in liquid B than liquid A. Interpret this.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain how submarines rise and sink in water.
+—-------------------------------------------
+—-------------------------------------------
+10.Derive the relationship between upthrust and density of fluid.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-10">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Work is done when a force moves a body in the direction of the force:
+W = F × d		Measured in joules (J).
+Energy is the capacity to do work, measured in joules. Forms include kinetic, potential, chemical, electrical, and heat energy. Kinetic energy: KE=½ mv2, Potential energy: PE=mgh.
+Power is the rate of doing work:
+P = W/t		Measured in watts (W).
+Example 1 – Work
+ A boy pushes a box with a force of 𝟦𝟢 𝐍 over a distance of 𝟧 𝐦.
+𝑾 = 𝑭 × 𝒅
+ = 𝟒𝟎 × 𝟓
+ = 𝟐𝟎𝟎 𝐉
+Work done = 𝟐𝟎𝟎 𝐉
+Example 2 – Kinetic Energy
+ A ball of mass 𝟑 𝐤𝐠 moves at a speed of 𝟔 𝐦/𝐬.
+𝑲𝑬 = ½ 𝒎 𝒗²
+ = ½ × 𝟑 × (𝟔)²
+ = 𝟏.𝟓 × 𝟑𝟔
+ = 𝟓𝟒 𝐉
+Kinetic energy = 𝟓𝟒 𝐉
+Example 3 – Potential Energy
+ A stone of mass 𝟐.𝟓 𝐤𝐠 is lifted to a height of 𝟖 𝐦 (take 𝒈 = 𝟗.𝟖 𝐦/𝐬²).
+𝑷𝑬 = 𝒎 𝒈 𝒉
+ = 𝟐.𝟓 × 𝟗.𝟖 × 𝟖
+ = 𝟏𝟗𝟔 𝐉
+Potential energy = 𝟏𝟗𝟔 𝐉
+Example 4 – Power
+ A machine does 𝟔𝟎𝟎 𝐉 of work in 𝟏𝟓 𝐬.
+𝑷 = 𝑾 / 𝒕
+ = 𝟔𝟎𝟎 ÷ 𝟏𝟓
+ = 𝟒𝟎 𝐖
+Power = 𝟒𝟎 𝐖
+</pre>
+      <pre class="panel-worksheet">
+1.Define work and state its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why no work is done when carrying a load on a level road.
+—-------------------------------------------
+—-------------------------------------------
+3.A force of 𝟐𝟓 𝐍 moves a box 𝟖 𝐦 along a smooth floor.
+ (a) Calculate the work done.
+ (b) If the motion takes 𝟒 𝐬, find the power.
+—-------------------------------------------
+—-------------------------------------------
+4.A mass of 𝟒 𝐤𝐠 is dropped from a height of 𝟏𝟐 𝐦. Take 𝒈 = 𝟗.𝟖 𝐦/𝐬².
+ (a) Calculate its potential energy at the top.
+ (b) Find its velocity just before hitting the ground (ignore air resistance).
+—-------------------------------------------
+—-------------------------------------------
+5.A car of mass 𝟏𝟎𝟎𝟎 𝐤𝐠 accelerates from rest to 𝟐𝟎 𝐦/𝐬 in 𝟏𝟎 𝐬.
+ (a) Find the change in kinetic energy.
+ (b) Calculate the average power developed.
+—-------------------------------------------
+—-------------------------------------------
+6.A crane lifts a load of 𝟑𝟎𝟎 𝐤𝐠 to a height of 𝟐𝟎 𝐦 in 𝟒𝟎 𝐬.
+ Calculate the work done and the power output. Take 𝒈 = 𝟗.𝟖 𝐦/𝐬².
+—-------------------------------------------
+—-------------------------------------------
+7.A motor uses 𝟒𝟎 𝐬 to move a 𝟔𝟎 𝐍 object a distance of 𝟓 𝐦.
+ Find the work done and the power.
+—-------------------------------------------
+—-------------------------------------------
+8.A student throws a stone of mass 𝟎.𝟓 𝐤𝐠 vertically upward with a speed of 𝟏𝟎 𝐦/𝐬.
+ (a) Calculate the kinetic energy at the point of release.
+ (b) Find the maximum height reached (take 𝒈 = 𝟗.𝟖 𝐦/𝐬²).
+—-------------------------------------------
+—-------------------------------------------
+9.A pump delivers 𝟏.𝟐 × 𝟏𝟎⁵ 𝐍 of water to the top of a 𝟏𝟓 𝐦 high building in 𝟓 𝐦𝐢𝐧.
+ Calculate the power output of the pump (𝒈 = 𝟗.𝟖 𝐦/𝐬²).
+—-------------------------------------------
+—-------------------------------------------
+10.Distinguish between energy and power with examples.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Heat is a form of energy that flows from a body at a higher temperature to one at a lower temperature, due to the temperature difference between them. It is measured in joules (J) in the SI system. Temperature is the measure of the degree of hotness or coldness of a body, and it determines the direction of heat flow. Unlike heat, temperature is not a form of energy but an indicator of thermal state.
+Heat is a function of the total kinetic energy of the particles in a substance, while temperature is proportional to the average kinetic energy of the particles. Heat depends on mass, specific heat capacity, and temperature change, while temperature is independent of mass. The instrument used to measure temperature is a thermometer.
+Heat energy can cause:
+Temperature Change – Increases or decreases particle kinetic energy.
+Change of State – Melting, boiling, condensation, etc.
+Expansion – Increase in size (linear, area, volume).
+Change in Density – Volume increase leads to lower density.
+Chemical Changes – Causes reactions or decomposition.
+Example: Ice melts to water, metals expand in heat, hot air rises due to lower density.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between heat and temperature, giving two examples for each.
+—-------------------------------------------
+—-------------------------------------------
+2.Give one example each of a physical change and a chemical change caused by heat.
+—-------------------------------------------
+—-------------------------------------------
+3.What happens to the electrical resistance of a metal conductor when heat is applied?
+—-------------------------------------------
+—-------------------------------------------
+4.Name and describe two real-life applications of expansion caused by heat.
+—-------------------------------------------
+—-------------------------------------------
+5.State three possible effects when a metal bar is heated.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain why a metal feels colder than wood at the same room temperature.
+—-------------------------------------------
+—-------------------------------------------
+7.Why is heat considered a form of energy but temperature is not?
+—-------------------------------------------
+—-------------------------------------------
+8.State two effects of heat on matter and explain with examples.
+—-------------------------------------------
+—-------------------------------------------
+9.Give three practical differences between heat and temperature.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why heat flows only from a hotter to a colder body.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A thermometer is an instrument used to measure temperature. The most common type is the liquid-in-glass thermometer, which uses mercury or alcohol. Thermometers work based on the expansion of substances when heated.
+Types of thermometers include:
+Clinical thermometers (measure body temperature, usually 35°C to 42°C).
+Laboratory thermometers (range about –10°C to 110°C).
+Gas thermometers (very accurate, used for scientific work).
+Resistance thermometers (use electrical resistance changes).
+Thermocouples (use voltage produced at junctions of two metals).
+
+Temperature scales include Celsius (°C), Fahrenheit (°F), and Kelvin (K). Conversion between them is given by:
+ (θC / 100) = (θF – 32) / 180 = (θK – 273) / 100
+When comparing thermometer scales, the general formula is:
+ (θ – Lx) / Ux – Lx = (θ – Ly) / Uy – Ly
+ where L is the lower fixed point and U is the upper fixed point.
+Thermometers are used in medicine, weather stations, laboratories, and industries.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain why mercury is preferred in thermometers over alcohol for high temperatures.
+—-------------------------------------------
+—-------------------------------------------
+2.Convert 100°C to Fahrenheit and Kelvin.
+—-------------------------------------------
+—-------------------------------------------
+3.A thermometer reads 10°C on scale X whose ice and steam points are 20°C and 120°C respectively. What is the reading on the Celsius scale?
+—-------------------------------------------
+—-------------------------------------------
+4.List two advantages and disadvantages of using alcohol instead of mercury in thermometers.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why thermometers have a narrow bore.
+—-------------------------------------------
+—-------------------------------------------
+6.Convert 212°F to °C and K.
+—-------------------------------------------
+—-------------------------------------------
+7.A gas thermometer records 373 K at 100°C. What is its reading at 0°C?
+—-------------------------------------------
+—-------------------------------------------
+8.Differentiate between fixed and variable points in thermometer calibration.
+—-------------------------------------------
+—-------------------------------------------
+9.State three limitations of liquid-in-glass thermometers.
+—-------------------------------------------
+—-------------------------------------------
+10.A thermometer has ice point at 5°C and steam point at 105°C. If it reads 45°C on its scale, find the corresponding Celsius temperature.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+When solids are heated, they generally expand. Linear expansion refers to the increase in length of a solid when its temperature rises. The coefficient of linear expansion (α) is defined as the fractional increase in length per degree Celsius rise in temperature:
+ α = ΔL / (L₀Δθ)
+Area expansion (areal expansion) is the increase in surface area of a solid due to heating. Its coefficient (β) is:
+ β = ΔA / (A₀Δθ)
+ and for isotropic solids, β ≈ 2α.
+The formula for linear expansion is:
+ ΔL = αL₀Δθ
+ and for area expansion:
+ ΔA = βA₀Δθ
+Different materials have different expansion coefficients, which is important in construction (e.g., expansion joints in bridges, railway tracks).
+Practical applications include bimetallic strips in thermostats, fitting of metal tyres on cartwheels, and removal of tight lids by heating.
+</pre>
+      <pre class="panel-worksheet">
+1.Define coefficient of linear expansion and state its unit.
+—-------------------------------------------
+—-------------------------------------------
+2.A brass rod 1 m long expands by 0.6 mm when heated through 100°C. Find its coefficient of linear expansion.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why gaps are left between rails in railway lines.
+—-------------------------------------------
+—-------------------------------------------
+4.A square metal plate of side 2 m is heated through 50°C. If α = 1.2 × 10⁻⁵/°C, find its increase in area.
+—-------------------------------------------
+—-------------------------------------------
+5.State two factors that affect the expansion of solids.
+—-------------------------------------------
+—-------------------------------------------
+6.Derive the relation between β and α for isotropic solids.
+—-------------------------------------------
+—-------------------------------------------
+7.Why do glass windows sometimes crack in hot weather?
+—-------------------------------------------
+—-------------------------------------------
+8.Calculate the new length of a 2.5 m rod if α = 2 × 10⁻⁵/°C and temperature rises by 40°C.
+—-------------------------------------------
+—-------------------------------------------
+9.Give two applications of thermal expansion in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare and contrast linear and area expansion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Volume expansion is the increase in volume of a solid or liquid when heated. The coefficient of volume expansion (γ) is defined as:
+ γ = ΔV / (V₀Δθ)
+For isotropic solids, γ ≈ 3α. For liquids, expansion is measured using the apparent expansion method (considering expansion of the container).
+The formula for volume expansion is:
+ ΔV = γV₀Δθ
+Anomalous expansion of water: Unlike most substances, water contracts when heated from 0°C to 4°C, reaching maximum density at 4°C. Above 4°C, water behaves normally (expands when heated). This is crucial for aquatic life in cold regions because ice forms on the surface while water at 4°C remains below.
+Applications of volume expansion include designing liquid thermometers, hydraulic systems, and accounting for fuel expansion in tanks.
+</pre>
+      <pre class="panel-worksheet">
+1.Define coefficient of volume expansion and state its unit.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how the anomalous expansion of water benefits aquatic life.
+—-------------------------------------------
+—-------------------------------------------
+3.A solid cube of side 10 cm expands to 10.02 cm when heated through 60°C. Find γ.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is volume expansion important in storage tanks?
+—-------------------------------------------
+—-------------------------------------------
+5.A liquid expands from 50 cm³ to 50.3 cm³ when heated through 100°C in a container that expands by 0.1 cm³. Find the real expansion.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the difference between real and apparent expansion of liquids.
+—-------------------------------------------
+—-------------------------------------------
+7.State two uses of anomalous expansion of water in engineering.
+—-------------------------------------------
+—-------------------------------------------
+8.Derive γ = 3α for isotropic solids.
+—-------------------------------------------
+—-------------------------------------------
+9.Calculate the volume change of a 2 m³ metal tank with γ = 6 × 10⁻⁵/°C when heated through 50°C.
+—-------------------------------------------
+—-------------------------------------------
+10.Why do mercury thermometers not work well below –39°C?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Heat transfer is the movement of thermal energy from one body to another due to temperature difference. The three main modes are: conduction, convection, and radiation.
+Conduction occurs in solids when heat is transferred through particle vibrations and free electron movement without overall movement of the substance. Metals are good conductors due to free electrons, while wood and rubber are insulators.
+Convection occurs in fluids (liquids and gases) by the bulk movement of particles. It is responsible for sea breezes, boiling water circulation, and convection currents in the atmosphere.
+Radiation is the transfer of heat through electromagnetic waves without a medium. It can occur in a vacuum. Black, dull surfaces are good absorbers and emitters, while shiny surfaces are poor absorbers and good reflectors.
+Applications include thermos flasks, heat exchangers, solar heaters, and insulation materials.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between conduction, convection, and radiation with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why metals are good conductors.
+—-------------------------------------------
+—-------------------------------------------
+3.A metal rod of length 1 m has one end at 100°C and the other at 0°C. Describe how heat flows through it.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how land and sea breezes occur.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is radiation possible in a vacuum but conduction is not?
+—-------------------------------------------
+—-------------------------------------------
+6.State two ways of reducing heat loss by conduction in buildings.
+—-------------------------------------------
+—-------------------------------------------
+7.Why are cooking pots made of metal but have plastic handles?
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how a thermos flask minimizes heat transfer.
+—-------------------------------------------
+—-------------------------------------------
+9.Why are white clothes cooler in hot weather than black clothes?
+—-------------------------------------------
+—-------------------------------------------
+10.State three applications of each mode of heat transfer.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Electric charge is a physical property of matter responsible for electric forces. It can be positive or negative. Charges are produced when electrons are transferred between materials.
+ Methods of producing charges include:
+Friction – rubbing two objects together (e.g., glass rod with silk).
+Conduction – touching a charged object to a neutral one to transfer charges.
+Induction – charging a neutral object without direct contact.
+In solids, only electrons move; protons are fixed in the nucleus. Like charges repel, unlike charges attract. The law of conservation of charge states that the total charge in an isolated system remains constant. Materials can be conductors (allow charge flow) or insulators (resist charge flow). Examples of conductors are metals; examples of insulators are rubber and glass. Charges are measured in coulombs (C). One coulomb equals the charge of about 6.25×10^18 electrons.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain why only electrons, not protons, move in a solid conductor.
+—-------------------------------------------
+—-------------------------------------------
+2.State and explain the law of conservation of charge.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe, with examples, the three methods of charging.
+—-------------------------------------------
+—-------------------------------------------
+4.A rod is rubbed with a cloth; explain the movement of electrons.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is induction used instead of conduction in sensitive electronic devices?
+—-------------------------------------------
+—-------------------------------------------
+6.Classify copper, wood, and distilled water as conductors or insulators, giving reasons.
+—-------------------------------------------
+—-------------------------------------------
+7.A body gains 1.5×10^19 electrons. Calculate its charge in coulombs.
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss two industrial applications of static electricity.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why a balloon sticks to a wall after being rubbed with hair.
+—-------------------------------------------
+—-------------------------------------------
+10.Describe how charges can leak away from an object over time.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The gold leaf electroscope is a device used to detect and measure electric charges. It consists of a metal cap, metal rod, gold leaf, glass container, and an earth connection. The gold leaf is thin and lightweight, making it sensitive to small charges.
+Working principle: When a charged object touches or comes near the metal cap, electrons are transferred or redistributed along the rod and leaf, causing the gold leaf to repel and rise due to like charges. The degree of divergence of the leaf indicates the amount of charge.
+Uses of a gold leaf electroscope:
+Detecting electric charges.
+Identifying charge type (positive or negative).
+Measuring potential difference roughly.
+Detecting ionizing radiation.
+
+Limitations: It cannot give accurate quantitative charge values and is affected by humidity, which can cause leakage of charges.</pre>
+      <pre class="panel-worksheet">
+1.List the main parts of a gold leaf electroscope and their functions.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why the gold leaf diverges when charged.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe how to determine if a charge is positive or negative using the device.
+—-------------------------------------------
+—-------------------------------------------
+4.Why must the container be airtight?
+—-------------------------------------------
+—-------------------------------------------
+5.State two ways charges can be lost from the electroscope.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how the electroscope detects ionizing radiation.
+—-------------------------------------------
+—-------------------------------------------
+7.How would you modify the electroscope to make it more sensitive?
+—-------------------------------------------
+—-------------------------------------------
+8.Why is gold used for the leaf instead of other metals?
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between charging the electroscope by conduction and by induction.
+—-------------------------------------------
+—-------------------------------------------
+10.Draw and label a diagram of a gold leaf electroscope.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+<section class="topic-panel" id="st-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A field is a region of space where a force is experienced by a body due to another body without direct contact. Fields are invisible but can be represented with field lines showing the direction and strength.
+Types of fields include:
+Gravitational field – due to masses; always attractive.
+Electric field – due to electric charges; can be attractive or repulsive.
+Magnetic field – due to magnets or moving charges.
+
+Field lines are denser where the field is stronger. In an electric field, lines go from positive to negative. A uniform field has parallel and equally spaced lines, while a non-uniform field has curved or converging lines.
+Fields transmit forces without physical contact, explained by the concept of force fields in physics.
+</pre>
+      <pre class="panel-worksheet">
+1.Define a field and give two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between a uniform and a non-uniform field.
+—-------------------------------------------
+—-------------------------------------------
+3.Why are field lines closer together near the source?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why gravitational fields are always attractive.
+—-------------------------------------------
+—-------------------------------------------
+5.Draw the electric field between two unlike charges.
+—-------------------------------------------
+—-------------------------------------------
+6.How does a magnetic field differ from an electric field?
+—-------------------------------------------
+—-------------------------------------------
+7.State two similarities between gravitational and electric fields.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe the field lines around a positive point charge.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the concept of “action at a distance.”
+—-------------------------------------------
+—-------------------------------------------
+10.Give one real-life example of each type of field.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="st-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An electric field is a region around a charged object where other charges experience a force. It is produced by electric charges, and its strength is measured in newtons per coulomb (N/C).
+The electric field strength (E) is defined as force per unit charge:
+ E = F/q
+ Direction of the field is the direction a positive test charge would move. Field lines start on positive charges and end on negative charges.
+Uniform electric field occurs between two parallel plates with equal but opposite charges. Non-uniform electric field occurs around point charges. The intensity of the field decreases with distance from the source according to Coulomb’s law.
+Applications include capacitors, photocopiers, and electrostatic precipitators.
+</pre>
+      <pre class="panel-worksheet">
+1.Define an electric field and its unit.
+—-------------------------------------------
+—-------------------------------------------
+2.State Coulomb’s law.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain the difference between uniform and non-uniform electric fields.
+—-------------------------------------------
+—-------------------------------------------
+4.Calculate the electric field strength at a point where a 3 μC charge experiences a force of 0.06 N.
+—-------------------------------------------
+—-------------------------------------------
+5.Draw the field lines between two like charges.
+—-------------------------------------------
+—-------------------------------------------
+6.Why do field lines never cross?
+—-------------------------------------------
+—-------------------------------------------
+7.Describe how a uniform electric field can be created in a laboratory.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why a positive test charge is used to determine field direction.
+—-------------------------------------------
+—-------------------------------------------
+9.A charge of 5×10^−6 is placed in an electric field of 2 × 10³ N/C. Find the force on it.
+—-------------------------------------------
+—-------------------------------------------
+10.Mention two practical applications of electric fields in technology.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Electricity is the flow of electric charge, usually carried by electrons in a conductor. It can be static electricity (accumulation of charges) or current electricity (continuous flow of charges through a conductor). The flow of charges is caused by a potential difference (voltage) applied across a conductor, creating an electric field.
+The unit of electric current is the ampere (A), defined as one coulomb of charge passing through a point in one second. Voltage (V) is measured in volts and represents the energy per unit charge. Electrical conductors (e.g., copper, aluminium) allow easy flow of charges, while insulators (e.g., rubber, plastic) resist flow.
+Current electricity can be direct current (DC), where charges flow in one direction, or alternating current (AC), where the direction changes periodically. The basic relationship between charge, current, and time is given by:
+Q = I × t
+Electric circuits can be open or closed, with a closed circuit required for current to flow.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain the difference between static and current electricity with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.A current of 2.5 A flows for 4 minutes. Calculate the total charge transferred.
+—-------------------------------------------
+—-------------------------------------------
+3.Define voltage and explain its role in current flow.
+—-------------------------------------------
+—-------------------------------------------
+4.Why does a closed circuit allow current to flow while an open circuit does not?
+—-------------------------------------------
+—-------------------------------------------
+5.A battery provides a potential difference of 12 V. What does this mean in terms of energy per charge?
+—-------------------------------------------
+—-------------------------------------------
+6.Compare AC and DC in terms of direction of flow, source, and applications.
+—-------------------------------------------
+—-------------------------------------------
+7.Calculate the time it takes for 960 C of charge to flow through a conductor with a current of 8 A.
+—-------------------------------------------
+—-------------------------------------------
+8.State and explain two factors affecting the flow of electric current.
+—-------------------------------------------
+—-------------------------------------------
+9.Identify three good conductors and three good insulators, explaining their uses.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the significance of an electric field in moving charges.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Ohm’s Law states that the current passing through a metallic conductor at constant temperature is directly proportional to the potential difference across its ends. Mathematically:
+V = I × R
+Where V = voltage in volts, I = current in amperes, R = resistance in ohms (Ω). Resistance measures how much a material opposes the flow of electric current.
+The relationship can be shown using a V-I graph, which for an ohmic conductor is a straight line through the origin. Deviations occur in non-ohmic materials (e.g., filament lamps, diodes) where temperature or other factors cause resistance to change.
+Factors affecting resistance include length of the conductor, cross-sectional area, material type, and temperature. Ohm’s Law is fundamental in designing and analyzing electric circuits.
+</pre>
+      <pre class="panel-worksheet">
+1.State Ohm’s Law in words and mathematical form.
+—-------------------------------------------
+—-------------------------------------------
+2.A wire has a resistance of 4 Ω. If the current is 3 A, find the voltage.
+—-------------------------------------------
+—-------------------------------------------
+3.Draw and explain a V-I graph for an ohmic conductor.
+—-------------------------------------------
+—-------------------------------------------
+4.A 12 V battery is connected to a resistor. The current is 2 A. Find the resistance.
+—-------------------------------------------
+—-------------------------------------------
+5.Why does a filament lamp not obey Ohm’s Law at high currents?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how temperature affects resistance in metals.
+—-------------------------------------------
+—-------------------------------------------
+7.If the resistance of a wire is 10 Ω and the voltage is doubled, what happens to the current?
+—-------------------------------------------
+—-------------------------------------------
+8.Calculate the resistance of a wire carrying 0.5 A when connected to a 6 V supply.
+—-------------------------------------------
+—-------------------------------------------
+9.List three applications of Ohm’s Law in electrical engineering.
+—-------------------------------------------
+—-------------------------------------------
+10.Distinguish between ohmic and non-ohmic conductors with examples.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+When resistors are connected end-to-end so that the same current flows through each, they are said to be in series. The total resistance is the sum of the individual resistances:
+RT = R1 + R2 + R3+…
+The current is the same through all resistors, but the voltage divides across them in proportion to their resistances.
+Series connections are used where higher resistance is required or to divide voltage. However, if one resistor fails (open circuit), the entire circuit stops functioning.
+Example: For three resistors 2 Ω, 3 Ω, and 5 Ω in series, RT = 2 + 3 + 5 = 10 Ω.
+</pre>
+      <pre class="panel-worksheet">
+1.Derive the formula for total resistance in series.
+—-------------------------------------------
+—-------------------------------------------
+2.Three resistors of 4 Ω, 6 Ω, and 10 Ω are in series with a 20 V battery. Calculate the current.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is the current the same in all series resistors?
+—-------------------------------------------
+—-------------------------------------------
+4.How does voltage distribute in a series circuit?
+—-------------------------------------------
+—-------------------------------------------
+5.A total voltage of 15 V is applied to two series resistors of 5 Ω and 10 Ω. Find the voltage across each.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss one advantage and one disadvantage of series connection.
+—-------------------------------------------
+—-------------------------------------------
+7.What happens to total resistance if more resistors are added in series?
+—-------------------------------------------
+—-------------------------------------------
+8.Calculate the total resistance of four resistors: 1.5 Ω, 2 Ω, 3 Ω, and 4.5 Ω in series.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why household wiring is not done in series.
+—-------------------------------------------
+—-------------------------------------------
+10.If one resistor in series burns out, what happens to the current?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Resistors are in parallel when both ends of each resistor are connected to the same two points, so they share the same voltage but the current divides among them.
+The reciprocal formula for total resistance is:
+1/RT = 1/R1 + 1/R2 + 1/R3+…
+Parallel connections reduce total resistance and allow multiple paths for current. If one resistor fails (open circuit), current can still flow through the remaining resistors.
+Example: For resistors of 6 Ω and 3 Ω in parallel:
+1/RT = ⅙ + ⅓ = 12 ⇒ RT=2 Ω
+</pre>
+      <pre class="panel-worksheet">
+1.State the formula for total resistance in parallel and derive it.
+—-------------------------------------------
+—-------------------------------------------
+2.Calculate the total resistance of 4 Ω and 6 Ω in parallel.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is voltage the same across all parallel resistors?
+—-------------------------------------------
+—-------------------------------------------
+4.A 12 V supply is connected to three parallel resistors: 3 Ω, 4 Ω, and 6 Ω. Find the total current.
+—-------------------------------------------
+—-------------------------------------------
+5.Compare series and parallel connections in terms of current, voltage, and resistance.
+—-------------------------------------------
+—-------------------------------------------
+6.Calculate the total resistance of 5 Ω, 10 Ω, and 20 Ω in parallel.
+—-------------------------------------------
+—-------------------------------------------
+7.Why does adding more resistors in parallel reduce total resistance?
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the advantage of parallel wiring in household circuits.
+—-------------------------------------------
+—-------------------------------------------
+9.What happens if one resistor in parallel burns out?
+—-------------------------------------------
+—-------------------------------------------
+10.Determine the current through each branch of a parallel network with resistors 8 Ω and 12 Ω across a 24 V source.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Electrical energy is the work done by an electric current. It is given by:
+E = V × I × t
+Where E is in joules (J), V in volts, I in amperes, and t in seconds. In practical usage, electrical energy is measured in kilowatt-hours (kWh):
+1 kWh = 1000 W × 3600 s = 3.6 × 10^6 J
+Electrical power is the rate at which electrical energy is converted to other forms:
+P = V × I = I2×R = V2R
+Power is measured in watts (W). Electricity bills are based on energy consumption in kWh.
+</pre>
+      <pre class="panel-worksheet">
+1.Define electrical energy and give its formula.
+—-------------------------------------------
+—-------------------------------------------
+2.A device uses 5 A from a 240 V supply for 3 hours. Find the energy in kWh.
+—-------------------------------------------
+—-------------------------------------------
+3.Convert 2.5 kWh to joules.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the meaning of one kilowatt-hour.
+—-------------------------------------------
+—-------------------------------------------
+5.A heater rated 2000 W runs for 2 hours. Calculate the total energy used in joules.
+—-------------------------------------------
+—-------------------------------------------
+6.Derive the formula P=I2RP = I^2 RP=I2R from Ohm’s Law.
+—-------------------------------------------
+—-------------------------------------------
+7.How much power is dissipated in a 10 Ω resistor carrying 3 A?
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why electricity companies bill in kWh rather than joules.
+—-------------------------------------------
+—-------------------------------------------
+9.Calculate the cost of using a 1500 W air conditioner for 5 hours at ₦65 per kWh.
+—-------------------------------------------
+—-------------------------------------------
+10.Distinguish between electrical energy and electrical power with examples.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+      <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Electrical circuits are designed with safety devices to protect people and appliances from damage caused by excess current or faults. Common safety devices include fuses, circuit breakers, and earthing systems.
+A fuse is a thin wire that melts when current exceeds a safe value, breaking the circuit. Circuit breakers perform the same function but can be reset instead of replaced. Earthing connects exposed metallic parts to the ground, preventing electric shocks.
+Detecting faults in current often involves identifying short circuits, open circuits, or overloads. Faults can be detected using test lamps, ammeters, continuity testers, and multimeters.
+Regular inspection and proper wiring reduce hazards such as fire outbreaks and electrocution. Safety devices must match the circuit’s rating to function effectively.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between the operation of a fuse and a circuit breaker.
+—-------------------------------------------
+—-------------------------------------------
+2.A 5 A fuse is used in a circuit. If a current of 8 A flows, explain what happens and why.
+—-------------------------------------------
+—-------------------------------------------
+3.State two limitations of using a fuse in modern electrical installations.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why earthing is important for metal-bodied electrical appliances.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe how a continuity tester detects an open circuit.
+—-------------------------------------------
+—-------------------------------------------
+6.Outline three signs that indicate a short circuit in a house wiring system.
+—-------------------------------------------
+—-------------------------------------------
+7.Why must the rating of a fuse match the appliance’s current requirement?
+—-------------------------------------------
+—-------------------------------------------
+8.Suggest two faults that a multimeter can help detect.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare earthing and double insulation as safety measures.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why overloading an extension socket is dangerous.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Matter is made up of tiny particles called atoms or molecules, which are in constant motion. The kinetic theory explains that these particles move faster when temperature increases and slower when temperature decreases.
+There are three main states of matter: solid, liquid, and gas. In solids, particles are closely packed and vibrate in fixed positions; in liquids, they move past each other but remain close; in gases, they are far apart and move freely.
+The Brownian motion experiment with smoke particles provides evidence of the random movement of particles. Changes in state—melting, evaporation, condensation—are due to changes in kinetic energy of the particles.
+Diffusion in gases and liquids also supports the idea that matter is made of particles.
+</pre>
+      <pre class="panel-worksheet">        
+1.State the main assumptions of the kinetic theory of matter.
+—-------------------------------------------
+—-------------------------------------------
+2.Describe an experiment that demonstrates Brownian motion.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why gases diffuse faster than liquids.
+—-------------------------------------------
+—-------------------------------------------
+4.Compare particle arrangement in solids, liquids, and gases.
+—-------------------------------------------
+—-------------------------------------------
+5.How does temperature affect the movement of particles?
+—-------------------------------------------
+—-------------------------------------------
+6.Why does a smell spread faster in a warm room than in a cold one?
+—-------------------------------------------
+—-------------------------------------------
+7.Explain how evaporation is evidence of particle motion.
+—-------------------------------------------
+—-------------------------------------------
+8.Give two examples of diffusion in daily life.
+—-------------------------------------------
+—-------------------------------------------
+9.Why does increasing pressure reduce the volume of a gas?
+—-------------------------------------------
+—-------------------------------------------
+10.Describe the change in particle motion during melting.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+
+  <section class="topic-panel" id="tt-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Surface tension is the property of a liquid surface that makes it behave like a stretched elastic sheet. It is caused by cohesive forces between liquid molecules. Molecules at the surface experience an inward pull, creating a tension that resists external force.
+Surface tension allows insects like water striders to walk on water and causes droplets of water to form spherical shapes.
+Surface tension decreases with increase in temperature and when detergents or soap are added. It increases when the liquid is cooled.
+Surface tension is measured in N/m and can be demonstrated by floating a needle on water or observing the shape of liquid drops.</pre>
+      <pre class="panel-worksheet">
+1.Define surface tension and state its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the molecular cause of surface tension.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe one experiment to show that surface tension supports light objects.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why surface tension decreases when soap is added to water.
+—-------------------------------------------
+—-------------------------------------------
+5.State two practical uses of surface tension in industry.
+—-------------------------------------------
+—-------------------------------------------
+6.How does temperature affect surface tension?
+—-------------------------------------------
+—-------------------------------------------
+7.A needle of mass 0.004 kg is placed gently on water and is supported by surface tension.  If the length of the needle in contact with the water is 0.05 m, calculate the surface tension of water.  (g = 10 m/s²)
+—-------------------------------------------
+—-------------------------------------------
+8.A rectangular metal frame of perimeter 0.8 m is dipped into soap solution.
+ If a force of 0.24 N is required to pull the film apart, find the surface tension of the soap solution.
+—-------------------------------------------
+—-------------------------------------------
+9.A circular wire loop of radius 3 cm is dipped into a soap solution and withdrawn.
+ If the surface tension of the liquid is 0.035 N/m, calculate the force required to break the film on the loop.
+—-------------------------------------------
+—-------------------------------------------
+10.A U-shaped wire frame has a movable side of length 0.10 m.
+ If the surface tension of the liquid is 0.025 N/m, determine the force needed to move the side.
+—-------------------------------------------
+—------------------------------------------- 
+</pre>
+  </section>
+
+  <section class="topic-panel" id="tt-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Capillarity is the ability of a liquid to rise or fall in a narrow tube due to surface tension and adhesive forces between the liquid and the tube’s walls.
+If the adhesive force between the liquid and the tube is greater than the cohesive force between the liquid molecules, the liquid rises (capillary rise), as in water in a glass tube. If cohesive force is greater, the liquid falls (capillary depression), as in mercury.
+The height of capillary rise is inversely proportional to the tube’s diameter. This phenomenon is important in plant water transport, ink movement in paper, and oil lamp wicks.
+</pre>
+      <pre class="panel-worksheet">
+1.Define capillarity.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the forces responsible for capillary action.
+—-------------------------------------------
+—-------------------------------------------
+3.Why does water rise in a glass tube but mercury falls?
+—-------------------------------------------
+—-------------------------------------------
+4.State the relationship between tube diameter and height of capillary rise.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe the role of capillarity in plants.
+—-------------------------------------------
+—-------------------------------------------c
+6.Give two examples of capillarity in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+7.How does surface tension contribute to capillary action?
+—-------------------------------------------
+—-------------------------------------------
+8.Why does capillarity decrease when the tube is wider?
+—-------------------------------------------
+—-------------------------------------------
+9.Describe an experiment to demonstrate capillarity.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why oil rises in the wick of a lamp.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+
+  <section class="topic-panel" id="tt-topic-10">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Elasticity is the property of a material to return to its original shape and size after deformation, when the deforming force is removed.
+A material obeys Hooke’s law if the extension produced is directly proportional to the applied force, provided the elastic limit is not exceeded. The formula is F = kx, where F is force, k is force constant, and x is extension.
+The point beyond which a material will not return to its original shape is the elastic limit. Materials like steel and rubber exhibit high elasticity, while lead and putty have low elasticity.
+Elasticity is essential in engineering applications such as springs, bridges, and shock absorbers.
+</pre>
+      <pre class="panel-worksheet">
+1.Define elasticity.
+—-------------------------------------------
+—-------------------------------------------
+2.State Hooke’s law and its mathematical form.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain the term “elastic limit.”
+—-------------------------------------------
+—-------------------------------------------
+4.Give two examples of materials with high elasticity.
+—-------------------------------------------
+—-------------------------------------------
+5.A spring stretches 0.05 m when a force of 10 N is applied. Calculate its force constant.
+—-------------------------------------------
+—-------------------------------------------
+6.Why does a material not return to its shape when the elastic limit is exceeded?
+—-------------------------------------------
+—-------------------------------------------
+7.A spring extends by 0.04 m when a force of 8 N is applied. Calculate the spring constant.
+—-------------------------------------------
+—-------------------------------------------
+8.A spring with a force constant of 250 N/m is stretched by 0.12 m. Find the force applied.
+—-------------------------------------------
+—-------------------------------------------
+9.A load of 5 N causes a spring to extend from 15 cm to 17 cm. Determine the spring constant.
+—-------------------------------------------
+—-------------------------------------------
+10.A force of 20 N stretches a spring by 5 cm. What is the extension produced by a 12 N force?
+—-------------------------------------------
+—-------------------------------------------
+    </pre>
+  </section>
+</div>
+
+<!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1707,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -253,10 +1738,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -299,91 +1781,85 @@
 
 
 
-<script>
-    const physicsTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Physics",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 1: Introduction to Momentum",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 2: Measurement",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["What is measurement?", "State the SI unit of length, time, and mass."]
-        },
-        {
-          title: "Week 3: Motion",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is motion?", "State Newton's first law of motion."]
-        }
-        // Add more weeks if needed
-      ],
-      second: [
-        {
-          title: "Week 1: Force",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define force.", "Mention 2 effects of force."]
-        },
-        {
-          title: "Week 2: Energy",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["What is energy?", "List 3 types of energy."]
-        }
-      ],
-      third: [
-        {
-          title: "Week 1: Electricity",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["Define electricity.", "Mention the SI unit of electric current."]
-        },
-        {
-          title: "Week 2: Magnetism",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["What is magnetism?", "List 2 types of magnets."]
-        }
-      ]
-    };
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-    function loadPhysicsTopics(term) {
-      const menu = document.getElementById("phyTopicsMenu");
-      const videoFrame = document.getElementById("phyVideoFrame");
-      const title = document.getElementById("phyTopicTitle");
-      const questions = document.getElementById("phyWorksheetQuestions");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-phy").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-phy[data-term="${term}"]`).classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      physicsTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      if (physicsTopics[term].length > 0) {
-        const first = physicsTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-phy").forEach(btn => {
-      btn.addEventListener("click", () => loadPhysicsTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadPhysicsTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
 </body>
 </html>
