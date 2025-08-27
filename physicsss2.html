@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Physics specific term buttons */
-    .term-btn-phy {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-phy:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-phy.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +168,1804 @@
 </header>
 
 <!--===END OF NAV===-->
- <section class="subject-section" id="physics-section">
-    <h2 class="subject-title">Physics</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">PHYSICS</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-phy active" data-term="first">First Term</button>
-      <button class="term-btn-phy" data-term="second">Second Term</button>
-      <button class="term-btn-phy" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="phyTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Concept of position, distance and displacement in relation to X – Y plane
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="phyVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Scalar and vector quantities
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Derivation of Equations of Linear Motion
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Projectile Motion and Calculation
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Newton’s Laws of Motion and Calculations
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Equilibrium of Forces II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Equilibrium of Forces II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: Simple Harmonic Motion
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-9" type="button">
+            Week 9: Simple Harmonic Motion
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-10" type="button">
+            Week 10: Machines
+          </button>
         </div>
 
-        <h3 id="phyTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Heat Capacity
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="phyWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Specific Heat Capacity Calculations I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Specific Heat Capacity Calculations II
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Latent Heat – Change of State
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Latent Heat – Mixtures
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Gas Laws
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Production and Propagation of Waves
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-8" type="button">
+            Week 8: Properties of Waves
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-9" type="button">
+            Week 9: Light Waves
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-10" type="button">
+            Week 10: Reflection of Light on Plane Surfaces
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Curved Mirror
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Refraction of Light
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: LENSES
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: OPTICAL INSTRUMENTS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Dispersion of white light
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: SOUND WAVES
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: SOUND WAVE (CONTINUATION)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-8" type="button">
+            Week 8: RESONANCE
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-9" type="button">
+            Week 9: Sound Waves – Open and Closed Pipe
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarize Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
-  <!--===================END OF LESSONS======================-->
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Position: The location of an object relative to a reference point. In a Cartesian plane, it is written as (x,y). Example: (3,4) means 3 units along x-axis and 4 along y-axis.
+Distance: The total path length covered by an object, irrespective of direction. It is a scalar quantity, always positive, measured in meters (m).
+Displacement: The change in position of an object in a specific direction. It is a vector quantity, having both magnitude and direction. Formula: Δx=xf−xi.
+Difference: Distance is the total path (scalar), displacement is the shortest path (vector). Distance is always positive, displacement may be positive, negative, or zero.
+Graphical View: Distance is the entire path, while displacement is the straight line between start and end points with direction.
+Formulas:
+Distance: d = √(x2−x1)2+(y2−y1)2
+Position Vector: r = xi^ + yj^
+Example: From (1,2) to (4,6), distance = 5 units, displacement = 5 units in direction (3,4).</pre>
+      <pre class="panel-worksheet">
+1.A particle moves from point A(2, 3) to point B(7, 11). Calculate (a) the distance traveled, and (b) the displacement vector.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between distance and displacement, using a practical example on the X–Y plane.
+—-------------------------------------------
+—-------------------------------------------
+3.A body moves along the path A(0, 0) → B(4, 0) → C(4, 3). Find the total distance and the resultant displacement.
+—-------------------------------------------
+—-------------------------------------------
+4.If the coordinates of two points are P(–3, 2) and Q(5, –6), determine the displacement between them and its magnitude.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how position vectors are used to describe motion in two dimensions.
+—-------------------------------------------
+—-------------------------------------------
+6.A particle starts at (1, 2), moves to (4, 6), and then to (7, 2). Calculate the total distance covered and the magnitude of net displacement.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare the motion of two particles with equal distances but unequal displacements using an example on the X–Y plane.
+—-------------------------------------------
+—-------------------------------------------
+8.Derive the formula for displacement between two points (x1,y1) and (x2,y2) in the plane.
+—-------------------------------------------
+—-------------------------------------------
+9.A man walks 5 m east and 12 m north. Represent his displacement vector on the X–Y plane and find its magnitude.
+—-------------------------------------------
+—-------------------------------------------
+10.Why is displacement considered a vector while distance is a scalar, even though both involve length?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Scalars and Vectors are two categories of physical quantities.
+ A scalar quantity has magnitude only, without direction. Examples include distance, mass, time, speed, and temperature.
+ A vector quantity has both magnitude and direction. Examples include displacement, velocity, acceleration, momentum, and force.
+The main difference is that scalars are fully described by size alone, while vectors require both size and direction. Scalars are written in ordinary symbols, while vectors are written in bold or with arrows (e.g., v or →v).
+Addition of Scalars is straightforward: they are added or subtracted algebraically. For example, if a student walks 5 m and then 7 m, the total distance is 12 m.
+Addition of Vectors depends on direction. If two forces act in the same direction, they add up; if in opposite directions, they subtract. For instance, 20 N right and 5 N left give a resultant of 15 N right.
+Relative velocity describes how one object appears to move relative to another. Its formula is:
+ VAB = VA − VB.
+ When two objects move in the same direction, relative velocity is the difference. When in opposite directions, it is the sum.
+Resolution of vectors means breaking a vector into perpendicular components (horizontal and vertical). This simplifies calculations in mechanics.
+The parallelogram law of vectors states: If two vectors are represented by adjacent sides of a parallelogram, their resultant is given by the diagonal.
+Mathematically, if two vectors A and B are inclined at angle θ, the resultant R is:
+ R = √(A² + B² + 2ABcosθ).
+The direction α of the resultant is given by:
+ tan α = (B sinθ) / (A + B cosθ).
+Example: If two forces of 6 N and 8 N act at 90°, the resultant is √(6² + 8²) = 10 N, at an angle tan⁻¹(8/6) ≈ 53°.
+Thus, vector analysis helps in solving problems involving displacement, velocity, force, and other directional quantities.
+</pre>
+      <pre class="panel-worksheet">
+1.Define scalar and vector quantities with two examples each.
+—-------------------------------------------
+—-------------------------------------------
+2.A boy walks 30 m east and then 40 m east. Calculate his total distance and displacement.
+—-------------------------------------------
+—-------------------------------------------
+3.Two forces of 12 N and 7 N act in the same direction. Find the resultant.
+—-------------------------------------------
+—-------------------------------------------
+4.A car moves at 20 m/s while another moves at 15 m/s in the same direction. Calculate their relative velocity.
+—-------------------------------------------
+—-------------------------------------------
+5.Two forces of 10 N and 15 N act at 60°. Find the resultant magnitude and direction.
+—-------------------------------------------
+—-------------------------------------------
+6.A river flows east at 3 m/s, while a boat moves north at 4 m/s. Find the resultant velocity.
+—-------------------------------------------
+—-------------------------------------------
+7.A man walks 50 m north and then 120 m east. Find his displacement using Pythagoras’ theorem.
+—-------------------------------------------
+—-------------------------------------------
+8.State the parallelogram law of vectors and illustrate with a sketch.
+—-------------------------------------------
+—-------------------------------------------
+9.Two cars move towards each other with speeds 25 m/s and 35 m/s. Find their relative velocity.
+—-------------------------------------------
+—-------------------------------------------
+10.If two forces of 8 N and 6 N act at right angles, calculate their resultant force and direction.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/zHbpphfvHzM?si=HUWVr3HrXpDNcyW2" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Rectilinear motion is motion along a straight line. The main quantities involved are speed, velocity, and acceleration.
+Speed (v):
+ The rate of change of distance with time. It is a scalar quantity.
+   v = d ÷ t   where d = distance (m), t = time (s).
+Velocity (v):
+ The rate of change of displacement with time. It is a vector quantity.
+   v = x ÷ t   where x = displacement (m), t = time (s).
+Acceleration (a):
+ The rate of change of velocity with time.
+   a = (v − u) ÷ t    where u = initial velocity, v = final velocity, t = time.
+From the definition of acceleration, the first equation of motion is:
+   v = u + a·t
+The second equation of motion is derived from displacement:
+   s = u·t + ½·a·t²
+The third equation of motion is obtained by eliminating time:
+   v² = u² + 2·a·s
+Another useful expression is:
+   s = (u + v) ÷ 2 × t
+These equations hold only under uniform acceleration.
+For motion under gravity, acceleration a is replaced by g (≈ 9.8 m/s²). If the body is moving upward, g is taken as negative; if downward, positive.
+Examples:
+Example 1: A car starts from rest and accelerates uniformly at 2.5 m/s² for 12 s.  Find: final velocity (v) and displacement (s).
+Given: u = 0 m/s, a = 2.5 m/s², t = 12 s
+Step 1 (final velocity):
+  v = u + a·t
+  v = 0 + (2.5)·12 = 30 m/s
+Step 2 (displacement):
+  s = u·t + ½·a·t²
+  s = 0·12 + ½·(2.5)·12²
+  s = 1.25·144 = 180 m
+Answer: v = 30 m/s, s = 180 m.
+Example 2: A bike slows from 18 m/s to 6 m/s uniformly in 4 s.  Find: acceleration (a) and displacement (s).
+Given: u = 18 m/s, v = 6 m/s, t = 4 s
+Step 1 (acceleration):
+  a = (v − u) ÷ t
+  a = (6 − 18) ÷ 4 = (−12) ÷ 4 = −3 m/s²
+Step 2 (displacement via average velocity):
+  s = (u + v) ÷ 2 × t
+  s = (18 + 6) ÷ 2 × 4
+  s = 24 ÷ 2 × 4 = 12 × 4 = 48 m
+(Check with v² = u² + 2·a·s):
+  6² = 18² + 2·(−3)·s ⇒ 36 = 324 − 6s ⇒ 6s = 324 − 36 = 288 ⇒ s = 48 ✓
+Answer: a = −3 m/s², s = 48 m.
+Example 3: A stone is thrown vertically upward at 32 m/s. Take g = 9.8 m/s² downward.
+ Find: time to reach maximum height (t↑), maximum height (H), and total time of flight (T).
+Given: u = 32 m/s (upward), a = −g = −9.8 m/s² at all times upward.
+Step 1 (time to top, where v = 0):
+  v = u + a·t↑ ⇒ 0 = 32 + (−9.8)·t↑
+  t↑ = 32 ÷ 9.8 ≈ 3.27 s
+Step 2 (maximum height):
+ Method A: v² = u² + 2·a·H with v = 0
+  0 = 32² + 2·(−9.8)·H
+  H = 32² ÷ (2·9.8) = 1024 ÷ 19.6 ≈ 52.24 m
+(Equivalently, s = u·t + ½·a·t² at t = t↑ gives same result.)
+Step 3 (total time of flight back to the launch level):
+  T = 2·t↑ ≈ 2·3.27 = 6.53 s
+(Optional: impact speed on return)
+  |v| just before landing ≈ 32 m/s downward (symmetry, ignoring air resistance).
+Answer: t↑ ≈ 3.27 s, H ≈ 52.24 m, T ≈ 6.53 s.
+
+These equations are essential in solving problems on vehicles, projectiles, and freely falling bodies.
+</pre>
+      <pre class="panel-worksheet">
+1.A car moving with initial velocity 15 m/s accelerates uniformly at 3 m/s² for 8 s. Find the final velocity and displacement.
+—-------------------------------------------
+—-------------------------------------------
+2.A particle is projected upward with velocity 30 m/s. Calculate:
+   (i) maximum height reached
+   (ii) time taken to reach maximum height.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the equation s = u·t + ½·a·t² starting from the definition of average velocity.
+—-------------------------------------------
+—-------------------------------------------
+4.A vehicle accelerates uniformly from rest to 25 m/s in 20 s. Find:
+   (i) acceleration
+   (ii) distance covered in the last 5 s.
+—-------------------------------------------
+—-------------------------------------------
+5.A train moving at 20 m/s is brought to rest uniformly in 200 m. Find the retardation and the time taken to stop.
+—-------------------------------------------
+—-------------------------------------------
+6.A stone is thrown vertically upward with velocity 40 m/s. Calculate the total time of flight before it returns to the ground.
+—-------------------------------------------
+—-------------------------------------------
+7.Show how the third equation of motion (v² = u² + 2·a·s) can be derived from the first two equations.
+—-------------------------------------------
+—-------------------------------------------
+8.A motorbike moving at 12 m/s accelerates uniformly to 20 m/s in 5 s. Find its acceleration and displacement.
+—-------------------------------------------
+—-------------------------------------------
+9.A ball is dropped from a building 80 m high. Calculate:
+   (i) the time to hit the ground
+   (ii) the velocity just before impact.
+—-------------------------------------------
+—-------------------------------------------
+10.A body moving with initial velocity u covers a distance s in time t under uniform acceleration. Prove that:
+   s = (u + v) ÷ 2 × t
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Projectile motion is the motion of an object thrown into the air, influenced only by gravity and air resistance (neglected in basic analysis). A projectile has two components of motion: horizontal and vertical.
+Horizontally, there is no acceleration (if air resistance is ignored), so velocity remains constant. Vertically, the projectile experiences uniform acceleration due to gravity, usually taken as g=9.8 m/s2.
+The main equations are:
+Time of flight: 𝑻 = (2𝑢 sin𝜃)/𝑔
+Maximum height: 𝑯 = (𝑢² sin²𝜃)/(2𝑔)
+Range: 𝑹 = (𝑢² sin2𝜃)/𝑔
+
+
+Horizontal displacement: 𝑥 = (𝑢 cos𝜃)𝑡
+Vertical displacement: 𝑦 = (𝑢 sin𝜃)𝑡 − (½𝑔𝑡²)
+Solved Examples
+Assume g = 9.8 m·s⁻² unless stated.
+Example 1: Given: u = 30 m·s⁻¹, θ = 40°  Find: Maximum height H
+H = (u²·sin²θ)/(2g)
+ u² = 30² = 900
+ sin 40° ≈ 0.6428 ⇒ sin²40° ≈ 0.4132
+H = (900 × 0.4132)/(2 × 9.8)
+ = 371.88 / 19.6
+ ≈ 19.0 m
+Example 2: Given: u = 25 m·s⁻¹, θ = 55°, Find: T (time of flight), R (range)
+T = (2u·sinθ)/g
+ sin 55° ≈ 0.8192
+T = (2 × 25 × 0.8192)/9.8
+ = 40.96/9.8
+ ≈ 4.18 s
+R = (u²·sin 2θ)/g
+ 2θ = 110°, sin 110° = sin 70° ≈ 0.9397
+R = (25² × 0.9397)/9.8
+ = (625 × 0.9397)/9.8
+ = 587.31/9.8
+ ≈ 59.9 m
+Exaplne 3: Given: A ball is fired horizontally at uₓ = 12 m·s⁻¹ from height h = 20 m. Find: Time to hit ground t, horizontal range x
+Vertical motion (uᵧ = 0): y = ½gt² ⇒ t = √(2h/g)
+ t = √(40/9.8) = √4.0816 ≈ 2.02 s
+Horizontal: x = uₓ·t = 12 × 2.02 ≈ 24.2 m
+Projectile motion is parabolic because of the combination of constant horizontal motion and accelerated vertical motion.
+Practical applications include throwing a ball, firing a cannon, or launching a rocket at low altitude.
+Understanding projectile motion helps in engineering, sports science, and military applications.
+</pre>
+      <pre class="panel-worksheet">
+1.Derive the formula for the range of a projectile.
+—-------------------------------------------
+—-------------------------------------------
+2.A ball is thrown with velocity 30 m/s at 45°. Find its maximum height.
+—-------------------------------------------
+—-------------------------------------------
+3.Calculate the time of flight of a stone projected at 20 m/s at an angle of 30°.
+—-------------------------------------------
+—-------------------------------------------
+4.A projectile is launched at 60°. Show that the horizontal and vertical motions are independent.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why projectile motion is parabolic.
+—-------------------------------------------
+—-------------------------------------------
+6.A bullet is fired at 200 m/s horizontally from a height of 50 m. Find the time taken to hit the ground.
+—-------------------------------------------
+—-------------------------------------------
+7.Derive the expression for maximum height in terms of initial velocity and angle.
+—-------------------------------------------
+—-------------------------------------------
+8.Calculate the range of a stone projected at 40 m/s at an angle of 45°.
+—-------------------------------------------
+—-------------------------------------------
+9.A footballer kicks a ball at 25 m/s at 60°. How long does it stay in the air?
+—-------------------------------------------
+—-------------------------------------------
+10.Explain two real-life applications of projectile motion in engineering.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sir Isaac Newton formulated three fundamental laws of motion.
+Newton’s First Law (Law of Inertia): A body continues in its state of rest or uniform motion unless acted upon by an external force. This explains why a passenger jerks forward when a car suddenly stops.
+Newton’s Second Law: The rate of change of momentum of a body is directly proportional to the applied force and occurs in the direction of the force. Mathematically:
+F = ma
+where F is force, m is mass, and a is acceleration.
+Newton’s Third Law: For every action, there is an equal and opposite reaction. For example, a rocket moves upward because gases are expelled downward.
+Momentum is defined as the product of mass and velocity:
+p=mv
+Impulse is the product of force and time:
+Impulse = Ft
+Example 1: Given: m = 5.0 kg, applied force Fₐ = 22 N, friction f = 7 N (opposes motion)
+ Find: a
+Net force: F_net = Fₐ − f = 22 − 7 = 15 N
+Newton II: a = F_net / m = 15 / 5.0 = 3.0 m·s⁻²
+Example 2: Given: Ball m = 0.15 kg, vᵢ = −20 m·s⁻¹ (toward bat), v_f = +30 m·s⁻¹ (away), contact time Δt = 0.010 s
+ Find: Average force F_avg
+Change in momentum: Δp = m(v_f − vᵢ) = 0.15(30 − (−20))
+ Δp = 0.15 × 50 = 7.5 N·s
+Impulse J = F_avg·Δt = Δp ⇒ F_avg = Δp/Δt = 7.5 / 0.010 = 750 N
+(Direction: same as v_f.)
+These laws explain everyday phenomena such as walking, driving, swimming, and flying.
+Applications include the design of vehicles, aircraft, sports science, and space exploration.
+Mathematical problems often involve calculating force, momentum, acceleration, and impulse.
+</pre>
+      <pre class="panel-worksheet">
+1.State and explain Newton’s three laws of motion with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.A force of 50 N acts on a mass of 10 kg. Find its acceleration.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the equation F=ma from Newton’s second law.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how Newton’s third law applies to rocket propulsion.
+—-------------------------------------------
+—-------------------------------------------
+5.A car of mass 1000 kg increases its velocity from 10 m/s to 30 m/s in 5 seconds. Calculate the force applied.
+—-------------------------------------------
+—-------------------------------------------
+6.A ball of mass 2 kg moving at 4 m/s is stopped in 0.2 s. Find the average force applied.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss why passengers are advised to wear seatbelts using Newton’s first law.
+—-------------------------------------------
+—-------------------------------------------
+8.A 20 N force acts on a body for 5 seconds. Find the impulse and change in momentum.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the role of Newton’s laws in the motion of satellites.
+—-------------------------------------------
+—-------------------------------------------
+10.A 5 kg object is pushed with a force of 15 N. If friction is 5 N, calculate its acceleration.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Equilibrium of forces occurs when the resultant force acting on a body is zero. There are two main types: static equilibrium, when a body is at rest, and dynamic equilibrium, when a body moves at constant velocity without acceleration.
+The conditions for equilibrium are: (1) the algebraic sum of all forces in any direction must be zero, and (2) the algebraic sum of moments of all forces about any point must be zero.
+The moment of a force is the turning effect produced by a force acting at a distance from a pivot. It is defined as:
+ Moment = Force × Perpendicular distance from pivot.
+The principle of moments states that: For a body in equilibrium, the sum of clockwise moments about a point equals the sum of anticlockwise moments about the same point.
+This principle is applied in levers, balances, cranes, and bridges. The concept of couple (two equal and opposite parallel forces) also relates to rotational equilibrium.
+Example 1: Uniform metre rule pivoted at the 40 cm mark. A 0.30 kg mass hangs at the 20 cm mark (left). What mass mmm at the 70 cm mark (right) will balance it?
+Distances from pivot
+ Left arm = 40 − 20 = 20 cm
+ Right arm = 70 − 40 = 30 cm
+Moments about the pivot (clockwise = anticlockwise)
+ 0.30 × 20 = m × 30
+ 6.0 = 30m
+ m = 6.0 / 30 = 0.20 kg
+Answer: Hang 0.20 kg at the 70 cm mark.</pre>
+      <pre class="panel-worksheet">
+1.State the two conditions necessary for equilibrium of a rigid body.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between static and dynamic equilibrium with real-life examples.
+—-------------------------------------------
+—-------------------------------------------
+3.A uniform metre rule is balanced on a knife edge at its midpoint. A 40 N weight is hung at 30 cm mark. At what point should a 60 N weight be hung to maintain equilibrium?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why the principle of moments is essential in designing weighing balances.
+—-------------------------------------------
+—-------------------------------------------
+5.A uniform plank of length 4 m weighs 200 N. It is supported at its ends. A boy weighing 400 N stands 1.5 m from one end. Calculate the reactions at the supports.
+—-------------------------------------------
+—-------------------------------------------
+6.Distinguish between torque and moment of a force.
+—-------------------------------------------
+—-------------------------------------------
+7.A uniform rod of weight 50 N is pivoted at one end. A horizontal force of 20 N is applied at the other end. Find the moment of the force about the pivot.
+—-------------------------------------------
+—-------------------------------------------
+8.Give three practical applications of the principle of moments.
+—-------------------------------------------
+—-------------------------------------------
+9.A uniform metre rule is balanced horizontally at the 40 cm mark when a 30 N force is hung at the 20 cm mark. Find the weight of the metre rule.
+—-------------------------------------------
+—-------------------------------------------
+10.Why is it important that the sum of moments in opposite directions be equal for equilibrium?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The centre of gravity (C.G.) of a body is the point through which its entire weight appears to act, regardless of the body’s orientation. For uniform regular bodies, the C.G. lies at the geometric centre. For irregular bodies, it can be found by the plumb-line method.
+Stability of objects refers to the tendency of a body to return to its original position after being displaced slightly. There are three types:
+Stable equilibrium – when the object returns to its original position after displacement.
+Unstable equilibrium – when the object moves further away after displacement.
+Neutral equilibrium – when the object remains in its new position after displacement.
+The stability of an object depends on: (1) the height of its centre of gravity, (2) the size of its base, and (3) its shape.
+Practical applications include vehicle design (low centre of gravity for cars), building foundations (broad base for stability), and sports (athletes lower their centre of gravity for balance).
+</pre>
+      <pre class="panel-worksheet">
+1.Define the centre of gravity of a body.
+—-------------------------------------------
+—-------------------------------------------
+2.Describe how to locate the centre of gravity of an irregular lamina.
+—-------------------------------------------
+—-------------------------------------------
+3.Distinguish between stable, unstable, and neutral equilibrium with diagrams.
+—-------------------------------------------
+—-------------------------------------------
+4.A cone is placed on its base and then inverted on its apex. Explain the change in its stability.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is it easier to tip over a tall, narrow container than a short, wide one?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how lowering the centre of gravity improves the stability of a racing car.
+—-------------------------------------------
+—-------------------------------------------
+7.Give three examples of applications of stability in construction and engineering.
+—-------------------------------------------
+—-------------------------------------------
+8.Why do athletes often bend their knees or spread their feet while preparing to receive a force (e.g., in rugby)?
+—-------------------------------------------
+—-------------------------------------------
+9.A uniform rod of length 2 m is pivoted at its midpoint. Explain the effect of suspending different weights at equal distances on either side.
+—-------------------------------------------
+—-------------------------------------------
+10.State two factors that influence whether a ladder leaning against a wall will remain in stable equilibrium.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Simple Harmonic Motion (SHM) is a type of periodic motion in which the acceleration of a body is directly proportional to its displacement from a fixed point and directed towards that point. Examples include a simple pendulum, mass-spring system, and vibrating strings.
+The defining equation of SHM is:
+ a∝−x, where a is acceleration and x is displacement.
+The motion is sinusoidal in nature, usually described using sine or cosine functions. The period (T) is the time taken for one complete oscillation, while frequency (f) is the number of oscillations per second, with f=1/T​.
+For a spring, the period is given by T=2π√m/k ​​, where m is mass and k is spring constant. For a simple pendulum, T=2π√l/g, where l is length and g is acceleration due to gravity.
+In SHM, maximum displacement from the mean position is called amplitude, while the restoring force is responsible for the motion. Energy alternates between kinetic and potential, but the total energy remains constant in the absence of damping.
+</pre>
+      <pre class="panel-worksheet">
+1.Define Simple Harmonic Motion (SHM).
+—-------------------------------------------
+—-------------------------------------------
+2.Write the equation that shows the relationship between acceleration and displacement in SHM.
+—-------------------------------------------
+—-------------------------------------------
+3.A pendulum has a length of 1.2 m. Calculate its period (take g = 9.8 m/s²).
+—-------------------------------------------
+—-------------------------------------------
+4.A mass of 200 g is attached to a spring with spring constant 80 N/m. Find the period of oscillation.
+—-------------------------------------------
+—-------------------------------------------
+5.Differentiate between frequency and period in SHM.
+—-------------------------------------------
+—-------------------------------------------
+6.What is the effect of amplitude on the period of a pendulum?
+—-------------------------------------------
+—-------------------------------------------
+7.State two conditions for a motion to be classified as SHM.
+—----------------------------------------------------------------
+—----------------------------------------------------------------
+8.A body oscillates 40 times in 20 seconds. Find its frequency.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why SHM is regarded as a periodic motion.
+—-------------------------------------------
+—-------------------------------------------
+10.A 0.5 kg mass attached to a spring has a period of 1.4 s. Calculate the spring constant.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="ft-topic-9">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+In continuation, we study the energy changes and graphical representation in SHM. At the extreme positions, potential energy is maximum and kinetic energy is zero. At the mean position, kinetic energy is maximum while potential energy is zero.
+The displacement-time graph of SHM is sinusoidal, while the velocity-time graph is also sinusoidal but out of phase by 90°. The acceleration-time graph is also sinusoidal but 180° out of phase with displacement.
+Damping occurs when resistive forces such as friction or air resistance reduce the amplitude of oscillation. In under-damping, oscillations gradually decrease; in critical damping, the system returns to equilibrium quickly without oscillating; in over-damping, it returns very slowly.
+Resonance happens when the frequency of an external force matches the natural frequency of a system, causing large amplitude oscillations. While resonance can be useful (e.g., in radio tuning), it can also be destructive (e.g., bridge collapse).
+SHM is important in real life, such as in clocks, musical instruments, seismology, and alternating current circuits.
+</pre>
+      <pre class="panel-worksheet">
+1.Distinguish between kinetic and potential energy in SHM.
+—-------------------------------------------
+—-------------------------------------------
+2.Sketch the displacement-time graph of SHM.
+—-------------------------------------------
+—-------------------------------------------
+3.Why are velocity and displacement said to be out of phase in SHM?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the term damping in SHM.
+—-------------------------------------------
+—-------------------------------------------
+5.State the differences between under-damping, critical damping, and over-damping.
+—-------------------------------------------
+—-------------------------------------------
+6.Define resonance and give two examples of its application.
+—-------------------------------------------
+—-------------------------------------------
+7.What are the dangers of resonance?
+—-------------------------------------------
+—-------------------------------------------
+8.A system oscillates with a frequency of 2 Hz. How long will it take to complete 10 oscillations?
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why energy remains constant in an ideal SHM.
+—-------------------------------------------
+—-------------------------------------------
+10.A pendulum has a period of 2.5 s. Calculate its frequency.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="ft-topic-10">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Machines are devices that make work easier by multiplying force, changing the direction of force, or increasing speed.
+ The force applied to a machine is called the effort (𝐸), while the force the machine overcomes is the load (𝐿).
+The Mechanical Advantage (M.A.) of a machine is the ratio of the load to the effort:
+ Ｍ.Ａ. = Ｌ ÷ Ｅ
+It shows how many times the machine multiplies the effort.
+The Velocity Ratio (V.R.) is the ratio of the distance moved by the effort to the distance moved by the load:
+ Ｖ.Ｒ. = ｄₑ ÷ ｄₗ
+The Efficiency (η) of a machine is given by:
+ η = (Ｍ.Ａ. ÷ Ｖ.Ｒ.) × １００％
+No machine is １００％ efficient due to friction and weight of moving parts.
+Solved Examples
+Example ①:
+ A machine lifts a load of ２００ Ｎ with an effort of ５０ Ｎ. Find its mechanical advantage.
+Ｍ.Ａ. = Ｌ ÷ Ｅ = ２００ ÷ ５０ = ４
+Answer: Ｍ.Ａ. = ４
+Example ②:
+ If the velocity ratio of a machine is ５ and its efficiency is ８０％, calculate the effort required to lift a load of ４００ Ｎ.
+Ｍ.Ａ. = (η × Ｖ.Ｒ.) ÷ １００ = (８０ × ５) ÷ １００ = ４
+ Ｅ = Ｌ ÷ Ｍ.Ａ. = ４００ ÷ ４ = １００ Ｎ
+Answer: Effort = １００ Ｎ
+</pre>
+      <pre class="panel-worksheet">
+1.A machine of velocity ratio 6 has an efficiency of 75%. Calculate the effort needed to lift a load of 450 N.
+—-------------------------------------------
+—-------------------------------------------
+2.The efficiency of a machine is 90%. If its M.A. is 9, calculate the velocity ratio.
+—-------------------------------------------
+—-------------------------------------------
+3.A pulley system has a V.R. of 5. If an effort of 120 N lifts a load of 480 N, calculate the efficiency.
+—-------------------------------------------
+—-------------------------------------------
+4.A wheel and axle has a wheel radius of 50 cm and axle radius of 10 cm. Find its velocity ratio.
+—-------------------------------------------
+—-------------------------------------------
+5.A screw jack has a pitch of 0.5 cm and a handle length of 25 cm. Calculate its velocity ratio.
+—-------------------------------------------
+—-------------------------------------------
+6.A machine of efficiency 70% is used to lift a load of 600 N with an effort of 200 N. Find its velocity ratio.
+—-------------------------------------------
+—-------------------------------------------
+7.A machine of M.A. 5 lifts a load of 1500 N. Find the effort applied.
+—-------------------------------------------
+—-------------------------------------------
+8.A block and tackle has 6 pulleys. If efficiency is 80%, calculate the M.A. and effort required to lift 960 N.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why the velocity ratio of a machine is always greater than its mechanical advantage.
+—-------------------------------------------
+—-------------------------------------------
+10.A load of 2000 N is raised through 2 m by a machine when the effort moves through 20 m. Calculate the velocity ratio, M.A., and efficiency if the effort applied is 500 N.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Heat is a form of energy transferred due to temperature difference. The amount of heat a body absorbs depends on its mass, material, and temperature rise.
+ The heat capacity (C) of a body is the quantity of heat required to raise its temperature by 1 kelvin (or 1°C).
+ Mathematically:
+ 𝐶 = 𝑄 ÷ Δ𝜃
+ where 𝑄 = heat absorbed, Δ𝜃 = temperature rise.
+Heat capacity depends on the substance and its mass. A large mass has higher heat capacity.
+ Specific heat capacity, however, is the heat needed to raise 1 kg of a substance by 1 K.
+ Relation: 𝐶 = 𝑚𝑐, where 𝑚 is mass, 𝑐 is specific heat capacity.
+ The SI unit of heat capacity is joule per kelvin (J/K).
+ Heat capacity is extensive (depends on size), while specific heat capacity is intensive (independent of size).
+
+Solved Examples
+1. A body requires 4200 J to raise its temperature by 20°C. Find its heat capacity.
+ 𝐶 = 𝑄 ÷ Δ𝜃 = 4200 ÷ 20 = 210 J/K
+2. If a copper block of mass 2 kg has a specific heat capacity of 400 J/kgK, calculate its heat capacity.
+ 𝐶 = 𝑚𝑐 = 2 × 400 = 800 J/K</pre>
+      <pre class="panel-worksheet">
+1.Define heat capacity and state its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between heat capacity and specific heat capacity.
+—-------------------------------------------
+—-------------------------------------------
+3.A 5 kg iron block with 𝑐 = 450 J/kgK is heated by 2000 J. Find temperature rise.
+—-------------------------------------------
+—-------------------------------------------
+4.A body of heat capacity 150 J/K is cooled by 10 K. Find heat lost.
+—-------------------------------------------
+—-------------------------------------------
+5.A material of 4 kg has heat capacity 4000 J/K. Find its specific heat capacity.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain why water is used as a coolant in car engines.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss the significance of high heat capacity in climate moderation.
+—-------------------------------------------
+—-------------------------------------------
+8.A body absorbs 2.1 kJ for a rise of 7 K. Calculate its heat capacity.
+—-------------------------------------------
+—-------------------------------------------
+9.A 3 kg material has specific heat 300 J/kgK. What heat is required for 15 K rise?
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the heat capacity of copper and aluminum if both masses are equal but specific heats differ.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Specific heat capacity (𝑐) is the quantity of heat required to raise the temperature of 1 kg of a substance by 1 K.
+ Formula:
+ 𝑄 = 𝑚𝑐Δ𝜃
+ where 𝑄 = heat supplied, 𝑚 = mass, 𝑐 = specific heat, Δ𝜃 = temperature change.
+The value of 𝑐 depends on the type of material. Water has a high specific heat (4200 J/kgK), metals have lower values.
+ Substances with high specific heat store heat longer, while those with low values heat up quickly.
+Calorimetry experiments can be used to measure 𝑐 of substances.
+ The SI unit is J/kgK.
+Solved Examples
+1. A 2 kg block of copper (𝑐 = 390 J/kgK) is heated from 20°C to 50°C. Find heat absorbed.
+ 𝑄 = 𝑚𝑐Δ𝜃 = 2 × 390 × (50 − 20) = 23,400 J
+2. A heater supplies 5000 J to 0.5 kg of a liquid. Its temperature rises by 2 K. Find 𝑐.
+ 𝑐 = 𝑄 ÷ (𝑚Δ𝜃) = 5000 ÷ (0.5 × 2) = 5000 J/kgK</pre>
+      <pre class="panel-worksheet">
+1.Define specific heat capacity.
+—-------------------------------------------
+—-------------------------------------------
+2.State two applications of high specific heat capacity of water.
+—-------------------------------------------
+—-------------------------------------------
+3.Calculate heat required to raise 1.5 kg aluminum (𝑐 = 900 J/kgK) through 60°C.
+—-------------------------------------------
+—-------------------------------------------
+4.A 2 kg copper block absorbs 9000 J. If 𝑐 = 390 J/kgK, find temperature rise.
+—-------------------------------------------
+—-------------------------------------------
+5.A liquid of mass 0.2 kg gains 840 J for 2 K rise. Find 𝑐
+—-------------------------------------------
+—-------------------------------------------
+6.A 3 kg substance at 20°C absorbs 18 kJ. If 𝑐 = 600 J/kgK, find final temp.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss why coastal areas have smaller temperature variations than inland.
+—-------------------------------------------
+—-------------------------------------------
+8.Why does sand heat faster than water?
+—-------------------------------------------
+—-------------------------------------------
+9.A 5 kg substance with 𝑐 = 800 J/kgK is cooled by 10°C. Find heat lost.
+—-------------------------------------------
+—-------------------------------------------
+10.Describe calorimeter method for determining 𝑐 of a solid.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Heat energy can also be supplied electrically.
+ An electrical heater converts electrical energy into heat:
+ 𝑄 = 𝑉𝐼𝑡 = 𝑃 × 𝑡
+ where 𝑉 = voltage, 𝐼 = current, 𝑡 = time, 𝑃 = power.
+Combining with calorimetry:
+ 𝑉𝐼𝑡 = 𝑚𝑐Δ𝜃
+ This relation allows determination of specific heat capacity using electrical method.
+Corrections for heat loss must be applied. The SI units remain J, kg, and K.
+Electrical heating experiments are widely used in laboratories for accuracy.
+Solved Examples
+ 1. A 12 V heater passes current of 4 A through 500 g of water for 300 s. Find rise in temperature (𝑐 = 4200 J/kgK).
+ 𝑄 = 𝑉𝐼𝑡 = 12 × 4 × 300 = 14,400 J
+ Δ𝜃 = 𝑄 ÷ (𝑚𝑐) = 14,400 ÷ (0.5 × 4200) = 6.86°C
+2. A 24 V heater of resistance 12 Ω is used to heat 2 kg oil for 200 s. 𝑐 = 2000 J/kgK. Find temp rise.
+ 𝐼 = 𝑉 ÷ 𝑅 = 24 ÷ 12 = 2 A
+ 𝑄 = 𝑉𝐼𝑡 = 24 × 2 × 200 = 9600 J
+ Δ𝜃 = 𝑄 ÷ (𝑚𝑐) = 9600 ÷ (2 × 2000) = 2.4°C</pre>
+      <pre class="panel-worksheet">
+1.Write expression for heat supplied electrically.
+—-------------------------------------------
+—-------------------------------------------
+2.A 60 W heater operates for 5 minutes. How much heat is produced?
+—-------------------------------------------
+—-------------------------------------------
+3.A 24 V heater carries 2 A for 300 s to heat 1 kg substance. If Δ𝜃 = 6 K, find 𝑐.
+—-------------------------------------------
+—-------------------------------------------
+4.A 12 V, 6 Ω resistor heats 0.5 kg water for 200 s. Find Δ𝜃.
+—-------------------------------------------
+—-------------------------------------------
+5.A kettle rated 1000 W heats 2 kg water for 5 min. Find Δ𝜃 (𝑐 = 4200 J/kgK).
+—-------------------------------------------
+—-------------------------------------------
+6.Derive formula linking 𝑉, 𝐼, 𝑡, 𝑚, 𝑐, Δ𝜃.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain one advantage of electrical method in calorimetry.
+—-------------------------------------------
+—-------------------------------------------
+8.A 240 V kettle of 10 A heats water for 2 min. Calculate heat supplied.
+—-------------------------------------------
+—-------------------------------------------
+9.2 kg of a liquid is heated electrically by 12 V, 4 A current for 5 min. If Δ𝜃 = 10 K, find 𝑐.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain how corrections for heat loss are made in electrical experiments.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Latent heat is the heat absorbed or released by a substance during a change of state without a change in temperature. Common changes of state include melting, boiling, evaporation, condensation, sublimation, and freezing.
+The latent heat of fusion (𝐿𝑓) is the amount of heat required to convert 𝟣 𝐤𝐠 of a solid into liquid at its melting point without temperature change:
+ 𝐐 = 𝐦𝐋𝑓
+The latent heat of vaporisation (𝐿𝑣) is the amount of heat required to convert 𝟣 𝐤𝐠 of liquid into vapour at its boiling point without temperature change:
+ 𝐐 = 𝐦𝐋𝑣
+Latent heat explains why temperature remains constant during melting or boiling. It is measured in joules per kilogram (𝐽/𝐤𝐠).
+Solved Example 𝟣
+ Find the heat required to melt 𝟢.𝟧 𝐤𝐠 of ice at 𝟢 °𝐂 if the latent heat of fusion of ice is 𝟑.𝟑𝟒 × 𝟏𝟎⁵ 𝐽/𝐤𝐠.
+𝐐 = 𝐦𝐋𝑓 = 𝟢.𝟧 × 𝟑.𝟑𝟒 × 𝟏𝟎⁵ = 𝟏.𝟔𝟕 × 𝟏𝟎⁵ 𝐽
+Solved Example 𝟤
+ Calculate the heat needed to convert 𝟤 𝐤𝐠 of water at 𝟣𝟢𝟢 °𝐂 to steam if 𝐿𝑣 = 𝟐.𝟐𝟔 × 𝟏𝟎⁶ 𝐽/𝐤𝐠.
+𝐐 = 𝐦𝐋𝑣 = 𝟤 × 𝟐.𝟐𝟔 × 𝟏𝟎⁶ = 𝟒.𝟓𝟐 × 𝟏𝟎⁶ 𝐽
+</pre>
+      <pre class="panel-worksheet">
+1.Define latent heat of fusion and vaporisation.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why temperature does not change during melting.
+—-------------------------------------------
+—-------------------------------------------
+3.A block of ice at 𝟢 °𝐂 absorbs heat but remains at 𝟢 °𝐂. Why?
+—-------------------------------------------
+—-------------------------------------------
+𝟦.Derive the formula for heat absorbed during change of state.
+—-------------------------------------------
+—-------------------------------------------
+𝟧.A 𝟥 𝐤𝐠 block of ice melts completely at 𝟢 °𝐂. If 𝐿𝑓 = 𝟑.𝟑𝟒 × 𝟏𝟎⁵ 𝐽/𝐤𝐠, find the heat absorbed.
+—-------------------------------------------
+—-------------------------------------------
+𝟨.Why does sweating cool the body using latent heat principle?
+—-------------------------------------------
+—-------------------------------------------
+𝟩.A 1.5 kg ice block melts at 0°C. Find heat absorbed if 𝐿𝒻 = 3.34 × 10⁵ J/kg.
+—-------------------------------------------
+—-------------------------------------------
+8.A kettle converts 1 kg water to steam. Find heat absorbed if 𝐿ᵥ = 2.26 × 10⁶ J/kg.
+—-------------------------------------------
+—-------------------------------------------
+9.A 𝟤.𝟧 𝐤𝐠 water at 𝟣𝟢𝟢 °𝐂 is converted to steam. Find heat absorbed (𝐿𝑣 = 𝟐.𝟐𝟔 × 𝟏𝟎⁶ 𝐽/𝐤𝐠).
+—-------------------------------------------
+—-------------------------------------------
+𝟣𝟢.Distinguish between specific heat capacity and latent heat.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+When two substances at different temperatures are mixed, heat lost by the hotter substance equals heat gained by the cooler one until thermal equilibrium is reached. This principle is based on the law of conservation of energy.
+If a solid undergoes a change of state in a mixture, both its latent heat and sensible heat are considered.
+General heat balance equation:
+ 𝐐 𝐥𝐨𝐬𝐭 = 𝐐 𝐠𝐚𝐢𝐧𝐞𝐝
+Heat absorbed or released:
+ 𝐐 = 𝐦𝐜Δ𝐓   or   𝐐 = 𝐦𝐋
+
+Solved Example 𝟣
+ What is the final temperature when 𝟢.𝟤 𝐤𝐠 of ice at 𝟢 °𝐂 is added to 𝟢.𝟧 𝐤𝐠 of water at 𝟦𝟢 °𝐂? (𝐜 = 𝟒𝟐𝟎𝟎 𝐽/𝐤𝐠𝐊, 𝐿𝑓 = 𝟑.𝟑𝟒 × 𝟏𝟎⁵ 𝐽/𝐤𝐠).
+Heat lost by water = 𝟢.𝟧 × 𝟒𝟐𝟎𝟎 × (𝟦𝟢 − θ) = 𝟐𝟏𝟎𝟎(𝟦𝟢 − θ)
+ Heat gained by ice = 𝟢.𝟤 × 𝟑.𝟑𝟒 × 𝟏𝟎⁵ + 𝟢.𝟤 × 𝟒𝟐𝟎𝟎 × θ = 𝟔𝟔𝟖𝟎𝟎 + 𝟖𝟒𝟎θ
+Equating: 𝟐𝟏𝟎𝟎(𝟦𝟢 − θ) = 𝟔𝟔𝟖𝟎𝟎 + 𝟖𝟒𝟎θ
+ Solving → θ ≈ 𝟣𝟢.𝟪 °𝐂
+Solved Example 𝟤
+ Find the final temperature when 𝟢.𝟣 𝐤𝐠 of steam at 𝟣𝟢𝟢 °𝐂 is condensed into 𝟣 𝐤𝐠 of water at 𝟤𝟢 °𝐂. (𝐿𝑣 = 𝟐.𝟐𝟔 × 𝟏𝟎⁶ 𝐽/𝐤𝐠, 𝐜 = 𝟒𝟐𝟎𝟎 𝐽/𝐤𝐠𝐊).
+Heat released by steam = 𝟢.𝟣 × 𝟐.𝟐𝟔 × 𝟏𝟎⁶ + 𝟢.𝟣 × 𝟒𝟐𝟎𝟎 × (𝟣𝟢𝟢 − θ)
+ = 𝟐.𝟐𝟔 × 𝟏𝟎⁵ + 𝟒𝟐𝟎(𝟣𝟢𝟢 − θ)
+Heat gained by water = 𝟣 × 𝟒𝟐𝟎𝟎 × (θ − 𝟤𝟢)
+Equating and solving → θ ≈ 𝟧𝟨.𝟦 °𝐂
+</pre>
+      <pre class="panel-worksheet">
+1.State the principle of mixtures.
+—-------------------------------------------
+—-------------------------------------------
+𝟤.Why is the law of conservation of energy important in mixture problems?
+—-------------------------------------------
+—-------------------------------------------
+𝟥.Derive the condition for thermal equilibrium in a mixture.
+—-------------------------------------------
+—-------------------------------------------
+𝟦.A 𝟢.𝟤 𝐤𝐠 of copper at 𝟣𝟢𝟢 °𝐂 is placed in 𝟢.𝟧 𝐤𝐠 of water at 𝟤𝟢 °𝐂. Find final temperature (𝐜₍𝐂𝐮₎ = 𝟒𝟎𝟎 𝐽/𝐤𝐠𝐊).
+—-------------------------------------------
+—-------------------------------------------
+𝟧.Explain why final temperature lies between the two initial temperatures.
+—-------------------------------------------
+—-------------------------------------------
+𝟨.𝟢.𝟥 𝐤𝐠 of ice at 𝟢 °𝐂 is added to 𝟢.𝟨 𝐤𝐠 of water at 𝟧𝟢 °𝐂. Find final temperature.
+—-------------------------------------------
+—-------------------------------------------
+𝟩.A mixture of ice and water is at 𝟢 °𝐂. Explain why adding heat doesn’t change temperature immediately.
+—-------------------------------------------
+—-------------------------------------------
+𝟪.Why is steam more effective in heating than boiling water?
+—-------------------------------------------
+—-------------------------------------------
+𝟫.𝟢.𝟧 𝐤𝐠 of aluminium at 𝟣𝟢𝟢 °𝐂 is dropped into 𝟣 𝐤𝐠 of water at 𝟤𝟢 °𝐂. Calculate equilibrium temperature (𝐜₍𝐀𝐥₎ = 𝟫𝟢𝟢 𝐽/𝐤𝐠𝐊).
+—-------------------------------------------
+—-------------------------------------------
+𝟣𝟢.Discuss one industrial application of latent heat in mixture processes.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Gas laws describe the relationship between the pressure (P), volume (V), and temperature (T) of a fixed mass of gas. These relationships are derived from experiments and are essential in understanding gas behavior.
+① Boyle’s Law
+ At constant temperature, the volume of a fixed mass of gas is inversely proportional to its pressure.
+𝑷 ∝ 𝟏/𝑽   or  𝑷𝑽 = 𝒌
+Example ① (Boyle’s Law):
+ A gas has a volume of 𝟐𝟎𝟎 𝐜𝐦³ at a pressure of 𝟏𝟎𝟎 𝐤𝐏𝐚. Find its volume when the pressure is increased to 𝟐𝟓𝟎 𝐤𝐏𝐚 (temperature constant).
+𝑷₁𝑽₁ = 𝑷₂𝑽₂
+ 𝟏𝟎𝟎 × 𝟐𝟎𝟎 = 𝟐𝟓𝟎 × 𝑽₂
+ 𝑽₂ = 𝟐𝟎𝟎𝟎𝟎 / 𝟐𝟓𝟎 = 𝟖𝟎 𝐜𝐦³
+② Charles’ Law
+ At constant pressure, the volume of a fixed mass of gas is directly proportional to its absolute temperature.
+𝑽 / 𝑻 = 𝒌   (𝑻 in Kelvin)
+Example ② (Charles’ Law):
+ A gas has a volume of 𝟑𝟎𝟎 𝐜𝐦³ at 𝟐𝟕 ℃. Find its volume at 𝟏𝟐𝟕 ℃ (pressure constant).
+𝑻₁ = 𝟐𝟕 + 𝟐𝟕𝟑 = 𝟑𝟎𝟎 𝐊
+ 𝑻₂ = 𝟏𝟐𝟕 + 𝟐𝟕𝟑 = 𝟒𝟎𝟎 𝐊
+𝑽₁ / 𝑻₁ = 𝑽₂ / 𝑻₂
+ 𝟑𝟎𝟎 / 𝟑𝟎𝟎 = 𝑽₂ / 𝟒𝟎𝟎
+ 𝑽₂ = 𝟒𝟎𝟎 𝐜𝐦³
+③ Pressure Law
+ At constant volume, the pressure of a fixed mass of gas is directly proportional to its absolute temperature.
+𝑷 / 𝑻 = 𝒌
+④ General Gas Law
+ By combining Boyle’s, Charles’ and Pressure laws:
+(𝑷₁𝑽₁) / 𝑻₁ = (𝑷₂𝑽₂) / 𝑻₂
+⑤ Applications
+ Gas laws apply in balloons, car tires, syringes, weather balloons, cooking gas cylinders, and even respiration.</pre>
+      <pre class="panel-worksheet">
+1.A gas occupies 250 cm³ at 120 kPa and 27 °C. Find its volume at 100 kPa and 77 °C.
+—-------------------------------------------
+—-------------------------------------------
+2.A gas at 200 kPa has a volume of 500 cm³ at 17 °C. Calculate its pressure if volume is reduced to 300 cm³ at 47 °C.
+—-------------------------------------------
+—-------------------------------------------
+3.The volume of a gas at 25 °C and 100 kPa is 400 cm³. What will its volume be at 75 °C if the pressure is kept constant?
+—-------------------------------------------
+—-------------------------------------------
+4.A gas at 27 °C has a pressure of 2.0 × 10⁵ Pa. Find its pressure at 127 °C if the volume is constant.
+—-------------------------------------------
+—-------------------------------------------
+5.A gas at 500 cm³, 1 atm, and 20 °C is heated to 100 °C at constant pressure. Find the new volume.
+—-------------------------------------------
+—-------------------------------------------
+6.A given gas occupies 1.5 dm³ at 300 K and 200 kPa. Calculate its volume at 350 K and 150 kPa.
+—-------------------------------------------
+—-------------------------------------------
+7.A car tire contains air at 2.5 × 10⁵ Pa and 27 °C. After a journey, the temperature rises to 77 °C. If volume is constant, find the new pressure.
+—-------------------------------------------
+—-------------------------------------------
+8.A gas of 400 cm³ is compressed to 100 cm³ at constant temperature. If the initial pressure was 100 kPa, calculate the final pressure.
+—-------------------------------------------
+—-------------------------------------------
+9.A balloon filled with helium has a volume of 2.0 m³ at 20 °C and 100 kPa. What volume will it occupy at 0 °C and 120 kPa?
+—-------------------------------------------
+—-------------------------------------------
+10.Derive the general gas equation from Boyle’s, Charles’, and Pressure laws.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+            <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A wave is a disturbance that transfers energy from one point to another without the transfer of matter. Waves are produced when a vibrating source disturbs a medium. There are two main types: mechanical waves (require a medium, e.g., sound, water waves) and electromagnetic waves (do not require a medium, e.g., light, radio waves).
+Mechanical waves can be transverse (particles vibrate ⟂ to wave direction, e.g., water waves) or longitudinal (particles vibrate ∥ to wave direction, e.g., sound waves). Important wave terms include wavelength (λ), frequency (𝑓), amplitude (𝐴), and wave speed (𝑣).
+The wave equation is:
+ 𝑣 = 𝑓λ
+Propagation of waves depends on the medium’s density and elasticity. Sound travels faster in solids than gases.
+Solved Examples
+ ① A wave has frequency 𝑓 = 200 Hz and wavelength λ = 1.5 m. Find its speed.
+ 𝑣 = 𝑓λ = 200 × 1.5 = 300 m/s
+② A wave travels at 𝑣 = 340 m/s with wavelength λ = 0.85 m. Find its frequency.
+ 𝑓 = 𝑣 ÷ λ = 340 ÷ 0.85 = 400 Hz</pre>
+      <pre class="panel-worksheet">
+1.Explain why electromagnetic waves do not require a medium.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between transverse and longitudinal waves with diagrams.
+—-------------------------------------------
+—-------------------------------------------
+3.A string vibrates at 100 Hz producing waves of wavelength 0.5 m. Find velocity.
+—-------------------------------------------
+—-------------------------------------------
+4.Compare the speed of sound in solids, liquids, and gases.
+—-------------------------------------------
+—-------------------------------------------
+5.State two differences between mechanical and electromagnetic waves.
+—-------------------------------------------
+—-------------------------------------------
+6.A ripple tank produces 20 waves in 10 seconds with wavelength 0.04 m. Find velocity.
+—-------------------------------------------
+—-------------------------------------------
+7.How does tension affect wave propagation on a stretched string?
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss why sound cannot travel in space.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the relationship between particle vibration and wave propagation.
+—-------------------------------------------
+—-------------------------------------------
+10.Draw and label a transverse wave.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+            <section class="topic-panel" id="st-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Waves exhibit properties such as reflection, refraction, diffraction, interference, and polarization. Reflection is the bouncing of waves off surfaces (𝑖 = 𝑟). Refraction is bending due to speed change in different media. Diffraction occurs when waves bend around obstacles or spread through narrow openings.
+Interference is the superposition of two waves, leading to constructive (amplitudes add) or destructive (amplitudes cancel) effects. Polarization occurs only in transverse waves, restricting vibrations to one direction.
+Solved Examples
+ ① A wave with speed 300 m/s strikes a barrier at 30°. Find angle of reflection.
+ Answer: 𝑟 = 𝑖 = 30°.
+② Two waves of amplitude 3 cm interfere constructively. Find resultant amplitude.
+ 𝐴 = 𝐴₁ + 𝐴₂ = 3 + 3 = 6 cm</pre>
+      <pre class="panel-worksheet">
+1.State two differences between reflection and refraction of waves.
+—-------------------------------------------
+—-------------------------------------------
+2.A wave strikes at 45°. Find angle of reflection.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why diffraction is more pronounced for longer wavelengths.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between constructive and destructive interference.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe an experiment to demonstrate wave interference.
+—-------------------------------------------
+—-------------------------------------------
+6.State two applications of wave interference.
+—-------------------------------------------
+—-------------------------------------------
+7.Why can only transverse waves be polarized?
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why refraction occurs at the boundary between two media.
+—-------------------------------------------
+—-------------------------------------------
+9.Calculate wavelength of water waves of frequency 5 Hz and velocity 2 m/s.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the practical importance of diffraction in sound transmission.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+            <section class="topic-panel" id="st-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Light is a form of electromagnetic radiation that travels as a transverse wave at a speed of 𝑐 = 3.0 × 10⁸ m/s in a vacuum. It exhibits reflection, refraction, diffraction, and interference. The wave theory explains interference and diffraction, while the particle theory explains the photoelectric effect.
+Light can be polarized, proving it is transverse. Young’s double-slit experiment showed interference in light. Light waves belong to the electromagnetic spectrum, ranging from radio to gamma rays, with visible light between 400–700 nm.
+Solved Examples
+ ① Light travels with 𝑣 = 3.0 × 10⁸ m/s and frequency 𝑓 = 6.0 × 10¹⁴ Hz. Find λ.
+ λ = 𝑣 ÷ 𝑓 = (3.0 × 10⁸) ÷ (6.0 × 10¹⁴) = 5.0 × 10⁻⁷ m
+② If λ = 600 nm and 𝑣 = 3.0 × 10⁸ m/s, find 𝑓.
+ 𝑓 = 𝑣 ÷ λ = (3.0 × 10⁸) ÷ (600 × 10⁻⁹) = 5.0 × 10¹⁴ Hz</pre>
+      <pre class="panel-worksheet">
+1.State two reasons why light is a transverse wave.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain Young’s double-slit experiment.
+—-------------------------------------------
+—-------------------------------------------
+3.What is λ of light with 𝑓 = 4.5 × 10¹⁴ Hz
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between wave and particle theory of light.
+—-------------------------------------------
+—-------------------------------------------
+5.State three applications of polarized light.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the significance of interference in light.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why light has constant speed in vacuum.
+—-------------------------------------------
+—-------------------------------------------
+8.Calculate 𝑓 of green light with λ = 5.5 × 10⁻⁷ m.
+—-------------------------------------------
+—-------------------------------------------
+9.How does diffraction prove that light is a wave?
+—-------------------------------------------
+—-------------------------------------------
+10.Describe the electromagnetic spectrum and position of visible light.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+            <section class="topic-panel" id="st-topic-10">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Reflection is the bouncing back of light rays when they strike a surface. A plane mirror is a flat, polished surface that reflects light according to the laws of reflection.
+The laws of reflection state that:
+ ① The incident ray, the reflected ray, and the normal all lie in the same plane.
+ ② The angle of incidence (𝑖) is equal to the angle of reflection (𝑟), i.e. 𝑖 = 𝑟.
+The normal is a line drawn perpendicular to the mirror at the point where the incident ray meets the surface. Plane mirrors always form virtual, upright, and laterally inverted images of the same size as the object.
+Ray diagrams can be used to show image formation in a plane mirror by extending the reflected rays backward until they meet. The image distance (𝑑ᵢ) is always equal to the object distance (𝑑ₒ) from the mirror:
+  𝑑ᵢ = 𝑑ₒ
+Plane mirrors are applied in periscopes, kaleidoscopes, solar cookers, and daily grooming mirrors. Multiple reflections between plane mirrors can produce several images depending on the angle between the mirrors.
+Solved Examples
+Example 1:
+ An object is placed 6 cm in front of a plane mirror. Find the distance between the object and its image.
+Solution:
+ Image distance (𝑑ᵢ) = Object distance (𝑑ₒ) = 6 cm
+ Total distance = 𝑑ᵢ + 𝑑ₒ = 6 + 6 = 12 cm
+Example 2:
+ Two plane mirrors are inclined at 60°. How many images of an object will be formed between them?
+Solution:
+ Formula: 𝑁 = (360° ÷ θ) − 1
+ Here, θ = 60°
+  𝑁 = (360° ÷ 60°) − 1
+   𝑁 = 6 − 1 = 5 images</pre>
+      <pre class="panel-worksheet">
+1.State and explain the two laws of reflection.
+—-------------------------------------------
+—-------------------------------------------
+2.An object is 8 cm from a plane mirror. What is the distance between the object and its image?
+—-------------------------------------------
+—-------------------------------------------
+3.With the aid of a ray diagram, show how a plane mirror forms a virtual image of an object.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why the image formed in a plane mirror is laterally inverted.
+—-------------------------------------------
+—-------------------------------------------
+5.A student stands 2 m in front of a plane mirror. How far is the student’s image from the student?
+—-------------------------------------------
+—-------------------------------------------
+6.Derive the formula for the number of images formed when two plane mirrors are inclined at an angle.
+—-------------------------------------------
+—-------------------------------------------
+7.If two plane mirrors are inclined at 45°, calculate the number of images formed.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why periscopes make use of plane mirrors.
+—-------------------------------------------
+—-------------------------------------------
+9.Distinguish between real and virtual images with examples.
+—-------------------------------------------
+—-------------------------------------------
+10.A ray of light strikes a plane mirror at an angle of 40° to the surface. Find the angle of reflection.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Curved mirrors are spherical mirrors whose reflecting surface is part of a sphere. They are of two types: concave (converging) and convex (diverging).
+Terms Used in Curved Mirrors
+Pole (P): The center of the mirror’s surface.
+Centre of curvature (C): The center of the sphere from which the mirror is cut.
+Radius of curvature (R): Distance between C and P.
+Principal axis: The line passing through P and C.
+Principal focus (F): The point where parallel rays converge (concave) or appear to diverge (convex).
+Focal length (f): Distance between F and P.
+Ray Diagrams
+For concave mirrors, image formation depends on the object’s position (beyond C, at C, between C and F, at F, or between F and P).
+ For convex mirrors, the image is always virtual, erect, and diminished behind the mirror.
+Mirror Formula
+The relationship between object distance (u), image distance (v), and focal length (f) is:
+¹/𝑓 = ¹/𝑢 + ¹/𝑣
+Solved Example ①
+An object is placed 30 cm in front of a concave mirror of focal length 15 cm. Find the image distance and state the nature of the image.
+Solution:
+¹/𝑓 = ¹/𝑢 + ¹/𝑣
+¹/₁₅ = ¹/₃₀ + ¹/𝑣
+
+¹/𝑣 = ¹/₁₅ − ¹/₃₀ = (² − ¹)/₃₀ = ¹/₃₀
+𝑣 = 30 cm
+The image formed is real, inverted, and same size at C.
+Solved Example ②
+A convex mirror has a focal length of 20 cm. Find the image distance of an object 40 cm in front of it.
+Solution:
+ For convex mirrors, 𝑓 = +20 cm, 𝑢 = −40 cm.
+¹/𝑓 = ¹/𝑢 + ¹/𝑣
+¹/₂₀ = ¹/₋₄₀ + ¹/𝑣
+
+¹/𝑣 = ¹/₂₀ + ¹/₄₀ = ³/₄₀
+𝑣 ≈ 13.3 cm
+The image formed is virtual, erect, and diminished behind the mirror.</pre>
+      <pre class="panel-worksheet">
+1.State two main differences between a concave and a convex mirror in terms of image formation.
+—-------------------------------------------
+—-------------------------------------------
+2.Draw a ray diagram to show how a concave mirror forms a magnified real image.
+—-------------------------------------------
+—-------------------------------------------
+3.A concave mirror of focal length 10 cm forms a real image 20 cm from the mirror. Calculate the object distance.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why convex mirrors are used as rear-view mirrors in vehicles.
+—-------------------------------------------
+—-------------------------------------------
+5.An object 15 cm from a concave mirror produces an image 30 cm from the mirror. Find the focal length.
+—-------------------------------------------
+—-------------------------------------------
+6.A convex mirror forms an image half the size of the object at a distance of 10 cm. Find the focal length of the mirror.
+—-------------------------------------------
+—-------------------------------------------
+7.Distinguish between real and virtual images using curved mirrors.
+—-------------------------------------------
+—-------------------------------------------
+8.Derive the mirror formula from the geometry of similar triangles in ray diagrams.
+—-------------------------------------------
+—-------------------------------------------
+9.A dentist uses a concave mirror of focal length 5 cm. At what range must the teeth be placed for a magnified image?
+—-------------------------------------------
+—-------------------------------------------
+10.A concave mirror forms an image four times the size of the object. If the object is 6 cm from the mirror, find the image distance and focal length.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Refraction is the bending of light as it passes between media due to speed change. Snell’s Law states:
+ sin 𝑖 ÷ sin 𝑟 = 𝑛
+Light bends towards the normal in denser media and away from the normal in rarer media. Applications include lenses, prisms, and optical instruments. Total internal reflection (TIR) occurs when light passes from a denser to a rarer medium at angle ≥ critical angle.
+Solved Examples
+① A ray passes from air (n = 1.0) to glass (n = 1.5) at incidence 𝑖 = 30°. Find 𝑟.
+ sin 𝑟 = sin 𝑖 ÷ 𝑛 = 0.5 ÷ 1.5 = 0.333 → 𝑟 ≈ 19.5°
+② Light travels at 𝑣 = 2.0 × 10⁸ m/s in a medium. Find refractive index.
+ 𝑛 = 𝑐 ÷ 𝑣 = (3.0 × 10⁸) ÷ (2.0 × 10⁸) = 1.5</pre>
+      <pre class="panel-worksheet">
+1.State Snell’s Law of refraction.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why a pencil in water appears bent.
+—-------------------------------------------
+—-------------------------------------------
+3.A ray passes from air into glass with refractive index 1.6. Find speed of light in glass.
+—-------------------------------------------
+—-------------------------------------------
+4.Define critical angle and total internal reflection.
+—-------------------------------------------
+—-------------------------------------------
+5.A ray enters water at angle 40° (n = 1.33). Find angle of refraction.
+—-------------------------------------------
+—-------------------------------------------
+6.State two applications of total internal reflection.
+—-------------------------------------------
+—-------------------------------------------
+7.Differentiate between real and apparent depth.
+—-------------------------------------------
+—-------------------------------------------
+8.Light travels in a medium with refractive index 1.25. Find its velocity.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why stars appear to twinkle.
+—-------------------------------------------
+—-------------------------------------------
+10.Describe how prisms use refraction to produce spectra.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A lens is a transparent material bounded by at least one spherical surface. There are two main types: convex lens (converging) and concave lens (diverging). Convex lenses bring parallel rays together to a focus, while concave lenses spread them apart.
+Important terms include principal axis, principal focus (F), focal length (f), and optical center (O).
+The lens formula relates object distance (𝑢), image distance (𝑣), and focal length (𝑓):
+﹛ ¹/𝑓 = ¹/𝑣 + ¹/𝑢 ﹜
+Magnification is given by:
+﹛ 𝑀 = 𝑣 / 𝑢 ﹜
+Convex lenses are used in cameras, projectors, and the human eye. Concave lenses are used in correcting short-sightedness.
+Solved Examples
+An object is placed 12 cm from a convex lens of focal length 8 cm. Find the image distance.
+﹛ ¹/𝑓 = ¹/𝑣 + ¹/𝑢 → ¹/8 = ¹/𝑣 + ¹/12 ﹜
+ ﹛ ¹/𝑣 = ¹/8 − ¹/12 = (3−2)/24 = ¹/24 ﹜
+ ﹛ 𝑣 = 24 cm ﹜
+ The image is real, inverted, and magnified.
+A concave lens of focal length 10 cm forms an image 6 cm from the lens. Find the object distance.
+Here, 𝑓 = −10 cm, 𝑣 = −6 cm.
+﹛ ¹/𝑓 = ¹/𝑣 + ¹/𝑢 → ¹/(−10) = ¹/(−6) + ¹/𝑢 ﹜
+ ﹛ ¹/𝑢 = −¹/10 + ¹/6 = (−3+5)/30 = ²/30 = ¹/15 ﹜
+ ﹛ 𝑢 = 15 cm ﹜</pre>
+      <pre class="panel-worksheet">
+1.State two differences between convex and concave lenses.
+—-------------------------------------------
+—-------------------------------------------
+2.Derive the lens formula.
+—-------------------------------------------
+—-------------------------------------------
+3.Draw a ray diagram of a convex lens forming a real image of a distant object.
+—-------------------------------------------
+—-------------------------------------------
+4.A convex lens of focal length 20 cm is used to form an image of an object 60 cm away. Find 𝑣 and 𝑀.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why convex lenses are used in projectors.
+—-------------------------------------------
+—-------------------------------------------
+6.Calculate the focal length of a lens if 𝑢 = 30 cm and 𝑣 = 60 cm.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the function of a concave lens in correcting myopia.
+—-------------------------------------------
+—-------------------------------------------
+8.A concave lens produces an image half the size of the object at 12 cm. Find 𝑓.
+—-------------------------------------------
+—-------------------------------------------
+9.Define principal focus and focal length.
+—-------------------------------------------
+—-------------------------------------------
+10.Why does a convex lens form both real and virtual images?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Optical instruments use lenses and mirrors to form magnified or reduced images of objects. Examples are the simple microscope, compound microscope, telescope, camera, slide projector, and the human eye.
+The simple microscope (magnifying glass) uses a convex lens to produce a magnified virtual image. The compound microscope combines objective and eyepiece lenses for high magnification.
+The astronomical telescope is used to view distant objects; it consists of an objective lens of long focal length and an eyepiece lens of short focal length. The camera uses a convex lens to form a real, inverted image on a film or sensor. The human eye uses a convex lens to focus light on the retina.
+Magnifying power of a telescope:
+﹛ 𝑀 = 𝑓ₒ / 𝑓ₑ ﹜
+where 𝑓ₒ = focal length of objective, 𝑓ₑ = focal length of eyepiece.
+Solved Examples
+1.A telescope has an objective lens of focal length 80 cm and an eyepiece lens of focal length 5 cm. Find its magnifying power.
+﹛ 𝑀 = 𝑓ₒ / 𝑓ₑ = 80 / 5 = 16 ﹜
+ Magnification = 16.
+2.A simple microscope has a focal length of 10 cm. If the near point of the eye is 25 cm, find the magnifying power.
+﹛ 𝑀 = 1 + ᴰ/𝑓 , with ᴰ = 25, 𝑓 = 10 ﹜
+ ﹛ 𝑀 = 1 + 25/10 = 3.5 ﹜
+ Magnification = 3.5.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between a simple and compound microscope.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how a camera and the human eye are similar.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the magnifying power of a telescope.
+—-------------------------------------------
+—-------------------------------------------
+4.A telescope has 𝑓ₒ = 120 cm and 𝑓ₑ = 6 cm. Find its magnifying power.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why the eyepiece of a telescope has a short focal length.
+—-------------------------------------------
+—-------------------------------------------
+6.What type of image is formed by a simple microscope?
+—-------------------------------------------
+—-------------------------------------------
+7.Why is the compound microscope better than a simple one?
+—-------------------------------------------
+—-------------------------------------------
+8.State two differences between a camera and the human eye.
+—-------------------------------------------
+—-------------------------------------------
+9.Calculate the magnification of a simple microscope of focal length 5 cm (ᴰ = 25 cm).
+—-------------------------------------------
+—-------------------------------------------
+10.Draw a labelled diagram of the human eye.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Dispersion of light is the splitting of white light into its component colours when it passes through a transparent medium such as a glass prism. White light is made up of seven colours – red, orange, yellow, green, blue, indigo, and violet – collectively called the spectrum.
+This phenomenon occurs because different colours of light travel at different speeds in a medium other than air or vacuum. The bending of light, known as refraction, depends on its wavelength; shorter wavelengths (like violet) bend more, while longer wavelengths (like red) bend less.
+A triangular glass prism is commonly used to demonstrate dispersion. When a narrow beam of sunlight is allowed to pass through the prism, the emergent light forms a band of colours on a screen. This confirms that white light is a mixture of several colours.
+Dispersion should not be confused with refraction. While refraction is simply the bending of light, dispersion involves both bending and separation of colours due to their different refractive indices in the medium.
+Applications of dispersion include rainbow formation in nature, spectrometer analysis in laboratories, and the working principle of diffraction gratings used in optical instruments. Understanding dispersion helps in studying wave optics and the wave nature of light.
+</pre>
+      <pre class="panel-worksheet">
+1.Define dispersion of white light and explain why it occurs in a prism.
+—-------------------------------------------
+—-------------------------------------------
+2.State the colours of the spectrum in order of increasing wavelength.
+—-------------------------------------------
+—-------------------------------------------
+3.Why does red light bend the least and violet light bend the most in a prism?
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between dispersion and simple refraction of light.
+—-------------------------------------------
+—-------------------------------------------
+5.A prism has a refractive index of 1.5 for red light and 1.54 for violet light. Explain the significance of this difference.
+—-------------------------------------------
+—-------------------------------------------
+6.Describe how a rainbow is formed in nature using the concept of dispersion.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why dispersion does not occur when light passes through a glass slab.
+—-------------------------------------------
+—-------------------------------------------
+8.How does the wavelength of light affect its refractive index in a medium?
+—-------------------------------------------
+—-------------------------------------------
+9.A spectrometer is used to analyze the light spectrum of a sodium lamp. What is the principle behind its operation?
+—-------------------------------------------
+—-------------------------------------------
+10.If the angle of deviation of red light is 38° and that of violet light is 40° through a prism, calculate the angular dispersion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+      <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound waves are mechanical waves that require a medium (air, liquid, or solid) for transmission. They are produced by vibrating bodies and travel as longitudinal waves consisting of compressions and rarefactions.
+The speed of sound depends on the medium: slowest in gases, faster in liquids, and fastest in solids. In air at 20°C, the speed is about 340 m/s.
+The pitch of a sound depends on its frequency, loudness depends on amplitude, and quality (timbre) distinguishes two sounds of the same pitch and loudness.
+The audible range for humans is 20 Hz to 20,000 Hz. Frequencies below 20 Hz are infrasonic, while those above 20,000 Hz are ultrasonic.
+Sound intensity is power per unit area, decreasing with distance from the source. The decibel (dB) scale measures sound level relative to a standard reference intensity.
+✅ Solved Examples
+Example 1
+ If a sound wave has wavelength 0.85 m and frequency 400 Hz, find its speed.
+v = f × λ
+ v = 400 × 0.85
+ v = 340 m/s
+Example 2
+ A sound wave travels at 330 m/s in air. Find its frequency if the wavelength is 1.1 m.
+f = v ÷ λ
+ f = 330 ÷ 1.1
+ f = 300 Hz</pre>
+      <pre class="panel-worksheet">
+1.Why can sound not travel in a vacuum?
+—-------------------------------------------
+—-------------------------------------------
+2.List three factors that affect the speed of sound in air.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between pitch and quality of sound.
+—-------------------------------------------
+—-------------------------------------------
+4.A wave has f = 500 Hz, v = 340 m/s. Find λ.
+—-------------------------------------------
+—-------------------------------------------
+5.A whistle produces λ = 0.6 m in air. Find f.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is sound heard faster in steel than in air?
+—-------------------------------------------
+—-------------------------------------------
+7.A tuning fork of 256 Hz vibrates. If v = 340 m/s, find λ.
+—-------------------------------------------
+—-------------------------------------------
+8.State differences between audible, infrasonic, and ultrasonic sounds.
+—-------------------------------------------
+—-------------------------------------------
+9.Why does sound weaken as distance increases?
+—-------------------------------------------
+—-------------------------------------------
+10.Mention two uses of ultrasonic waves.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound waves exhibit reflection, refraction, and diffraction. Echoes occur when sound reflects from a hard surface like a wall. For a clear echo, the reflecting surface must be at least 17 m away.
+Refraction of sound occurs due to changes in air temperature or density, while diffraction makes sound bend around obstacles and pass through small openings.
+Interference of sound produces beats when two sources of close frequencies combine. Beat frequency equals the difference in their frequencies.
+The Doppler effect is the apparent change in sound frequency due to relative motion between source and observer. Approaching sources increase frequency, while receding ones decrease it.
+Sound is applied in SONAR, echolocation (bats), and ultrasound in medicine.
+✅ Solved Examples
+Example 1
+ A person is 34 m from a wall and shouts. How long before the echo is heard if sound speed is 340 m/s?
+t = 2d ÷ v
+ t = (2 × 34) ÷ 340
+ t = 0.2 s
+Example 2
+ Two tuning forks produce frequencies 300 Hz and 306 Hz. Find beat frequency.
+fᵦ = |f₁ − f₂|
+ fᵦ = |306 − 300|
+ fᵦ = 6 Hz</pre>
+      <pre class="panel-worksheet">
+1.Define echo and state its condition for hearing.
+—-------------------------------------------
+—-------------------------------------------
+2.Why does sound bend round corners but light does not?
+—-------------------------------------------
+—-------------------------------------------
+3.What is the minimum distance for hearing an echo at 340 m/s?
+—-------------------------------------------
+—-------------------------------------------
+4.A car moves at 20 m/s towards a listener. Its horn is 500 Hz. If v = 340 m/s, find apparent frequency.
+—-------------------------------------------
+—-------------------------------------------
+5.A man hears an echo 0.6 s later. How far is the wall?
+—-------------------------------------------
+—-------------------------------------------
+6.Define Doppler effect and state one application.
+—-------------------------------------------
+—-------------------------------------------
+7.Differentiate between reflection and refraction of sound.
+—-------------------------------------------
+—-------------------------------------------
+8.A tuning fork of 400 Hz with another of unknown f gives 8 beats per second. Find possible values of f.
+—-------------------------------------------
+—-------------------------------------------
+9.Why does temperature change cause sound refraction?
+—-------------------------------------------
+—-------------------------------------------
+10.Mention two uses of beats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+
+      <section class="topic-panel" id="tt-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Resonance occurs when a vibrating system is forced to oscillate with maximum amplitude at its natural frequency.
+Examples include vibrating strings, air columns in pipes, and tuning forks. Resonance may be useful (musical instruments) or destructive (collapsed bridges).
+The fundamental frequency of a vibrating string depends on its length, tension, and mass per unit length. In air columns, resonance depends on pipe length and whether it is open or closed.
+Resonance explains why soldiers break step on bridges, and why glass may shatter at a sound’s natural frequency.
+✅ Solved Examples
+Example 1
+ Find the fundamental frequency of a string: L = 0.5 m, T = 40 N, μ = 0.01 kg/m.
+f = (1 ÷ 2L) × √(T ÷ μ)
+ f = (1 ÷ 1.0) × √(40 ÷ 0.01)
+ f = 1 × √4000
+ f = 63.2 Hz
+Example 2
+ An air column of length 0.85 m is closed at one end. If v = 340 m/s, find fundamental frequency.
+f = v ÷ (4L)
+ f = 340 ÷ (4 × 0.85)
+ f = 340 ÷ 3.4
+ f = 100 Hz</pre>
+      <pre class="panel-worksheet">
+1.Define resonance with two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Why are soldiers told to break step on bridges?
+—-------------------------------------------
+—-------------------------------------------
+3.A closed pipe resonates at 256 Hz. If v = 340 m/s, find its length.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between fundamental frequency and harmonics.
+—-------------------------------------------
+—-------------------------------------------
+5.A string vibrates at 120 Hz. If its length doubles, find new frequency (same tension, μ).
+—-------------------------------------------
+—-------------------------------------------
+6.Why can glass shatter due to resonance?
+—-------------------------------------------
+—-------------------------------------------
+7.A pipe open at both ends has L = 1.2 m. Find its fundamental frequency if v = 340 m/s.
+—-------------------------------------------
+—-------------------------------------------
+8.List conditions for resonance in an air column.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare resonance in open and closed pipes.
+—-------------------------------------------
+—-------------------------------------------
+10.State two advantages and two disadvantages of resonance.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+
+
+      <section class="topic-panel" id="tt-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound waves are longitudinal waves that travel through a medium by compressions and rarefactions. In pipes, resonance occurs when sound waves reflect and form standing waves inside the pipe.
+In an open pipe, both ends are open, allowing antinodes (points of maximum displacement) to form at both ends. The fundamental frequency (first harmonic) is:
+ 𝑓 = 𝑣 ÷ (𝟸𝐿)
+ where 𝑣 = velocity of sound, 𝐿 = length of pipe. Higher harmonics are integral multiples of the fundamental.
+In a closed pipe, one end is closed (node) and the other end open (antinode). The fundamental frequency (first harmonic) is:
+ 𝑓 = 𝑣 ÷ (𝟺𝐿)
+ Only odd harmonics are possible (𝟷st, 𝟹rd, 𝟻th …).
+The velocity of sound depends on the medium and temperature. In air at 𝟸𝟽 °𝐶:
+ 𝑣 = 𝟹𝟹𝟷 + 𝟶.𝟼𝑇 𝑚/𝑠
+ where 𝑇 = temperature in °𝐶.
+Solved Example 𝟷 (Open Pipe)
+A pipe open at both ends has a length of 𝟷.𝟻 m. Find the fundamental frequency if the speed of sound is 𝟹𝟺𝟶 m/s.
+Solution:
+ 𝑓 = 𝑣 ÷ (𝟸𝐿)
+ = 𝟹𝟺𝟶 ÷ (𝟸 × 𝟷.𝟻)
+ = 𝟹𝟺𝟶 ÷ 𝟹
+ = 𝟷𝟷𝟹.𝟹 𝐻𝑧
+Answer: 𝟷𝟷𝟹.𝟹 𝐻𝑧
+Solved Example 𝟸 (Closed Pipe)
+A pipe closed at one end has a length of 𝟶.𝟾𝟻 m. Find the fundamental frequency if sound travels at 𝟹𝟺𝟶 m/s.
+Solution:
+ 𝑓 = 𝑣 ÷ (𝟺𝐿)
+ = 𝟹𝟺𝟶 ÷ (𝟺 × 𝟶.𝟾𝟻)
+ = 𝟹𝟺𝟶 ÷ 𝟹.𝟺
+ = 𝟷𝟶𝟶 𝐻𝑧
+Answer: 𝟷𝟶𝟶 𝐻𝑧
+</pre>
+      <pre class="panel-worksheet">
+1.A pipe closed at one end has a length of 𝟷.𝟸 m. Calculate its first three resonant frequencies if 𝑣 = 𝟹𝟹𝟶 m/s.
+—-------------------------------------------
+—-------------------------------------------
+𝟸.Compare the fundamental frequencies of a 𝟶.𝟼 m open pipe and a 𝟶.𝟼 m closed pipe at 𝑣 = 𝟹𝟺𝟶 m/s.
+—-------------------------------------------
+—-------------------------------------------
+𝟹.An organ pipe closed at one end resonates at 𝟷𝟷𝟶 Hz. Find its length if the speed of sound is 𝟹𝟹𝟶 m/s.
+—-------------------------------------------
+—-------------------------------------------
+𝟺.A pipe open at both ends has a second harmonic of 𝟹𝟶𝟶 Hz. Find the length if 𝑣 = 𝟹𝟹𝟶 m/s.
+—-------------------------------------------
+—-------------------------------------------
+𝟻.A closed pipe produces a note of 𝟸𝟻𝟼 Hz at its third harmonic. Find its length if 𝑣 = 𝟹𝟺𝟺 m/s.
+—-------------------------------------------
+—-------------------------------------------
+𝟼.Derive the expression for the fundamental frequency of an open and a closed pipe.
+—-------------------------------------------
+—-------------------------------------------
+𝟽.An open pipe resonates with a tuning fork of frequency 𝟻𝟷𝟸 Hz. If 𝑣 = 𝟹𝟺𝟶 m/s, calculate its length.
+—-------------------------------------------
+—-------------------------------------------
+𝟾.State why a closed pipe produces only odd harmonics, while an open pipe produces all harmonics.
+—-------------------------------------------
+—-------------------------------------------
+𝟿.Two open pipes of length 𝟷.𝟶 m and 𝟷.𝟻 m are sounded together. Find the beat frequency if 𝑣 = 𝟹𝟹𝟶 m/s.
+—-------------------------------------------
+—-------------------------------------------
+𝟷𝟶.A closed pipe resonates with a tuning fork of 𝟸𝟸𝟶 Hz. If the pipe length is 𝟶.𝟹𝟿 m, calculate the speed of sound in air.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+
+</div>
+
+<!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1980,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -253,10 +2011,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -299,91 +2054,85 @@
 
 
 
-<script>
-    const physicsTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Physics",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 1: Introduction to Momentum",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 2: Measurement",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["What is measurement?", "State the SI unit of length, time, and mass."]
-        },
-        {
-          title: "Week 3: Motion",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is motion?", "State Newton's first law of motion."]
-        }
-        // Add more weeks if needed
-      ],
-      second: [
-        {
-          title: "Week 1: Force",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define force.", "Mention 2 effects of force."]
-        },
-        {
-          title: "Week 2: Energy",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["What is energy?", "List 3 types of energy."]
-        }
-      ],
-      third: [
-        {
-          title: "Week 1: Electricity",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["Define electricity.", "Mention the SI unit of electric current."]
-        },
-        {
-          title: "Week 2: Magnetism",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["What is magnetism?", "List 2 types of magnets."]
-        }
-      ]
-    };
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-    function loadPhysicsTopics(term) {
-      const menu = document.getElementById("phyTopicsMenu");
-      const videoFrame = document.getElementById("phyVideoFrame");
-      const title = document.getElementById("phyTopicTitle");
-      const questions = document.getElementById("phyWorksheetQuestions");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-phy").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-phy[data-term="${term}"]`).classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      physicsTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      if (physicsTopics[term].length > 0) {
-        const first = physicsTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-phy").forEach(btn => {
-      btn.addEventListener("click", () => loadPhysicsTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadPhysicsTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
 </body>
 </html>

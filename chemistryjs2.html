@@ -3,168 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Core Layout */
-#chemistry-section {
-  padding: 7rem 2rem 4rem;
-  background: #f0f3f8;
-  box-sizing: border-box;
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
 }
 
-#chemistry-section .subject-header h2 {
-  font-size: 2.5rem;
-  color: #1a2b4c;
-  text-align: center;
-  margin-bottom: 2rem;
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
+
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
 }
 
-#chemistry-section .term-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
 }
 
-#chemistry-section .term-btn {
-  background-color: #3f3b82;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
+
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
 }
 
-#chemistry-section .term-btn.active {
-  background-color: #ff5e57;
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
+
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
+
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
 }
 
-#chemistry-section .subject-layout {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
 }
 
-#chemistry-section .topics-menu {
-  flex: 1;
-  min-width: 240px;
-  background-color: #1f1a4f;
-  border-radius: 10px;
-  padding: 1rem;
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
 }
 
-#chemistry-section .topics-menu button {
-  display: block;
-  width: 100%;
-  background: #3f3b82;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.6rem;
-  border-radius: 6px;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
+
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
 }
 
-#chemistry-section .topics-menu button.active {
-  background-color: #ff5e57;
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
 }
 
-#chemistry-section .topics-menu button:hover {
-  background-color: #574fcf;
-}
-
-#chemistry-section .topic-content {
-  flex: 3;
-  min-width: 280px;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-/* Video Embed */
-.video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  margin-bottom: 2rem;
-}
-
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Worksheet */
-.worksheet-questions h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #3f3b82;
-}
-
-.worksheet-questions ul {
-  list-style-type: disc;
-  padding-left: 1.2rem;
-}
-
-.worksheet-questions li {
-  margin-bottom: 0.7rem;
-  color: #333;
-  font-size: 1rem;
-}
-
-/* Scroll animation */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease;
-}
-
-.animate-on-scroll.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  #chemistry-section .subject-layout {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 600px) {
-  #chemistry-section {
-    padding: 6rem 1rem 3rem;
-  }
-
-  #chemistry-section .term-btn {
-    width: 90%;
-    margin: 0.5rem auto;
-  }
-
-  #chemistry-section .topics-menu button {
-    font-size: 0.95rem;
-  }
-}
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -174,9 +151,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -190,42 +167,1329 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section animate-on-scroll" id="chemistry-section">
-  <div class="subject-header">
-    <h2>CHEMISTRY</h2>
-  </div>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">CHEMISTRY</h1>
 
-  <div class="term-buttons">
-    <button class="term-btn active" data-term="first">First Term</button>
-    <button class="term-btn" data-term="second">Second Term</button>
-    <button class="term-btn" data-term="third">Third Term</button>
-  </div>
-
-  <div class="subject-layout">
-    <div class="topics-menu" id="chemistryTopicsList"></div>
-
-    <div class="topic-content">
-      <div class="video-wrapper">
-        <iframe id="chemistryVideoFrame" src="" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="worksheet-questions" id="chemistryQuestions">
-        <h3>Worksheet Questions</h3>
-        <ul></ul>
-      </div>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
-  </div>
-</section>
 
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Chemicals (Hazardous, Moderately Hazardous, Non-Hazardous, Chemical Symbols)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Chemicals – Safety Measures
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Crude Oil and Petrochemicals I
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Crude Oil and Petrochemicals II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Elements and Compounds
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Chemical Symbols and Formulae
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Binary and Ternary Compounds
+          </button>
+        </div>
+
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Introduction to Chemical Changes
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Types of Chemical Reaction
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Evidences of a Chemical Reaction
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Writing Chemical Equations I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Writing Chemical Equations II
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Acid and Base Reactions
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: pH Scale and Indicators
+          </button>
+        </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Atomic Structure
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Periodic Table – Groups and Periods
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Periodic Table – Properties of Groups
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Chemical Bonding – Introduction
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Chemical Bonding – Ionic Bonding
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Chemical Bonding – Covalent Bonding
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Chemical Bonding – Metallic Bonding
+          </button>
+        </div>
+      </aside>
+ 
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
+    </div>
+  </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemicals are substances used in laboratories, industries, and homes for various purposes.
+They can be classified based on their risk to health and the environment.
+Hazardous chemicals can cause serious harm, such as acids, alkalis, and poisons.
+Moderately hazardous chemicals are harmful but not as dangerous, e.g., bleach or cleaning agents.
+Non-hazardous chemicals pose little or no harm, such as salt and sugar.
+Chemical symbols are short representations of elements, e.g., H for Hydrogen, O for Oxygen.
+Symbols are derived from Latin or English names of elements.
+Safety signs are used to show the level of danger a chemical poses.
+Proper labeling of chemicals is essential for safe handling and storage.
+Always read the chemical label and symbol before use.
+</pre>
+      <pre class="panel-worksheet">
+1.What are hazardous chemicals? Give two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Give two examples of moderately hazardous chemicals.
+—-------------------------------------------
+—-------------------------------------------
+3.Name two non-hazardous chemicals.
+—-------------------------------------------
+—-------------------------------------------
+4.What does the symbol “Na” represent?
+—-------------------------------------------
+—-------------------------------------------
+5.Why are chemical symbols important?
+—-------------------------------------------
+—-------------------------------------------
+6.What is the difference between hazardous and non-hazardous chemicals?
+—-------------------------------------------
+—-------------------------------------------
+7.What precaution should be taken when handling hazardous chemicals?
+—-------------------------------------------
+—-------------------------------------------
+8.Which class of chemicals includes sugar and salt?
+—-------------------------------------------
+—-------------------------------------------
+9.What symbol is used for Oxygen?
+—-------------------------------------------
+—-------------------------------------------
+10.State one reason for classifying chemicals.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemical safety refers to measures taken to avoid accidents and injuries.
+Always wear safety gear like gloves, goggles, and lab coats when handling chemicals.
+Chemicals should be clearly labeled and stored in their proper containers.
+Never taste or directly inhale chemicals.
+Work in well-ventilated areas or use fume cupboards.
+Know the meaning of safety signs and follow lab safety rules.
+Wash hands after handling any chemical.
+Dispose of chemicals properly, not in the sink unless instructed.
+Keep fire extinguishers and first aid kits close when working with chemicals.
+Report any chemical spill or injury immediately to the teacher.
+</pre>
+      <pre class="panel-worksheet">
+1.What is chemical safety?
+—-------------------------------------------
+—-------------------------------------------
+2.List three safety equipment used in handling chemicals.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is it dangerous to inhale chemicals?
+—-------------------------------------------
+—-------------------------------------------
+4.What should you do after handling chemicals?
+—-------------------------------------------
+—-------------------------------------------
+5.What does PPE stand for?
+—-------------------------------------------
+—-------------------------------------------
+6.Where should unused chemicals be stored?
+—-------------------------------------------
+—-------------------------------------------
+7.Why is it important to label chemical containers?
+—-------------------------------------------
+—-------------------------------------------
+8.What is the purpose of a fume cupboard?
+—-------------------------------------------
+—-------------------------------------------
+9.Why should chemicals not be poured into the sink?
+—-------------------------------------------
+—-------------------------------------------
+10.What should you do if a chemical spills on your hand?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Crude oil is a thick, dark liquid found underground, formed from decayed plants and animals.
+It is a major natural resource found in Nigeria, especially in the Niger Delta region.
+Crude oil is a mixture of hydrocarbons.
+It is extracted from the ground using drilling machines.
+The process of turning crude oil into useful products is called refining.
+A refinery is where crude oil is separated into different components by fractional distillation.
+Products obtained include petrol, diesel, kerosene, and gas.
+Crude oil is non-renewable and must be used wisely.
+It plays a major role in Nigeria's economy through export and revenue.
+Pollution from crude oil (oil spills) harms the environment.
+</pre>
+      <pre class="panel-worksheet">
+1.What is crude oil?
+—-------------------------------------------
+—-------------------------------------------
+2.How is crude oil formed?
+—-------------------------------------------
+—-------------------------------------------
+3.Where in Nigeria is crude oil mostly found?
+—-------------------------------------------
+—-------------------------------------------
+4.Name three products obtained from crude oil.
+—-------------------------------------------
+—-------------------------------------------
+5.What is fractional distillation?
+—-------------------------------------------
+—-------------------------------------------
+6.What is a refinery?
+—-------------------------------------------
+—-------------------------------------------
+7.Why is crude oil called a non-renewable resource?
+—-------------------------------------------
+—-------------------------------------------
+8.What is the effect of oil spills on the environment?
+—-------------------------------------------
+—-------------------------------------------
+9.What are hydrocarbons?
+—-------------------------------------------
+—-------------------------------------------
+10.State two uses of crude oil in Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Petrochemicals are chemical products made from crude oil and natural gas.
+Examples include plastics, fertilizers, detergents, synthetic rubber, and pesticides.
+Petrochemical industries turn crude oil into useful consumer products.
+These products are used in agriculture, construction, and manufacturing.
+Plastics made from petrochemicals are used for packaging, containers, and toys.
+Fertilizers from petrochemicals improve crop yields.
+Overdependence on petrochemicals can harm the environment.
+Some petrochemical products are non-biodegradable and cause pollution.
+Recycling and proper waste disposal reduce negative environmental impacts.
+Petrochemical development supports job creation and economic growth.
+</pre>
+      <pre class="panel-worksheet">
+1.What are petrochemicals?
+—-------------------------------------------
+—-------------------------------------------
+2.Name four products made from petrochemicals.
+—-------------------------------------------
+—-------------------------------------------
+3.What role do petrochemicals play in agriculture?
+—-------------------------------------------
+—-------------------------------------------
+4.What is a disadvantage of using petrochemical-based products?
+—-------------------------------------------
+—-------------------------------------------
+5.How can we reduce the impact of petrochemical waste?
+—-------------------------------------------
+—-------------------------------------------
+6.What are non-biodegradable materials?
+—-------------------------------------------
+—-------------------------------------------
+7.How do petrochemical industries help the economy?
+—-------------------------------------------
+—-------------------------------------------
+8.Give two uses of plastic from petrochemicals.
+—-------------------------------------------
+—-------------------------------------------
+9.Mention two ways to manage petrochemical pollution.
+—-------------------------------------------
+—-------------------------------------------
+10.What is the difference between crude oil and petrochemicals?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An element is a pure substance made up of only one type of atom.
+There are over 100 known elements, each with its own unique properties.
+Elements can be metals, non-metals, or metalloids.
+A compound is formed when two or more elements chemically combine.
+Compounds have properties different from the elements that form them.
+Compounds are represented by chemical formulas (e.g., H₂O).
+The smallest part of a compound is a molecule or a formula unit.
+Elements cannot be broken down into simpler substances chemically.
+Compounds can be broken down into elements using chemical reactions.
+Mixtures are different from compounds because their substances are not chemically combined.</pre>
+      <pre class="panel-worksheet">
+1.What is an element?
+—-------------------------------------------
+—-------------------------------------------
+2.Define a compound.
+—-------------------------------------------
+—-------------------------------------------
+3.Give two examples each of elements and compounds.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the major difference between an element and a compound?
+—-------------------------------------------
+—-------------------------------------------
+5.Is air an element or a compound? Why?
+—-------------------------------------------
+—-------------------------------------------
+6.Which of these is a compound? A. Iron B. Oxygen C. Water D. Gold
+—-------------------------------------------
+—-------------------------------------------
+7.What are the types of elements?
+—-------------------------------------------
+—-------------------------------------------
+8.Can compounds be broken into simpler substances by chemical means?
+—-------------------------------------------
+—-------------------------------------------
+9.Name two properties of compounds.
+—-------------------------------------------
+—-------------------------------------------
+10.Differentiate between a compound and a mixture.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Every element is represented by a unique chemical symbol (e.g., H for hydrogen).
+Chemical symbols are usually one or two letters long.
+The first letter is always capitalized; the second, if present, is lowercase.
+Chemical formulae show the types and numbers of atoms in a compound.
+H₂O means two hydrogen atoms and one oxygen atom.
+The subscript number indicates the number of atoms of that element.
+No subscript means only one atom of that element.
+Compounds always have fixed ratios of elements.
+The Periodic Table lists all chemical symbols.
+Correct use of symbols and formulae is essential in writing chemical equations.
+</pre>
+      <pre class="panel-worksheet">
+1.What is the chemical symbol for oxygen?
+—-------------------------------------------
+—-------------------------------------------
+2.What is the formula of carbon dioxide?
+—-------------------------------------------
+—-------------------------------------------
+3.Write the formula for water.
+—-------------------------------------------
+—-------------------------------------------
+4.What does the subscript in H₂O represent?
+—-------------------------------------------
+—-------------------------------------------
+5.How many atoms are in one molecule of CO₂?
+—-------------------------------------------
+—-------------------------------------------
+6.Which element has the symbol Na?
+—-------------------------------------------
+—-------------------------------------------
+7.True or False: The second letter in a chemical symbol is always capitalized.
+—-------------------------------------------
+—-------------------------------------------
+8.Write the chemical formula for ammonia.
+—-------------------------------------------
+—-------------------------------------------
+9.Identify the elements in NaCl.
+—-------------------------------------------
+—-------------------------------------------
+10.What is the chemical formula of methane?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A binary compound is made up of two elements chemically combined.
+An example of a binary compound is NaCl (sodium chloride).
+Binary compounds often end with the suffix “-ide” (e.g., oxide, sulfide).
+A ternary compound contains three different elements.
+Ternary compounds often include polyatomic ions (e.g., nitrate NO₃⁻).
+An example of a ternary compound is CaCO₃ (calcium carbonate).
+Ternary compounds may end in “-ate” or “-ite”.
+Binary compounds are usually simpler than ternary compounds.
+Proper naming depends on understanding the valency of elements.
+Both binary and ternary compounds have fixed formulas and unique properties.</pre>
+      <pre class="panel-worksheet">
+1.What is a binary compound?
+—-------------------------------------------
+—-------------------------------------------
+2.Give one example of a binary compound.
+—-------------------------------------------
+—-------------------------------------------
+3.How many elements are in a ternary compound?
+—-------------------------------------------
+—-------------------------------------------
+4.Name the compound with the formula NaCl.
+—-------------------------------------------
+—-------------------------------------------
+5.What suffix is common in naming binary compounds?
+—-------------------------------------------
+—-------------------------------------------
+6.Which of these is a ternary compound? A. CO₂ B. HCl C. CaSO₄ D. O₂
+—-------------------------------------------
+—-------------------------------------------
+7.What does the name “calcium nitrate” suggest?
+—-------------------------------------------
+—-------------------------------------------
+8.Write the formula of a ternary compound.
+—-------------------------------------------
+—-------------------------------------------
+9.Name one polyatomic ion used in ternary compounds.
+—-------------------------------------------
+—-------------------------------------------
+10.True or False: Binary compounds contain three different elements.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A chemical change results in the formation of new substances.
+During a chemical change, the chemical composition of the substance is altered.
+Chemical changes are often irreversible.
+They involve breaking and forming of chemical bonds.
+Examples include rusting, burning, and cooking.
+Chemical changes often release or absorb energy (heat, light, sound).
+The original substances are known as reactants.
+The new substances formed are called products.
+Chemical changes differ from physical changes (which are reversible).
+Signs such as color change or gas release indicate chemical changes.
+</pre>
+      <pre class="panel-worksheet">
+1.What is a chemical change?
+—-------------------------------------------
+—-------------------------------------------
+2.Mention two examples of chemical changes.
+—-------------------------------------------
+—-------------------------------------------
+3.What happens to bonds during a chemical change?
+—-------------------------------------------
+—-------------------------------------------
+4.How do chemical changes differ from physical changes?
+—-------------------------------------------
+—-------------------------------------------
+5.What are the substances at the start of a chemical change called?
+—-------------------------------------------
+—-------------------------------------------
+6.What are the new substances formed called?
+—-------------------------------------------
+—-------------------------------------------
+7.Is boiling water a chemical or physical change?
+—-------------------------------------------
+—-------------------------------------------
+8.Name one energy form that can be involved in a chemical change.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is rusting considered a chemical change?
+—-------------------------------------------
+—-------------------------------------------
+10.State one reason why chemical changes are mostly irreversible.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemical reactions can be classified into different types.
+Combination reactions involve two or more substances forming one product.
+Decomposition reactions involve a single substance breaking into simpler parts.
+Displacement reactions involve one element replacing another in a compound.
+Double displacement reactions involve exchange of ions between two compounds.
+Combustion reactions involve burning in the presence of oxygen.
+Neutralization reactions occur between acids and bases to form salt and water.
+Each reaction type has a unique pattern or general equation.
+Recognizing the type helps predict products.
+Real-life examples include digestion (decomposition) and rusting (combination).
+</pre>
+      <pre class="panel-worksheet">
+1.What is a combination reaction?
+—-------------------------------------------
+—-------------------------------------------
+2.What is formed in a neutralization reaction?
+—-------------------------------------------
+—-------------------------------------------
+3.Give an example of a combustion reaction.
+—-------------------------------------------
+—-------------------------------------------
+4.What happens in a displacement reaction?
+—-------------------------------------------
+—-------------------------------------------
+5.Which reaction type involves exchange of ions?
+—-------------------------------------------
+—-------------------------------------------
+6.Is decomposition a single or multi-reactant reaction?
+—-------------------------------------------
+—-------------------------------------------
+7.What is the general form of a combination reaction?
+—-------------------------------------------
+—-------------------------------------------
+8.Name one reaction that occurs in the human body.
+—-------------------------------------------
+—-------------------------------------------
+9.Which reaction type produces heat and light?
+—-------------------------------------------
+—-------------------------------------------
+10.What type of reaction is the reaction of acid with base?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Color change indicates a new substance formation.
+Gas production is seen as bubbles or fizzing.
+Temperature change shows heat is absorbed or released.
+Light or sound may be given off in some reactions.
+Formation of precipitate is a solid from two liquids.
+Change in smell or taste suggests chemical alteration.
+A permanent change in appearance can be evidence.
+These signs help identify chemical reactions without testing.
+Not all reactions show all signs—sometimes only one.
+Observing these changes helps confirm a chemical reaction has occurred.
+</pre>
+      <pre class="panel-worksheet">
+1.What does a change in color during a reaction suggest?
+—-------------------------------------------
+—-------------------------------------------
+2.What is a precipitate?
+—-------------------------------------------
+—-------------------------------------------
+3.Give an example of a gas being produced in a reaction.
+—-------------------------------------------
+—-------------------------------------------
+4.How can temperature show a reaction occurred?
+—-------------------------------------------
+—-------------------------------------------
+5.Name one evidence of a chemical reaction.
+—-------------------------------------------
+—-------------------------------------------
+6.What might fizzing in a solution mean?
+—-------------------------------------------
+—-------------------------------------------
+7.Do all reactions show all evidences?
+—-------------------------------------------
+—-------------------------------------------
+8.What change is seen in combustion?
+—-------------------------------------------
+—-------------------------------------------
+9.What does the release of sound suggest in a reaction?
+—-------------------------------------------
+—-------------------------------------------
+10.How can smell indicate a chemical reaction?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A chemical equation represents a chemical reaction using symbols.
+The reactants are written on the left; products on the right.
+A plus sign separates multiple reactants or products.
+An arrow (→) shows the direction of the reaction.
+Example: H₂ + O₂ → H₂O.
+Symbols indicate the physical state: (s), (l), (g), (aq).
+A word equation uses names instead of symbols.
+Chemical equations must be written accurately.
+They show what is used and what is produced.
+Writing equations helps in understanding and calculating reactions.
+</pre>
+      <pre class="panel-worksheet">
+1.What is the correct symbol for a gas in an equation?
+—-------------------------------------------
+—-------------------------------------------
+2.In a chemical equation, what does the arrow mean?
+—-------------------------------------------
+—-------------------------------------------
+3.What is the word equation for the reaction of hydrogen and oxygen?
+—-------------------------------------------
+—-------------------------------------------
+4.Which side are the products written on?
+—-------------------------------------------
+—-------------------------------------------
+5.What does (aq) mean?
+—-------------------------------------------
+—-------------------------------------------
+6.Give an example of a simple chemical equation.
+—-------------------------------------------
+—-------------------------------------------
+7.What separates two reactants in an equation?
+—-------------------------------------------
+—-------------------------------------------
+8.What is the purpose of writing chemical equations?
+—-------------------------------------------
+—-------------------------------------------
+9.How is a word equation different from a chemical equation?
+—-------------------------------------------
+—-------------------------------------------
+10.What does the symbol (s) represent?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemical equations must be balanced to follow the law of conservation of mass.
+The number of atoms of each element must be equal on both sides.
+Coefficients are added to balance equations (not subscripts).
+Balancing ensures no atoms are lost or created.
+Start by balancing elements that appear once on each side.
+Leave hydrogen and oxygen for last, if they appear in many compounds.
+Practice is key to balancing equations correctly.
+Example: H₂ + O₂ → H₂O becomes 2H₂ + O₂ → 2H₂O.
+Never change chemical formulas when balancing.
+Balanced equations are essential for accurate chemical calculations.
+</pre>
+      <pre class="panel-worksheet">
+1.What must be equal on both sides of a balanced equation?
+—-------------------------------------------
+—-------------------------------------------
+2.What law does balancing chemical equations follow?
+—-------------------------------------------
+—-------------------------------------------
+3.What is a coefficient in chemical equations?
+—-------------------------------------------
+—-------------------------------------------
+4.Why should subscripts not be changed when balancing?
+—-------------------------------------------
+—-------------------------------------------
+5.Balance: Na + Cl₂ → NaCl
+—-------------------------------------------
+—-------------------------------------------
+6.Balance: Fe + O₂ → Fe₂O₃
+—-------------------------------------------
+—-------------------------------------------
+7.What is the first step in balancing an equation?
+—-------------------------------------------
+—-------------------------------------------
+8.In the equation H₂ + O₂ → H₂O, which element is not balanced?
+—-------------------------------------------
+—-------------------------------------------
+9.What does a balanced equation help us calculate?
+—-------------------------------------------
+—-------------------------------------------
+10.True or False: You can change chemical formulas to balance an equation.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Acids are substances that release hydrogen ions (H⁺) in water.
+Bases are substances that release hydroxide ions (OH⁻) or accept H⁺ ions.
+When an acid reacts with a base, a neutralization reaction occurs.
+The products of neutralization are salt and water.
+A common example is: Hydrochloric acid + Sodium hydroxide → Sodium chloride + Water.
+Strong acids and bases fully dissociate in water; weak ones only partially dissociate.
+Neutralization is used in making toothpaste, medicine, and treating acidic soil.
+The reaction between an acid and a metal produces salt and hydrogen gas.
+Acid + Metal carbonate → Salt + Water + Carbon dioxide.
+Acid-base reactions are essential in biological and industrial processes.
+</pre>
+      <pre class="panel-worksheet">
+1.What is formed when an acid reacts with a base?
+—-------------------------------------------
+—-------------------------------------------
+2.Name the products of the reaction: HCl + NaOH → ?
+—-------------------------------------------
+—-------------------------------------------
+3.What type of reaction is acid + base?
+—-------------------------------------------
+—-------------------------------------------
+4.What gas is produced when acid reacts with a metal?
+—-------------------------------------------
+—-------------------------------------------
+5.What is the product of acid + metal carbonate?
+—-------------------------------------------
+—-------------------------------------------
+6.Give an everyday example of a neutralization reaction.
+—-------------------------------------------
+—-------------------------------------------
+7.True or False: Neutralization reactions always produce a gas.
+—-------------------------------------------
+—-------------------------------------------
+8.What type of salt is formed from sulfuric acid and magnesium hydroxide?
+—-------------------------------------------
+—-------------------------------------------
+9.Complete the reaction: H₂SO₄ + 2NaOH → ?
+—-------------------------------------------
+—-------------------------------------------
+10.What is the role of bases in neutralization?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The pH scale measures how acidic or basic a solution is, ranging from 0 to 14.
+A pH of 7 is neutral, below 7 is acidic, and above 7 is basic (alkaline).
+Acids have pH values from 0–6; bases have pH values from 8–14.
+Indicators are substances that change color to show whether a substance is an acid or base.
+Common indicators include litmus, methyl orange, and phenolphthalein.
+Litmus turns red in acid and blue in base.
+Methyl orange turns red in acid and yellow in base.
+Phenolphthalein is colorless in acid and pink in base.
+Universal indicator shows a range of colors to indicate specific pH values.
+pH indicators are useful in agriculture, medicine, and lab experiments.
+</pre>
+      <pre class="panel-worksheet">
+1.What does the pH scale measure?
+—-------------------------------------------
+—-------------------------------------------
+2.What is the pH of a neutral solution?
+—-------------------------------------------
+—-------------------------------------------
+3.What pH range indicates a base?
+—-------------------------------------------
+—-------------------------------------------
+4.Which indicator turns red in acid?
+—-------------------------------------------
+—-------------------------------------------
+5.What color does phenolphthalein turn in a base?
+—-------------------------------------------
+—-------------------------------------------
+6.Which indicator gives a full pH range of colors?
+—-------------------------------------------
+—-------------------------------------------
+7.True or False: pH 2 is a strong base.
+—-------------------------------------------
+—-------------------------------------------
+8.What is the pH of lemon juice likely to be?
+—-------------------------------------------
+—-------------------------------------------
+9.Name an indicator that turns yellow in a basic solution.
+—-------------------------------------------
+—-------------------------------------------
+10.Why are pH indicators important in agriculture?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Atoms are the smallest particles of matter that retain the properties of an element.
+
+
+Early Greek philosophers like Democritus proposed the idea of atoms as indivisible.
+
+
+John Dalton's atomic theory (1803) described atoms as solid, indivisible spheres.
+
+
+J.J. Thomson (1897) discovered the electron and proposed the "plum pudding" model.
+
+
+Ernest Rutherford (1911) conducted the gold foil experiment, revealing a dense nucleus.
+
+
+Rutherford’s model had electrons orbiting around a central nucleus.
+
+
+Niels Bohr (1913) suggested electrons move in fixed energy levels (shells).
+
+
+The quantum mechanical model describes the electron's probable location in orbitals.
+
+
+Each new model corrected and improved the older one with new experimental evidence.
+
+
+Atomic models help explain chemical properties and behavior of elements.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        Who proposed the "plum pudding" model of the atom?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What experiment led Rutherford to discover the nucleus?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What did Bohr suggest about electron movement?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one flaw in Dalton’s atomic model.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which atomic model introduced the concept of orbitals?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What was Democritus’ idea about matter?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What part of the atom did J.J. Thomson discover?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why was Rutherford’s model important?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How are electrons arranged in Bohr's model?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the central part of the atom called?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        An atom consists of three subatomic particles: protons, neutrons, and electrons.
+
+
+Protons carry a positive charge and are located in the nucleus.
+
+
+Neutrons have no charge and are also found in the nucleus.
+
+
+Electrons are negatively charged and orbit the nucleus in energy levels.
+
+
+The number of protons equals the atomic number of the atom.
+
+
+Electrons usually equal the number of protons in a neutral atom.
+
+
+The mass number equals the sum of protons and neutrons.
+
+
+Isotopes are atoms of the same element with different numbers of neutrons.
+
+
+Electrons are arranged in shells: 2 in the first, 8 in the second, and so on.
+
+
+The structure of an atom determines its chemical properties and reactivity.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are the three subatomic particles in an atom?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Where are protons and neutrons located?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the charge of an electron?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define atomic number.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How is mass number calculated?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What are isotopes?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How many electrons can the first shell hold?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which particle determines the identity of an element?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do electrons behave in a neutral atom?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What determines the chemical reactivity of an atom?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        The kinetic theory explains the behavior of matter based on particle motion.
+
+
+All matter is made of tiny particles in constant motion.
+
+
+In solids, particles are tightly packed and vibrate in place.
+
+
+In liquids, particles move freely but stay close together.
+
+
+In gases, particles move rapidly and are widely spaced.
+
+
+The temperature of a substance is related to the average kinetic energy of its particles.
+
+
+Heating a substance increases the motion of its particles.
+
+
+Cooling reduces particle movement and kinetic energy.
+
+
+Pressure in gases is caused by particles hitting the container walls.
+
+
+Kinetic theory explains changes in state and expansion/contraction of matter.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What does the kinetic theory explain?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Describe the particle arrangement in a solid.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How do particles move in a gas?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to particles when a substance is heated?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is kinetic energy?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does temperature affect particle motion?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why do gases exert pressure?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What state of matter has the least particle movement?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to particles when a substance cools?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does the kinetic theory explain expansion?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Changes of state occur when matter absorbs or releases energy.
+
+
+Melting is the change from solid to liquid due to heat.
+
+
+Freezing is the change from liquid to solid when energy is lost.
+
+
+Boiling or evaporation is the change from liquid to gas.
+
+
+Condensation is the change from gas to liquid when cooled.
+
+
+Sublimation is the direct change from solid to gas (e.g., dry ice).
+
+
+All changes of state are physical changes; they do not change the substance's identity.
+
+
+Energy affects particle motion and spacing during state changes.
+
+
+At the melting and boiling points, temperature remains constant during the change.
+
+
+Kinetic theory helps explain why these changes happen at certain temperatures.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What is melting?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define condensation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to particle energy during freezing?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is sublimation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Is boiling a chemical or physical change?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What causes a liquid to change to gas?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What happens to particle movement during condensation?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why does temperature stay constant during melting?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What state change occurs when dry ice disappears?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How does the kinetic theory explain state change?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Acids are substances that taste sour and turn blue litmus paper red.
+
+
+Bases are substances that feel slippery and turn red litmus paper blue.
+
+
+Acids have a pH less than 7; bases have a pH greater than 7.
+
+
+Common acids include hydrochloric acid (HCl), sulfuric acid (H₂SO₄), and citric acid.
+
+
+Common bases include sodium hydroxide (NaOH) and ammonia (NH₃).
+
+
+Acids donate hydrogen ions (H⁺), while bases accept H⁺ or donate hydroxide ions (OH⁻).
+
+
+Strong acids/bases fully ionize in water; weak ones only partially.
+
+
+Bases can be classified as alkalis if they are soluble in water.
+
+
+Acids and bases are used in food, cleaning, and industry.
+
+
+The strength of an acid or base can be measured using indicators or pH meters.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What color does blue litmus paper turn in acid?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the pH range of bases?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which ion do acids release in water?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one example of a weak acid.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which of these is a base? A. HCl B. NaOH C. H₂SO₄ D. HNO₃
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What makes a base an alkali?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the pH of a neutral substance?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name two uses of acids in everyday life.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a strong base do in water?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Define an acid in terms of ion donation.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        Litmus paper is a simple indicator: acids turn blue litmus red, bases turn red litmus blue.
+
+
+Methyl orange turns red in acid and yellow in base.
+
+
+Phenolphthalein is colorless in acids and pink in bases.
+
+
+Universal indicator shows a range of colors depending on pH.
+
+
+Natural indicators include red cabbage juice, turmeric, and hibiscus.
+
+
+Test tubes, droppers, and beakers are used in these tests.
+
+
+A few drops of the indicator are added to the test solution.
+
+
+The observed color change reveals the pH level or nature of the solution.
+
+
+Use distilled water for neutral controls.
+
+
+Always wear goggles and gloves when handling acids and bases.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What color does methyl orange turn in acid?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does phenolphthalein show in a basic solution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which indicator provides a full pH range?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one natural indicator.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What safety gear is needed when testing acids?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What color change occurs with litmus paper in base?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the color of turmeric in acid?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Why is distilled water used in experiments?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the color of red cabbage juice in acid?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What tool is used to transfer small amounts of liquid in a test?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+
+        A neutralization reaction occurs when an acid reacts with a base.
+
+
+The products of neutralization are salt and water.
+
+
+The reaction can be represented as: Acid + Base → Salt + Water.
+
+
+It is an exothermic reaction (releases heat).
+
+
+An example is HCl + NaOH → NaCl + H₂O.
+
+
+Neutralization is used in treating indigestion and acidic soil.
+
+
+pH of the final solution is close to 7 (neutral).
+
+
+Strong acid + strong base = neutral salt.
+
+
+Weak acid + strong base = basic salt; strong acid + weak base = acidic salt.
+
+
+Indicators help determine the end point of neutralization.
+
+      </pre>
+      <pre class="panel-worksheet">
+
+        What are the products of a neutralization reaction?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What type of reaction is neutralization: endothermic or exothermic?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the pH of a neutral solution?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Write the word equation for HCl reacting with NaOH.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What is the salt formed from sulfuric acid and potassium hydroxide?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+How is neutralization used in medicine?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Which type of salt results from a strong acid and weak base?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What helps detect the end point of a neutralization?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+Name one real-life application of neutralization.
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+What does a basic salt indicate about the acid and base used?
+—------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------
+
+      </pre>
+    </section>
+  </div>
 
 <!--===================END OF LESSONS======================-->
-
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -240,11 +1504,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -270,10 +1535,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -315,204 +1577,86 @@
 </script>
 
 
-<script>
-const chemistryTopics = {
-  first: [
-    {
-      title: "Week 1: Introduction to Chemistry",
-      video: "https://www.youtube.com/embed/xOKiHhuCnFw",
-      questions: [
-        "Define chemistry.",
-        "List 3 reasons why we study chemistry."
-      ]
-    },
-    {
-      title: "Week 2: States of Matter",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_2",
-      questions: [
-        "Mention the 3 states of matter.",
-        "Differentiate between solid and gas."
-      ]
-    },
-    {
-      title: "Week 3: Elements and Compounds",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_3",
-      questions: [
-        "What is an element?",
-        "Give 2 examples of compounds."
-      ]
-    },
-    {
-      title: "Week 4: Separation Techniques",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_4",
-      questions: [
-        "Name 3 separation techniques.",
-        "State their uses."
-      ]
-    },
-    {
-      title: "Week 5: Physical & Chemical Changes",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_5",
-      questions: [
-        "What is a physical change?",
-        "Give examples of chemical changes."
-      ]
-    },
-    {
-      title: "Week 6: Mixtures",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_6",
-      questions: [
-        "Define mixture.",
-        "Differentiate homogeneous and heterogeneous mixtures."
-      ]
-    },
-    {
-      title: "Week 7: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_7",
-      questions: [
-        "Revise all topics from week 1–6."
-      ]
-    },
-    {
-      title: "Week 8: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_8",
-      questions: [
-        "Attempt mock exam questions."
-      ]
-    }
-  ],
-  second: [
-    {
-      title: "Week 1: Atomic Structure",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_9",
-      questions: [
-        "What are atoms?",
-        "List 3 subatomic particles."
-      ]
-    },
-    {
-      title: "Week 2: Periodic Table",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_10",
-      questions: [
-        "Who developed the periodic table?",
-        "List 3 Group I elements."
-      ]
-    },
-    {
-      title: "Week 3: Chemical Equations",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_11",
-      questions: [
-        "Write H₂ + O₂ → H₂O in balanced form."
-      ]
-    },
-    {
-      title: "Week 4: Acids and Bases",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_12",
-      questions: [
-        "Define acid and base.",
-        "Give examples."
-      ]
-    },
-    {
-      title: "Week 5: Salts",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_13",
-      questions: [
-        "What are salts?",
-        "Mention types of salts."
-      ]
-    },
-    {
-      title: "Week 6: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_14",
-      questions: ["Revise all topics."]
-    },
-    {
-      title: "Week 7: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_15",
-      questions: ["Solve practice questions."]
-    }
-  ],
-  third: [
-    {
-      title: "Week 1: Organic Chemistry Intro",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_16",
-      questions: [
-        "Define organic chemistry.",
-        "What are hydrocarbons?"
-      ]
-    },
-    {
-      title: "Week 2: Hydrocarbons",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_17",
-      questions: [
-        "Difference between alkanes and alkenes."
-      ]
-    },
-    {
-      title: "Week 3: Combustion",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_18",
-      questions: ["Define combustion.", "Products of complete combustion."]
-    },
-    {
-      title: "Week 4: Chemical Pollution",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_19",
-      questions: ["Mention pollutants from chemical industries."]
-    },
-    {
-      title: "Week 5: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_20",
-      questions: ["Review all topics."]
-    },
-    {
-      title: "Week 6: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_21",
-      questions: ["Attempt full mock exam."]
-    }
-  ]
-};
 
-const topicList = document.getElementById("chemistryTopicsList");
-const videoFrame = document.getElementById("chemistryVideoFrame");
-const questionList = document.getElementById("chemistryQuestions").querySelector("ul");
-const termButtons = document.querySelectorAll(".term-btn");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-let currentTerm = "first";
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-function displayTopics(term) {
-  topicList.innerHTML = "";
-  chemistryTopics[term].forEach((topic, index) => {
-    const btn = document.createElement("button");
-    btn.innerText = topic.title;
-    btn.className = "topic-btn";
-    btn.addEventListener("click", () => {
-      videoFrame.src = topic.video;
-      document.querySelectorAll(".topic-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      questionList.innerHTML = "";
-      topic.questions.forEach(q => {
-        const li = document.createElement("li");
-        li.textContent = q;
-        questionList.appendChild(li);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
-    });
-    topicList.appendChild(btn);
-  });
-}
 
-termButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    termButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentTerm = btn.getAttribute("data-term");
-    displayTopics(currentTerm);
-    videoFrame.src = "";
-    questionList.innerHTML = "";
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
+      }
+    });
   });
+
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
 });
 
-displayTopics(currentTerm);
-</script>
-
+  </script>
 </body>
 </html>
