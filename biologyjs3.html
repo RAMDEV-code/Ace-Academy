@@ -3,152 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Biology term buttons */
-    .term-btn-bio {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-bio:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-bio.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +151,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +167,1080 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section" id="biology-section">
-    <h2 class="subject-title">Biology</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">BIOLOGY</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-bio active" data-term="first">First Term</button>
-      <button class="term-btn-bio" data-term="second">Second Term</button>
-      <button class="term-btn-bio" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="bioTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Drugs and Substance Abuse
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="bioVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Genetics I
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Genetics II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Environmental Hazard (Erosion)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Environmental Hazard (Flooding)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Environmental Hazard (Bush Burning and Deforestation)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Environmental Hazard (Desertification)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: Environmental Hazard (Depletion of the Ozone Layer)
+          </button>
         </div>
 
-        <h3 id="bioTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Resources from Plants
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="bioWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Resources from Animals
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Resources from Non-Living Things I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Resources from Non-Living Things II
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Human Respiratory System
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Gaseous Exchange
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: SCIENTIFIC PROCESS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: RULES FOR DRAWING DIAGRAMS IN BIOLOGY
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Classification of Living Things (Kingdoms)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Classification of Living Things (Binomial Nomenclature)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Classification of Living Things (Plant Kingdom)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Classification of Living Things (Invertebrates)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Classification of Living Things (Vertebrates)
+          </button>
+        </div>
+      </aside>
+ 
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Drugs are chemical substances that alter the normal functioning of the body. They may be medicinal when prescribed or abused when misused.
+Substance abuse occurs when drugs are taken without medical prescription, in excessive amounts, or for non-medical purposes. Commonly abused substances include alcohol, tobacco, cannabis, cocaine, heroin, and inhalants.
+Drug abuse leads to addiction, mental illness, liver damage, lung cancer, and breakdown of family and social life. Peer pressure, ignorance, curiosity, and frustration are major causes of drug abuse among youths.
+Preventive measures include proper counseling, strict law enforcement, awareness campaigns, and rehabilitation centres.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between drug use, misuse, and abuse.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why alcohol is both a drug and a poison.
+—-------------------------------------------
+—-------------------------------------------
+3.List five commonly abused drugs and their harmful effects.
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss peer pressure as a factor in drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is nicotine in cigarettes harmful to the respiratory system?
+—-------------------------------------------
+—-------------------------------------------
+6.Describe two socio-economic consequences of substance abuse.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why rehabilitation is important in drug control.
+—-------------------------------------------
+—-------------------------------------------
+8.Suggest four ways government policies can reduce drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between stimulants, depressants, and hallucinogens with examples.
+—-------------------------------------------
+—-------------------------------------------
+10.Evaluate the long-term effects of cannabis abuse on mental health.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Genetics is the study of heredity and variation in living organisms. Heredity is the transmission of traits from parents to offspring. Variation refers to differences among individuals of the same species.
+Gregor Mendel, the father of genetics, used pea plants to establish laws of inheritance. He discovered that traits are controlled by discrete units called genes. Genes exist in pairs, and each parent contributes one gene to offspring.
+Mendel’s first law (Law of Segregation) states that alleles of a gene separate during gamete formation. His second law (Law of Independent Assortment) states that alleles of different genes assort independently during gamete formation.
+</pre>
+      <pre class="panel-worksheet">
+1.Define genetics and state its importance in agriculture.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between heredity and variation.
+—-------------------------------------------
+—-------------------------------------------
+3.Who is the father of genetics and what was his main contribution?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain Mendel’s Law of Segregation with an example.
+—-------------------------------------------
+—-------------------------------------------
+5.Illustrate Mendel’s Law of Independent Assortment using dihybrid cross.
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between dominant and recessive traits.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why offspring may resemble parents but are not identical.
+—-------------------------------------------
+—-------------------------------------------
+8.State the difference between phenotype and genotype with examples.
+—-------------------------------------------
+—-------------------------------------------
+9.Why were pea plants suitable for Mendel’s experiments?
+—-------------------------------------------
+—-------------------------------------------
+10.Evaluate how genetics explains the reappearance of traits in the F2 generation.
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Genes are located on chromosomes in the nucleus. Each gene controls the expression of a particular trait, such as eye colour or blood group.
+Human beings have 46 chromosomes arranged in 23 pairs. One pair determines sex (XX in females and XY in males). Other 22 pairs are autosomes controlling body traits.
+Blood groups in humans are an example of multiple alleles (A, B, O) and codominance (AB). Some traits are sex-linked, such as colour blindness and haemophilia, which are more common in males.
+Mutation is a sudden change in genes or chromosomes, leading to variation. It may be harmful, beneficial, or neutral.
+</pre>
+      <pre class="panel-worksheet">
+1.State the difference between autosomes and sex chromosomes.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why sex-linked diseases are more common in males than females.
+—-------------------------------------------
+—-------------------------------------------
+3.Distinguish between multiple alleles and codominance with examples.
+—-------------------------------------------
+—-------------------------------------------
+4.Define mutation and give three examples in humans.
+—-------------------------------------------
+—-------------------------------------------
+5.Discuss the genetic basis of blood group inheritance.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how haemophilia is inherited.
+—-------------------------------------------
+—-------------------------------------------
+7.What role do chromosomes play in inheritance?
+—-------------------------------------------
+—-------------------------------------------
+8.Differentiate between acquired and inherited traits.
+—-------------------------------------------
+—-------------------------------------------
+9.Using a genetic diagram, explain inheritance of colour blindness.
+—-------------------------------------------
+—-------------------------------------------
+10.Evaluate the significance of mutation in evolution.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Erosion is the removal and transportation of soil by agents such as water, wind, and human activities. It leads to the loss of fertile topsoil, desertification, and environmental degradation.
+Types of erosion include sheet erosion, rill erosion, gully erosion, and wind erosion. In Nigeria, gully erosion is a serious environmental problem, especially in the southeast.
+Erosion is caused by deforestation, poor farming practices, overgrazing, and heavy rainfall. Its effects include loss of arable land, destruction of houses, flooding, and displacement of people.
+Control measures include afforestation, terracing, contour ploughing, and construction of drainage channels.
+</pre>
+      <pre class="panel-worksheet">
+1.Define erosion and list its agents.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between sheet and gully erosion.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is erosion more severe in southeastern Nigeria?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how deforestation contributes to soil erosion.
+—-------------------------------------------
+—-------------------------------------------
+5.State three effects of erosion on agriculture.
+—-------------------------------------------
+—-------------------------------------------
+6.Suggest two engineering solutions to control erosion.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss the role of afforestation in erosion control.
+—-------------------------------------------
+—-------------------------------------------
+8.Why does overgrazing accelerate erosion?
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between natural and human-induced erosion.
+—-------------------------------------------
+—-------------------------------------------
+10.Evaluate the effectiveness of community-based erosion control projects in Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Flooding is the overflow of water onto land that is usually dry. It occurs when rainfall exceeds the capacity of rivers, drains, or soil to absorb water.
+Causes of flooding include heavy rainfall, poor drainage systems, blocked waterways, deforestation, and climate change. In Nigeria, floods often occur in the Niger-Benue basin during heavy rains.
+Effects of flooding include loss of lives, destruction of crops and property, spread of water-borne diseases, and displacement of communities.
+Flood control measures include proper town planning, construction of dams and levees, dredging of rivers, afforestation, and public education on waste disposal.
+</pre>
+      <pre class="panel-worksheet">
+1.Define flooding and state its major causes in Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+2.Distinguish between flash floods and river floods.
+—-------------------------------------------
+—-------------------------------------------
+3.How does poor drainage contribute to flooding in urban areas?
+—-------------------------------------------
+—-------------------------------------------
+4.State three health hazards associated with flooding.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how climate change increases flood risks.
+—-------------------------------------------
+—-------------------------------------------
+6.Suggest two engineering methods of flood control.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss the impact of flooding on agriculture.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is deforestation a major factor in flooding?
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the role of government agencies in flood management.
+—-------------------------------------------
+—-------------------------------------------
+10.Evaluate the socio-economic effects of the 2012 flood in Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Bush burning is the uncontrolled setting of vegetation on fire, often for farming or hunting. It destroys soil organic matter, reduces soil fertility, and increases carbon dioxide, a greenhouse gas. Frequent bush burning leads to erosion and loss of biodiversity.
+Deforestation is the large-scale cutting down of trees without replanting. It reduces forest cover, leading to desert encroachment, loss of wildlife habitats, and reduced rainfall. Trees absorb carbon dioxide and release oxygen; without them, the atmosphere’s balance is disrupted.
+Both practices increase greenhouse gases, contributing to climate change. Sustainable practices such as afforestation, controlled grazing, and environmental education can reduce these hazards.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain how bush burning alters the carbon cycle.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between bush burning and deforestation in terms of chemical impact.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss three greenhouse gases released during bush burning.
+—-------------------------------------------
+—-------------------------------------------
+4.Why does deforestation reduce rainfall in a region?
+—-------------------------------------------
+—-------------------------------------------
+5.Outline the role of photosynthesis in combating the effects of deforestation.
+—-------------------------------------------
+—-------------------------------------------
+6.Evaluate the long-term impact of bush burning on soil chemistry.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest chemical methods of restoring soil fertility after bush burning.
+—-------------------------------------------
+—-------------------------------------------
+8.Compare afforestation and reforestation in environmental management.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe how deforestation contributes to global warming.
+—-------------------------------------------
+—-------------------------------------------
+10.Propose strategies to control bush burning at the community level.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Desertification is the gradual transformation of fertile land into desert, mainly due to overgrazing, deforestation, poor farming methods, and climate change. It reduces soil productivity and leads to food shortages.
+Chemically, desert soils lose organic matter and essential nutrients like nitrogen, phosphorus, and potassium. This results in low fertility and poor water retention. Desertification also increases carbon dioxide levels as vegetation cover declines.
+Human activities such as continuous farming without soil enrichment accelerate the process. Control measures include afforestation, irrigation, controlled grazing, and use of fertilizers to restore soil nutrients.
+</pre>
+      <pre class="panel-worksheet">
+1.Define desertification and state two major causes.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the chemical changes in soil due to desertification.
+—-------------------------------------------
+—-------------------------------------------
+3.How does deforestation accelerate desertification?
+—-------------------------------------------
+—-------------------------------------------
+4.Assess the role of fertilizers in reversing desertification.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe the effect of desertification on the nitrogen cycle.
+—-------------------------------------------
+—-------------------------------------------
+6.Suggest three agricultural practices that reduce desertification.
+—-------------------------------------------
+—-------------------------------------------
+7.Why is water retention important in preventing desertification?
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss the global consequences of desertification.
+—-------------------------------------------
+—-------------------------------------------
+9.Evaluate the role of afforestation in controlling desertification.
+—-------------------------------------------
+—-------------------------------------------
+10.Propose chemical-based solutions to improve desert soils.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The ozone layer is a region of the stratosphere rich in ozone (O₃) molecules that absorbs harmful ultraviolet (UV) radiation from the sun. Ozone depletion is the thinning of this layer, mainly caused by chlorofluorocarbons (CFCs), halons, and nitrogen oxides.
+When CFCs rise to the stratosphere, UV light breaks them down, releasing chlorine atoms which react with ozone, reducing its concentration. One chlorine atom can destroy thousands of ozone molecules.
+Effects include increased UV radiation reaching Earth, causing skin cancer, eye cataracts, reduced crop yield, and harm to aquatic life. Global measures like the Montreal Protocol aim to phase out ozone-depleting substances.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain the chemical structure of ozone and its role in the atmosphere.
+—-------------------------------------------
+—-------------------------------------------
+2.Write a balanced chemical equation for the breakdown of ozone by chlorine.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss the role of CFCs in ozone layer depletion.
+—-------------------------------------------
+—-------------------------------------------
+4.How does ozone depletion increase health hazards in humans?
+—-------------------------------------------
+—-------------------------------------------
+5.Describe the environmental impact of increased UV radiation on plants.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how nitrogen oxides contribute to ozone depletion.
+—-------------------------------------------
+—-------------------------------------------
+7.Assess the effectiveness of the Montreal Protocol in reducing ozone-depleting substances.
+—-------------------------------------------
+—-------------------------------------------
+8.Compare ozone depletion and global warming in terms of causes and effects.
+—-------------------------------------------
+—-------------------------------------------
+9.Suggest alternative chemicals to CFCs in industrial use.
+—-------------------------------------------
+—-------------------------------------------
+10.Propose a public awareness campaign to reduce ozone-depleting activities.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Plants are a major source of useful resources in chemistry and daily life. They provide food substances such as carbohydrates, proteins, and oils needed for growth and energy.
+Medicinal plants supply alkaloids, tannins, and essential oils used in drug production. Examples include quinine from cinchona and morphine from poppy.
+Industrial raw materials from plants include cellulose for paper, cotton for textiles, and latex for rubber. Plants also yield timber for construction and fuelwood.
+Natural dyes and resins are extracted from plants for coloring and finishing. Plants are renewable, eco-friendly resources when harvested sustainably.
+Thus, plants play roles in nutrition, medicine, industry, and energy supply.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain how plants serve as renewable resources with two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between food resources and medicinal resources from plants.
+—-------------------------------------------
+—-------------------------------------------
+3.Outline two industrial uses of cellulose.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the role of alkaloids in medicine with one example.
+—-------------------------------------------
+—-------------------------------------------
+5.State two chemical products obtained from latex and their uses.
+—-------------------------------------------
+—-------------------------------------------
+6.Why are plant resources considered eco-friendly?
+—-------------------------------------------
+—-------------------------------------------
+7.Compare plant-based dyes with synthetic dyes in terms of durability and safety.
+—-------------------------------------------
+—-------------------------------------------
+8.Justify the importance of timber as a plant resource in chemistry and construction.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe the role of resins in industrial chemistry.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss how sustainable harvesting of plants prevents resource depletion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Animals provide essential food substances such as proteins, fats, and vitamins. They are sources of milk, eggs, and meat, which supply body-building and protective nutrients.
+Animal by-products include leather from hides, wool from sheep, and silk from silkworms, all used in textiles and industry.
+Bones and shells supply calcium compounds useful in cement, fertilizers, and toothpastes. Fish oil and cod liver oil are rich in vitamins A and D.
+Animals also provide enzymes like rennet for cheese-making and hormones for medical applications.
+Thus, animals are vital chemical and industrial resources beyond food supply.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between animal food resources and industrial by-products.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the role of animal fats in soap production.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss the importance of calcium compounds from animal bones in industry.
+—-------------------------------------------
+—-------------------------------------------
+4.Give two examples of medicinal resources from animals and their uses.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how wool and silk are processed into usable materials.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is fish oil considered a valuable animal resource in health?
+—-------------------------------------------
+—-------------------------------------------
+7.Compare the nutritive value of animal proteins with plant proteins.
+—-------------------------------------------
+—-------------------------------------------
+8.Outline two industrial applications of leather.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe the importance of enzymes from animals in industrial chemistry.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain the ecological challenges of overdependence on animal resources.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Non-living resources include minerals, rocks, water, and air. Minerals such as limestone, gypsum, and clay are used in cement, plaster, and ceramics.
+Metals like iron, copper, and aluminium are mined from ores for construction, electrical wiring, and utensils.
+Coal, crude oil, and natural gas are fossil fuels that serve as energy sources and raw materials for petrochemicals.
+Water is essential in domestic, agricultural, and industrial processes. Air provides oxygen for respiration and combustion, and nitrogen for fertilizer production.
+Thus, non-living resources are foundational for energy, construction, and manufacturing industries.
+</pre>
+      <pre class="panel-worksheet">
+1.Identify three minerals and their industrial uses.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how fossil fuels are formed and their significance.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss the importance of water as an industrial solvent.
+—-------------------------------------------
+—-------------------------------------------
+4.Compare the uses of nitrogen and oxygen in industry.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe how crude oil is refined into useful fractions.
+—-------------------------------------------
+—-------------------------------------------
+6.Outline three disadvantages of overdependence on fossil fuels.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why metals are considered strategic resources in industrialization.
+—-------------------------------------------
+—-------------------------------------------
+8.State the role of limestone in cement manufacture.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between renewable and non-renewable non-living resources.
+—-------------------------------------------
+—-------------------------------------------
+10.Justify the importance of air as a natural resource in chemical industries.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+This includes salts, gemstones, coal, petroleum, and natural gas. Common salt (NaCl) is used in food preservation and chlorine production.
+Gemstones like diamond and sapphire are used in jewelry and cutting tools due to their hardness.
+Coal is a carbon-rich resource for energy and coke production in metallurgy. Petroleum is refined into fuels like petrol, kerosene, and diesel, as well as lubricants and plastics.
+Natural gas, mainly methane, is used for heating, power generation, and fertilizer production.
+Thus, non-living chemical resources sustain energy, industry, and everyday life.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain the chemical and industrial importance of common salt.
+—-------------------------------------------
+—-------------------------------------------
+2.State two uses of diamond in industry beyond jewelry.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe the role of coke in metallurgy.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between petroleum and natural gas in composition and uses.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how petroleum is fractionally distilled.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the role of methane as both fuel and chemical raw material.
+—-------------------------------------------
+—-------------------------------------------
+7.Outline three advantages of using natural gas over coal.
+—-------------------------------------------
+—-------------------------------------------
+8.Justify the statement: “Non-living resources sustain modern civilization.”
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why gemstones are valuable in both science and economy.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the industrial importance of coal and petroleum.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The human respiratory system ensures continuous supply of oxygen and removal of carbon dioxide.
+ It consists mainly of the nose, trachea, bronchi, bronchioles, and lungs.
+ Air enters through the nose where it is filtered, warmed, and moistened.
+ The trachea is a tube supported by cartilage rings to prevent collapse during breathing.
+ It divides into bronchi, each leading to a lung.
+ The bronchi further divide into bronchioles that end in tiny air sacs called alveoli.
+ Alveoli provide a large surface area for gaseous exchange.
+ Breathing involves two processes: inspiration (inhaling) and expiration (exhaling).
+ During inspiration, the diaphragm contracts and moves downward, while ribs move upward and outward.
+ This increases chest volume and decreases pressure, allowing air to enter the lungs.
+ During expiration, the diaphragm relaxes and moves upward, while ribs move downward and inward.
+ This decreases chest volume and increases pressure, forcing air out of the lungs.
+ The respiratory system is closely linked with the circulatory system for efficient oxygen transport.</pre>
+      <pre class="panel-worksheet">
+1.Explain the role of the diaphragm during breathing.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between inspiration and expiration in terms of muscle movement.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe how the trachea is adapted for its function.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why alveoli are numerous and thin-walled.
+—-------------------------------------------
+—-------------------------------------------
+5.Outline the path air follows from the nostrils to the alveoli.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss two ways in which the respiratory system protects itself from dust.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the relationship between the respiratory and circulatory systems.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe what happens if the trachea lacks cartilage.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare breathing in humans and in fish (gills).
+—-------------------------------------------
+—-------------------------------------------
+10.Predict what happens if alveoli lose their elasticity.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Gaseous exchange is the process by which oxygen enters the blood and carbon dioxide is removed.
+ In humans, it occurs in the alveoli of the lungs.
+ Oxygen diffuses from alveoli into the blood because its concentration is higher in alveoli than in blood.
+ At the same time, carbon dioxide diffuses from the blood into alveoli due to concentration differences.
+ This process is aided by the thin walls of alveoli and their rich capillary network.
+ The large number of alveoli provides an extensive surface area for exchange.
+ Moist lining of alveoli helps dissolve gases for easy diffusion.
+ The blood transports oxygen bound to hemoglobin in red blood cells.
+ Carbon dioxide is carried in plasma mainly as bicarbonate ions.
+ In plants, gaseous exchange occurs through stomata and lenticels.
+ Oxygen is used for respiration, while carbon dioxide is released as waste.
+ At night, plants take in oxygen and release carbon dioxide.
+ Efficient gaseous exchange is vital for maintaining life processes in both plants and animals.</pre>
+      <pre class="panel-worksheet">
+1.State two adaptations of alveoli for gaseous exchange.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the role of diffusion in gaseous exchange.
+—-------------------------------------------
+—-------------------------------------------
+3.Compare gaseous exchange in humans and plants.
+—-------------------------------------------
+—-------------------------------------------
+4.How does hemoglobin assist in oxygen transport?
+—-------------------------------------------
+—-------------------------------------------
+5.Describe three ways carbon dioxide is transported in human blood.
+—-------------------------------------------
+—-------------------------------------------
+6.Why must alveoli remain moist for gaseous exchange?
+—-------------------------------------------
+—-------------------------------------------
+7.Predict the effect of damaged alveoli on respiration.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why stomata usually open during the day and close at night.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between internal and external respiration.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss how smoking affects gaseous exchange efficiency.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Science is the systematic study of nature through observation and experimentation.
+ The scientific process begins with identifying a problem or asking a question.
+ Next is making observations and gathering background information.
+ A hypothesis is proposed as a possible explanation.
+ An experiment is designed to test the hypothesis under controlled conditions.
+ Data collected are recorded in tables and charts for clarity.
+ Analysis of data helps determine patterns, trends, or relationships.
+ A conclusion is drawn to confirm or reject the hypothesis.
+ If results agree, the hypothesis may become a theory.
+ If results disagree, the hypothesis is modified and retested.
+ Scientific experiments must be repeatable and verifiable.
+ The process encourages accuracy, objectivity, and curiosity.
+ It is the foundation of discoveries in chemistry and other sciences.</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between hypothesis, theory, and law with suitable chemical examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why repeatability is an essential feature of the scientific process.
+—-------------------------------------------
+—-------------------------------------------
+3.Outline five differences between observations and inferences in experiments.
+—-------------------------------------------
+—-------------------------------------------
+4.A student hypothesizes that salt increases water’s boiling point. Design an experiment to test this.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is control experiment important? Give an example in a chemical context.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss two limitations of the scientific process in solving real-world problems.
+—-------------------------------------------
+—-------------------------------------------
+7.How does inductive reasoning differ from deductive reasoning in chemistry?
+—-------------------------------------------
+—-------------------------------------------
+8.Suggest how data presentation can affect the reliability of a conclusion.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe the role of falsification in advancing chemical theories.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain how the scientific process contributed to the discovery of atomic models.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Diagrams are essential tools for representing biological structures.
+ They must be neat, clear, and drawn in pencil, not ink.
+ Labels should be written in lowercase letters (except proper nouns).
+ Label lines must be straight, horizontal, and not crossing each other.
+ Diagrams should be large enough to occupy at least two-thirds of the page.
+ Shading is discouraged; instead, use simple clear outlines.
+ Title of the diagram should be written below, in capital letters.
+ Avoid unnecessary details; draw only what is required in the question.
+ Proportions must be accurate to show relative sizes of parts.
+ Arrows should not be used for labeling, only straight lines.
+ Labels must be placed on the right-hand side of the diagram where possible.
+ The use of rulers for lines ensures neatness and accuracy.
+ Good diagrams improve communication and earn higher marks in examinations.</pre>
+      <pre class="panel-worksheet">
+1.State five reasons why biological diagrams are important in science.
+—-------------------------------------------
+—-------------------------------------------
+2.Give three differences between scientific diagrams and artistic drawings.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is the use of pencil preferred to pen in biological diagrams?
+—-------------------------------------------
+—-------------------------------------------
+4.A student drew a cell with shading. Outline the errors in the diagram.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain the importance of proportion when drawing biological structures.
+—-------------------------------------------
+—-------------------------------------------
+6.Draw and label a neat diagram of a plant cell following all rules.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest how poor labeling affects marks in biology practical exams.
+—-------------------------------------------
+—-------------------------------------------
+8.Why should labels be written horizontally and not diagonally?
+—-------------------------------------------
+—-------------------------------------------
+9.Compare the rules for drawing food chain diagrams and cell diagrams.
+—-------------------------------------------
+—-------------------------------------------
+10.Evaluate how neatness contributes to the accuracy of biological diagrams.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Living organisms are classified to make study easier and to show relationships among them. The five-kingdom system proposed by Whittaker includes Monera, Protista, Fungi, Plantae, and Animalia.
+The Monera are single-celled organisms without a true nucleus (prokaryotes), such as bacteria. Protista are mostly unicellular eukaryotes like Amoeba and Euglena.
+Fungi are multicellular or unicellular organisms without chlorophyll. They absorb food from decaying materials. Plantae are multicellular, autotrophic organisms with chlorophyll that produce their own food through photosynthesis.
+Animalia are multicellular heterotrophic organisms that depend on other organisms for food. This kingdom is further divided into invertebrates and vertebrates. Classification helps biologists to organize life forms and understand their evolutionary links.</pre>
+      <pre class="panel-worksheet">
+1.State three reasons for classifying living things.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between prokaryotic and eukaryotic organisms.
+—-------------------------------------------
+—-------------------------------------------
+3.Give two examples each of organisms in Monera and Protista.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why fungi are not placed in the plant kingdom.
+—-------------------------------------------
+—-------------------------------------------
+5.List two characteristics of members of kingdom Plantae.
+—-------------------------------------------
+—-------------------------------------------
+6.State two differences between Plantae and Animalia.
+—-------------------------------------------
+—-------------------------------------------
+7.Why is Euglena difficult to classify?
+—-------------------------------------------
+—-------------------------------------------
+8.Mention two economic importance of fungi.
+—-------------------------------------------
+—-------------------------------------------
+9.Outline the five-kingdom system of classification.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain the evolutionary importance of classification.
+—-------------------------------------------
+—-------------------------------------------
+      </pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Binomial nomenclature is the scientific system of naming organisms introduced by Carolus Linnaeus. Each organism is given a two-part Latin name: the genus and the species.
+The genus name starts with a capital letter, while the species name begins with a small letter. Both are written in italics when typed or underlined when handwritten, e.g., Homo sapiens.
+This system avoids confusion from local names and ensures a universal method of communication. It also shows evolutionary relationships among species.
+Scientific names are used worldwide, making it easier for scientists in different countries to identify organisms. This universal language of classification is a foundation for biological studies.
+</pre>
+      <pre class="panel-worksheet">
+1.Define binomial nomenclature.
+—-------------------------------------------
+—-------------------------------------------
+2.Who introduced binomial nomenclature and when?
+—-------------------------------------------
+—-------------------------------------------
+3.Write correctly the scientific name for man and maize.
+—-------------------------------------------
+—-------------------------------------------
+4.Why are Latin words used in binomial nomenclature?
+—-------------------------------------------
+—-------------------------------------------
+5.State two rules of writing scientific names.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the advantage of binomial nomenclature over common names.
+—-------------------------------------------
+—-------------------------------------------
+7.Differentiate between genus and species.
+—-------------------------------------------
+—-------------------------------------------
+8.Give examples of organisms where the same genus has different species.
+—-------------------------------------------
+—-------------------------------------------
+9.State three limitations of local names in classification.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain how binomial nomenclature shows evolutionary relationships.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The plant kingdom is classified into four major divisions: Thallophyta, Bryophyta, Pteridophyta, and Spermatophyta.
+Thallophyta includes algae with simple, non-vascular structures. Bryophyta are mosses and liverworts that grow in moist areas and reproduce by spores.
+Pteridophyta are ferns, vascular but non-seed plants, also reproducing by spores. Spermatophyta are seed-bearing plants further divided into Gymnosperms (naked seeds) and Angiosperms (seeds enclosed in fruits).
+Plants are vital because they produce oxygen, provide food, shelter, and raw materials. Their classification is based on presence of vascular tissues, seeds, and flowers.
+</pre>
+      <pre class="panel-worksheet">
+1.List the four main divisions of the plant kingdom.
+—-------------------------------------------
+—-------------------------------------------
+2.State two characteristics of Thallophyta.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between Bryophyta and Pteridophyta.
+—-------------------------------------------
+—-------------------------------------------
+4.Give two examples each of Pteridophytes and Bryophytes.
+—-------------------------------------------
+—-------------------------------------------
+5.State three differences between Gymnosperms and Angiosperms.
+—-------------------------------------------
+—-------------------------------------------
+6.Why are algae considered simple plants?
+—-------------------------------------------
+—-------------------------------------------
+7.Outline two economic importance of Spermatophyta.
+—-------------------------------------------
+—-------------------------------------------
+8.What type of reproduction is common to ferns and mosses?
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between vascular and non-vascular plants.
+—-------------------------------------------
+—-------------------------------------------
+10.Why are Spermatophytes regarded as the most advanced plants?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Invertebrates are animals without backbones. They make up about 95% of all animal species. They are classified into several phyla such as Porifera, Coelenterata, Platyhelminthes, Nematoda, Annelida, Arthropoda, Mollusca, and Echinodermata.
+Porifera are sponges with porous bodies. Coelenterata include Hydra and jellyfish. Platyhelminthes are flatworms, while Nematoda are roundworms. Annelida are segmented worms like earthworms.
+Arthropoda is the largest phylum, including insects, arachnids, and crustaceans. Mollusca include snails and octopuses, while Echinodermata are marine animals like starfish.
+Invertebrates play ecological roles as decomposers, pollinators, and food sources. They also have economic importance and health implications.
+</pre>
+      <pre class="panel-worksheet">
+1.Define invertebrates.
+—-------------------------------------------
+—-------------------------------------------
+2.Name the largest phylum among invertebrates.
+—-------------------------------------------
+—-------------------------------------------
+3.Give two examples each of Platyhelminthes and Annelida.
+—-------------------------------------------
+—-------------------------------------------
+4.State two characteristics of Arthropoda.
+—-------------------------------------------
+—-------------------------------------------
+5.Differentiate between Mollusca and Echinodermata.
+—-------------------------------------------
+—-------------------------------------------
+6.Mention three harmful invertebrates and their effects.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the ecological importance of earthworms.
+—-------------------------------------------
+—-------------------------------------------
+8.List four phyla of invertebrates.
+—-------------------------------------------
+—-------------------------------------------
+9.State two adaptive features of insects.
+—-------------------------------------------
+—-------------------------------------------
+10.Differentiate between flatworms and roundworms.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Vertebrates are animals with a backbone and internal skeleton. They belong to the phylum Chordata and are divided into five major classes: Pisces, Amphibia, Reptilia, Aves, and Mammalia.
+Pisces are fish adapted to aquatic life with gills and fins. Amphibia live both on land and in water, e.g., frogs. Reptilia are cold-blooded animals with scales, e.g., lizards and snakes.
+Aves are birds with feathers, wings, and beaks. They are warm-blooded and lay eggs. Mammalia are warm-blooded animals with mammary glands, fur or hair, and give birth to young ones.
+Vertebrates are advanced animals with developed organ systems and high mobility. They are important in ecological balance and human survival.
+</pre>
+      <pre class="panel-worksheet">
+1.Define vertebrates.
+—-------------------------------------------
+—-------------------------------------------
+2.State the five classes of vertebrates.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between Aves and Mammals.
+—-------------------------------------------
+—-------------------------------------------
+4.Give two adaptive features of fishes.
+—-------------------------------------------
+—-------------------------------------------
+5.State two differences between reptiles and amphibians.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the reproductive pattern of mammals.
+—-------------------------------------------
+—-------------------------------------------
+7.Mention two examples each of reptiles and amphibians.
+—-------------------------------------------
+—-------------------------------------------
+8.Outline two economic importance of vertebrates.
+—-------------------------------------------
+—-------------------------------------------
+9.Why are birds considered warm-blooded?
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the circulatory system of fish and mammals.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+  </div>
+
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1255,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -256,7 +1289,6 @@
 
 
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -298,90 +1330,86 @@
 </script>
 
 
-<script>
-    const bioTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Biology",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["What is biology?", "Mention 3 branches of biology."]
-        },
-        {
-          title: "Week 2: Living and Non-Living Things",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["List 5 characteristics of living things.", "Give 3 examples of non-living things."]
-        },
-        {
-          title: "Week 3: Cells",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is a cell?", "Differentiate between plant and animal cells."]
-        }
-        // Add more weeks as needed
-      ],
-      second: [
-        {
-          title: "Week 1: Respiratory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define respiration.", "Mention parts of the respiratory system."]
-        },
-        {
-          title: "Week 2: Circulatory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["List components of blood.", "What is the function of the heart?"]
-        }
-        // Add more weeks
-      ],
-      third: [
-        {
-          title: "Week 1: Ecology and Environment",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["What is ecology?", "Define ecosystem."]
-        },
-        {
-          title: "Week 2: Food Chain and Web",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["Define food chain.", "Difference between food chain and food web?"]
-        }
-        // Add more weeks
-      ]
-    };
 
-    function loadBioTopics(term) {
-      const menu = document.getElementById("bioTopicsMenu");
-      const videoFrame = document.getElementById("bioVideoFrame");
-      const title = document.getElementById("bioTopicTitle");
-      const questions = document.getElementById("bioWorksheetQuestions");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-bio").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-bio[data-term="${term}"]`).classList.add("active");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      bioTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
+
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      // Load first topic by default
-      if (bioTopics[term].length > 0) {
-        const first = bioTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-bio").forEach(btn => {
-      btn.addEventListener("click", () => loadBioTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadBioTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
-
 </body>
 </html>

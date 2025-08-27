@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Biology term buttons */
-    .term-btn-bio {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-bio:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-bio.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +168,1534 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section" id="biology-section">
-    <h2 class="subject-title">Biology</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">BIOLOGY</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-bio active" data-term="first">First Term</button>
-      <button class="term-btn-bio" data-term="second">Second Term</button>
-      <button class="term-btn-bio" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="bioTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: The Cell– History, Plants and Animal Cell
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="bioVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Forms in Which Cells Exist
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Level of Organization of Life
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Cell Differentiation and Specialization
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Cellular Respiration I
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Cellular Respiration II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: GROWTH
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: IRRITABILITY / CELL REACTIONS TO ITS ENVIRONMENT
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-9" type="button">
+            Week 9: REPRODUCTION (SEXUAL AND ASEXUAL)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-10" type="button">
+            Week 10: ASEXUAL REPRODUCTION
+          </button>
         </div>
 
-        <h3 id="bioTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: EXCRETION – Excretory System and Excretory Products of Invertebrates
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="bioWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: EXCRETION – In Humans
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: SKELETON
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: COMPONENTS OF THE MAMMALIAN SKELETON
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: JOINTS AND MUSCLES
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: ALIMENTARY CANAL
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: ALIMENTARY CANAL / DIGESTIVE ENZYMES
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-8" type="button">
+            Week 8: FEEDING IN AMOEBA, HYDRA, AND MAN
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-9" type="button">
+            Week 9: TRANSPORT SYSTEMS –Blood
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-10" type="button">
+            Week 10: CIRCULATORY SYSTEM IN MAMMALS
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-11" type="button">
+            Week 11: CIRCULATORY SYSTEM IN MAMMALS
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: RESPIRATORY SYSTEMS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: MECHANISM OF RESPIRATORY SYSTEM
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: AQUATIC HABITAT
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: ESTUARINE HABITATS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: FRESHWATER HABITATS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: TERRESTRIAL HABITATS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: FOREST HABITATS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-8" type="button">
+            Week 8: GRASSLAND OR SAVANNA HABITATS
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-9" type="button">
+            Week 9: ECOLOGY OF POPULATION
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-10" type="button">
+            Week 10: FOOD SHORTAGE
+          </button>
+        </div>
+      </aside>
+ 
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The cell is the basic structural and functional unit of life. Robert Hooke first described the cell in 1665 using a light microscope, while Schleiden and Schwann later proposed the Cell Theory, which states that all living things are made up of cells, and cells are the unit of structure and function. Virchow added that all cells arise from pre-existing cells.
+Cells contain organelles that perform specific functions. The nucleus controls activities, mitochondria produce energy, ribosomes synthesize proteins, and lysosomes digest wastes. Endoplasmic reticulum transports materials, while Golgi apparatus modifies and packages substances. Plant cells have chloroplasts for photosynthesis, cell walls for rigidity, and large vacuoles for storage. Animal cells lack a cell wall and chloroplast but have centrioles for cell division.
+Thus, both plant and animal cells share common structures but differ in organelles suited to their functions.
+</pre>
+      <pre class="panel-worksheet">
+1.State three contributions of Schleiden, Schwann, and Virchow to cell theory.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between prokaryotic and eukaryotic cells with two examples each.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why mitochondria are called the “powerhouse of the cell.”
+—-------------------------------------------
+—-------------------------------------------
+4.Describe three differences between plant and animal cells.
+—-------------------------------------------
+—-------------------------------------------
+5.Name two organelles found only in plant cells and their functions.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the importance of ribosomes to protein synthesis.
+—-------------------------------------------
+—-------------------------------------------
+7.Why is the cell membrane described as selectively permeable?
+—-------------------------------------------
+—-------------------------------------------
+8.Explain two functions of lysosomes in animal cells.
+—-------------------------------------------
+—-------------------------------------------
+9.Draw and label a plant cell.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the functions of the Golgi apparatus and endoplasmic reticulum.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Cells exist in different forms to adapt to survival. Some organisms are unicellular, e.g., Amoeba and Paramecium. These perform all life processes in one cell. Others exist in colonies, e.g., Volvox, where many similar cells cluster but can still survive independently.
+Filamentous forms are seen in algae like Spirogyra, where identical cells join end-to-end forming long threads. In multicellular organisms like plants and animals, cells are highly specialized and exist as part of tissues, organs, and systems.
+This diversity in cell form allows organisms to function efficiently in different environments, from simple unicellular life to complex multicellular structures.
+</pre>
+      <pre class="panel-worksheet">
+1.Define unicellular organisms with two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how colony organisms differ from multicellular organisms.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe one advantage of colony existence in algae.
+—-------------------------------------------
+—-------------------------------------------
+4.Give two examples of filamentous organisms and describe their structure.
+—-------------------------------------------
+—-------------------------------------------
+5.Why are multicellular organisms considered more advanced than unicellular?
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss three limitations of being a unicellular organism.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare cells in colonies and filamentous organisms.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the relationship between cell specialization and multicellularity.
+—-------------------------------------------
+—-------------------------------------------
+9.State two adaptive features of unicellular organisms.
+—-------------------------------------------
+—-------------------------------------------
+10.Why can a unicellular organism perform all life processes alone?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Living organisms exhibit hierarchical organization. The cell is the basic unit of life. Similar cells performing the same function form a tissue (e.g., muscle tissue, xylem). Different tissues combine to form an organ (e.g., heart, leaf). A group of organs working together makes up an organ system (e.g., circulatory system, digestive system).
+Cell →Tissue →Organ → System
+In multicellular organisms, several organ systems integrate to form the entire organism, ensuring efficient survival. This structural arrangement allows specialization, division of labour, and increased complexity in higher organisms compared to unicellular life.
+</pre>
+      <pre class="panel-worksheet">
+1.List the levels of organization in living organisms from cell to organism.
+—-------------------------------------------
+—-------------------------------------------
+Differentiate between a tissue and an organ with examples.
+—-------------------------------------------
+—-------------------------------------------
+Explain why the heart is an organ and not a tissue.
+—-------------------------------------------
+—-------------------------------------------
+Give two examples of organ systems in animals and their functions.
+—-------------------------------------------
+—-------------------------------------------
+State two plant tissues and their roles.
+—-------------------------------------------
+—-------------------------------------------
+Explain how division of labour arises in multicellular organisms.
+—-------------------------------------------
+—-------------------------------------------
+Why is the digestive system regarded as an organ system?
+—-------------------------------------------
+—-------------------------------------------
+Compare the organization of life in plants and animals.
+—-------------------------------------------
+—-------------------------------------------
+Discuss two advantages of higher organization of life in organisms.
+—-------------------------------------------
+—-------------------------------------------
+Give three examples of organs in plants and their functions.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Cell differentiation is the process by which unspecialized cells develop into specialized cells with distinct structures and functions. In animals, stem cells differentiate into muscle, nerve, or blood cells. In plants, meristematic cells differentiate into xylem, phloem, or guard cells.
+Specialization allows cells to perform unique roles. For example, red blood cells transport oxygen, nerve cells transmit impulses, and palisade cells carry out photosynthesis. Differentiation ensures division of labour, efficiency, and adaptability of organisms.
+Failure of differentiation may result in abnormal growth or malfunction of tissues. Thus, it is vital for normal growth, repair, and development of living organisms.
+</pre>
+      <pre class="panel-worksheet">
+1.Define cell differentiation and give one example in plants.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the role of stem cells in animals.
+—-------------------------------------------
+—-------------------------------------------
+3.Distinguish between differentiation and specialization.
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the process of xylem cell specialization in plants.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why red blood cells are highly specialized for oxygen transport.
+—-------------------------------------------
+—-------------------------------------------
+6.State two differences between meristematic and permanent cells in plants.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss how nerve cell structure suits its function.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is cell specialization important in multicellular organisms?
+—-------------------------------------------
+—-------------------------------------------
+9.Mention two examples of specialized cells in plants and their functions.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain one consequence of failure in normal cell differentiation.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Cellular respiration is the process by which living organisms release energy from food substances, mainly glucose, to power cellular activities. It occurs in all living cells. Energy is stored in Adenosine Triphosphate (ATP), the universal energy currency.
+There are two main types: aerobic and anaerobic respiration. Aerobic respiration occurs in the presence of oxygen and produces a large amount of energy. Anaerobic respiration occurs in the absence of oxygen and yields less energy.
+The general equation of aerobic respiration is:
+ Glucose + Oxygen → Carbon dioxide + Water + Energy (ATP)
+ C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + 38 ATP
+Aerobic respiration takes place mainly in the mitochondria, known as the “powerhouse of the cell.” It involves three stages: glycolysis (in the cytoplasm), Krebs cycle (in the mitochondrial matrix), and electron transport chain (in the inner mitochondrial membrane).
+This process is highly efficient, releasing about 38 molecules of ATP from one glucose molecule. The released ATP powers processes such as active transport, muscle contraction, biosynthesis, and nerve transmission.
+</pre>
+      <pre class="panel-worksheet">
+1.Define cellular respiration and explain its importance in living organisms.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between aerobic and anaerobic respiration in terms of oxygen requirement, products, and energy yield.
+—-------------------------------------------
+—-------------------------------------------
+3.Outline the three stages of aerobic respiration and where each occurs in the cell.
+—-------------------------------------------
+—-------------------------------------------
+4.Write the balanced chemical equation for aerobic respiration.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why mitochondria are referred to as the "powerhouse of the cell."
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the role of ATP in cellular activities with two examples.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare the efficiency of aerobic respiration to anaerobic respiration.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is glycolysis considered a universal stage of respiration?
+—-------------------------------------------
+—-------------------------------------------
+9.Explain how the electron transport chain contributes to ATP production.
+—-------------------------------------------
+—-------------------------------------------
+10.State three cellular processes that would fail without sufficient ATP supply.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Anaerobic respiration occurs when glucose is broken down in the absence of oxygen. It is less efficient than aerobic respiration because it releases only a small amount of energy.
+In animals (muscle cells):
+ Glucose → Lactic acid + Energy (2 ATP)
+In yeast and some microorganisms (alcoholic fermentation):
+ Glucose → Ethanol + Carbon dioxide + Energy (2 ATP)
+Anaerobic respiration occurs during strenuous exercise in humans when oxygen supply is insufficient, leading to the accumulation of lactic acid, which causes muscle fatigue and cramps.
+In yeast, anaerobic respiration (fermentation) is used in brewing, wine-making, and bread production. Carbon dioxide released helps dough rise, while ethanol forms alcohol.
+Though less efficient, anaerobic respiration is important in energy production under oxygen-limited conditions and has wide industrial applications. The process is reversible in animals when oxygen becomes available again (oxygen debt repayment).
+</pre>
+      <pre class="panel-worksheet">
+1.Define anaerobic respiration and state why it is less efficient than aerobic respiration.
+—-------------------------------------------
+—-------------------------------------------
+2.Write the equations of anaerobic respiration in (a) muscle cells (b) yeast cells.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain how lactic acid causes muscle fatigue and how it is removed.
+—-------------------------------------------
+—-------------------------------------------
+4.Distinguish between lactic acid fermentation and alcoholic fermentation.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe the role of anaerobic respiration in baking and brewing industries.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the concept of oxygen debt and its repayment.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare the ATP yield of anaerobic respiration to that of aerobic respiration.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is anaerobic respiration considered an adaptation for survival in low oxygen environments?
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why yeast is useful in industrial fermentation.
+—-------------------------------------------
+—-------------------------------------------
+10.State two advantages and two disadvantages of anaerobic respiration.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Growth is a permanent and irreversible increase in size, mass, and complexity of an organism due to cell division, enlargement, and differentiation. It involves both anabolic (building) and catabolic (breaking down) processes, but anabolism must exceed catabolism for growth to occur.
+In plants, growth is mainly restricted to meristematic tissues (apical meristem at tips of roots and shoots). Growth can be measured using parameters such as increase in height, volume, fresh or dry mass, and leaf area.
+Animals show uniform growth distributed all over the body, while plants exhibit localized growth. External factors like light, water, nutrients, and temperature influence growth, while internal factors include hormones like auxins, gibberellins, and cytokinins.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between growth in plants and animals.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why growth is considered irreversible.
+—-------------------------------------------
+—-------------------------------------------
+3.State three external and three internal factors affecting growth.
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the role of auxins in plant growth.
+—-------------------------------------------
+—-------------------------------------------
+5.List two ways growth can be measured in plants.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is cell differentiation important in growth?
+—-------------------------------------------
+—-------------------------------------------
+7.Compare meristematic tissues with permanent tissues in plants.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why anabolism must exceed catabolism for growth to occur.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between determinate and indeterminate growth.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss how temperature extremes affect growth in organisms.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+     <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Irritability is the ability of organisms to perceive and respond to changes (stimuli) in their environment. This property enables organisms to survive by adapting to favorable and unfavorable conditions. Stimuli can be internal (hunger, hormones) or external (light, temperature, touch, sound).
+Plants show tropic responses such as phototropism, geotropism, hydrotropism, and thigmotropism, usually regulated by hormones like auxins. Animals show quicker responses through their nervous and endocrine systems.
+At the cellular level, receptors detect stimuli and initiate changes such as movement of ions, production of hormones, or changes in enzyme activity. Reflex actions are rapid automatic responses in animals that help in protection and survival.
+</pre>
+      <pre class="panel-worksheet">
+1.Define irritability and give two examples in plants.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between internal and external stimuli with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe how auxins control phototropism in plants.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the difference between taxis and tropism.
+—-------------------------------------------
+—-------------------------------------------
+5.Why are reflex actions important to animals?
+—-------------------------------------------
+—-------------------------------------------
+6.Describe the sequence of events in a reflex arc.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare plant and animal irritability.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why irritability is important for survival.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between positive and negative tropism.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the role of hormones in cell responses to the environment.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+     <section class="topic-panel" id="ft-topic-9">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Reproduction is the biological process by which organisms give rise to new individuals of the same species. It ensures continuity of life. There are two main types: asexual and sexual reproduction.
+Asexual reproduction involves a single parent and produces offspring that are genetically identical (clones). Methods include binary fission, budding, spore formation, vegetative propagation, and regeneration.
+Sexual reproduction involves two parents, formation of gametes, fertilization, and genetic variation in offspring. It occurs in both plants (flowers and pollination) and animals (gametes and fertilization). Sexual reproduction increases adaptability through variation, while asexual reproduction is faster and requires less energy.
+</pre>
+      <pre class="panel-worksheet">
+1.Define reproduction and explain its importance.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between sexual and asexual reproduction.
+—-------------------------------------------
+—-------------------------------------------
+3.Give five examples of organisms that reproduce asexually.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why asexual reproduction produces identical offspring.
+—-------------------------------------------
+—-------------------------------------------
+5.Discuss two advantages of sexual reproduction over asexual reproduction.
+—-------------------------------------------
+—-------------------------------------------
+6.Describe vegetative propagation with examples.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why sexual reproduction promotes variation.
+—-------------------------------------------
+—-------------------------------------------
+8.Differentiate between natural and artificial asexual reproduction.
+—-------------------------------------------
+—-------------------------------------------
+9.Discuss the disadvantages of sexual reproduction.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare binary fission in amoeba and budding in yeast.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-10">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Asexual reproduction is the process by which organisms produce new individuals from a single parent without the fusion of gametes. The offspring are genetically identical to the parent and to one another, making them clones.
+It is common in lower organisms such as bacteria, fungi, protozoa, algae, and some plants. Higher plants also reproduce asexually through structures like bulbs, tubers, rhizomes, and runners. Animals such as Hydra, sponges, and starfish also show asexual reproduction.
+Methods of asexual reproduction include binary fission, budding, spore formation, vegetative propagation, and fragmentation. Binary fission occurs in unicellular organisms such as Amoeba and Paramecium, while budding occurs in yeast and Hydra.
+Spore formation is common in fungi like Rhizopus, which produces numerous spores that germinate under favorable conditions. Vegetative propagation in plants can be natural (e.g., bulbs of onion, tubers of yam, rhizomes of ginger) or artificial (cuttings, grafting, layering, tissue culture).
+Advantages of asexual reproduction include rapid population increase, less energy and time consumption, and the ability to reproduce without a mate. However, its major disadvantage is the lack of genetic variation, which makes organisms vulnerable to diseases and environmental changes.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain why offspring from asexual reproduction are called clones and discuss its evolutionary disadvantage.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between binary fission and budding with examples.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe three natural methods of vegetative propagation in flowering plants with illustrations.
+—-------------------------------------------
+—-------------------------------------------
+4.Compare spore formation in fungi with fragmentation in algae.
+—-------------------------------------------
+—-------------------------------------------
+5.Discuss two advantages and two disadvantages of asexual reproduction in organisms.
+—-------------------------------------------
+—-------------------------------------------
+6.With examples, explain how man uses artificial vegetative propagation in agriculture.
+—-------------------------------------------
+—-------------------------------------------
+7.Outline the stages of binary fission in Amoeba and state one environmental condition that affects the process.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why asexual reproduction is more common in simple organisms compared to complex animals.
+—-------------------------------------------
+—-------------------------------------------
+9.Distinguish between natural and artificial vegetative propagation with suitable examples.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the significance of asexual reproduction in colonizing new habitats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Excretion is the biological process by which organisms remove metabolic wastes from their bodies to maintain homeostasis. It is different from egestion, which is the removal of undigested food. In invertebrates, various structures perform the excretory role depending on the level of organization.
+In protozoa such as Amoeba, excretion occurs by simple diffusion through the cell membrane because of their large surface area to volume ratio. In flatworms (Platyhelminthes), specialized flame cells with cilia remove waste materials through tubules. Earthworms (Annelids) use nephridia, long coiled tubules that filter body fluid and excrete nitrogenous wastes.
+In insects, the excretory organs are Malpighian tubules. These are long, thin tubules that extend from the gut and absorb nitrogenous wastes, converting them mainly into uric acid to conserve water.
+Excretory products vary among invertebrates. Ammonia is common in aquatic invertebrates (ammonotelic), urea in some land organisms (ureotelic), and uric acid in insects and land snails (uricotelic). Thus, excretory systems reflect both the complexity of the animal and its habitat.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between excretion and egestion with examples from invertebrates.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why diffusion alone is sufficient for excretion in protozoa.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe the structure and function of flame cells in flatworms.
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss how nephridia function in earthworms.
+—-------------------------------------------
+—-------------------------------------------
+5.Compare the excretory systems of annelids and insects.
+—-------------------------------------------
+—-------------------------------------------
+6.Why do insects excrete uric acid instead of urea?
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the relationship between habitat and the type of nitrogenous waste excreted.
+—-------------------------------------------
+—-------------------------------------------
+8.Draw and label the Malpighian tubules of an insect, showing their connection to the gut.
+—-------------------------------------------
+—-------------------------------------------
+9.State three adaptive advantages of uric acid excretion in insects.
+—-------------------------------------------
+—-------------------------------------------
+10.Classify organisms that excrete ammonia, urea, and uric acid, giving one example each.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+In humans, excretion involves the removal of metabolic wastes such as carbon dioxide, water, salts, and nitrogenous compounds. The main excretory organs are the lungs (carbon dioxide and water vapour), skin (sweat – water, salts, and urea), liver (bile pigments from breakdown of red blood cells), and kidneys (urea, water, and salts).
+The kidneys are the principal organs of excretion. Each kidney contains about a million nephrons, the functional units where urine production occurs. Urine formation takes place in three main stages: ultrafiltration, selective reabsorption, and tubular secretion.
+During ultrafiltration, blood is filtered under high pressure in the Bowman’s capsule, removing water, salts, glucose, amino acids, and urea. In selective reabsorption, essential substances such as glucose, amino acids, and some salts are reabsorbed in the proximal tubule and loop of Henle. Tubular secretion ensures the removal of excess salts, hydrogen ions, and other waste substances into the tubules.
+The final urine, containing water, salts, and urea, passes from the collecting ducts into the renal pelvis, then through the ureter to the bladder for storage, and finally through the urethra for excretion.
+</pre>
+      <pre class="panel-worksheet">
+1.Outline the major excretory products in humans and their sources.
+—-------------------------------------------
+—-------------------------------------------
+2.Describe the structure of a nephron and its role in urine formation.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain how ultrafiltration occurs in the glomerulus.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is selective reabsorption necessary in urine production?
+—-------------------------------------------
+—-------------------------------------------
+5.Discuss the role of the loop of Henle in water balance.
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between tubular reabsorption and tubular secretion.
+—-------------------------------------------
+—-------------------------------------------
+7.Describe how the kidney maintains osmotic balance in humans.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the pathway of urine from formation to excretion.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare the role of the kidney and skin in excretion.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the effects of kidney failure on the human body.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The skeleton is the framework of bones and cartilage that supports and protects the body. Organisms possess different types of skeletons. The hydrostatic skeleton is found in soft-bodied animals like earthworms and is supported by fluid pressure. The exoskeleton is an external skeleton made of chitin in arthropods or calcium carbonate in mollusks. The endoskeleton, found in vertebrates, is an internal framework made of bone and cartilage.
+The skeleton performs important functions: it provides shape, supports soft tissues, protects delicate organs (e.g., skull protects the brain), allows movement with muscles, forms blood cells in the bone marrow, and stores minerals such as calcium and phosphorus.
+The skeletal materials include bone, cartilage, and chitin. Bone is a hard, rigid structure rich in calcium salts and collagen. Cartilage is softer, flexible, and found in areas like the ear, nose, and joints. Chitin is a strong, lightweight polysaccharide that forms the exoskeleton of insects and crustaceans.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between hydrostatic and exoskeleton with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain three ways in which the skeleton aids movement.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is cartilage more suited than bone for the tips of long bones?
+—-------------------------------------------
+—-------------------------------------------
+4.Compare the composition of bone and chitin.
+—-------------------------------------------
+—-------------------------------------------
+5.State four functions of the endoskeleton.
+—-------------------------------------------
+—-------------------------------------------
+6.Describe how the skeleton contributes to homeostasis.
+—-------------------------------------------
+—-------------------------------------------
+7.In what ways does the exoskeleton limit the size of organisms?
+—-------------------------------------------
+—-------------------------------------------
+8.Distinguish between axial and appendicular skeleton with examples.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain the importance of red bone marrow to the circulatory system.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest reasons why cartilage is present in the trachea instead of bone.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The mammalian skeleton is divided into axial and appendicular parts. The axial skeleton consists of the skull, vertebral column, ribs, and sternum. The skull protects the brain and sensory organs. 
+The vertebral column in humans is made up of 33 bones grouped into five regions: cervical, thoracic, lumbar, sacral, and coccygeal vertebrae.
+The cervical vertebrae (7 bones) support the head and allow neck movement.
+The thoracic vertebrae (12 bones) articulate with ribs, providing support and protection for the chest cavity.
+The lumbar vertebrae (5 bones) are the strongest, bearing body weight and aiding movement.
+The sacral (5 fused bones) and coccygeal vertebrae (4 fused bones) form the back base, supporting the pelvis and stabilizing posture.
+The appendicular skeleton includes the pectoral girdle, pelvic girdle, forelimbs, and hindlimbs. The pectoral girdle consists of scapula and clavicle, attaching forelimbs to the body. The pelvic girdle supports the hindlimbs and encloses reproductive organs. The limbs are made of long bones such as humerus, radius, ulna, femur, tibia, and fibula.
+Together, the axial and appendicular skeletons provide shape, protection, and enable complex movement in mammals. Each bone is specialized for its function, such as flat bones for protection, long bones for leverage, and irregular bones for varied roles.
+</pre>
+      <pre class="panel-worksheet">
+1.Distinguish between axial and appendicular skeleton with two examples each.
+—-------------------------------------------
+—-------------------------------------------
+2.How does the pelvic girdle differ from the pectoral girdle structurally and functionally?
+—-------------------------------------------
+—-------------------------------------------
+3.State three functions of the rib cage.
+—-------------------------------------------
+—-------------------------------------------
+4.Classify the vertebrae into their regions and state one function of each.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe two ways the skull is adapted to protect the brain.
+—-------------------------------------------
+—-------------------------------------------
+6.Compare the roles of scapula and pelvis in locomotion.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain how the structural differences between cervical and lumbar vertebrae relate to their functions.
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss the importance of the fusion of sacral vertebrae in relation to human bipedal posture.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare the thoracic vertebrae with the lumbar vertebrae in terms of articulation and functional demands.
+—-------------------------------------------
+—-------------------------------------------
+10.How does the vertebral column contribute to both flexibility and protection of the central nervous system?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+oints are points where two or more bones meet. They can be classified as immovable joints (e.g., sutures in the skull), slightly movable joints (e.g., between vertebrae), and freely movable joints or synovial joints. Synovial joints include hinge joints (elbow, knee), ball and socket (hip, shoulder), pivot (neck), and gliding joints (wrist, ankle). Synovial joints contain synovial fluid, ligaments, and cartilage that reduce friction and allow smooth movement.
+Muscles are tissues that contract to bring about movement. There are three types: skeletal (voluntary, striated), smooth (involuntary, unstriated), and cardiac (involuntary, striated). Skeletal muscles work in pairs as antagonistic muscles, e.g., biceps and triceps, to produce movement by pulling on bones.
+Muscles and joints work together with the skeleton to achieve locomotion, posture, and stability in mammals.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between hinge and ball-and-socket joints with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how antagonistic muscles bring about bending and straightening of the arm.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is synovial fluid important in freely movable joints?
+—-------------------------------------------
+—-------------------------------------------
+4.Compare the structural differences between skeletal and smooth muscles.
+—-------------------------------------------
+—-------------------------------------------
+5.Discuss the functional significance of cardiac muscle being striated and involuntary.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how ligaments and tendons differ in structure and function.
+—-------------------------------------------
+—-------------------------------------------
+7.What adaptations make the knee joint a hinge joint?
+—-------------------------------------------
+—-------------------------------------------
+8.Outline the roles of muscles in maintaining posture.
+—-------------------------------------------
+—-------------------------------------------
+9.Why are muscles said to work in antagonistic pairs rather than alone?
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the integration of joints, muscles, and skeleton in human locomotion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The alimentary canal is a long muscular tube in humans through which food passes, gets digested, absorbed, and the waste removed. It is about 9 meters long and begins at the mouth and ends at the anus.
+It consists of the following parts: mouth, pharynx, oesophagus, stomach, small intestine, large intestine, rectum, and anus. Associated glands include salivary glands, liver, and pancreas.
+The mouth receives food, where mechanical digestion by teeth and chemical digestion by saliva begin. The oesophagus transports food to the stomach by peristalsis.
+The stomach is a muscular sac that churns food and secretes gastric juice containing hydrochloric acid and enzymes. The small intestine (duodenum, jejunum, ileum) is the major site of digestion and absorption of digested nutrients.
+The large intestine absorbs water and forms faeces, while the rectum stores undigested waste for removal. Accessory organs like the liver produce bile for fat digestion, and the pancreas produces enzymes for digestion.
+</pre>
+      <pre class="panel-worksheet">
+1.Describe the structural modifications of the small intestine for efficient absorption.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how peristalsis works in the oesophagus.
+—-------------------------------------------
+—-------------------------------------------
+3.Outline the roles of the liver in digestion apart from bile secretion.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between the functions of the stomach and the large intestine.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how the pancreas functions as both an exocrine and endocrine gland.
+—-------------------------------------------
+—-------------------------------------------
+6.Give two adaptations of the teeth for mechanical digestion.
+—-------------------------------------------
+—-------------------------------------------
+7.State the importance of hydrochloric acid in the stomach.
+—-------------------------------------------
+—-------------------------------------------
+8.Compare the functions of the duodenum and ileum.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is the alimentary canal described as a continuous tube?
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the significance of symbiotic bacteria in the large intestine.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Digestive enzymes are biological catalysts that speed up the breakdown of large food molecules into smaller, soluble ones. They are secreted by glands in different regions of the alimentary canal.
+In the mouth, salivary amylase breaks down starch into maltose. In the stomach, pepsin (a protease) digests proteins into peptides, while rennin (in infants) coagulates milk. Hydrochloric acid provides the acidic medium needed.
+In the small intestine, pancreatic amylase continues starch digestion, trypsin breaks down proteins, and lipase digests fats into fatty acids and glycerol. Bile salts from the liver emulsify fats, aiding lipase action.
+In the ileum, intestinal enzymes such as maltase, lactase, sucrase, and peptidases complete digestion, breaking disaccharides into monosaccharides and peptides into amino acids.
+The final products of digestion are glucose, amino acids, fatty acids, and glycerol, which are absorbed into the blood and lymph for use by the body.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain the mode of action of digestive enzymes.
+—-------------------------------------------
+—-------------------------------------------
+2.State three enzymes secreted by the pancreas and their specific roles.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between extracellular and intracellular digestion.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is bile not classified as an enzyme?
+—-------------------------------------------
+—-------------------------------------------
+5.Outline how the digestion of protein differs between the stomach and small intestine.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the importance of emulsification of fats.
+—-------------------------------------------
+—-------------------------------------------
+7.Write the end products of carbohydrate, protein, and fat digestion.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why enzymes are highly specific in their action.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe what happens to maltose after amylase activity.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the roles of pepsin and trypsin in protein digestion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="st-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Feeding in organisms differs according to their level of complexity. Amoeba, a unicellular organism, feeds by phagocytosis. It engulfs food particles with pseudopodia, forming a food vacuole where enzymes digest the food, and the soluble nutrients diffuse into the cytoplasm.
+Hydra, a simple multicellular organism, captures prey with its tentacles armed with stinging cells (cnidoblasts). The prey is paralyzed and pushed into the gastrovascular cavity, where enzymes break it down. Digested nutrients are absorbed by diffusion into body cells, while undigested food is expelled through the same opening (incomplete digestive system).
+Man has a complex and complete digestive system with mouth and anus. Feeding is holozoic, involving ingestion, digestion (mechanical and chemical), absorption, assimilation, and egestion. Specialized organs and glands ensure efficient digestion and absorption of nutrients.
+This shows a progressive complexity of feeding from unicellular to multicellular simple organisms and finally to higher animals like humans.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain why feeding in Amoeba is described as phagocytosis.
+—-------------------------------------------
+—-------------------------------------------
+2.Compare intracellular digestion in Amoeba with extracellular digestion in Hydra.
+—-------------------------------------------
+—-------------------------------------------
+3.State two similarities and two differences between the feeding of Hydra and Man.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is Hydra said to have an incomplete digestive system?
+—-------------------------------------------
+—-------------------------------------------
+5.Outline the steps involved in holozoic nutrition.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss how diffusion aids in nutrient distribution in Amoeba and Hydra.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why Man requires specialized digestive glands compared to Hydra.
+—-------------------------------------------
+—-------------------------------------------
+8.Compare the process of ingestion in Amoeba and Man.
+—-------------------------------------------
+—-------------------------------------------
+9.State the significance of tentacles in Hydra feeding.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain the evolutionary trend observed in feeding mechanisms across Amoeba, Hydra, and Man.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="st-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ The transport system in animals ensures the movement of materials such as nutrients, gases, hormones, and waste products. In humans, blood is the main transport medium.
+ Blood is composed of plasma, red blood cells, white blood cells, and platelets. Plasma is a straw-colored liquid that transports nutrients, hormones, waste products, and heat.
+ Red blood cells contain hemoglobin, which binds oxygen for transport to tissues and removes carbon dioxide. White blood cells provide defense against infections through phagocytosis and antibody production.
+ Platelets aid in blood clotting, preventing excessive loss of blood during injury. Blood also maintains pH balance, body temperature, and water content.
+ The transport system ensures that all body cells receive oxygen and nutrients needed for metabolism while wastes are removed for excretion.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain how hemoglobin structure relates to its function in oxygen transport.
+—-------------------------------------------
+—-------------------------------------------
+2.Distinguish between plasma and serum with examples of their components.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss three ways in which blood contributes to homeostasis.
+—-------------------------------------------
+—-------------------------------------------
+4.How do white blood cells defend the body against pathogens?
+—-------------------------------------------
+—-------------------------------------------
+5.Compare and contrast red blood cells and platelets in terms of structure and function.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is carbon monoxide poisoning dangerous to blood transport?
+—-------------------------------------------
+—-------------------------------------------
+7.Describe the process of blood clotting, mentioning the role of platelets and fibrin.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how blood serves as a medium of internal communication in the body.
+—-------------------------------------------
+—-------------------------------------------
+9.Discuss the significance of the biconcave shape of red blood cells.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest how blood composition might differ in a malnourished person.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+        <section class="topic-panel" id="st-topic-10">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The mammalian circulatory system is a double and closed system. Blood flows through the heart twice in one complete circulation.
+ It consists of systemic circulation (between the heart and the body) and pulmonary circulation (between the heart and the lungs).
+ The system includes the heart, blood vessels, and blood. Arteries carry blood away from the heart, veins return blood to the heart, and capillaries connect arteries to veins for exchange of substances.
+ This double circulation ensures efficient oxygenation of blood and rapid supply of nutrients to tissues.
+ The circulatory system also plays roles in immunity, transport of hormones, and maintenance of constant body temperature.
+</pre>
+      <pre class="panel-worksheet">
+1.Explain why the mammalian circulatory system is described as double and closed.
+—-------------------------------------------
+—-------------------------------------------
+2.Compare systemic and pulmonary circulation in terms of pressure and function.
+—-------------------------------------------
+—-------------------------------------------
+3.Distinguish between arteries, veins, and capillaries with reference to their structure.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is double circulation more efficient than single circulation?
+—-------------------------------------------
+—-------------------------------------------
+5.How does the lymphatic system complement the circulatory system?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how capillary exchange occurs, mentioning diffusion, osmosis, and filtration.
+—-------------------------------------------
+—-------------------------------------------
+7.Discuss the effect of blocked arteries on systemic circulation.
+—-------------------------------------------
+—-------------------------------------------
+8.Why do arteries have thicker walls compared to veins?
+—-------------------------------------------
+—-------------------------------------------
+9.Describe the role of valves in veins and the heart.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the circulation in mammals and that of a fish.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+        <section class="topic-panel" id="st-topic-11">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The heart is a muscular organ that pumps blood throughout the body. It lies in the thoracic cavity between the lungs.
+ It consists of four chambers: two atria and two ventricles. The right side of the heart pumps deoxygenated blood to the lungs, while the left side pumps oxygenated blood to the body.
+ Valves prevent backflow of blood and ensure unidirectional flow. The heartbeat is controlled by the sinoatrial node (pacemaker), which initiates impulses causing contraction.
+ The heart functions through systole (contraction) and diastole (relaxation).
+ Blood supply to the heart muscle is provided by coronary arteries. Diseases such as coronary heart disease can impair its function.
+ The heart works continuously to maintain life by ensuring constant supply of oxygen and nutrients to tissues.</pre>
+      <pre class="panel-worksheet">
+1.Describe the structural differences between the left and right ventricles and their significance.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the role of the sinoatrial node and atrioventricular node in heartbeat regulation.
+—-------------------------------------------
+—-------------------------------------------
+3.How do valves maintain unidirectional blood flow in the heart?
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss the events of cardiac cycle with reference to systole and diastole.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is the left ventricle more muscular than the right ventricle?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how coronary artery blockage leads to heart attack.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare pulmonary artery and pulmonary vein in terms of function.
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss the importance of myogenic nature of the heart.
+—-------------------------------------------
+—-------------------------------------------
+9.How does exercise affect heart rate and stroke volume?
+—-------------------------------------------
+—-------------------------------------------
+10.Illustrate with explanation the pathway of blood through the heart in one complete circulation.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Respiration is the biological process by which living organisms release energy from food substances, usually glucose. There are two main types: aerobic respiration, which requires oxygen and releases large amounts of energy, and anaerobic respiration, which occurs without oxygen and releases less energy.
+In humans, the respiratory system consists of the nostrils, nasal cavity, pharynx, larynx, trachea, bronchi, bronchioles, and alveoli. The alveoli are the main sites of gas exchange where oxygen diffuses into the blood and carbon dioxide diffuses out.
+Other organisms use different respiratory organs: 
+Summary of Respiratory Systems
+Unicellular organisms – Cell membrane (diffusion).
+Earthworm – Moist skin.
+Fish – Gills.
+Insects – Tracheal system (spiracles, tracheae, tracheoles).
+Arachnids – Book lungs and/or tracheae.
+Amphibians (Frog) – Lungs, moist skin, buccal cavity; tadpoles use gills.
+Reptiles – Lungs only (well developed).
+Birds – Lungs with air sacs (one-way airflow).
+Mammals – Lungs with alveoli.
+Flowering plants – Stomata (leaves), lenticels (stems), root hairs (roots).
+
+Respiration is vital for energy supply in processes like growth, reproduction, movement, and repair. Lack of efficient respiration leads to fatigue and eventual death.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between internal and external respiration with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why anaerobic respiration is less efficient than aerobic respiration.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe how alveoli are structurally adapted for gas exchange.
+—-------------------------------------------
+—-------------------------------------------
+4.Compare gaseous exchange in fish and amphibians.
+—-------------------------------------------
+—-------------------------------------------
+5.Why do insects not rely on blood for oxygen transport?
+—-------------------------------------------
+—-------------------------------------------
+6.Outline the role of hemoglobin in human respiration.
+—-------------------------------------------
+—-------------------------------------------
+7.State two similarities and differences between respiration in plants and animals.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain the importance of moist surfaces in respiratory organs.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is oxygen debt common during vigorous exercise?
+—-------------------------------------------
+—-------------------------------------------
+10.Describe three consequences of respiratory failure in humans.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Breathing is the mechanical aspect of respiration, involving inhalation and exhalation. Inhalation occurs when the diaphragm contracts and flattens, and the intercostal muscles raise the rib cage, increasing the chest cavity volume and drawing in air.
+During exhalation, the diaphragm relaxes and becomes dome-shaped, the rib cage moves downward, and the chest cavity volume decreases, forcing air out. This cycle is controlled by the medulla oblongata in response to carbon dioxide levels in the blood.
+Gaseous exchange takes place by diffusion at the alveoli. Oxygen passes into the bloodstream and binds with hemoglobin, while carbon dioxide moves from the blood into the alveoli.
+The rate of breathing can be influenced by exercise, emotions, or environmental conditions. Efficient breathing ensures adequate oxygen supply and removal of waste gases.
+</pre>
+<pre class="panel-worksheet">
+1.Differentiate between inspiration and expiration with reference to muscular actions.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the role of the diaphragm in breathing.
+—-------------------------------------------
+—-------------------------------------------
+3.How does carbon dioxide concentration affect breathing rate?
+—-------------------------------------------
+—-------------------------------------------
+4.Why does breathing become faster during exercise?
+—-------------------------------------------
+—-------------------------------------------
+5.Describe how the rib cage movement contributes to ventilation.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how gaseous exchange at alveoli maintains homeostasis.
+—-------------------------------------------
+—-------------------------------------------
+7.What happens if the intercostal muscles fail to function?
+—-------------------------------------------
+—-------------------------------------------
+8.State two ways by which the nervous system regulates breathing.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare active and passive processes in breathing.
+—----------------------------------------------------------------
+—----------------------------------------------------------------
+10.Discuss the role of negative pressure in lung ventilation.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An aquatic habitat is a water-based environment where organisms live and interact. It can be marine, freshwater, or estuarine. Aquatic habitats are characterized by high humidity, dissolved oxygen, salinity, and water temperature.
+Organisms in aquatic habitats include plants (algae, water lilies), animals (fish, crabs, amphibians), and microorganisms. Adaptations to aquatic life include gills for breathing, streamlined bodies for swimming, and air bladders for buoyancy.
+Light penetration decreases with depth, affecting photosynthesis. Nutrient availability also determines biodiversity in water bodies. Human activities like pollution, overfishing, and climate change threaten aquatic habitats.
+</pre>
+      <pre class="panel-worksheet">
+1.Distinguish between marine and freshwater habitats.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain three adaptations of aquatic plants.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is light penetration important in aquatic ecosystems?
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss the effects of salinity on aquatic organisms.
+—-------------------------------------------
+—-------------------------------------------
+5.How do aquatic organisms adapt to oxygen fluctuations?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the role of plankton in aquatic food chains.
+—-------------------------------------------
+—-------------------------------------------
+7.Why are aquatic habitats more stable than terrestrial ones?
+—-------------------------------------------
+—-------------------------------------------
+8.Discuss human activities that negatively affect aquatic habitats.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare biodiversity in marine and freshwater systems.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why water temperature affects aquatic life.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Estuarine habitats are areas where freshwater from rivers meets and mixes with saltwater from the sea. They are characterized by variable salinity, tidal influence, high nutrient content, and muddy soils.
+Organisms found in estuaries include mangroves, crabs, oysters, mudskippers, and various migratory birds. Plants like mangroves have specialized roots (pneumatophores) for respiration and salt-tolerant adaptations.
+Estuaries are highly productive ecosystems that serve as breeding grounds for many marine species. They help filter pollutants and act as buffers against coastal erosion.
+However, they are threatened by reclamation, pollution, and overexploitation. Conservation is essential to maintain their ecological importance.
+</pre>
+      <pre class="panel-worksheet">
+1.Define estuary and explain its main features.
+—-------------------------------------------
+—-------------------------------------------
+2.Why is salinity variable in estuaries?
+—-------------------------------------------
+—-------------------------------------------
+3.Explain two adaptations of mangroves to estuarine conditions.
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss the ecological importance of estuaries.
+—-------------------------------------------
+—-------------------------------------------
+5.Why are estuaries considered breeding grounds for fish?
+—-------------------------------------------
+—-------------------------------------------
+6.Compare estuarine and marine habitats.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the role of pneumatophores in mangroves.
+—-------------------------------------------
+—-------------------------------------------
+8.How do tides influence estuarine life?
+—-------------------------------------------
+—-------------------------------------------
+9.Outline three threats to estuarine ecosystems.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest two conservation measures for estuarine habitats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Freshwater habitats include rivers, lakes, streams, and ponds. They are characterized by low salinity, flowing or still water, variable temperature, and dissolved oxygen.
+Organisms include aquatic plants (water hyacinth, duckweed), animals (tilapia, frogs, snails), and microorganisms. Adaptations include fins and streamlined bodies in fish, webbed feet in amphibians, and floating leaves in plants.
+Freshwater habitats are important for drinking water supply, irrigation, fisheries, and biodiversity. They support food chains and nutrient cycling.
+Threats include pollution, invasive species, damming, and climate change. Sustainable use and conservation are crucial for their continued existence.
+</pre>
+      <pre class="panel-worksheet">
+1.List three differences between freshwater and marine habitats.
+—-------------------------------------------
+—-------------------------------------------
+2.Describe adaptations of floating plants in freshwater.
+—-------------------------------------------
+—-------------------------------------------
+3.Why do fish in rivers need streamlined bodies?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how freshwater habitats contribute to human survival.
+—-------------------------------------------
+—-------------------------------------------
+5.Discuss oxygen availability in stagnant freshwater bodies.
+—-------------------------------------------
+—-------------------------------------------
+6.Outline the importance of freshwater microorganisms.
+—-------------------------------------------
+—-------------------------------------------
+7.Compare adaptations of frogs and fishes in freshwater.
+—-------------------------------------------
+—-------------------------------------------
+8.State three human activities that endanger freshwater habitats.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain how eutrophication affects freshwater ecosystems.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest three measures for conservation of freshwater habitats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A terrestrial habitat is a land-based environment where organisms live. Examples include deserts, savannas, forests, and mountains. These habitats are influenced by factors like rainfall, temperature, light, soil type, and topography.
+Plants in terrestrial habitats show adaptations such as thick cuticles in deserts, deep roots in savannas, and broad leaves in forests. Animals exhibit adaptations like burrowing, camouflage, nocturnal activity, and specialized feeding.
+Terrestrial habitats support biodiversity and are important for ecological balance. However, they are threatened by human activities like deforestation, farming, mining, and urbanization, which alter natural habitats and reduce species survival.
+</pre>
+      <pre class="panel-worksheet">
+1.Define terrestrial habitat and give two examples.
+—-------------------------------------------
+—-------------------------------------------
+2.List four abiotic factors affecting terrestrial habitats.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain two plant adaptations to desert conditions.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between savanna and forest habitat in terms of vegetation.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe two animal adaptations to terrestrial habitats.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the role of soil in determining terrestrial vegetation.
+—-------------------------------------------
+—-------------------------------------------
+7.How does rainfall distribution affect terrestrial biodiversity?
+—-------------------------------------------
+—-------------------------------------------
+8.State two human activities that threaten terrestrial habitats.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why camouflage is an adaptation in terrestrial animals.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest two conservation measures for terrestrial habitats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A forest habitat is a land area dominated by trees and vegetation with high biodiversity. Forests are classified into tropical rainforests, temperate forests, and montane forests. Tropical rainforests are dense, evergreen, and found in areas of high rainfall.
+Abiotic factors in forests include light penetration, humidity, soil fertility, and temperature. Biotic factors involve producers (trees, shrubs), consumers (insects, birds, mammals), and decomposers (fungi, bacteria).
+Adaptations include tall trees with buttress roots for support, climbing plants (lianas), and shade-loving undergrowth. Animals show adaptations like arboreal lifestyle, camouflage, and sharp vision. Forests regulate climate, provide oxygen, and support water cycles but face deforestation and logging threats.
+</pre>
+      <pre class="panel-worksheet">
+1.Define a forest habitat and classify its types.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention three abiotic factors that affect forest habitats.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain two adaptations of trees in rainforest habitats.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between producers and consumers in a forest.
+—-------------------------------------------
+—-------------------------------------------
+5.Give examples of two arboreal animals and their adaptations.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss the role of decomposers in the forest ecosystem.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why light penetration is important in forest layers.
+—-------------------------------------------
+—-------------------------------------------
+8.State two human activities that threaten forest habitats.
+—-------------------------------------------
+—-------------------------------------------
+9.Why are tropical forests called the “lungs of the Earth”?
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest three conservation methods for forest habitats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+        Savanna or grassland habitat is dominated by grasses with scattered trees. It is common in tropical regions with alternating wet and dry seasons, such as Nigeria.
+Abiotic factors include rainfall (seasonal), temperature, soil type, and fire occurrence. Biotic factors involve grasses, shrubs, herbivores (antelopes, elephants), carnivores (lions, cheetahs), and decomposers.
+Plant adaptations include deep roots to access underground water, thick bark to resist fire, and drought-resistant leaves. Animal adaptations include migration during dry seasons, grazing, speed for escaping predators, and burrowing.
+Savannas are important for grazing livestock, biodiversity, and tourism but face threats such as overgrazing, bush burning, and poaching.
+      </pre>
+      <pre class="panel-worksheet">
+1.Define savanna habitat and state its major characteristics.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the role of fire in maintaining savanna vegetation.
+—-------------------------------------------
+—-------------------------------------------
+3.List three abiotic factors influencing savanna habitats.
+—-------------------------------------------
+—-------------------------------------------
+4.Describe two plant adaptations to drought in the savanna.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain two animal adaptations to predation in savanna.
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between wet and dry savanna.
+—-------------------------------------------
+—-------------------------------------------
+7.Why do many savanna animals migrate seasonally?
+—-------------------------------------------
+—-------------------------------------------
+8.State two economic importance of savanna habitats.
+—-------------------------------------------
+—-------------------------------------------
+9.Mention two threats to savanna biodiversity.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest two conservation methods for grassland habitats.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Population ecology is the study of groups of organisms of the same species living in a particular area at a given time. Key terms include population size, density, distribution, and growth.
+Factors affecting population include natality (birth rate), mortality (death rate), immigration, and emigration. Carrying capacity refers to the maximum number of individuals the environment can support.
+Population growth patterns include exponential growth (rapid increase) and logistic growth (regulated by limiting factors like food, space, and disease). Human activities, such as deforestation and pollution, also influence population changes.
+Population studies are important in agriculture, wildlife management, and human resource planning.
+</pre>
+      <pre class="panel-worksheet">
+1.Define population ecology.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between population density and population size.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain the concept of carrying capacity.
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss the effects of immigration and emigration on population.
+—-------------------------------------------
+—-------------------------------------------
+5.Compare exponential and logistic population growth.
+—-------------------------------------------
+—-------------------------------------------
+6.State two abiotic factors influencing population growth.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain how food supply acts as a limiting factor.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe two human activities that affect population distribution.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is population ecology important in wildlife management?
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest two ways population studies can help in agriculture.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="tt-topic-10">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Food shortage is the inadequate supply of food to meet the nutritional needs of a population. It can result in malnutrition, starvation, and death.
+Causes include overpopulation, poor agricultural practices, climate change, desertification, pests, post-harvest losses, wars, and economic problems. Natural disasters such as droughts and floods also contribute to food shortage.
+Consequences of food shortage include reduced productivity, increased poverty, diseases (kwashiorkor, marasmus), and social unrest.
+Solutions include mechanized farming, irrigation, improved storage facilities, pest control, government policies, food importation, and family planning to regulate population growth. International organizations also provide aid to famine-affected areas.
+</pre>
+      <pre class="panel-worksheet">
+1.Define food shortage and give two causes.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain the effect of climate change on food supply.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss two consequences of food shortage in developing countries.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between malnutrition and starvation.
+—-------------------------------------------
+—-------------------------------------------
+5.Mention two agricultural practices that reduce food shortage.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain how pests contribute to food shortage.
+—-------------------------------------------
+—-------------------------------------------
+7.State two roles of government in tackling food shortage.
+—-------------------------------------------
+—-------------------------------------------
+8.Suggest two ways individuals can help reduce food scarcity.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is family planning important in solving food shortage?
+—-------------------------------------------
+—-------------------------------------------
+10.Explain the role of international organizations in food crisis management.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+  </div>
+
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1710,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -256,7 +1744,6 @@
 
 
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -298,90 +1785,86 @@
 </script>
 
 
-<script>
-    const bioTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Biology",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["What is biology?", "Mention 3 branches of biology."]
-        },
-        {
-          title: "Week 2: Living and Non-Living Things",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["List 5 characteristics of living things.", "Give 3 examples of non-living things."]
-        },
-        {
-          title: "Week 3: Cells",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is a cell?", "Differentiate between plant and animal cells."]
-        }
-        // Add more weeks as needed
-      ],
-      second: [
-        {
-          title: "Week 1: Respiratory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define respiration.", "Mention parts of the respiratory system."]
-        },
-        {
-          title: "Week 2: Circulatory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["List components of blood.", "What is the function of the heart?"]
-        }
-        // Add more weeks
-      ],
-      third: [
-        {
-          title: "Week 1: Ecology and Environment",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["What is ecology?", "Define ecosystem."]
-        },
-        {
-          title: "Week 2: Food Chain and Web",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["Define food chain.", "Difference between food chain and food web?"]
-        }
-        // Add more weeks
-      ]
-    };
 
-    function loadBioTopics(term) {
-      const menu = document.getElementById("bioTopicsMenu");
-      const videoFrame = document.getElementById("bioVideoFrame");
-      const title = document.getElementById("bioTopicTitle");
-      const questions = document.getElementById("bioWorksheetQuestions");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-bio").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-bio[data-term="${term}"]`).classList.add("active");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      bioTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
+
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      // Load first topic by default
-      if (bioTopics[term].length > 0) {
-        const first = bioTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-bio").forEach(btn => {
-      btn.addEventListener("click", () => loadBioTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadBioTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
-
 </body>
 </html>

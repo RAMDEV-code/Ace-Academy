@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Physics specific term buttons */
-    .term-btn-phy {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-phy:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-phy.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +168,1125 @@
 </header>
 
 <!--===END OF NAV===-->
- <section class="subject-section" id="physics-section">
-    <h2 class="subject-title">Physics</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">PHYSICS</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-phy active" data-term="first">First Term</button>
-      <button class="term-btn-phy" data-term="second">Second Term</button>
-      <button class="term-btn-phy" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="phyTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Simple Machines
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="phyVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Simple Machines (Calculations)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Density I
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Density II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Ethical Issues in Science and Development
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Electrical Circuits I
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Electrical Circuits II
+          </button>
         </div>
 
-        <h3 id="phyTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: LIGHT ENERGY I (Sources)
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="phyWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: LIGHT ENERGY II (Reflection and Refraction)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: LIGHT ENERGY (Dispersion)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: SOUND WAVE (Properties of Sound)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Sound Wave (Echo and Calculation)
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Magnetism
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Fundamental and Derived Units
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Derived and Fundamental Units (Continued)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Units and Dimension
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Motion
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Work, Energy and Power
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Work, Energy and Power (Continuation)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Electric Current and Circuit
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarize Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
-  <!--===================END OF LESSONS======================-->
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A simple machine is a device that makes work easier by multiplying force or changing its direction. Common examples include lever, pulley, wheel and axle, inclined plane, wedge, and screw. The main function is to reduce the effort needed to do work. 
+A lever consists of a rigid bar pivoted on a fixed point called the fulcrum. Levers are classified into first, second, and third class based on the position of fulcrum, load, and effort.
+The pulley helps lift heavy loads using ropes or chains, and can be fixed or movable.
+The wheel and axle consist of a wheel attached to a smaller axle to reduce friction.
+Inclined planes allow heavy loads to be raised with less effort over a longer distance.
+The wedge and screw are variations of the inclined plane used to split or fasten objects.
+Simple machines help in saving energy, time, and effort in work.
+</pre>
+      <pre class="panel-worksheet">
+1.Define a simple machine.
+—-------------------------------------------
+—-------------------------------------------
+2.List six types of simple machines.
+—-------------------------------------------
+—-------------------------------------------
+3.State one function of a simple machine.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the fulcrum of a lever?
+—-------------------------------------------
+—-------------------------------------------
+5.Give an example of a first-class lever.
+—-------------------------------------------
+—-------------------------------------------
+6.What is the difference between a fixed pulley and a movable pulley?
+—-------------------------------------------
+—-------------------------------------------
+7.Name the parts of the wheel and axle.
+—-------------------------------------------
+—-------------------------------------------
+8.How does an inclined plane reduce effort?
+—-------------------------------------------
+—-------------------------------------------
+9.Give two examples of wedges in daily use.
+—-------------------------------------------
+—-------------------------------------------
+10.What simple machine is a screw based on?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The performance of a simple machine can be measured using mechanical advantage (MA), velocity ratio (VR), and efficiency.
+
+Mechanical Advantage (MA) = Load / Effort.
+Velocity Ratio (VR) = Distance moved by effort / Distance moved by load.
+Efficiency (%) = (MA / VR) × 100.
+
+
+Examples
+Example 1:
+Given: A machine lifts a load L=𝟑𝟎𝟎 N using an effort E=𝟕𝟓 N. The effort moves dₑ = 𝟐.𝟒m while the load rises dₗ = 𝟎.𝟒𝟎m.
+ Find: MA, VR, and efficiency η\etaη.
+Formulas:
+MA=𝐿∕𝐸		VR = dₑ∕dₗ		η = (MA ∕ VR) × 𝟏𝟎𝟎%
+Workings:
+MA=𝟑𝟎𝟎 ∕ 𝟕𝟓 = 𝟒
+VR=𝟐.𝟒 ∕ 𝟎.𝟒𝟎 = 𝟔
+η= (𝟒 ∕ 𝟔) × 𝟏𝟎𝟎% = 𝟔𝟔.𝟕%
+
+
+Answer: MA=𝟒, VR=𝟔, Efficiency ≈ 𝟔𝟔.𝟕%.
+In a frictionless machine, MA equals VR. 
+In real machines, friction causes MA to be less than VR.
+For levers, VR = Effort arm / Load arm.
+For pulleys, VR = Number of rope segments supporting the load.
+For inclined planes, VR = Length of slope / Height of slope.
+High efficiency means less energy is wasted.
+</pre>
+      <pre class="panel-worksheet">
+1.Write the formula for mechanical advantage.
+—-------------------------------------------
+—-------------------------------------------
+2.What does VR stand for?
+—-------------------------------------------
+—-------------------------------------------
+3.State the formula for efficiency.
+—-------------------------------------------
+—-------------------------------------------
+4.In a frictionless machine, how are MA and VR related?
+—-------------------------------------------
+—-------------------------------------------
+5.A lever has an effort arm of 2 m and a load arm of 0.5 m. Find its VR.
+—-------------------------------------------
+—-------------------------------------------
+6.A pulley has 4 supporting rope segments. Find its VR.
+—-------------------------------------------
+—-------------------------------------------
+7.An inclined plane is 5 m long and 1 m high. Calculate its VR.
+—-------------------------------------------
+—-------------------------------------------
+8.If MA = 4 and VR = 5, find the efficiency.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is the efficiency of a real machine less than 100%?
+—-------------------------------------------
+—-------------------------------------------
+10.A machine lifts a 200 N load with 50 N effort. Find MA.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/zHbpphfvHzM?si=HUWVr3HrXpDNcyW2" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Density is the mass of a substance per unit volume.
+Formula: Density (ρ) = Mass / Volume. The SI unit of density is kilogram per cubic metre (kg/m³).
+A material with higher density is heavier for the same volume.
+Measuring mass can be done using a beam balance or digital scale.
+Volume of a regular solid can be found using length × breadth × height. Volume of a liquid can be measured with a measuring cylinder.
+Water has a density of 1000 kg/m³ at 4°C.
+Objects denser than water sink, while less dense objects float. Density helps identify substances and design ships and aircraft.
+EXAMPLE 1 — Find density (ρ) from mass and volume
+Given:  m = 250 g,  V = 50 cm³ , ρ = ?
+equation:      ρ= m ⁄ V
+Substitute:   ρ = 250 g ⁄ 50 cm³
+solve:      ρ = 5 g/cm³
+Unit change:  1 g/cm³ = 1000 kg/m³  ⟹  ρ = 5 × 1000 = 5000 kg/m³
+Answer:       ρ = 5 g/cm³  (= 5000 kg/m³)
+
+EXAMPLE 2 — Find mass (m) from density and dimensions
+Given:  ρ = 7.85 g/cm³ (steel),  L = 5.0 cm,  W = 2.0 cm,  H = 1.5 cm
+Step 1 (Volume):   V = L × W × H
+                   V = 5.0 × 2.0 × 1.5 cm³
+                   V = 15.0 cm³
+Step 2 (Mass):     m = ρ · V
+                   m = 7.85 g/cm³ · 15.0 cm³
+                   m = 117.75 g  ≈ 118 g
+Optional to SI:    117.75 g ÷ 1000 = 0.11775 kg  (≈ 0.118 kg)
+Answer:            m ≈ 118 g  (≈ 0.118 kg)
+</pre>
+      <pre class="panel-worksheet">
+1.Define density.
+—-------------------------------------------
+—-------------------------------------------
+2.Write the formula for density.
+—-------------------------------------------
+—-------------------------------------------
+3.State the SI unit of density.
+—-------------------------------------------
+—-------------------------------------------
+4.Which is heavier for the same volume: high density or low density material?
+—-------------------------------------------
+—-------------------------------------------
+5.Name two instruments for measuring mass.
+—-------------------------------------------
+—-------------------------------------------
+6.How is the volume of a rectangular box calculated?
+—-------------------------------------------
+—-------------------------------------------
+7.Which instrument is used to measure liquid volume?
+—-------------------------------------------
+—-------------------------------------------
+8.State the density of water in kg/m³.
+—-------------------------------------------
+—-------------------------------------------
+9.Why do some objects float on water?
+—-------------------------------------------
+—-------------------------------------------
+10.Give two uses of density measurement.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Irregular solids’ volume is measured using the displacement method.
+Place water in a measuring cylinder and note its initial volume.
+Submerge the object fully and note the new volume.
+The difference in volumes gives the object’s volume.
+Density is then calculated using mass and the found volume.Floating objects displace liquid equal to their weight.
+
+Relative density compares a substance’s density to water’s density.
+Formula: Relative Density (RD) = Density of substance / Density of water. RD has no unit because it is a ratio. Relative density helps determine purity and buoyancy.</pre>
+      <pre class="panel-worksheet">
+1.A block has a mass of 240 g and a volume of 60 cm³. Find its density.
+—-------------------------------------------
+—-------------------------------------------
+2.A stone weighs 500 g and has a density of 2.5 g/cm³. Find its volume.
+—-------------------------------------------
+—-------------------------------------------
+3.An iron cube has a side of 4 cm and a density of 7.8 g/cm³. Calculate its mass.
+—-------------------------------------------
+—-------------------------------------------
+4.A liquid has a mass of 1.2 kg and occupies 1.5 litres. Find its density in kg/m³.
+—-------------------------------------------
+—-------------------------------------------
+5.A wooden block has dimensions 10 cm × 5 cm × 4 cm and a mass of 600 g. Find its density.
+—-------------------------------------------
+—-------------------------------------------
+6.A piece of metal has a density of 8.9 g/cm³ and a volume of 50 cm³. Find its mass.
+—-------------------------------------------
+—-------------------------------------------
+7.A container holds 3 litres of oil with density 900 kg/m³. Find the mass of the oil.
+—-------------------------------------------
+—-------------------------------------------
+8.A metal sphere has a volume of 100 cm³ and a mass of 270 g. Find its density.
+—-------------------------------------------
+—-------------------------------------------
+9.A glass beaker has a density of 2.5 g/cm³ and a mass of 500 g. Find its volume.
+—-------------------------------------------
+—-------------------------------------------
+10.A bottle of milk has a volume of 2 litres and a mass of 2.1 kg. Find its density in kg/m³.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Ethics refers to moral principles that guide behaviour in society. Science and development must be guided by ethical standards to avoid harm. Examples of ethical issues include cloning, genetic engineering, and nuclear weapons.
+Scientists must respect human rights and dignity in their work. Research involving humans and animals should follow strict safety rules. Technology should be developed to benefit society, not exploit it. Environmental protection is a key ethical concern in industrial development. Scientific work should avoid causing pollution or depleting resources. Honesty and transparency are essential in reporting research results. Governments and organizations create laws and policies to enforce ethical practices.
+</pre>
+      <pre class="panel-worksheet">
+1.Define ethics.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention two examples of ethical issues in science.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is environmental protection important in development?
+—-------------------------------------------
+—-------------------------------------------
+4.State one ethical rule for using animals in experiments.
+—-------------------------------------------
+—-------------------------------------------
+5.Give two ways technology can harm society if used wrongly.
+—-------------------------------------------
+—-------------------------------------------
+6.What should scientists avoid when reporting research?
+—-------------------------------------------
+—-------------------------------------------
+7.Mention one law or policy that promotes ethical practice.
+—-------------------------------------------
+—-------------------------------------------
+8.Why should human dignity be respected in science?
+—-------------------------------------------
+—-------------------------------------------
+9.Give one example of a harmful technology.
+—-------------------------------------------
+—-------------------------------------------
+10.State one benefit of following ethical standards in science.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An electrical circuit is a closed path through which electric current flows. A simple circuit has a power source, conducting wires, and a load (e.g., bulb). The power source provides energy for the current to flow. Conductors like copper wires allow electricity to pass easily.
+The load converts electrical energy into other forms like light or heat. A switch controls the opening and closing of the circuit.
+
+
+In a closed circuit, current flows; in an open circuit, it stops.
+Electrical symbols are used to represent components in circuit diagrams.
+Series connection means components are connected one after another. While in series circuits, if one component fails, the whole circuit stops working.
+</pre>
+      <pre class="panel-worksheet">
+1.Define an electrical circuit.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention three basic components of a circuit.
+—-------------------------------------------
+—-------------------------------------------
+3.What is the function of a power source?
+—-------------------------------------------
+—-------------------------------------------
+4.Give one example of a conductor.
+—-------------------------------------------
+—-------------------------------------------
+5.What is the role of a switch in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the difference between a closed and an open circuit.
+—-------------------------------------------
+—-------------------------------------------
+7.What is a series connection?
+—-------------------------------------------
+—-------------------------------------------
+8.What happens if one component fails in a series circuit?
+—-------------------------------------------
+—-------------------------------------------
+9.Name one example of a load in a circuit.
+—-------------------------------------------
+—-------------------------------------------
+10.Draw the symbol for a battery.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Parallel connection means components are connected across the same two points. In parallel circuits, current divides among the branches. If one component fails in a parallel circuit, others still work.
+Series-parallel circuits combine both types of connections. 
+Voltage in a series circuit is shared among components, while voltage in a parallel circuit is the same across all branches.
+Ammeters measure current and are connected in series.
+Voltmeters measure voltage and are connected in parallel.
+Fuses and circuit breakers protect circuits from overloads. Good circuit design ensures safety and efficiency.
+</pre>
+      <pre class="panel-worksheet">
+1.Define a parallel connection.
+—-------------------------------------------
+—-------------------------------------------
+2.What happens if one branch fails in a parallel circuit?
+—-------------------------------------------
+—-------------------------------------------
+3.What is a series-parallel circuit?
+—-------------------------------------------
+—-------------------------------------------
+4.How is voltage shared in a series circuit?
+—-------------------------------------------
+—-------------------------------------------
+5.How is voltage shared in a parallel circuit?
+—-------------------------------------------
+—-------------------------------------------
+6.How is an ammeter connected in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+7.How is a voltmeter connected in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+8.Name two devices that protect circuits from overload.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is good circuit design important?
+—-------------------------------------------
+—-------------------------------------------
+10.Draw a simple parallel circuit diagram with two bulbs.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Light energy is a form of energy that enables us to see objects. Sources of light are objects that produce light naturally or artificially.
+Natural sources include the sun, stars, lightning, and fireflies. Artificial sources include electric bulbs, candles, lanterns, and torches. The sun is the primary source of light for the Earth.
+
+
+Light travels in a straight line through a transparent medium.
+Luminous objects give off their own light. Non-luminous objects are seen by reflecting light from luminous objects. Without light, vision is impossible. Light can be detected by the human eye and some devices like cameras.
+</pre>
+      <pre class="panel-worksheet">
+1.Define light energy.
+—-------------------------------------------
+—-------------------------------------------
+2.Give three examples of natural sources of light.
+—-------------------------------------------
+—-------------------------------------------
+3.Mention four artificial sources of light.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the primary source of light for the Earth?
+—-------------------------------------------
+—-------------------------------------------
+5.Explain the difference between luminous and non-luminous objects.
+—-------------------------------------------
+—-------------------------------------------
+6.How does light travel?
+—-------------------------------------------
+—-------------------------------------------
+7.State one device apart from the human eye that can detect light.
+—-------------------------------------------
+—-------------------------------------------
+8.Give two examples of living things that produce light naturally.
+—-------------------------------------------
+—-------------------------------------------
+9.Why can’t we see objects in complete darkness?
+—-------------------------------------------
+—-------------------------------------------
+10.Classify the following as luminous or non-luminous: candle, moon, torchlight, sun.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Reflection is the bouncing back of light from a surface.
+The law of reflection states that the angle of incidence equals the angle of reflection.
+Regular reflection occurs on smooth surfaces, producing clear images. Diffuse reflection occurs on rough surfaces, scattering light in many directions.
+
+
+Refraction is the bending of light when it passes from one medium to another. Refraction occurs due to a change in the speed of light in different media. Light bends towards the normal when it enters a denser medium. Light bends away from the normal when it enters a less dense medium.
+Reflection allows us to see images in mirrors. Refraction explains phenomena like the apparent bending of a stick in water.</pre>
+      <pre class="panel-worksheet">
+1.Define reflection of light.
+—-------------------------------------------
+—-------------------------------------------
+2.State the law of reflection.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between regular and diffuse reflection.
+—-------------------------------------------
+—-------------------------------------------
+4.Give two examples of surfaces that produce regular reflection.
+—-------------------------------------------
+—-------------------------------------------
+5.What is refraction of light?
+—-------------------------------------------
+—-------------------------------------------
+6.Why does refraction occur?
+—-------------------------------------------
+—-------------------------------------------
+7.In which direction does light bend when it enters a denser medium?
+—-------------------------------------------
+—-------------------------------------------
+8.In which direction does light bend when it enters a less dense medium?
+—-------------------------------------------
+—-------------------------------------------
+9.Mention one real-life example of refraction.
+—-------------------------------------------
+—-------------------------------------------
+10.Draw and label a ray diagram showing reflection on a plane mirror.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Dispersion is the splitting of white light into its component colours. This occurs when light passes through a prism. White light is made up of seven colours called the spectrum.
+
+
+The colours of the spectrum are Red, Orange, Yellow, Green, Blue, Indigo, and Violet (ROYGBIV). Dispersion occurs because different colours of light bend by different amounts. Violet bends the most, while red bends the least. Rainbows are natural examples of dispersion in the atmosphere. Water droplets in the air act like prisms to split sunlight. The study of light colours is called spectroscopy.
+Isaac Newton first demonstrated dispersion using a glass prism.</pre>
+      <pre class="panel-worksheet">
+1.Define dispersion of light.
+—-------------------------------------------
+—-------------------------------------------
+2.What causes dispersion in a prism?
+—-------------------------------------------
+—-------------------------------------------
+3.List the seven colours of white light in order.
+—-------------------------------------------
+—-------------------------------------------
+4.Which colour bends the most in dispersion?
+—-------------------------------------------
+—-------------------------------------------
+5.Which colour bends the least in dispersion?
+—-------------------------------------------
+—-------------------------------------------
+6.Give one natural example of dispersion.
+—-------------------------------------------
+—-------------------------------------------
+7.How do water droplets cause a rainbow?
+—-------------------------------------------
+—-------------------------------------------
+8.What is the study of light colours called?
+—-------------------------------------------
+—-------------------------------------------
+9.Who first demonstrated dispersion with a prism?
+—-------------------------------------------
+—-------------------------------------------
+10.Draw and label a diagram showing dispersion of light by a prism.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound is a form of energy produced by vibrating objects. Sound travels in waves called longitudinal waves. It requires a medium such as air, water, or solids to travel. Sound cannot travel in a vacuum. The speed of sound is highest in solids and lowest in gases.
+
+
+The main properties of sound are pitch, loudness, and quality (timbre).
+Pitch depends on the frequency of the sound wave.
+Loudness depends on the amplitude of the sound wave.
+Quality distinguishes sounds of the same pitch and loudness from different sources.
+Echoes are sounds reflected back to the listener.</pre>
+      <pre class="panel-worksheet">
+1.What produces sound?
+—-------------------------------------------
+—-------------------------------------------
+2.What type of wave is a sound wave?
+—-------------------------------------------
+—-------------------------------------------
+3.Name three media through which sound can travel.
+—-------------------------------------------
+—-------------------------------------------
+4.Why can’t sound travel in a vacuum?
+—-------------------------------------------
+—-------------------------------------------
+5.In which medium does sound travel fastest?
+—-------------------------------------------
+—-------------------------------------------
+6.List the three main properties of sound.
+—-------------------------------------------
+—-------------------------------------------
+7.On what does pitch depend?
+—-------------------------------------------
+—-------------------------------------------
+8.What determines the loudness of a sound?
+—-------------------------------------------
+—-------------------------------------------
+9.What does the quality of a sound mean?
+—-------------------------------------------
+—-------------------------------------------
+10.Define an echo.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound waves are vibrations that travel through a medium such as air, water, or solid. An echo is the reflection of sound when it bounces off a hard surface like a wall or cliff. For an echo to be heard, the reflecting surface must be at least 17 meters away in air. The speed of sound in air is about 340 m/s at room temperature. 
+Echoes are used in measuring distances and in applications like sonar and ultrasound scanning.
+The formula for echo distance: Distance = (Speed of Sound × Time) ÷ 2.
+The division by 2 accounts for the sound travelling to the surface and back.
+A boy standing some distance away from a wall claps his hands and hears the echo 𝟧.𝟢 seconds later. If the speed of sound in air is 𝟥𝟦𝟢 m/s, calculate the distance of the boy from the wall.
+Solution
+✦ Step 1: Recall formula
+The time for echo is for a round trip (to the wall and back):
+t = 2d / v
+Where: t = 5.0 , d = ?, v = 340m/s
+✦ Step 2: Insert values
+5.0 = 2d / 340
+✦ Step 3: Solve for d
+2d = 5.0 × 340
+2d = 1700
+d = 1700 / 2
+d = 850 m
+✅ Final Answer: The boy is 𝟪𝟧𝟢 metres away from the wall.
+
+Echo is important for navigation by ships and for detecting underwater objects.
+Factors affecting echo include temperature, humidity, and type of reflecting surface. Too many echoes in a small space can cause sound distortion called reverberation.
+</pre>
+      <pre class="panel-worksheet">
+1.What is an echo?
+—-------------------------------------------
+—-------------------------------------------
+2.State one condition necessary for an echo to be heard clearly.
+—-------------------------------------------
+—-------------------------------------------
+3.Give one use of echo in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is the time for an echo divided by 2 in distance calculations?
+—-------------------------------------------
+—-------------------------------------------
+5.If a sound takes 4 seconds to return, calculate the distance of the reflecting surface.
+—-------------------------------------------
+—-------------------------------------------
+6.What is reverberation?
+—-------------------------------------------
+—-------------------------------------------
+7.Mention one device that uses echo principles to measure distance.
+—-------------------------------------------
+—-------------------------------------------
+8.A sound is produced and the echo is heard 5 seconds later. Calculate the distance to the reflecting wall. (Speed of sound = 340 m/s)
+—-------------------------------------------
+—-------------------------------------------
+9.If the distance to a cliff is 255 m, how long will it take for the echo to return? (Speed of sound = 340 m/s)
+—-------------------------------------------
+—-------------------------------------------
+10.A boy claps his hands and hears the echo after 3.5 seconds. Find the distance to the reflecting surface. (Speed of sound = 343 m/s)
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Magnetism is the force of attraction or repulsion produced by magnets. A magnet has two poles: North pole and South pole. Like poles repel each other while unlike poles attract.
+Magnetic materials include iron, cobalt, and nickel. Non-magnetic materials include wood, plastic, and rubber.
+
+
+The region around a magnet where its force can be felt is called a magnetic field.
+Magnetic field lines flow from the North pole to the South pole outside the magnet.
+Magnets can be natural (like lodestone) or artificial (made by humans).
+A temporary magnet loses its magnetism quickly, while a permanent magnet retains it for a long time.
+Magnetism has uses in compasses, electric motors, magnetic storage devices, and door latches.
+</pre>
+      <pre class="panel-worksheet">
+1.Define magnetism.
+—-------------------------------------------
+—-------------------------------------------
+2.Name the two poles of a magnet.
+—-------------------------------------------
+—-------------------------------------------
+3.What happens when two like poles are brought close?
+—-------------------------------------------
+—-------------------------------------------
+4.Give three examples of magnetic materials.
+—-------------------------------------------
+—-------------------------------------------
+5.Give two examples of non-magnetic materials.
+—-------------------------------------------
+—-------------------------------------------
+6.What is a magnetic field?
+—-------------------------------------------
+—-------------------------------------------
+7.State the direction of magnetic field lines outside a magnet.
+—-------------------------------------------
+—-------------------------------------------
+8.Give one example each of a natural and an artificial magnet.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between a temporary and a permanent magnet.
+—-------------------------------------------
+—-------------------------------------------
+10.Mention two uses of magnets in daily life.
+—-------------------------------------------
+—------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+In Physics, fundamental units are the basic units from which all other units are derived. They include length (metre, m), mass (kilogram, kg), time (second, s), electric current (ampere, A), temperature (kelvin, K), amount of substance (mole, mol), and luminous intensity (candela, cd).
+Derived units are obtained from fundamental units through multiplication or division. For example, speed (m/s), force (kg·m/s² = newton), and pressure (N/m² = pascal).
+The SI system (Systeme Internationale) is globally accepted in scientific measurements, ensuring uniformity.
+Example 1:
+ Find the derived unit of density.
+ Solution: Density = Mass / Volume = kg / m³ → kg·m⁻³
+Example 2:
+ Find the SI unit of force.
+ Solution: Force = mass × acceleration = (kg)(m/s²) = kg·m/s² (Newton).</pre>
+      <pre class="panel-worksheet">
+1.Define fundamental and derived units with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.State the 7 fundamental SI units.
+—-------------------------------------------
+—-------------------------------------------
+3.Express the SI unit of energy in base units.
+—-------------------------------------------
+—-------------------------------------------
+4.Derive the unit of pressure from fundamental units.
+—-------------------------------------------
+—-------------------------------------------
+5.Write the unit of acceleration in terms of base units.
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between SI and non-SI units with examples.
+—-------------------------------------------
+—-------------------------------------------
+7.Derive the SI unit of power.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain why mole is a fundamental unit.
+—-------------------------------------------
+—-------------------------------------------
+9.Express pascal in base units.
+—-------------------------------------------
+—-------------------------------------------
+10.Derive the SI unit of work.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Derived units extend the use of fundamental units. Every physical quantity in chemistry can be expressed in SI base units. For instance, work = force × distance = N × m = joule (J).
+Some common derived units include:
+Pressure: N/m² (Pascal, Pa)
+Energy/Work: N·m (Joule, J)
+Power: J/s (Watt, W)
+Example 1:
+ Find the SI unit of work done.
+ Solution: Work = Force × Distance = (kg·m/s²)(m) = kg·m²/s² (Joule).
+Example 2:
+ Find the SI unit of power.
+ Solution: Power = Work / Time = (kg·m²/s²)/s = kg·m²/s³ (Watt).</pre>
+      <pre class="panel-worksheet">
+1.Give three examples of derived units in chemistry.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain why joule is a derived unit.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the SI unit of momentum.
+—-------------------------------------------
+—-------------------------------------------
+4.Express newton in terms of base units.
+—-------------------------------------------
+—-------------------------------------------
+5.Derive the SI unit of frequency.
+—-------------------------------------------
+—-------------------------------------------
+6.Express the SI unit of electric charge.
+—-------------------------------------------
+—-------------------------------------------
+7.Derive the SI unit of pressure.
+—-------------------------------------------
+—-------------------------------------------
+8.Give the SI unit of heat capacity.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between derived units of velocity and acceleration.
+—-------------------------------------------
+—-------------------------------------------
+10.Derive the SI unit of potential difference.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Dimensions show how a physical quantity relates to the fundamental quantities of mass (M), length (L), and time (T). It helps verify formulas.
+For example:
+Velocity = distance/time = L/T → Dimension: [LT⁻¹]
+Force = mass × acceleration = M × L/T² → Dimension: [MLT⁻²]
+Dimensional analysis is also used to check the correctness of equations.
+Example 1:
+ Find the dimension of energy.
+ Solution: Energy = Force × Distance = [MLT⁻²][L] = [ML²T⁻²]
+Example 2:
+ Find the dimension of pressure.
+ Solution: Pressure = Force/Area = [MLT⁻²]/[L²] = [ML⁻¹T⁻²].</pre>
+      <pre class="panel-worksheet">
+1.Define dimension in chemistry.
+—-------------------------------------------
+—-------------------------------------------
+2.Write the dimension of acceleration.
+—-------------------------------------------
+—-------------------------------------------
+3.Find the dimension of power.
+—-------------------------------------------
+—-------------------------------------------
+4.Derive the dimension of momentum.
+—-------------------------------------------
+—-------------------------------------------
+5.State the dimension of density.
+—-------------------------------------------
+—-------------------------------------------
+6.Verify the formula for kinetic energy using dimensional analysis.
+—-------------------------------------------
+—-------------------------------------------
+7.Find the dimension of work.
+—-------------------------------------------
+—-------------------------------------------
+8.Write the dimension of universal gas constant, R.
+—-------------------------------------------
+—-------------------------------------------
+9.Show that pressure × volume has the dimension of energy.
+—-------------------------------------------
+—-------------------------------------------
+10.Distinguish between unit and dimension.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Motion is the change in position of a body with time, relative to a reference point. If a body remains in the same position, it is said to be at rest.
+There are two broad types of motion: translational motion and rotational motion. Translational motion occurs when a body moves from one point to another in space. This may be in a straight line or along a curved path.
+Linear motion is translational motion along a straight path, while curvilinear motion occurs along a curved path. Examples include a car moving on a straight road and a ball thrown in the air.
+Rotational motion occurs when a body turns about a fixed axis, e.g., a ceiling fan blade or the Earth’s rotation about its axis.
+Periodic motion is motion that repeats itself at equal time intervals, e.g., the vibration of a pendulum or the oscillation of a tuning fork.
+Random motion is irregular, unpredictable motion, such as the movement of dust particles in the air.
+In summary, motion can be classified as linear, curvilinear, rotational, periodic, or random depending on the nature of the path and repetition.
+</pre>
+      <pre class="panel-worksheet">
+1.Define motion and explain the difference between translational and rotational motion with two examples each.
+—-------------------------------------------
+—-------------------------------------------
+2.A car moves 500 m due east and then 400 m due north in 2 minutes. Calculate its average speed and average velocity.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between linear and curvilinear motion, giving one real-life example of each from transportation.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain why the motion of a pendulum is regarded as periodic. Derive an expression for its period.
+—-------------------------------------------
+—-------------------------------------------
+5.State and explain three differences between random motion and periodic motion.
+—-------------------------------------------
+—-------------------------------------------
+6.A wheel of radius 0.5 m rotates at 120 revolutions per minute. Calculate its angular velocity in rad/s.
+—-------------------------------------------
+—-------------------------------------------
+7.Describe the Earth’s rotation and revolution, classifying each under the appropriate type of motion.
+—-------------------------------------------
+—-------------------------------------------
+8.A projectile is fired at 20 m/s at an angle of 30° to the horizontal. Calculate the maximum height attained.
+—-------------------------------------------
+—-------------------------------------------
+9.Discuss how uniform linear motion differs from uniformly accelerated motion, with suitable examples.
+—-------------------------------------------
+—-------------------------------------------
+10.A particle performs simple harmonic motion with amplitude 0.1 m and frequency 5 Hz. Calculate its maximum speed.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Work is said to be done when a force is applied to a body and the body is displaced in the direction of the force. Mathematically,
+𝐖 = 𝐅 × 𝐝 × cos𝜃
+The SI unit of work is Joule (𝐉). One Joule is the work done when a force of 𝟏 Newton displaces a body through 𝟏 metre in the direction of the force.
+Energy is the ability to do work. It exists in various forms such as kinetic energy, potential energy, heat energy, chemical energy, and electrical energy. Power is the rate of doing work:
+𝐏 = 𝐖 / 𝐭
+The SI unit of power is Watt (𝐖). One watt is the power when 𝟏 joule of work is done in 𝟏 second.
+Solved Examples
+Example 1: A force of 𝟐𝟎 𝐍 moves a body 𝟓 𝐦 in the direction of the force. Find the work done.
+ 𝐖 = 𝐅 × 𝐝 = 𝟐𝟎 × 𝟓 = 𝟏𝟎𝟎 𝐉
+Example 2: If 𝟐𝟎𝟎 𝐉 of work is done in 𝟏𝟎 s, find the power.
+ 𝐏 = 𝐖 / 𝐭 = 𝟐𝟎𝟎 / 𝟏𝟎 = 𝟐𝟎 𝐖
+</pre>
+      <pre class="panel-worksheet">
+1.Define work and state the condition necessary for work to be done.
+—-------------------------------------------
+—-------------------------------------------
+2.A force of 𝟓𝟎 𝐍 moves a body 𝟏𝟎 𝐦 at an angle of 𝟔𝟎°. Calculate the work done.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain the relationship between work and energy.
+—-------------------------------------------
+—-------------------------------------------
+4.A machine does 𝟒𝟎𝟎 𝐉 of work in 𝟓 s. Find its power.
+—-------------------------------------------
+—-------------------------------------------
+5.Distinguish between potential and kinetic energy with examples.
+—-------------------------------------------
+—-------------------------------------------
+6.A pump raises 𝟓𝟎𝟎 kg of water through 𝟏𝟎 m. Calculate the work done. (Take 𝐠 = 𝟏𝟎 m/s²)
+—-------------------------------------------
+—-------------------------------------------
+7.If a car engine develops 𝟓𝟎 kW, how much work does it do in 𝟐 min?
+—-------------------------------------------
+—-------------------------------------------
+8.State two applications of the concept of power in daily life.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is no work done when a body is moved in a circle with force directed to the centre?
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why energy is described as the "capacity to do work".
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+      <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The principle of conservation of energy states that energy can neither be created nor destroyed, but only transformed. The total energy of an isolated system remains constant.
+Kinetic energy is the energy a body possesses due to motion:
+ 𝐊𝐄 = ½ 𝐦𝐯²
+Potential energy is the energy stored due to position:
+ 𝐏𝐄 = 𝐦𝐠𝐡
+Machines make work easier but do not reduce the actual work done. Efficiency is given by:
+Efficiency = (Useful Work Output ÷ Work Input) × 100%
+Solved Examples
+Example 1: Find the kinetic energy of a body of mass 𝟐 kg moving with velocity 𝟓 m/s.
+ 𝐊𝐄 = ½ × 𝟐 × (𝟓²) = 𝟐𝟓 𝐉
+Example 2: A 𝟓 kg object is lifted to a height of 𝟖 m. Find the potential energy. (Take 𝐠 = 𝟏𝟎 m/s²)
+ 𝐏𝐄 = 𝐦𝐠𝐡 = 𝟓 × 𝟏𝟎 × 𝟖 = 𝟒𝟎𝟎 𝐉</pre>
+      <pre class="panel-worksheet">
+1.State the law of conservation of energy with one example.
+—-------------------------------------------
+—-------------------------------------------
+2.A 𝟒 kg mass is dropped from a height of 𝟏𝟎 m. Calculate the velocity just before impact.
+—-------------------------------------------
+—-------------------------------------------
+3.A 𝟐 kg object moves with speed 𝟏𝟎 m/s. Find its kinetic energy.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how potential energy converts to kinetic energy in a falling body.
+—-------------------------------------------
+—-------------------------------------------
+5.A motor of power 𝟓𝟎𝟎 W lifts a load of 𝟏𝟎𝟎 N through 𝟐𝟎 m. Find the time taken.
+—-------------------------------------------
+—-------------------------------------------
+6.Distinguish between mechanical advantage and efficiency.
+—-------------------------------------------
+—-------------------------------------------
+7.A machine has input 𝟏𝟎𝟎𝟎 J and output 𝟖𝟎𝟎 J. Find efficiency.
+—-------------------------------------------
+—-------------------------------------------
+8.Give three examples of energy conversion in daily life.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is perpetual motion impossible?
+—-------------------------------------------
+—-------------------------------------------
+10.Derive the expression for kinetic energy from the work–energy theorem.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Electric current is the rate of flow of charges:
+𝐈 = 𝐐 / 𝐭
+where 𝐈 = current (A), 𝐐 = charge (C), 𝐭 = time (s).
+An electric circuit is a closed path through which current flows. Ohm’s law states that the current is directly proportional to the voltage across a conductor at constant temperature:
+𝐕 = 𝐈𝐑
+where 𝐕 = voltage (V), 𝐈 = current (A), 𝐑 = resistance (Ω).
+Series circuits share the same current, while parallel circuits share the same voltage.
+Solved Examples
+Example 1: A current of 𝟐 A flows for 𝟓 min. Calculate the charge transferred.
+ 𝐐 = 𝐈 × 𝐭 = 𝟐 × (𝟓 × 𝟔𝟎) = 𝟔𝟎𝟎 𝐂
+Example 2: A resistor of 𝟏𝟎 Ω carries current 𝟑 A. Find the voltage.
+ 𝐕 = 𝐈𝐑 = 𝟑 × 𝟏𝟎 = 𝟑𝟎 𝐕
+</pre>
+      <pre class="panel-worksheet">
+1.Define electric current and its SI unit.
+—-------------------------------------------
+—-------------------------------------------
+2.A current of 𝟎.𝟓 A flows for 𝟏𝟎 min. Find the charge.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between series and parallel circuits.
+—-------------------------------------------
+—-------------------------------------------
+4.If a 𝟏𝟐 V battery drives 𝟐 A, find resistance.
+—-------------------------------------------
+—-------------------------------------------
+5.State Ohm’s law and its limitations.
+—-------------------------------------------
+—-------------------------------------------
+6.A current of 𝟒 A flows through a 𝟔 Ω resistor. Find power dissipated.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why electrical fuses are used in circuits.
+—-------------------------------------------
+—-------------------------------------------
+8.Two resistors 𝟒 Ω and 𝟔 Ω are connected in series. Find total resistance.
+—-------------------------------------------
+—-------------------------------------------
+9.What is the effect of temperature on resistance of metals?
+—-------------------------------------------
+—-------------------------------------------
+10.A 𝟔𝟎 W lamp is used on 𝟐𝟒𝟎 V. Find current.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+</div>
+
+<!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1301,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -253,10 +1332,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -299,91 +1375,85 @@
 
 
 
-<script>
-    const physicsTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Physics",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 1: Introduction to Momentum",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 2: Measurement",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["What is measurement?", "State the SI unit of length, time, and mass."]
-        },
-        {
-          title: "Week 3: Motion",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is motion?", "State Newton's first law of motion."]
-        }
-        // Add more weeks if needed
-      ],
-      second: [
-        {
-          title: "Week 1: Force",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define force.", "Mention 2 effects of force."]
-        },
-        {
-          title: "Week 2: Energy",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["What is energy?", "List 3 types of energy."]
-        }
-      ],
-      third: [
-        {
-          title: "Week 1: Electricity",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["Define electricity.", "Mention the SI unit of electric current."]
-        },
-        {
-          title: "Week 2: Magnetism",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["What is magnetism?", "List 2 types of magnets."]
-        }
-      ]
-    };
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-    function loadPhysicsTopics(term) {
-      const menu = document.getElementById("phyTopicsMenu");
-      const videoFrame = document.getElementById("phyVideoFrame");
-      const title = document.getElementById("phyTopicTitle");
-      const questions = document.getElementById("phyWorksheetQuestions");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-phy").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-phy[data-term="${term}"]`).classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      physicsTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      if (physicsTopics[term].length > 0) {
-        const first = physicsTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-phy").forEach(btn => {
-      btn.addEventListener("click", () => loadPhysicsTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadPhysicsTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
 </body>
 </html>

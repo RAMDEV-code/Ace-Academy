@@ -3,168 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Core Layout */
-#chemistry-section {
-  padding: 7rem 2rem 4rem;
-  background: #f0f3f8;
-  box-sizing: border-box;
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
 }
 
-#chemistry-section .subject-header h2 {
-  font-size: 2.5rem;
-  color: #1a2b4c;
-  text-align: center;
-  margin-bottom: 2rem;
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
+
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
 }
 
-#chemistry-section .term-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
 }
 
-#chemistry-section .term-btn {
-  background-color: #3f3b82;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
+
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
 }
 
-#chemistry-section .term-btn.active {
-  background-color: #ff5e57;
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
+
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
+
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
 }
 
-#chemistry-section .subject-layout {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
 }
 
-#chemistry-section .topics-menu {
-  flex: 1;
-  min-width: 240px;
-  background-color: #1f1a4f;
-  border-radius: 10px;
-  padding: 1rem;
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
 }
 
-#chemistry-section .topics-menu button {
-  display: block;
-  width: 100%;
-  background: #3f3b82;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.6rem;
-  border-radius: 6px;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
+
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
 }
 
-#chemistry-section .topics-menu button.active {
-  background-color: #ff5e57;
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
 }
 
-#chemistry-section .topics-menu button:hover {
-  background-color: #574fcf;
-}
-
-#chemistry-section .topic-content {
-  flex: 3;
-  min-width: 280px;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-/* Video Embed */
-.video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  margin-bottom: 2rem;
-}
-
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Worksheet */
-.worksheet-questions h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #3f3b82;
-}
-
-.worksheet-questions ul {
-  list-style-type: disc;
-  padding-left: 1.2rem;
-}
-
-.worksheet-questions li {
-  margin-bottom: 0.7rem;
-  color: #333;
-  font-size: 1rem;
-}
-
-/* Scroll animation */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease;
-}
-
-.animate-on-scroll.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  #chemistry-section .subject-layout {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 600px) {
-  #chemistry-section {
-    padding: 6rem 1rem 3rem;
-  }
-
-  #chemistry-section .term-btn {
-    width: 90%;
-    margin: 0.5rem auto;
-  }
-
-  #chemistry-section .topics-menu button {
-    font-size: 0.95rem;
-  }
-}
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -174,9 +151,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -190,42 +167,1193 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section animate-on-scroll" id="chemistry-section">
-  <div class="subject-header">
-    <h2>CHEMISTRY</h2>
-  </div>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">CHEMISTRY</h1>
 
-  <div class="term-buttons">
-    <button class="term-btn active" data-term="first">First Term</button>
-    <button class="term-btn" data-term="second">Second Term</button>
-    <button class="term-btn" data-term="third">Third Term</button>
-  </div>
-
-  <div class="subject-layout">
-    <div class="topics-menu" id="chemistryTopicsList"></div>
-
-    <div class="topic-content">
-      <div class="video-wrapper">
-        <iframe id="chemistryVideoFrame" src="" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="worksheet-questions" id="chemistryQuestions">
-        <h3>Worksheet Questions</h3>
-        <ul></ul>
-      </div>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
-  </div>
-</section>
 
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Exothermic and Endothermic Reactions
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Rates of Chemical Reaction
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Factors Affecting Rate of Reaction
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Atoms and Periodic Table
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Radioactivity
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Elements, Compounds, and Mixtures
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Alloys
+          </button>
+        </div>
+
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: GIANT MOLECULE (Diamond and Graphite)
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: CHEMICAL FORMULA
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: ATOMIC MASS AND ATOMIC NUMBER
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: RELATIVE MOLECULAR MASS
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Acid and Base (Neutralization Reaction)
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Solution and Solubility
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Treatment of Water
+          </button>
+        </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Particulate Nature of Matter
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Development of the Atom I
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Development of the Atom II
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Elements, Symbols, and Valency 
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Writing Chemical Formula
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Naming Chemical Compounds
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Balancing Chemical Equations
+          </button>
+        </div>
+      </aside>
+ 
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
+    </div>
+  </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+A chemical reaction is a process where substances change to form new substances.
+In an exothermic reaction, heat energy is released to the surroundings. Examples: combustion of fuel, neutralization of acid and base, respiration. Exothermic reactions make the surroundings warmer.
+
+In an endothermic reaction, heat energy is absorbed from the surroundings. Examples: photosynthesis, dissolving salt in water, thermal decomposition. Endothermic reactions make the surroundings cooler.
+Energy changes in reactions can be measured using a thermometer. The energy change determines whether a reaction is exothermic or endothermic. Understanding these reactions is important in industry and everyday life.
+</pre>
+      <pre class="panel-worksheet">
+1.Define exothermic reaction.
+—-------------------------------------------
+—-------------------------------------------
+2.State two examples of exothermic reactions.
+—-------------------------------------------
+—-------------------------------------------
+3.What happens to the- temperature of surroundings in an exothermic reaction?
+—-------------------------------------------
+—------------------------------------------
+4.Define endothermic reaction.
+—-------------------------------------------
+—-------------------------------------------
+5.Give two examples of endothermic reactions.
+—-------------------------------------------
+—-------------------------------------------
+6.What happens to the temperature of surroundings in an endothermic reaction?
+—-------------------------------------------
+—-------------------------------------------
+7.Which type of reaction is photosynthesis?
+—-------------------------------------------
+—-------------------------------------------
+8.Which type of reaction is respiration?
+—-------------------------------------------
+—-------------------------------------------
+9.State one method of detecting energy change in a reaction.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain one industrial use of exothermic reactions.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The rate of reaction is the speed at which reactants are converted to products. It can be measured by the amount of product formed per unit time. Faster reactions take less time to complete. Examples of fast reactions: explosions, burning of fuel. Examples of slow reactions: rusting of iron, fermentation.
+Rate is often measured in grams per second or cm³ per second. The rate depends on how often and how energetically particles collide. More frequent and energetic collisions lead to faster reactions.
+Rates can be shown using a rate curve on a graph. Understanding reaction rates helps in controlling industrial processes.
+</pre>
+      <pre class="panel-worksheet">
+1.Define rate of reaction.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention two examples of fast reactions.
+—-------------------------------------------
+—-------------------------------------------
+3.Mention two examples of slow reactions.
+—-------------------------------------------
+—-------------------------------------------
+4.How is the rate of reaction measured?
+—-------------------------------------------
+—-------------------------------------------
+5.State the units used for measuring rate of reaction.
+—-------------------------------------------
+—-------------------------------------------
+6.What determines how fast a reaction occurs?
+—-------------------------------------------
+—-------------------------------------------
+7.Give one reason why explosions are fast reactions.
+—-------------------------------------------
+—-------------------------------------------
+8.State one industrial importance of controlling reaction rate.
+—-------------------------------------------
+—-------------------------------------------
+9.Which is faster: rusting or burning?
+—-------------------------------------------
+—-------------------------------------------
+10.What happens to the rate if particles collide more frequently?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Several factors can speed up or slow down a chemical reaction. These factors include:
+Temperature: higher temperature increases particle movement, speeding up reactions.
+Concentration: higher concentration means more particles, leading to more collisions.
+Surface area: smaller particle size exposes more surface, increasing reaction rate.
+Catalyst: a substance that speeds up reaction without being used up.
+Pressure: in gases, higher pressure forces particles closer, increasing collisions.
+Removing heat can slow down a reaction. Lower concentration slows down reaction rate.
+Catalysts are important in industry to save time and energy. Each factor affects how often and how energetically particles collide.</pre>
+      <pre class="panel-worksheet">
+1.List five factors that affect the rate of reaction.
+—-------------------------------------------
+—-------------------------------------------
+2.How does temperature affect reaction rate?
+—-------------------------------------------
+—-------------------------------------------
+3.What is the effect of increasing concentration on rate?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how surface area affects rate of reaction.
+—-------------------------------------------
+—-------------------------------------------
+5.Define catalyst.
+—-------------------------------------------
+—-------------------------------------------
+6.Give one example of a catalyst used in industry.
+—-------------------------------------------
+—-------------------------------------------
+7.How does pressure affect gaseous reactions?
+—-------------------------------------------
+—-------------------------------------------
+8.State one method of slowing down a reaction.
+—-------------------------------------------
+—-------------------------------------------
+9.Which factor involves changing particle size?
+—-------------------------------------------
+—-------------------------------------------
+10.Why are catalysts important in chemical industries?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An atom is the smallest particle of an element that retains its chemical properties. Atoms are made up of protons, neutrons, and electrons.
+Protons and neutrons are found in the nucleus, while electrons move around in shells. The number of protons in an atom is called the atomic number.
+The sum of protons and neutrons is called the mass number.
+
+The periodic table is an arrangement of elements in order of increasing atomic number.
+Groups are vertical columns, and periods are horizontal rows in the periodic table. Elements in the same group have similar chemical properties. Metals are found on the left, non-metals on the right, and metalloids between them. The periodic table helps predict element properties and chemical behavior.</pre>
+      <pre class="panel-worksheet">
+1.What is an atom?
+—-------------------------------------------
+—-------------------------------------------
+2.Name the three particles of an atom.
+—-------------------------------------------
+—-------------------------------------------
+3.Where are protons and neutrons found?
+—-------------------------------------------
+—-------------------------------------------
+4.What is the atomic number of an atom?
+—-------------------------------------------
+—-------------------------------------------
+5.Define mass number.
+—-------------------------------------------
+—-------------------------------------------
+6.How are elements arranged in the periodic table?
+—-------------------------------------------
+—-------------------------------------------
+7.What are groups in the periodic table?
+—-------------------------------------------
+—-------------------------------------------
+8.Which type of element is mostly found on the left side of the periodic table?
+—-------------------------------------------
+—-------------------------------------------
+9.Give one use of the periodic table.
+—-------------------------------------------
+—-------------------------------------------
+10.Which part of an atom moves around the nucleus?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Radioactivity is the spontaneous emission of radiation from unstable atomic nuclei. It was discovered by Henri Becquerel in 1896.
+The three main types of radiation are alpha (α), beta (β), and gamma (γ) rays.
+Alpha particles have low penetration and can be stopped by paper.
+Beta particles have medium penetration and can be stopped by aluminium.
+Gamma rays have high penetration and require thick lead to stop them. 
+Radioactive decay changes one element into another.
+Half-life is the time taken for half of a radioactive substance to decay.
+Radioactivity is used in medicine, agriculture, and industry.
+Excessive exposure to radiation can be harmful to living things.</pre>
+      <pre class="panel-worksheet">
+1.Define radioactivity.
+—-------------------------------------------
+—-------------------------------------------
+2.Who discovered radioactivity?
+—-------------------------------------------
+—-------------------------------------------
+3.Name the three types of radiation.
+—-------------------------------------------
+—-------------------------------------------
+4.Which radiation can be stopped by paper?
+—-------------------------------------------
+—-------------------------------------------
+5.Which radiation has the highest penetration power?
+—-------------------------------------------
+—-------------------------------------------
+6.What is meant by half-life?
+—-------------------------------------------
+—-------------------------------------------
+7.Give one use of radioactivity in medicine.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is radioactivity dangerous in high doses?
+—-------------------------------------------
+—-------------------------------------------
+9.Which type of radiation changes one element into another?
+—-------------------------------------------
+—-------------------------------------------
+10.Name one material that can stop beta particles.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An element is a pure substance made of only one type of atom. Examples of elements include oxygen, gold, and iron. Elements are represented by symbols, these elements and their symbols can be found in the periodic table.
+
+
+A compound is a substance made when two or more elements chemically combine. Examples of compounds include water (H₂O) and carbon dioxide (CO₂). Compounds have different properties from the elements that make them. Compounds are represented using chemical formulas. Compounds can only be separated by chemical methods.
+
+
+A mixture is formed when two or more substances are physically combined. Mixtures can be homogeneous (uniform) or heterogeneous (non-uniform). Mixtures can be separated by physical methods such as filtration, evaporation, and distillation.
+</pre>
+      <pre class="panel-worksheet">
+1.Define an element.
+—-------------------------------------------
+—-------------------------------------------
+2.Give two examples of elements.
+—-------------------------------------------
+—-------------------------------------------
+3.Define a compound.
+—-------------------------------------------
+—-------------------------------------------
+4.Give one example of a compound and its formula.
+—-------------------------------------------
+—-------------------------------------------
+5.How is a mixture different from a compound?
+—-------------------------------------------
+—-------------------------------------------
+6.What is a homogeneous mixture?
+—-------------------------------------------
+—-------------------------------------------
+7.Name one method for separating mixtures.
+—-------------------------------------------
+—-------------------------------------------
+8.Can compounds be separated by physical methods? Explain.
+—-------------------------------------------
+—-------------------------------------------
+9.How are elements represented?
+—-------------------------------------------
+—-------------------------------------------
+10.How are compounds represented?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An alloy is a mixture of two or more metals, or a metal and a non-metal. Alloys are made to improve the properties of metals. Examples of alloys include bronze, brass, and steel.
+
+
+Some alloys and and their constituents: 
+Bronze is made of copper and tin.
+Brass is made of copper and zinc.
+Steel is made of iron and carbon.
+
+
+Alloys are usually stronger, harder, and more resistant to corrosion than pure metals. Alloying changes the color, strength, and melting point of metals. Alloys are widely used in construction, jewelry, and manufacturing.
+Stainless steel, an alloy of iron, chromium, and nickel, resists rusting.</pre>
+      <pre class="panel-worksheet">
+1.What is an alloy?
+—-------------------------------------------
+—-------------------------------------------
+2.Why are alloys made?
+—-------------------------------------------
+—-------------------------------------------
+3.Give two examples of alloys.
+—-------------------------------------------
+—-------------------------------------------
+4.What metals make bronze?
+—-------------------------------------------
+—-------------------------------------------
+5.What metals make brass?
+—-------------------------------------------
+—-------------------------------------------
+6.What elements make steel?
+—-------------------------------------------
+—-------------------------------------------
+7.Name one property of alloys that makes them useful.
+—-------------------------------------------
+—-------------------------------------------
+8.Which alloy resists rusting?
+—-------------------------------------------
+—-------------------------------------------
+9.Give one use of alloys.
+—-------------------------------------------
+—-------------------------------------------
+10.How do alloys differ from pure metals in strength?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Giant molecules are substances made up of a huge number of atoms bonded together in a regular arrangement.
+Diamond and graphite are examples of giant covalent structures made of carbon atoms.
+In diamond, each carbon atom is covalently bonded to 4 others, forming a rigid 3D structure. Diamond is the hardest natural material and has a very high melting point. It does not conduct electricity because it has no free electrons.
+
+In graphite, each carbon atom is bonded to 3 others in flat layers of hexagons. Layers in graphite are held by weak forces, so they can slide over each other. Graphite is soft and slippery, making it useful as a lubricant and in pencils. Graphite conducts electricity because it has free electrons in each layer.
+The difference in their properties is due to their different bonding arrangements.
+</pre>
+      <pre class="panel-worksheet">
+1.What is meant by a giant molecule?
+—-------------------------------------------
+—-------------------------------------------
+2.Name two examples of giant covalent structures.
+—-------------------------------------------
+—-------------------------------------------
+3.How many carbon atoms is each carbon bonded to in diamond?
+—-------------------------------------------
+—-------------------------------------------
+4.State one reason why diamond is very hard.
+—-------------------------------------------
+—-------------------------------------------
+5.Why does diamond not conduct electricity?
+—-------------------------------------------
+—-------------------------------------------
+6.How many bonds does each carbon atom have in graphite?
+—-------------------------------------------
+—-------------------------------------------
+7.Why is graphite soft and slippery?
+—-------------------------------------------
+—-------------------------------------------
+8.State one reason graphite can conduct electricity.
+—-------------------------------------------
+—-------------------------------------------
+9.Give one industrial use of diamond.
+—-------------------------------------------
+—-------------------------------------------
+10.Give one industrial use of graphite.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A chemical formula shows the type and number of atoms in a molecule or compound.
+Elements are represented by symbols, e.g., H for hydrogen, O for oxygen.
+Subscripts indicate the number of atoms, e.g., H₂O has 2 hydrogen atoms and 1 oxygen atom.
+For ionic compounds, the formula shows the ratio of positive to negative ions.
+Covalent compounds are written with the symbols of the atoms joined together.
+The valency of each element helps determine the correct formula.
+The criss-cross method is used for writing ionic formulas.
+
+Example: Writing the formula for Calcium Chloride
+1.Write the symbols of the elements (or ions) and their Valency:
+ Calcium → Ca, Calcium has a valency of 2 (Ca²⁺).
+ Chlorine → Cl, Chlorine has a valency of 1 (Cl⁻).
+2.Criss-cross the valencies: So: Ca²⁺ and Cl⁻ → Ca₁Cl₂
+3.Write the final formula (omit ‘1’):
+ ✅ CaCl₂
+
+Another Example: Aluminium Oxide
+1.Aluminium → Al (valency = 3, Al³⁺)
+2.Oxygen → O (valency = 2, O²⁻)
+3.Criss-cross the valencies → Al₂O₃
+4.Final formula: ✅ Al₂O₃
+Correct chemical formulas are important in equations and chemical reactions.
+</pre>
+      <pre class="panel-worksheet">
+1.What is a chemical formula?
+—-------------------------------------------
+—-------------------------------------------
+2.Give the chemical formula for water.
+—-------------------------------------------
+—-------------------------------------------
+3.What does the subscript ‘₂’ in O₂ mean?
+—-------------------------------------------
+—-------------------------------------------
+4.Write the formula for sodium chloride using the criss-cross method.
+—-------------------------------------------
+—-------------------------------------------
+5.What is the formula for carbon dioxide?
+—-------------------------------------------
+—-------------------------------------------
+6.What is the difference between molecular and empirical formulas?
+—-------------------------------------------
+—-------------------------------------------
+7.Give one example of a polyatomic ion.
+—-------------------------------------------
+—-------------------------------------------
+8.Write the formula for ammonium sulfate.
+—-------------------------------------------
+—-------------------------------------------
+9.Which information is needed to write a chemical formula?
+—-------------------------------------------
+—-------------------------------------------
+10.Write the formula for magnesium oxide.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The atomic number (Z) is the number of protons in an atom’s nucleus. Atomic number also equals the number of electrons in a neutral atom.
+The atomic mass (A) is the total number of protons and neutrons in an atom’s nucleus.
+Neutrons = Atomic mass – Atomic number.
+Atomic number determines the element’s identity and position in the periodic table.
+Atoms of the same element can have different numbers of neutrons; these are called isotopes.
+Atomic mass is sometimes called the mass number.
+Example 𝟷: Oxygen Atom (O)
+The symbol of oxygen is:
+ ⁱ⁶₈O
+Atomic number (Z) = 𝟾
+Mass number (A) = 𝟷𝟼
+Number of protons = Atomic number = 𝟾
+Number of electrons = Number of protons (for neutral atom) = 𝟾
+Number of neutrons = Mass number − Atomic number = 𝟷𝟼 − 𝟾 = 𝟾
+✅ Oxygen has 𝟾 protons, 𝟾 neutrons, and 𝟾 electrons.
+Example 𝟸: Sodium Atom (Na)
+The symbol of sodium is:
+ ²³₁₁Na
+Atomic number (Z) = 𝟷𝟷
+Mass number (A) = 𝟸𝟹
+Number of protons = Atomic number = 𝟷𝟷
+Number of electrons = Number of protons (for neutral atom) = 𝟷𝟷
+Number of neutrons = Mass number − Atomic number = 𝟸𝟹 − 𝟷𝟷 = 𝟷𝟸
+✅ Sodium has 𝟷𝟷 protons, 𝟷𝟸 neutrons, and 𝟷𝟷 electrons.
+</pre>
+      <pre class="panel-worksheet">
+1.What is the atomic number of an atom?
+—-------------------------------------------
+—-------------------------------------------
+2.State the meaning of atomic mass.
+—-------------------------------------------
+—-------------------------------------------
+3.How is the number of neutrons calculated?
+—-------------------------------------------
+—-------------------------------------------
+4.What determines the identity of an element?
+—-------------------------------------------
+—-------------------------------------------
+5.Give the atomic number of oxygen.
+—-------------------------------------------
+—-------------------------------------------
+6.Define an isotope.
+—-------------------------------------------
+—-------------------------------------------
+7.State the relative mass and charge of a proton.
+—-------------------------------------------
+—-------------------------------------------
+8.State the relative mass and charge of a neutron.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is the mass of an electron often ignored?
+—-------------------------------------------
+—-------------------------------------------
+10.What is the atomic mass of an atom with 6 protons and 6 neutrons?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Relative molecular mass (Mr) is the sum of the relative atomic masses (Ar) of all atoms in a molecule. It has no unit because it is a ratio. The Ar of an element is found in the periodic table.
+Example 1: Water (H₂O)
+Relative atomic masses (Ar): H = 1, O = 16
+RMM = (2 × Ar of H) + (1 × Ar of O)
+ = (2 × 1) + (1 × 16)
+ = 2 + 16
+ = 18
+Relative Molecular Mass of H₂O = 18
+Example 2: Carbon dioxide (CO₂)
+Relative atomic masses (Ar): C = 12, O = 16
+RMM = (1 × Ar of C) + (2 × Ar of O)
+ = (1 × 12) + (2 × 16)
+ = 12 + 32
+ = 44
+Relative Molecular Mass of CO₂ = 44
+Example 3: Ammonium sulfate (NH4)2SO4
+Relative atomic masses (Ar): N = 14, H = 1, S = 32, O = 16
+RMM = 2 × (Ar of N + 4 × Ar of H) + (Ar of S) + (4 × Ar of O)
+ = 2 × (14 + 4 × 1) + 32 + (4 × 16)
+ = 2 × (14 + 4) + 32 + 64
+ = 2 × 18 + 32 + 64
+ = 36 + 32 + 64
+ = 132
+Relative Molecular Mass of (NH₄)₂SO₄ = 132
+ </pre>
+      <pre class="panel-worksheet">
+1.Define relative molecular mass.
+—-------------------------------------------
+—-------------------------------------------
+2.Does relative molecular mass have a unit?
+—-------------------------------------------
+—-------------------------------------------
+3.What is the Mr of CO₂?
+—-------------------------------------------
+—-------------------------------------------
+4.What is the Ar of oxygen?
+—-------------------------------------------
+—-------------------------------------------
+5.What is the Mr of NaCl?
+—-------------------------------------------
+—-------------------------------------------
+6.How is Mr calculated for a molecule?
+—-------------------------------------------
+—-------------------------------------------
+7.What is the Mr of CH₄?
+—-------------------------------------------
+—-------------------------------------------
+8.What is the Mr of H₂SO₄?
+—-------------------------------------------
+—-------------------------------------------
+9.Which table is used to find Ar values?
+—-------------------------------------------
+—-------------------------------------------
+10.Why is Mr important in chemical calculations?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Acids are substances that produce hydrogen ions (H⁺) in solution (e.g., HCl, H₂SO₄). Acids taste sour, turn blue litmus red, and react with metals to produce hydrogen gas.
+Bases are substances that produce hydroxide ions (OH⁻) in solution (e.g., NaOH, Ca(OH)₂).
+Alkalis are bases that dissolve in water. Bases taste bitter, feel soapy, and turn red litmus blue.
+
+
+Neutralization occurs when an acid reacts with a base to produce salt and water.
+The general equation: Acid + Base → Salt + Water.
+Examples: HCl + NaOH → NaCl + H₂O.
+
+
+Neutralization is used in agriculture (reducing soil acidity) and medicine (antacids for indigestion).
+Indicators (litmus, phenolphthalein, methyl orange) are used to detect acids and bases.</pre>
+      <pre class="panel-worksheet">
+1.Define an acid with an example.
+—-------------------------------------------
+—-------------------------------------------
+2.Give two examples of bases.
+—-------------------------------------------
+—-------------------------------------------
+3.What is an alkali?
+—-------------------------------------------
+—-------------------------------------------
+4.State two properties of acids.
+—-------------------------------------------
+—-------------------------------------------
+5.State two properties of bases.
+—-------------------------------------------
+—-------------------------------------------
+6.Write the general equation for neutralization.
+—-------------------------------------------
+—-------------------------------------------
+7.What products are formed when hydrochloric acid reacts with sodium hydroxide?
+—-------------------------------------------
+—-------------------------------------------
+8.Mention one use of neutralization in agriculture.
+—-------------------------------------------
+—-------------------------------------------
+9.Which indicator turns pink in a base?
+—-------------------------------------------
+—-------------------------------------------
+10.What type of salt is formed when sulfuric acid reacts with sodium hydroxide?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A solution is a uniform mixture of a solute dissolved in a solvent. The solute is the substance being dissolved (e.g., sugar, salt). The solvent is the liquid that dissolves the solute (e.g., water, ethanol).
+Solubility is the maximum amount of solute that can dissolve in a solvent at a given temperature.
+Saturated solution contains the maximum solute at that temperature.
+Unsaturated solution can still dissolve more solute.
+Supersaturated solution contains more solute than normal at that temperature.
+
+
+Factors affecting solubility include temperature, pressure, and particle size. Solubility is usually expressed in grams of solute per 100g of solvent. Soluble substances dissolve easily; insoluble substances do not.
+</pre>
+      <pre class="panel-worksheet">
+1.Define a solution.
+—-------------------------------------------
+—-------------------------------------------
+2.What is the difference between a solute and a solvent?
+—-------------------------------------------
+—-------------------------------------------
+3.Define solubility.
+—-------------------------------------------
+—-------------------------------------------
+4.What is a saturated solution?
+—-------------------------------------------
+—-------------------------------------------
+5.State two factors that affect solubility.
+—-------------------------------------------
+—-------------------------------------------
+6.Give two examples of soluble substances in water.
+—-------------------------------------------
+—-------------------------------------------
+7.Give two examples of insoluble substances in water.
+—-------------------------------------------
+—-------------------------------------------
+8.What is meant by a supersaturated solution?
+—-------------------------------------------
+—-------------------------------------------
+9.In what unit is solubility usually expressed?
+—-------------------------------------------
+—-------------------------------------------
+10.How does temperature generally affect solubility of solids in liquids?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Water treatment is the process of making water safe for drinking and use. Raw water contains impurities such as dirt, microorganisms, and dissolved salts.
+Steps in water treatment include screening, sedimentation, filtration, and chlorination.
+Screening removes large particles like leaves and stones.
+Sedimentation allows heavy particles to settle at the bottom.
+Filtration removes fine suspended particles using sand and gravel filters.
+Chlorination kills harmful microorganisms using chlorine.
+Boiling water can also kill germs in small-scale treatment.
+Clean water is important to prevent diseases like cholera and typhoid. Treated water is stored in clean tanks before distribution.</pre>
+      <pre class="panel-worksheet">
+1.What is water treatment?
+—-------------------------------------------
+—-------------------------------------------
+2.Name three impurities found in raw water.
+—-------------------------------------------
+—-------------------------------------------
+3.What is the first step in water treatment?
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the process of sedimentation.
+—-------------------------------------------
+—-------------------------------------------
+5.What is the function of filtration in water treatment?
+—-------------------------------------------
+—-------------------------------------------
+6.What is the role of chlorination?
+—-------------------------------------------
+—-------------------------------------------
+7.Mention one household method of purifying water.
+—-------------------------------------------
+—-------------------------------------------
+8.Give two diseases caused by drinking untreated water.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is water stored after treatment?
+—-------------------------------------------
+—-------------------------------------------
+10.Name two materials used in filtration.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Matter is anything that has mass and occupies space. It is made up of tiny, invisible particles called atoms or molecules. The particle theory explains that these particles are in constant motion.
+In solids, particles are closely packed and vibrate in fixed positions.
+In liquids, particles are close but can slide over one another.
+In gases, particles are far apart and move freely in all directions.
+
+
+Intermolecular forces are strongest in solids and weakest in gases. The movement of particles is affected by temperature. Diffusion is evidence of the particle nature of matter. Brownian motion also shows particles are always moving.
+</pre>
+      <pre class="panel-worksheet">
+1.Define matter.
+—-------------------------------------------
+—-------------------------------------------
+2.Name the three states of matter.
+—-------------------------------------------
+—-------------------------------------------
+3.What are the tiny particles that make up matter called?
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the arrangement of particles in solids.
+—-------------------------------------------
+—-------------------------------------------
+5.Which state of matter has the weakest intermolecular forces?
+—-------------------------------------------
+—-------------------------------------------
+6.Explain diffusion with an example.
+—-------------------------------------------
+—-------------------------------------------
+7.What does Brownian motion show?
+—-------------------------------------------
+—-------------------------------------------
+8.State two differences between liquid and gas particles.
+—-------------------------------------------
+—-------------------------------------------
+9.How does temperature affect particle movement?
+—-------------------------------------------
+—-------------------------------------------
+10.Give one piece of evidence that matter is made of particles.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The idea of atoms began with Greek philosopher Democritus in 460 BC. He said matter is made of tiny indivisible particles called “atomos.”
+John Dalton (1803) proposed the first atomic theory. Dalton’s theory stated that atoms cannot be created or destroyed. He said atoms of the same element are identical in mass and properties. Atoms combine in simple ratios to form compounds.
+Dalton believed atoms are solid and indivisible. This was later modified as new discoveries emerged. His work laid the foundation for modern atomic theory. Dalton’s model is known as the billiard ball model.</pre>
+      <pre class="panel-worksheet">
+1.Who first suggested the idea of atoms?
+—-------------------------------------------
+—-------------------------------------------
+2.In what year did Dalton propose his theory?
+—-------------------------------------------
+—-------------------------------------------
+3.State one postulate of Dalton’s atomic theory.
+—-------------------------------------------
+—-------------------------------------------
+4.According to Dalton, what are atoms made of?
+—-------------------------------------------
+—-------------------------------------------
+5.What does “atomos” mean?
+—-------------------------------------------
+—-------------------------------------------
+6.Name the model Dalton proposed.
+—-------------------------------------------
+—-------------------------------------------
+7.According to Dalton, how do atoms form compounds?
+—-------------------------------------------
+—-------------------------------------------
+8.What does Dalton say about atoms of the same element?
+—-------------------------------------------
+—-------------------------------------------
+9.Why was Dalton’s theory later modified?
+—-------------------------------------------
+—-------------------------------------------
+10.Mention one limitation of Dalton’s atomic theory.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+In 1897, J.J. Thomson discovered the electron. He proposed the plum pudding model of the atom. Thomson’s model described atoms as a positive sphere with electrons embedded in it.
+
+
+In 1911, Ernest Rutherford discovered the nucleus through the gold foil experiment. He proposed that atoms have a small, dense, positively charged nucleus. Electrons move around the nucleus in empty space.
+
+
+In 1913, Niels Bohr improved Rutherford’s model. Bohr said electrons move in fixed orbits called energy levels.
+Later discoveries found neutrons in the nucleus (James Chadwick, 1932). The modern atomic model has protons, neutrons, and electrons.</pre>
+      <pre class="panel-worksheet">
+1.Who discovered the electron?
+—-------------------------------------------
+—-------------------------------------------
+2.What is the plum pudding model?
+—-------------------------------------------
+—-------------------------------------------
+3.Which experiment led Rutherford to discover the nucleus?
+—-------------------------------------------
+—-------------------------------------------
+4.What is the charge of the nucleus?
+—-------------------------------------------
+—-------------------------------------------
+5.Who proposed energy levels for electrons?
+—-------------------------------------------
+—-------------------------------------------
+6.Name the three main particles in an atom.
+—-------------------------------------------
+—-------------------------------------------
+7.Who discovered the neutron?
+—-------------------------------------------
+—-------------------------------------------
+8.State one difference between Thomson’s and Rutherford’s models.
+—-------------------------------------------
+—-------------------------------------------
+9.What year was the electron discovered?
+—-------------------------------------------
+—-------------------------------------------
+10.Which atomic model is accepted today?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An element is a pure substance made of only one type of atom. Each element is represented by a chemical symbol. 
+Chemical symbols are usually one or two letters. The first letter is always capitalized, the second is lowercase.
+Valency is the combining power of an element’s atom. It is based on the number of electrons lost, gained, or shared. Metals generally have positive valencies, non-metals have negative.
+List of Elements, Symbols, and Valency:
+1.Hydrogen – H – Valency 1
+2.Oxygen – O – Valency 2
+3.Nitrogen – N – Valency 3
+4.Carbon – C – Valency 4
+5.Sodium – Na – Valency 1
+6.Magnesium – Mg – Valency 2
+7.Aluminium – Al – Valency 3
+8.Chlorine – Cl – Valency 1
+9.Sulphur – S – Valency 2 (sometimes 4 or 6 in compounds)
+10.Calcium – Ca – Valency 2
+The periodic table lists elements and their symbols. Some symbols come from Latin names (e.g., Na for sodium). Knowing valency helps in writing chemical formulas.
+</pre>
+      <pre class="panel-worksheet">
+1.Define an element.
+—-------------------------------------------
+—-------------------------------------------
+2.What is a chemical symbol?
+—-------------------------------------------
+—-------------------------------------------
+3.How are chemical symbols written? Give five examples 
+—-------------------------------------------
+—-------------------------------------------
+4.What is valency?
+—-------------------------------------------
+—-------------------------------------------
+5.Give four examples of a metal and its valency.
+—-------------------------------------------
+—-------------------------------------------
+6.Give four examples of a non-metal and its valency.
+—-------------------------------------------
+—-------------------------------------------
+7.From which language is the symbol ‘Na’ derived?
+—-------------------------------------------
+—-------------------------------------------
+8.Why is valency important?
+—-------------------------------------------
+—-------------------------------------------
+9.How many letters can a chemical symbol have? Give three examples of elements and their chemical symbol
+—-------------------------------------------
+—-------------------------------------------
+10.Where can you find all elements and their symbols?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A chemical formula shows the elements in a compound and the ratio of atoms.
+Each element is represented by its chemical symbol (e.g., H for Hydrogen, O for Oxygen).
+Subscripts in a formula indicate the number of atoms of each element. No subscript means only one atom of that element is present.
+Ionic compounds are formed by the combination of positive (cation) and negative (anion) ions.
+The charges of ions must balance to make a neutral compound. Metals usually form positive ions, and non-metals form negative ions. The valency of an element shows its combining power and helps in writing formulas.
+Example: Writing the formula for Calcium Chloride
+1.Write the symbols of the elements (or ions) and their Valency:
+ Calcium → Ca, Calcium has a valency of 2 (Ca²⁺).
+ Chlorine → Cl, Chlorine has a valency of 1 (Cl⁻).
+2.Criss-cross the valencies: So: Ca²⁺ and Cl⁻ → Ca₁Cl₂
+3.Write the final formula (omit ‘1’):
+ ✅ CaCl₂
+Another Example: Aluminium Oxide
+4.Aluminium → Al (valency = 3, Al³⁺)
+5.Oxygen → O (valency = 2, O²⁻)
+6.Criss-cross the valencies → Al₂O₃
+7.Final formula: ✅ Al₂O₃
+Correct chemical formulas are important in equations and chemical reactions.
+</pre>
+      <pre class="panel-worksheet">
+1.What is a chemical formula?
+—-------------------------------------------
+—-------------------------------------------
+2.What does a subscript in a chemical formula represent?
+—-------------------------------------------
+—-------------------------------------------
+3.Write the formula for magnesium chloride.
+—-------------------------------------------
+—-------------------------------------------
+4.Write the formula for aluminium sulphate.
+—-------------------------------------------
+—-------------------------------------------
+5.What is the formula for sodium carbonate?
+—-------------------------------------------
+—-------------------------------------------
+6.Why must charges balance in ionic compounds?
+—-------------------------------------------
+—-------------------------------------------
+7.Write the formula for potassium nitrate.
+—-------------------------------------------
+—-------------------------------------------
+8.What is the formula for calcium hydroxide?
+—-------------------------------------------
+—-------------------------------------------
+9.Write the formula for copper(II) oxide.
+—-------------------------------------------
+—-------------------------------------------
+10.Give two examples of compounds and their formulas.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Chemical compounds are named based on the elements they contain.
+The name of an ionic compound starts with the metal (positive ion) followed by the non-metal (negative ion). For simple non-metals, the ending is changed to -ide (e.g., sodium chloride).
+If the negative ion contains oxygen, the ending is often -ate (e.g., calcium sulphate) or -ite for less oxygen (e.g., sodium nitrite).
+
+Roman numerals are used for metals with variable valency (e.g., Fe²⁺ is iron(II), Fe³⁺ is iron(III)).
+Molecular compounds (non-metal + non-metal) use prefixes (mono-, di-, tri-, tetra-, etc.) to show the number of atoms. The prefix “mono-” is omitted for the first element.
+
+Acids are named based on their anions (e.g., HCl – hydrochloric acid, H₂SO₄ – sulphuric acid).
+Knowledge of common ions helps in naming compounds accurately.
+
+Examples:
+Example 1: Name Ca(NO₃)₂
+Ca = calcium (metal), NO₃⁻ = nitrate (polyatomic ion).
+Name = calcium nitrate.
+Example 2: Write the name of PCl₅.
+P = phosphorus (non-metal), Cl = chlorine.
+Use prefixes: 5 = penta.
+Name = phosphorus pentachloride.</pre>
+      <pre class="panel-worksheet">
+1.What is the rule for naming ionic compounds?
+—-------------------------------------------
+—-------------------------------------------
+2.What does the ending -ide indicate in compound names?
+—-------------------------------------------
+—-------------------------------------------
+3.Name the compound NaCl.
+—-------------------------------------------
+—-------------------------------------------
+4.Name the compound K₂SO₄.
+—-------------------------------------------
+—-------------------------------------------
+5.What does the ending -ate usually mean?
+—-------------------------------------------
+—-------------------------------------------
+6.Name FeCl₃ using Roman numerals.
+—-------------------------------------------
+—-------------------------------------------
+7.Name CO₂ using prefixes.
+—-------------------------------------------
+—-------------------------------------------
+8.Name N₂O₄ using prefixes.
+—-------------------------------------------
+—-------------------------------------------
+9.Name H₂SO₃.
+—-------------------------------------------
+—-------------------------------------------
+10.Give two examples each of -ide and -ate compounds.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A chemical equation represents a chemical reaction using symbols and formulas. Reactants are written on the left, and products on the right, separated by an arrow.
+Balancing ensures the number of atoms of each element is the same on both sides.
+The Law of Conservation of Mass states matter is neither created nor destroyed in a reaction.
+
+
+Coefficients are used to balance equations, not subscripts. Start by balancing elements that appear once on each side. Balance polyatomic ions as a group if they remain unchanged.
+Example 1
+Balance: H₂ + O₂ → H₂O
+Unbalanced: H₂ + O₂ → H₂O
+Balance O: H₂ + O₂ → 2H₂O
+Balance H: 2H₂ + O₂ → 2H₂O ✅
+Example 2
+Balance: Fe + O₂ → Fe₂O₃
+Unbalanced: Fe + O₂ → Fe₂O₃
+Balance Fe: 2Fe + O₂ → Fe₂O₃
+Balance O: 4Fe + 3O₂ → 2Fe₂O₃ ✅
+</pre>
+      <pre class="panel-worksheet">
+1.What does a chemical equation show?
+—-------------------------------------------
+—-------------------------------------------
+2.What is the law of conservation of mass?
+—-------------------------------------------
+—-------------------------------------------
+3.Which part of an equation lists the reactants?
+—-------------------------------------------
+—-------------------------------------------
+4.Why do we use coefficients instead of changing subscripts?
+—-------------------------------------------
+—-------------------------------------------
+5.Balance: H₂ + Cl₂ → HCl.
+—-------------------------------------------
+—-------------------------------------------
+6.Balance: Fe + O₂ → Fe₂O₃.
+—-------------------------------------------
+—-------------------------------------------
+7.Balance: Na + H₂O → NaOH + H₂.
+—-------------------------------------------
+—-------------------------------------------
+8.Balance: C₂H₆ + O₂ → CO₂ + H₂O.
+—-------------------------------------------
+—-------------------------------------------
+9.Balance: Al + O₂ → Al₂O₃.
+—-------------------------------------------
+—-------------------------------------------
+10.Why should hydrogen and oxygen be balanced last in some reactions?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+  </div>
 
 <!--===================END OF LESSONS======================-->
-
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -240,11 +1368,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -270,10 +1399,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -315,204 +1441,86 @@
 </script>
 
 
-<script>
-const chemistryTopics = {
-  first: [
-    {
-      title: "Week 1: Introduction to Chemistry",
-      video: "https://www.youtube.com/embed/xOKiHhuCnFw",
-      questions: [
-        "Define chemistry.",
-        "List 3 reasons why we study chemistry."
-      ]
-    },
-    {
-      title: "Week 2: States of Matter",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_2",
-      questions: [
-        "Mention the 3 states of matter.",
-        "Differentiate between solid and gas."
-      ]
-    },
-    {
-      title: "Week 3: Elements and Compounds",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_3",
-      questions: [
-        "What is an element?",
-        "Give 2 examples of compounds."
-      ]
-    },
-    {
-      title: "Week 4: Separation Techniques",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_4",
-      questions: [
-        "Name 3 separation techniques.",
-        "State their uses."
-      ]
-    },
-    {
-      title: "Week 5: Physical & Chemical Changes",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_5",
-      questions: [
-        "What is a physical change?",
-        "Give examples of chemical changes."
-      ]
-    },
-    {
-      title: "Week 6: Mixtures",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_6",
-      questions: [
-        "Define mixture.",
-        "Differentiate homogeneous and heterogeneous mixtures."
-      ]
-    },
-    {
-      title: "Week 7: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_7",
-      questions: [
-        "Revise all topics from week 1–6."
-      ]
-    },
-    {
-      title: "Week 8: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_8",
-      questions: [
-        "Attempt mock exam questions."
-      ]
-    }
-  ],
-  second: [
-    {
-      title: "Week 1: Atomic Structure",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_9",
-      questions: [
-        "What are atoms?",
-        "List 3 subatomic particles."
-      ]
-    },
-    {
-      title: "Week 2: Periodic Table",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_10",
-      questions: [
-        "Who developed the periodic table?",
-        "List 3 Group I elements."
-      ]
-    },
-    {
-      title: "Week 3: Chemical Equations",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_11",
-      questions: [
-        "Write H₂ + O₂ → H₂O in balanced form."
-      ]
-    },
-    {
-      title: "Week 4: Acids and Bases",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_12",
-      questions: [
-        "Define acid and base.",
-        "Give examples."
-      ]
-    },
-    {
-      title: "Week 5: Salts",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_13",
-      questions: [
-        "What are salts?",
-        "Mention types of salts."
-      ]
-    },
-    {
-      title: "Week 6: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_14",
-      questions: ["Revise all topics."]
-    },
-    {
-      title: "Week 7: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_15",
-      questions: ["Solve practice questions."]
-    }
-  ],
-  third: [
-    {
-      title: "Week 1: Organic Chemistry Intro",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_16",
-      questions: [
-        "Define organic chemistry.",
-        "What are hydrocarbons?"
-      ]
-    },
-    {
-      title: "Week 2: Hydrocarbons",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_17",
-      questions: [
-        "Difference between alkanes and alkenes."
-      ]
-    },
-    {
-      title: "Week 3: Combustion",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_18",
-      questions: ["Define combustion.", "Products of complete combustion."]
-    },
-    {
-      title: "Week 4: Chemical Pollution",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_19",
-      questions: ["Mention pollutants from chemical industries."]
-    },
-    {
-      title: "Week 5: Revision",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_20",
-      questions: ["Review all topics."]
-    },
-    {
-      title: "Week 6: Examination",
-      video: "https://www.youtube.com/embed/YOUR_EMBED_LINK_21",
-      questions: ["Attempt full mock exam."]
-    }
-  ]
-};
 
-const topicList = document.getElementById("chemistryTopicsList");
-const videoFrame = document.getElementById("chemistryVideoFrame");
-const questionList = document.getElementById("chemistryQuestions").querySelector("ul");
-const termButtons = document.querySelectorAll(".term-btn");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-let currentTerm = "first";
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-function displayTopics(term) {
-  topicList.innerHTML = "";
-  chemistryTopics[term].forEach((topic, index) => {
-    const btn = document.createElement("button");
-    btn.innerText = topic.title;
-    btn.className = "topic-btn";
-    btn.addEventListener("click", () => {
-      videoFrame.src = topic.video;
-      document.querySelectorAll(".topic-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      questionList.innerHTML = "";
-      topic.questions.forEach(q => {
-        const li = document.createElement("li");
-        li.textContent = q;
-        questionList.appendChild(li);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
-    });
-    topicList.appendChild(btn);
-  });
-}
 
-termButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    termButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentTerm = btn.getAttribute("data-term");
-    displayTopics(currentTerm);
-    videoFrame.src = "";
-    questionList.innerHTML = "";
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
+      }
+    });
   });
+
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
 });
 
-displayTopics(currentTerm);
-</script>
-
+  </script>
 </body>
 </html>
