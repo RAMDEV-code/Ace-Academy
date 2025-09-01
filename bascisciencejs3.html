@@ -3,145 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Biology term buttons */
-    .term-btn-bio {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-bio:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-bio.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
 <!-- HEADER WITH NAV -->
@@ -176,41 +168,1201 @@
 </header>
 
 <!--===END OF NAV===-->
-  <section class="subject-section" id="biology-section">
-    <h2 class="subject-title">BASIC SCIENCE</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">BASIC SCIENCE</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-bio active" data-term="first">First Term</button>
-      <button class="term-btn-bio" data-term="second">Second Term</button>
-      <button class="term-btn-bio" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="bioTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Drug and Substance Abuse I
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="bioVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Drug and Substance Abuse II
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Family Trait
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Environmental Hazard – Soil Erosion
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Environmental Hazard – Bush Burning
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Environmental Hazard – Flooding
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Environmental Hazard – Deforestation
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-8" type="button">
+            Week 8: Environmental Hazard – Depletion of the Ozone Layer
+          </button>
         </div>
 
-        <h3 id="bioTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Resources of Living Things
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="bioWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Economic Importance of Resources from Living Things
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Resources of Non-Living Things – Solid Minerals
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Light Energy I
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Light Energy II
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Sound Energy
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Magnetism
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-8" type="button">
+            Week 8: Electrical Energy
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-9" type="button">
+            Week 9: Skill Acquisition
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Family Life Education I
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Family Life Education II
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Radioactivity
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Ethical Issues in Science and Development
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Sound Wave (Pitch, Quality/Timbre, Loudness)
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Simple Machine I
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Simple Machine II (Calculations)
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarized Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Drug abuse is the misuse of drugs without medical prescription. Substances commonly abused include alcohol, nicotine, cocaine, heroin, and cannabis.
+Drugs are meant for curing diseases, but misuse can cause addiction, damage to body organs, and mental imbalance. Peer pressure and curiosity often lead to drug abuse among youths.
+Prolonged use of hard drugs affects the nervous system, weakens reasoning, and reduces academic performance. Drug abuse is also linked to violence, accidents, and early death.
+Preventing drug abuse requires proper guidance, awareness campaigns, and positive peer influence.
+</pre>
+      <pre class="panel-worksheet">
+1.Define drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention four examples of commonly abused substances.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain the role of peer pressure in drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+4.State three effects of drug abuse on the brain.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is drug abuse dangerous to students’ academics?
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between drug use and drug misuse.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain how drug abuse can lead to violence.
+—-------------------------------------------
+—-------------------------------------------
+8.List two ways parents can help prevent drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+9.Mention two organs affected by prolonged alcohol abuse.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss two social effects of drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Drug abuse continues to harm individuals and society. Addiction makes people dependent, making it difficult to stop without medical help.
+Effects of substance abuse include broken homes, increased crime rates, and poor health. Some abusers resort to stealing to fund their addiction.
+Rehabilitation centers and counselling are vital in helping victims recover. Religious and community organizations also play roles in rehabilitation.
+The government enforces laws against drug trafficking through agencies like NDLEA. Education and personal discipline remain the strongest tools against drug abuse.
+</pre>
+      <pre class="panel-worksheet">
+1.What is drug addiction?
+—-------------------------------------------
+—-------------------------------------------
+2.List three effects of drug abuse on society.
+—-------------------------------------------
+—-------------------------------------------
+3.State the role of NDLEA in Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain the importance of counselling in rehabilitation.
+—-------------------------------------------
+—-------------------------------------------
+5.Mention three ways substance abuse leads to crime.
+—-------------------------------------------
+—-------------------------------------------
+6.Describe how drug addiction affects families.
+—-------------------------------------------
+—-------------------------------------------
+7.What is the difference between prevention and rehabilitation?
+—-------------------------------------------
+—-------------------------------------------
+8.List two community-based measures against drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why education is important in drug control.
+—-------------------------------------------
+—-------------------------------------------
+10.Suggest three methods government can use to curb drug abuse.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Family traits are inherited characteristics passed from parents to children through genes. These include physical features like height, skin colour, eye shape, and blood group.
+Inheritance follows genetic principles discovered by Gregor Mendel. Dominant traits appear more often while recessive traits may be hidden but reappear in future generations.
+Examples of inherited traits include ability to roll the tongue, attached or free ear lobes, and blood type. Environmental factors like diet can also influence how traits are expressed.
+Understanding family traits helps in predicting heredity and avoiding genetic disorders.
+</pre>
+<pre class="panel-worksheet">
+1.Define family trait.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention three examples of inherited traits.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between dominant and recessive traits.
+—-------------------------------------------
+—-------------------------------------------
+4.Who is regarded as the father of genetics?
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how blood group is inherited.
+—-------------------------------------------
+—-------------------------------------------
+6.Mention two traits that are not influenced by environment.
+—-------------------------------------------
+—-------------------------------------------
+7.Give two examples of how environment modifies traits.
+—-------------------------------------------
+—-------------------------------------------
+8.State two reasons why family traits are important in marriage.
+—-------------------------------------------
+—-------------------------------------------
+9.Define gene and its role in inheritance.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why siblings may look alike but not identical.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Soil erosion is the washing away of the topsoil by wind, water, or human activities. Topsoil is important because it contains nutrients needed for plant growth.
+Types of erosion include sheet, gully, and wind erosion. Human practices like deforestation, poor farming methods, and overgrazing increase erosion.
+The effects include reduced soil fertility, destruction of farmland, flooding, and desertification. Roads and buildings can also be damaged.
+Prevention methods include planting cover crops, afforestation, terracing, and proper land use.
+</pre>
+      <pre class="panel-worksheet">
+1.Define soil erosion.
+—-------------------------------------------
+—-------------------------------------------
+2.List three types of erosion.
+—-------------------------------------------
+—-------------------------------------------
+3.State two human activities that promote erosion.
+—-------------------------------------------
+—-------------------------------------------
+4.Why is topsoil important?
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how deforestation causes erosion.
+—-------------------------------------------
+—-------------------------------------------
+6.Mention two effects of erosion on agriculture.
+—-------------------------------------------
+—-------------------------------------------
+7.How does erosion affect human settlements?
+—-------------------------------------------
+—-------------------------------------------
+8.List three control measures for soil erosion.
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between sheet and gully erosion.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the role of afforestation in erosion control.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+          <pre class="panel-summary">
+Bush burning is the setting of fire on bushes and farmlands. It is common in rural areas, often for hunting or farming purposes.
+Effects of bush burning include destruction of soil organisms, loss of soil nutrients, and air pollution. It can also destroy crops, animals, and property.
+Frequent bush burning reduces soil fertility, making the land less productive. It also contributes to climate change by releasing greenhouse gases.
+Control measures include educating farmers, enforcing anti-burning laws, and encouraging safer methods of land clearing.
+</pre>
+      <pre class="panel-worksheet">
+1.Define bush burning.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention three reasons why people practice bush burning.
+—-------------------------------------------
+—-------------------------------------------
+3.State four harmful effects of bush burning.
+—-------------------------------------------
+—-------------------------------------------
+4.Explain how bush burning reduces soil fertility.
+—-------------------------------------------
+—-------------------------------------------
+5.How does bush burning affect the atmosphere?
+—-------------------------------------------
+—-------------------------------------------
+6.Mention two dangers of bush burning to human health.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest three alternatives to bush burning in farming.
+—-------------------------------------------
+—-------------------------------------------
+8.Why is bush burning dangerous to wildlife?
+—-------------------------------------------
+—-------------------------------------------
+9.How does bush burning contribute to climate change?
+—-------------------------------------------
+—-------------------------------------------
+10.Propose two government actions to stop bush burning.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Flooding is the overflowing of water onto normally dry land, often caused by heavy rainfall, blocked drainage, or overflowing rivers. It is a serious environmental hazard that affects both humans and property.
+Physics explains flooding through concepts of water flow, pressure, and volume. When rainfall exceeds soil infiltration capacity, excess water accumulates, creating floods. Improper urban planning and deforestation increase run-off, worsening the problem.
+Effects include destruction of homes, loss of farmlands, contamination of water supplies, and outbreaks of waterborne diseases. Floods also weaken soil structure, leading to erosion.
+Preventive measures include proper drainage systems, reforestation, construction of dams, flood warning systems, and controlled urban development.
+</pre>
+      <pre class="panel-worksheet">
+1.Define flooding and explain it as an environmental hazard.
+—-------------------------------------------
+—-------------------------------------------
+2.State three physical factors that contribute to flooding.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain how urbanization increases flooding risk.
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the role of soil infiltration in preventing floods.
+—-------------------------------------------
+—-------------------------------------------
+5.How does deforestation indirectly cause flooding?
+—-------------------------------------------
+—-------------------------------------------
+6.Mention three effects of flooding on the environment.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest four preventive measures against flooding.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how dams help to control flooding.
+—-------------------------------------------
+—-------------------------------------------
+9.Discuss the relationship between rainfall intensity and flooding.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare rural and urban flooding in terms of causes and effects.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Deforestation is the large-scale cutting down of trees without replanting. It disrupts the balance of nature and exposes the environment to many hazards.
+From a physics perspective, deforestation reduces transpiration, humidity, and natural cooling, which increases atmospheric temperature. It also reduces interception of rainfall, leading to soil erosion and flooding.
+Deforestation contributes to greenhouse gas emissions since fewer trees absorb carbon dioxide. This raises global temperatures and accelerates climate change.
+Effects include loss of biodiversity, desertification, poor air quality, irregular rainfall, and destruction of natural habitats. To prevent deforestation, afforestation, controlled logging, and government regulations are essential.
+</pre>
+      <pre class="panel-worksheet">
+1.Define deforestation and give two causes.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how deforestation contributes to climate change.
+—-------------------------------------------
+—-------------------------------------------
+3.State three effects of deforestation on the water cycle.
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the link between deforestation and soil erosion.
+—-------------------------------------------
+—-------------------------------------------
+5.How does deforestation affect atmospheric temperature?
+—-------------------------------------------
+—-------------------------------------------
+6.Mention four negative effects of deforestation on humans.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest three preventive measures against deforestation.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how afforestation helps reduce global warming.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe the role of government in controlling deforestation.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the environmental impact of selective logging and indiscriminate logging.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+    <section class="topic-panel" id="ft-topic-8">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The ozone layer is a protective shield in the atmosphere that absorbs harmful ultraviolet (UV) radiation from the sun. Depletion occurs when harmful chemicals, especially chlorofluorocarbons (CFCs), break down ozone molecules.
+Physics explains ozone depletion through photochemical reactions, where CFCs release chlorine atoms under UV light, destroying ozone. This thinning of the ozone layer allows excessive UV rays to reach the Earth.
+Effects include increased skin cancer, cataracts, reduced crop yield, and damage to aquatic life. It also accelerates global warming since ozone plays a role in atmospheric balance.
+Solutions include banning harmful chemicals, using ozone-friendly refrigerants, international agreements like the Montreal Protocol, and increasing public awareness.
+</pre>
+      <pre class="panel-worksheet">
+1.What is the ozone layer and why is it important?
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how chlorofluorocarbons cause ozone depletion.
+—-------------------------------------------
+—-------------------------------------------
+3.Describe the photochemical reaction involved in ozone destruction.
+—-------------------------------------------
+—-------------------------------------------
+4.List three effects of ozone depletion on humans.
+—-------------------------------------------
+—-------------------------------------------
+5.How does ozone depletion affect agriculture?
+—-------------------------------------------
+—-------------------------------------------
+6.Mention three international efforts to reduce ozone depletion.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain the link between ozone depletion and global warming.
+—-------------------------------------------
+—-------------------------------------------
+8.Suggest three ways individuals can help protect the ozone layer.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare natural ozone thinning with man-made depletion.
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss the significance of the Montreal Protocol.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Living things provide valuable resources essential for human survival. Plants give us food, timber, medicine, fibres, and oxygen through photosynthesis. Animals supply food such as meat, milk, eggs, hides, and skins. Microorganisms like bacteria and fungi are used in food production, antibiotics, and decomposition.
+Forests act as renewable resources by providing wood, fruits, herbs, and habitat for wildlife. Fisheries supply fish as a protein source, while livestock rearing supports agriculture. Agricultural products such as yam, cassava, and maize form staple foods. Renewable resources from living things can be replenished naturally if used sustainably.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between renewable and non-renewable resources of living things with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how photosynthesis makes plants an important resource.
+—-------------------------------------------
+—-------------------------------------------
+3.Discuss three ways microorganisms are beneficial to humans.
+—-------------------------------------------
+—-------------------------------------------
+4.List five major resources derived from plants and state their uses.
+—-------------------------------------------
+—-------------------------------------------
+5.Justify why fisheries are considered renewable resources.
+—-------------------------------------------
+—-------------------------------------------
+6.Explain the role of livestock in the economy of Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+7.How do forests help in maintaining ecological balance?
+—-------------------------------------------
+—-------------------------------------------
+8.Describe the importance of medicinal plants to local communities.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare the resources from plants and animals in terms of direct human benefits.
+—-------------------------------------------
+—-------------------------------------------
+10.Give two reasons why conservation of resources of living things is necessary.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Resources from living things contribute significantly to economic growth. Agricultural products provide raw materials for industries such as textiles (cotton), breweries (barley), and paper (wood). Livestock farming provides leather for shoes and bags, as well as dairy products. Fisheries boost employment and trade in coastal areas.
+Forests generate revenue through timber export, gum, and rubber production. Medicinal plants support pharmaceutical industries and traditional medicine. Honey production from bees provides income and health benefits. The export of cocoa, palm oil, and rubber contributes to Nigeria’s foreign exchange earnings. Thus, resources of living things are vital in trade, industry, employment, and national development.
+</pre>
+      <pre class="panel-worksheet">
+1.Discuss five ways resources from living things contribute to Nigeria’s economy.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how agriculture provides raw materials for local industries.
+—-------------------------------------------
+—-------------------------------------------
+3.State the importance of fisheries in employment generation.
+—-------------------------------------------
+—-------------------------------------------
+4.Describe two medicinal resources obtained from plants and their uses.
+—-------------------------------------------
+—-------------------------------------------
+5.How does the export of agricultural produce strengthen Nigeria’s economy?
+—-------------------------------------------
+—-------------------------------------------
+6.Evaluate the role of forests in industrial development.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest three ways resources from living things can improve rural communities.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how animal products are used in clothing and fashion.
+—-------------------------------------------
+—-------------------------------------------
+9.Distinguish between direct and indirect economic benefits of living resources.
+—-------------------------------------------
+—-------------------------------------------
+10.Propose strategies to maximize the economic importance of living resources sustainably.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Non-living resources include solid minerals, oil, gas, and water. Solid minerals are naturally occurring substances found in the earth’s crust. Nigeria is richly blessed with minerals like coal, tin, limestone, gold, iron ore, and gypsum. These resources serve as raw materials for industries, energy generation, and export.
+Coal is used in power generation, while limestone is essential in cement production. Iron ore is the backbone of the steel industry, and gold contributes to wealth and foreign exchange. Tin and columbite are useful in electronics, while gypsum is used in building materials. Proper exploration and management of solid minerals are crucial for national development and economic diversification.
+</pre>
+      <pre class="panel-worksheet">
+1.Define solid minerals and give five examples found in Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+2.State the importance of limestone to the construction industry.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain how coal contributes to Nigeria’s energy sector.
+—-------------------------------------------
+—-------------------------------------------
+4.Discuss three uses of iron ore in industrial development.
+—-------------------------------------------
+—-------------------------------------------
+5.Differentiate between metallic and non-metallic minerals with examples.
+—-------------------------------------------
+—-------------------------------------------
+6.Suggest reasons why Nigeria depends less on solid minerals despite their abundance.
+—-------------------------------------------
+—-------------------------------------------
+7.Evaluate the contribution of gold to Nigeria’s foreign earnings.
+—-------------------------------------------
+—-------------------------------------------
+8.Describe the role of gypsum in building industries.
+—-------------------------------------------
+—-------------------------------------------
+9.Propose three ways Nigeria can maximize benefits from solid minerals.
+—-------------------------------------------
+—-------------------------------------------
+10.Compare the advantages and disadvantages of coal as a source of energy.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Light is a form of energy that enables us to see objects. It travels in straight lines and can be represented by rays. The speed of light in air is about three hundred thousand kilometers per second, making it the fastest known form of energy.
+Light sources can be natural (like the sun, stars, fireflies) or artificial (like bulbs, candles, and lanterns). Opaque objects block light completely and form shadows, while transparent objects allow light to pass through. Translucent objects allow only partial light transmission.
+The formation of shadows shows that light travels in straight lines. Shadows vary depending on the position of the object relative to the light source. Light also obeys the laws of reflection when it strikes a smooth or rough surface.
+</pre>
+      <pre class="panel-worksheet">
+1.Define light and state its speed in air.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between natural and artificial sources of light with 2 examples each.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why shadows are formed.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the difference between opaque, transparent, and translucent materials?
+—-------------------------------------------
+—-------------------------------------------
+5.Draw and label a ray diagram showing light traveling in a straight line.
+—-------------------------------------------
+—-------------------------------------------
+6.Give three everyday applications of light traveling in straight lines.
+—-------------------------------------------
+—-------------------------------------------
+7.Why does the sun appear bigger at sunset?
+—-------------------------------------------
+—-------------------------------------------
+8.A student places a candle behind frosted glass. Explain the type of material and the nature of the shadow formed.
+—-------------------------------------------
+—-------------------------------------------
+9.Explain why stars are considered natural sources of light.
+—-------------------------------------------
+—-------------------------------------------
+10.Justify the statement: "The formation of shadows proves that light travels in straight lines."
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Reflection of light occurs when rays bounce off a surface. The laws of reflection state that:
+The angle of incidence equals the angle of reflection.
+The incident ray, reflected ray, and the normal all lie in the same plane.
+Regular reflection occurs on smooth surfaces like mirrors, producing clear images. Diffuse reflection occurs on rough surfaces, scattering light in different directions. Mirrors form images that are laterally inverted, upright, and virtual.
+Refraction is the bending of light as it passes from one medium to another, due to a change in speed. Common examples include the apparent bending of a stick in water and the formation of rainbows. Refraction has applications in lenses, spectacles, and optical instruments.
+</pre>
+      <pre class="panel-worksheet">
+1.State the two laws of reflection.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between regular and diffuse reflection.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is the image in a plane mirror said to be laterally inverted?
+—-------------------------------------------
+—-------------------------------------------
+4.Describe the difference between real and virtual images.
+—-------------------------------------------
+—-------------------------------------------
+5.A ray of light strikes a plane mirror at an angle of 40 degrees to the normal. Find the angle of reflection.
+—-------------------------------------------
+—-------------------------------------------
+6.Define refraction of light.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why a coin at the bottom of a cup of water appears raised.
+—-------------------------------------------
+—-------------------------------------------
+8.Mention two applications of refraction in daily life.
+—-------------------------------------------
+—-------------------------------------------
+9.Describe the path of light when it passes from air into glass.
+—-------------------------------------------
+—-------------------------------------------
+10.Why does a straw in a glass of water appear bent?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound is a form of energy produced by vibrating bodies and travels through a medium as waves. Unlike light, sound cannot travel in a vacuum; it needs solids, liquids, or gases to propagate.
+The speed of sound in air is about 340 meters per second. It travels faster in liquids and fastest in solids. Sound waves are longitudinal, meaning particles vibrate parallel to the direction of wave motion.
+The loudness of sound depends on the amplitude of vibration, while its pitch depends on frequency. Musical instruments produce sound through vibrations of strings, membranes, or air columns. Echo is the reflection of sound from a hard surface and is useful in sonar and navigation.
+</pre>
+      <pre class="panel-worksheet">
+1.Define sound energy and state how it is produced.
+—-------------------------------------------
+—-------------------------------------------
+2.Why can’t sound travel in a vacuum?
+—-------------------------------------------
+—-------------------------------------------
+3.Compare the speed of sound in air, water, and solids.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between pitch and loudness of sound.
+—-------------------------------------------
+—-------------------------------------------
+5.Describe the motion of particles in longitudinal waves.
+—-------------------------------------------
+—-------------------------------------------
+6.A sound travels at 340 m/s in air. Calculate the time it takes to cover 680 m.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain how a drum produces sound.
+—-------------------------------------------
+—-------------------------------------------
+8.What is an echo and state one of its uses?
+—-------------------------------------------
+—-------------------------------------------
+9.Describe how frequency affects the pitch of a sound.
+—-------------------------------------------
+—-------------------------------------------
+10.Why do astronauts in space use radios to communicate instead of speaking directly?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Magnetism is the force of attraction or repulsion produced by magnets, which are materials that attract iron, steel, cobalt, and nickel. Magnets have two poles: the north pole and the south pole. Like poles repel, while unlike poles attract. Magnetic fields are invisible regions around a magnet where its force is felt, shown by field lines from north to south.
+There are natural magnets (like lodestone) and artificial magnets (made from steel or alloys). Temporary magnets are made from soft iron, while permanent magnets are made from hardened steel. Magnetic materials can be magnetized by stroking with a magnet, electrical induction, or placing inside a solenoid carrying current.
+Applications of magnets include electric bells, compasses, loudspeakers, magnetic strips in cards, and MRI machines. Demagnetization can occur through heating, hammering, or alternating current.
+</pre>
+      <pre class="panel-worksheet">
+1.Differentiate between temporary and permanent magnets with examples.
+—-------------------------------------------
+—-------------------------------------------
+2.Explain how to magnetize a steel bar using electrical induction.
+—-------------------------------------------
+—-------------------------------------------
+3.Draw and describe the magnetic field pattern around a bar magnet.
+—-------------------------------------------
+—-------------------------------------------
+4.State three methods of demagnetization and explain why they work.
+—-------------------------------------------
+—-------------------------------------------
+5.A student claims that “all metals are magnetic.” Justify or refute this.
+—-------------------------------------------
+—-------------------------------------------
+6.Compare the magnetic strength of soft iron and steel in terms of retention.
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why the earth is considered a giant magnet.
+—-------------------------------------------
+—-------------------------------------------
+8.List four practical uses of magnets in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+9.Why do magnetic field lines never cross each other?
+—-------------------------------------------
+—-------------------------------------------
+10.Design a simple experiment to test whether a material is magnetic.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+            <section class="topic-panel" id="st-topic-8">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Electrical energy is the energy produced by the flow of electric charges through a conductor. It can be generated from primary sources such as fossil fuels, water, wind, sun, or nuclear reactions. Electricity is transmitted through conductors and used in homes, schools, and industries.
+The formula for electrical energy is E = P × t = V × I × t, where P is power, t is time, V is voltage, and I is current. The unit of electrical energy is the joule, but in practice, the kilowatt-hour (kWh) is used. One kilowatt-hour is the energy used when one kilowatt of power is consumed for one hour.
+Electrical energy is used for lighting, heating, transportation, powering machines, and communication systems. Wastage of electrical energy can be minimized by switching off appliances not in use, using energy-efficient devices, and avoiding illegal connections.
+</pre>
+      <pre class="panel-worksheet">
+1.Derive the formula for electrical energy from the definition of power.
+—-------------------------------------------
+—-------------------------------------------
+2.A 2000 W heater is used for 3 hours. Calculate the energy consumed in kWh.
+—-------------------------------------------
+—-------------------------------------------
+3.Why is the kWh more convenient than joule in measuring electrical energy?
+—-------------------------------------------
+—-------------------------------------------
+4.State five sources of generating electrical energy.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how electricity from water is generated in hydroelectric plants.
+—-------------------------------------------
+—-------------------------------------------
+6.Compare renewable and non-renewable sources of electrical energy.
+—-------------------------------------------
+—-------------------------------------------
+7.A bulb of 100 W is switched on for 10 hours daily. Find its monthly energy consumption in kWh.
+—-------------------------------------------
+—-------------------------------------------
+8.State three ways to reduce energy wastage at home.
+—-------------------------------------------
+—-------------------------------------------
+9.Why is electrical energy considered the most versatile form of energy?
+—-------------------------------------------
+—-------------------------------------------
+10.Discuss two dangers of electrical energy misuse.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+                <section class="topic-panel" id="st-topic-9">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Skill acquisition in physics refers to the process of learning practical and technical abilities that can be applied in everyday life and future careers. It emphasizes hands-on training, creativity, and problem-solving skills.
+Examples of physics-related skills include electrical installation, electronics repair, computer hardware maintenance, automobile mechanics, welding, and renewable energy technology. Learning these skills equips students to be self-reliant and contribute to national development.
+The Nigerian curriculum encourages entrepreneurship and vocational education, preparing learners for both employment and self-employment. Acquiring skills helps reduce unemployment, poverty, and over-dependence on white-collar jobs.
+</pre>
+      <pre class="panel-worksheet">
+1.Define skill acquisition and explain its importance in physics education.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention five vocational skills that are related to physics.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between formal and informal skill acquisition.
+—-------------------------------------------
+—-------------------------------------------
+4.How does skill acquisition reduce unemployment in Nigeria?
+—-------------------------------------------
+—-------------------------------------------
+5.Explain the relationship between physics knowledge and entrepreneurship.
+—-------------------------------------------
+—-------------------------------------------
+6.Discuss three challenges students may face in acquiring technical skills.
+—-------------------------------------------
+—-------------------------------------------
+7.Suggest three ways government can encourage skill acquisition in schools.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how renewable energy technology is a skill useful in modern Nigeria.
+—-------------------------------------------
+—-------------------------------------------
+9.Compare skill acquisition to theoretical classroom learning.
+—-------------------------------------------
+—-------------------------------------------
+10.Why is practical training necessary in addition to reading textbooks?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Family life education teaches young people about family roles, values, and responsibilities. It helps students understand physical, emotional, and social changes during adolescence.
+It provides knowledge about puberty, body changes, and reproductive health. Students also learn about the importance of respect and communication within the family.
+One key aspect is understanding the role of family in shaping behavior and character. It also encourages self-control, moral values, and decision-making skills.
+By studying family life, students gain awareness of issues like teenage pregnancy, peer pressure, and sexually transmitted infections. Education here is preventive, equipping youths to make responsible choices.
+</pre>
+      <pre class="panel-worksheet">
+1.Define family life education.
+—-------------------------------------------
+—-------------------------------------------
+2.Mention three physical changes in boys during puberty.
+—-------------------------------------------
+—-------------------------------------------
+3.Mention three physical changes in girls during puberty.
+—-------------------------------------------
+—-------------------------------------------
+4.State two emotional changes that occur during adolescence.
+—-------------------------------------------
+—-------------------------------------------
+5.Explain why communication is important in a family.
+—-------------------------------------------
+—-------------------------------------------
+6.How can family life education help prevent teenage pregnancy?
+—-------------------------------------------
+—-------------------------------------------
+7.Differentiate between puberty and adolescence.
+—-------------------------------------------
+—-------------------------------------------
+8.Mention two values a child learns from the family.
+—-------------------------------------------
+—-------------------------------------------
+9.State two dangers of peer pressure in adolescents.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain the role of family life education in moral development.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Family life education continues with deeper discussions on responsible parenthood and gender equality. It emphasizes the importance of preparing for marriage and family roles.
+It teaches about population education, family planning, and how large family sizes affect economic stability. Responsible sexual behavior is strongly encouraged.
+The concept of gender roles is clarified—showing that both boys and girls deserve equal opportunities in education and career development.
+Students also learn about child rights, responsibilities, and the role of the government in protecting children. This knowledge builds responsible citizens who can contribute positively to society.
+</pre>
+      <pre class="panel-worksheet">
+1.Define responsible parenthood.
+—-------------------------------------------
+—-------------------------------------------
+2.State three responsibilities of parents to children.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain two effects of overpopulation on a family.
+—-------------------------------------------
+—-------------------------------------------
+4.Differentiate between gender roles and gender equality.
+—-------------------------------------------
+—-------------------------------------------
+5.Mention three ways family planning helps in family stability.
+—-------------------------------------------
+—-------------------------------------------
+6.State two dangers of early marriage.
+—-------------------------------------------
+—-------------------------------------------
+7.List two rights of a child according to Nigerian constitution.
+—-------------------------------------------
+—-------------------------------------------
+8.Explain how family life education discourages gender discrimination.
+—-------------------------------------------
+—-------------------------------------------
+9.Mention two advantages of small family size.
+—-------------------------------------------
+—-------------------------------------------
+10.State two ways family life education contributes to national development.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Radioactivity is the spontaneous emission of particles or rays from unstable atomic nuclei. It occurs naturally in elements like uranium and radium.
+There are three main types of radiation: alpha particles, beta particles, and gamma rays. Alpha particles are heavy and positively charged, beta particles are light and negatively charged, while gamma rays are highly penetrating electromagnetic waves.
+Radioactive decay releases energy and can change one element into another. The half-life of a radioactive element is the time taken for half of its atoms to decay.
+Radioactivity has applications in medicine (cancer treatment, medical imaging), agriculture (food preservation), and industry (smoke detectors, thickness gauges). However, it also poses dangers like radiation sickness and environmental pollution.
+</pre>
+      <pre class="panel-worksheet">
+1.Define radioactivity.
+—-------------------------------------------
+—-------------------------------------------
+2.Name the three types of radiation and their charges.
+—-------------------------------------------
+—-------------------------------------------
+3.Differentiate between alpha, beta, and gamma radiation in terms of penetrating power.
+—-------------------------------------------
+—-------------------------------------------
+4.What is half-life?
+—-------------------------------------------
+—-------------------------------------------
+5.Explain how radioactive isotopes are used in medicine.
+—-------------------------------------------
+—-------------------------------------------
+6.Mention two dangers of radioactivity to humans.
+—-------------------------------------------
+—-------------------------------------------
+7.State two natural sources of radiation.
+—-------------------------------------------
+—-------------------------------------------
+8.How is radioactivity applied in agriculture?
+—-------------------------------------------
+—-------------------------------------------
+9.Differentiate between artificial and natural radioactivity.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain how radioactivity is useful in industry.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Ethical issues in science are moral questions about how scientific knowledge and technology should be used. Science improves life, but if misused, it can cause harm.
+Examples of ethical issues include cloning, genetic engineering, nuclear weapons, and misuse of medical research. These issues raise questions about human rights, safety, and environmental protection.
+Scientists must consider whether their discoveries benefit humanity or cause destruction. Governments and communities must create laws and policies to guide scientific practice.
+Students should understand that science must serve society positively, respecting human dignity and the environment. This awareness prepares them to become responsible scientists and informed citizens.
+</pre>
+      <pre class="panel-worksheet">
+1.Define ethical issues in science.
+—-------------------------------------------
+—-------------------------------------------
+2.Give two examples of ethical issues in biotechnology.
+—-------------------------------------------
+—-------------------------------------------
+3.Explain why cloning is considered an ethical issue.
+—-------------------------------------------
+—-------------------------------------------
+4.State two ethical problems of nuclear weapon development.
+—-------------------------------------------
+—-------------------------------------------
+5.Mention two ways science can cause environmental pollution.
+—-------------------------------------------
+—-------------------------------------------
+6.Differentiate between scientific development and ethical misuse.
+—-------------------------------------------
+—-------------------------------------------
+7.State two responsibilities of scientists toward society.
+—-------------------------------------------
+—-------------------------------------------
+8.Mention two benefits and one risk of genetic engineering.
+—-------------------------------------------
+—-------------------------------------------
+9.How can government policies reduce misuse of science?
+—-------------------------------------------
+—-------------------------------------------
+10.Explain why ethics is important in scientific research.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound is a form of energy produced by vibrating objects and transmitted through a medium such as air. The characteristics of a sound wave allow us to differentiate one sound from another.
+Pitch is the degree of highness or lowness of a sound. It depends on the frequency of vibration; higher frequency produces a high-pitched sound, while lower frequency produces a low-pitched sound.
+Quality or Timbre refers to the uniqueness of a sound that allows us to distinguish between two sources producing the same pitch and loudness, e.g., a piano and a guitar playing the same note.
+Loudness depends on the amplitude of vibration of the sound wave. Greater amplitude produces louder sounds, while smaller amplitude produces softer sounds. Loudness is also affected by the distance of the listener from the source.
+Sound intensity is measured in decibels (dB), and excessive loudness can cause damage to hearing.</pre>
+      <pre class="panel-worksheet">
+1.Define pitch and state the factor that determines it.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between pitch and loudness using frequency and amplitude.
+—-------------------------------------------
+—-------------------------------------------
+3.Why does a whistle and a drum sound different even when they are played at the same loudness?
+—-------------------------------------------
+—-------------------------------------------
+4.State two physical factors that affect loudness.
+—-------------------------------------------
+—-------------------------------------------
+5.Which sound property allows us to distinguish between the voices of two singers singing the same note?
+—-------------------------------------------
+—-------------------------------------------
+6.What unit is used to measure the intensity of sound?
+—-------------------------------------------
+—-------------------------------------------
+7.Explain why a mosquito produces a high-pitched sound.
+—-------------------------------------------
+—-------------------------------------------
+8.A tuning fork produces a frequency of 512 Hz. Explain the type of pitch it will produce.
+—-------------------------------------------
+—-------------------------------------------
+9.Why does the loudness of a sound decrease with distance?
+—-------------------------------------------
+—-------------------------------------------
+10.Explain the relationship between amplitude and energy of a sound wave.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A simple machine is a device that makes work easier by allowing a smaller force to overcome a larger force. Machines do not reduce the amount of work done but help in applying force more conveniently.
+Key terms include:
+Effort (E): the force applied to operate a machine.
+Load (L): the resistance that is overcome by the machine.
+Mechanical Advantage (M.A): the ratio of load to effort (L/E).
+Velocity Ratio (V.R): the ratio of distance moved by effort to distance moved by load.
+Efficiency (η): ratio of mechanical advantage to velocity ratio, expressed in percentage.
+Examples of simple machines include levers, inclined planes, pulleys, and wedges.
+A lever is a simple machine consisting of a rigid bar that pivots around a fixed point called the fulcrum. It is used to multiply force, making it easier to lift or move loads.
+The three main classes of levers depend on the relative positions of the effort, load, and fulcrum.
+Examples include crowbar (first class), wheelbarrow (second class), and tongs (third class).
+</pre>
+      <pre class="panel-worksheet">
+1.Define a simple machine with one example.
+—-------------------------------------------
+—-------------------------------------------
+2.Differentiate between effort and load.
+—-------------------------------------------
+—-------------------------------------------
+3.Derive the formula for mechanical advantage.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the velocity ratio of a machine?
+—-------------------------------------------
+—-------------------------------------------
+5.Why is the efficiency of a real machine always less than 100%?
+—-------------------------------------------
+—-------------------------------------------
+6.State two reasons why machines are useful to humans.
+—-------------------------------------------
+—-------------------------------------------
+7.State three examples of simple machines used in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+8.Define a lever and state its three classes.
+—-------------------------------------------
+—-------------------------------------------
+9.Give one example of each class of lever.
+—-------------------------------------------
+—-------------------------------------------
+10.Explain how the position of fulcrum, load, and effort determines the type of lever.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+In solving problems on machines, the relationships between effort, load, mechanical advantage, velocity ratio, and efficiency are applied.
+Mechanical Advantage (M.A) = Load (L) ÷ Effort (E)
+Velocity Ratio (V.R) = Distance moved by Effort ÷ Distance moved by Load
+Efficiency (η) = (M.A ÷ V.R) × 100%
+Example 1 – Calculating Mechanical Advantage
+Problem: A pulley system lifts a load of 480 newtons using an effort of 60 newtons. Find the mechanical advantage.
+A pulley lifts 480 N with 60 N effort.
+ M.A = 480 ÷ 60 = 8.
+Example 2 – Calculating Velocity Ratio
+Problem: In a machine the effort moves 3.0 m while the load moves 0.50 m. Find the velocity ratio.
+Effort moves 3.0 m, load moves 0.5 m.
+ V.R = 3.0 ÷ 0.5 = 6.
+Example 3 – Calculating Efficiency
+Problem: A machine has M.A = 8 and V.R = 10. Find its efficiency.
+M.A = 8, V.R = 10.
+ η = (8 ÷ 10) × 100% = 80%.
+
+In levers, pulleys, and inclined planes, calculations involve determining either effort, load, distance, or efficiency depending on the data given. For example, in an inclined plane:
+ V.R = Length of plane ÷ Height of plane.
+Efficiency is always less than 100% due to energy losses from friction, heat, and deformation.
+</pre>
+      <pre class="panel-worksheet">
+1.A machine lifts a load of 400 N with an effort of 100 N. Find its M.A.
+—-------------------------------------------
+—-------------------------------------------
+2.A machine has a V.R of 5. If the effort moves 2.5 m, calculate the distance moved by the load.
+—-------------------------------------------
+—-------------------------------------------
+3.A pulley system lifts a load of 600 N using an effort of 150 N. Calculate M.A and efficiency if V.R = 5.
+—-------------------------------------------
+—-------------------------------------------
+4.An inclined plane is 6 m long and 2 m high. Find its V.R.
+—-------------------------------------------
+—-------------------------------------------
+5.A machine with efficiency 80% has a V.R of 4. Calculate its M.A.
+—-------------------------------------------
+—-------------------------------------------
+6.A lever is used to lift a load of 300 N with an effort of 75 N. Find M.A.
+—-------------------------------------------
+—-------------------------------------------
+7.A machine has an M.A of 8 and a V.R of 10. Find its efficiency.
+—-------------------------------------------
+—-------------------------------------------
+8.A man uses a machine to raise a 1000 N load with an effort of 200 N. Find its efficiency if the V.R is 6.
+—-------------------------------------------
+—-------------------------------------------
+9.The efficiency of a machine is 70% and M.A is 7. Calculate its V.R.
+—-------------------------------------------
+—-------------------------------------------
+10.A load of 500 N is lifted through 2 m when the effort moves 10 m. Find the V.R, M.A, and efficiency.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+  </div>
+
 <!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -225,11 +1377,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -255,10 +1408,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -300,90 +1450,86 @@
 </script>
 
 
-<script>
-    const bioTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Biology",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["What is biology?", "Mention 3 branches of biology."]
-        },
-        {
-          title: "Week 2: Living and Non-Living Things",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["List 5 characteristics of living things.", "Give 3 examples of non-living things."]
-        },
-        {
-          title: "Week 3: Cells",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is a cell?", "Differentiate between plant and animal cells."]
-        }
-        // Add more weeks as needed
-      ],
-      second: [
-        {
-          title: "Week 1: Respiratory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define respiration.", "Mention parts of the respiratory system."]
-        },
-        {
-          title: "Week 2: Circulatory System",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["List components of blood.", "What is the function of the heart?"]
-        }
-        // Add more weeks
-      ],
-      third: [
-        {
-          title: "Week 1: Ecology and Environment",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["What is ecology?", "Define ecosystem."]
-        },
-        {
-          title: "Week 2: Food Chain and Web",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["Define food chain.", "Difference between food chain and food web?"]
-        }
-        // Add more weeks
-      ]
-    };
 
-    function loadBioTopics(term) {
-      const menu = document.getElementById("bioTopicsMenu");
-      const videoFrame = document.getElementById("bioVideoFrame");
-      const title = document.getElementById("bioTopicTitle");
-      const questions = document.getElementById("bioWorksheetQuestions");
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-bio").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-bio[data-term="${term}"]`).classList.add("active");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      bioTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
+
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      // Load first topic by default
-      if (bioTopics[term].length > 0) {
-        const first = bioTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-bio").forEach(btn => {
-      btn.addEventListener("click", () => loadBioTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadBioTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
-
 </body>
 </html>

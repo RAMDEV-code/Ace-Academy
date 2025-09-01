@@ -3,152 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Academy</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="img\Acestudents Logo.png">
+    <title>Acestudents</title>
 
     <link rel="stylesheet" href="./css/style.css">
-<style>
-/* Physics specific term buttons */
-    .term-btn-phy {
-      background-color: #3f3b82;
-      color: white;
-      border: none;
-      margin: 0 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+ <style>
+    /* Container & layout (matching colors/styles from screenshot) */
+:root{
+  --purple:#2e2e82;     /* side/topic buttons */
+  --accent:#ff6b6b;     /* active/selected */
+  --title:#1b1b59;      /* big title color */
+  --bg:#fafafa;
+  --panel-bg:#ffffff;
+}
 
-    .term-btn-phy:hover {
-      background-color: #574fcf;
-      transform: translateY(-2px);
-    }
+body { margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#222; }
 
-    .term-btn-phy.active {
-      background-color: #ff5e57;
-      color: #fff;
-    }
+/* Subject container */
+.subject-container{
+  padding:20px;
+  padding-top:6.5rem; /* same top spacing as screenshot */
+}
 
-    .subject-section {
-      padding: 6rem 2rem 2rem;
-      background-color: #fff;
-      color: #333;
-    }
+/* Title */
+.subject-title{
+  text-align:center;
+  font-size:2.25rem;
+  font-weight:800;
+  color:var(--title);
+  margin-bottom:0.75rem;
+}
 
-    .subject-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #3f3b82;
-    }
+/* Term buttons */
+.term-buttons{ text-align:center; margin-bottom:18px; }
+.term-btn{
+  background:var(--purple);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  margin:0 8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.term-btn.active{ background:var(--accent); color:#fff; }
 
-    .term-selector {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+/* Content wrapper: left topics + right content */
+.content-wrapper{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
 
-    .subject-layout {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* Topics column */
+.topics-column{
+  width:230px;
+  min-width:190px;
+}
+.term-topics{ display:flex; flex-direction:column; gap:12px; }
 
-    .topics-menu {
-      flex: 1 1 25%;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-radius: 6px;
-      max-height: 500px;
-      overflow-y: auto;
-    }
+/* Topic buttons style like screenshot */
+.topic-btn{
+  background:var(--purple);
+  color:#fff;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:none;
+}
+.topic-btn.active{ background:var(--accent); color:#fff; }
 
-    .topics-menu button {
-      display: block;
-      width: 100%;
-      background: #3f3b82;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.6rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+/* Main display area */
+.topic-display{
+  flex:1;
+  background:var(--panel-bg);
+  padding:12px;
+  border-radius:10px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+}
 
-    .topics-menu button:hover {
-      background: #574fcf;
-    }
+/* Video styling */
+.video-wrap{
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:18px;
+  height:420px;
+}
+.video-wrap iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+}
 
-    .topic-content {
-      flex: 1 1 70%;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 6px;
-    }
+/* Titles and pre styling */
+.section-title{ margin:6px 0; font-size:1.05rem; color:var(--title); font-weight:700; }
+.note-pre{
+  background:#f6f6f8;
+  padding:14px;
+  border-radius:8px;
+  white-space:pre-wrap; /* allows wrapping inside pre */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  margin-bottom:18px;
+  min-height:80px;
+}
 
-    .video-wrapper iframe {
-      width: 100%;
-      height: 320px;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      border: none;
-    }
+/* Hidden topic-panels area - keep them off-screen and invisible */
+.topic-panels{ display:none; }
 
-    .worksheet h4 {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      color: #3f3b82;
-    }
+/* Responsive breakpoints */
+@media (max-width:1024px){
+  .content-wrapper{ flex-direction:column; }
+  .topics-column{ width:100%; display:flex; order:2; }
+  .topic-display{ order:1; }
+  .video-wrap{ height:320px; }
+}
 
-    .worksheet ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
-    }
+@media (max-width:600px){
+  .subject-title{ font-size:1.6rem; }
+  .topic-btn{ padding:10px; font-size:14px; }
+  .term-btn{ padding:7px 10px; font-size:13px; margin:0 5px; }
+  .video-wrap{ height:210px; }
+  .topics-column{ width:100%; }
+  .topic-display{ padding:10px; }
+}
 
-    .worksheet li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1024px) {
-      .subject-layout {
-        flex-direction: column;
-      }
-
-      .topics-menu, .topic-content {
-        flex: 1 1 100%;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .term-selector button {
-        display: block;
-        width: 100%;
-        margin: 0.5rem auto;
-      }
-
-      .subject-title {
-        font-size: 1.5rem;
-      }
-
-      .topics-menu button {
-        font-size: 0.9rem;
-      }
-
-      .video-wrapper iframe {
-        height: 200px;
-      }
-    }
   </style>
-  
   </head>
 <body>
-
-    <!-- HEADER WITH NAV -->
+<!-- HEADER WITH NAV -->
 <header class="navbar">
   <div class="container">
-    <div class="logo">ACESTUDENTS</div>
+    <div class="logo">
+  <img src="img\Acestudents Logo.png" alt="ACESTUDENTS Logo" />
+</div>
+
 
     <nav class="nav-links" id="navMenu">
       <button class="close-btn" id="closeBtn">&times;</button>
@@ -158,9 +152,9 @@
         <div class="dropdown-content">
           <a href="JSS1.html">JSS1</a>
           <a href="JSS2.html">JSS2</a>
-          <a href="JSS3.html">jSS3</a>
+          <a href="JSS3.html">JSS3</a>
           <a href="SS1.html">SS1</a>
-          <a href="SS2.html">SS3</a>
+          <a href="SS2.html">SS2</a>
           <a href="SS3.html">SS3</a>
         </div>
       </div>
@@ -174,41 +168,1170 @@
 </header>
 
 <!--===END OF NAV===-->
- <section class="subject-section" id="physics-section">
-    <h2 class="subject-title">Physics</h2>
+ <!-- ====== SUBJECT SECTION (KEEP NAV & FOOTER OUTSIDE THIS) ====== -->
+  <section class="subject-container">
+    <h1 class="subject-title">PHYSICS</h1>
 
-    <div class="term-selector">
-      <button class="term-btn-phy active" data-term="first">First Term</button>
-      <button class="term-btn-phy" data-term="second">Second Term</button>
-      <button class="term-btn-phy" data-term="third">Third Term</button>
+    <!-- Term Buttons -->
+    <div class="term-buttons" role="tablist" aria-label="Terms">
+      <button class="term-btn active" data-term="first" type="button">First Term</button>
+      <button class="term-btn" data-term="second" type="button">Second Term</button>
+      <button class="term-btn" data-term="third" type="button">Third Term</button>
     </div>
 
-    <div class="subject-layout">
-      <div class="topics-menu" id="phyTopicsMenu"></div>
+    <div class="content-wrapper">
+      <!-- LEFT: Topics -->
+      <aside class="topics-column">
+        <!-- FIRST TERM TOPICS -->
+        <div class="term-topics" id="first-term">
+          <!--
+            ADD TOPICS FOR FIRST TERM HERE:
+            1) Duplicate the whole <button class="topic-btn" ...> block to add another topic
+            2) Change data-target to the id of the corresponding hidden .topic-panel (below)
+          -->
+          <button class="topic-btn active" data-target="#ft-topic-1" type="button">
+            Week 1: Work, Energy and Power I (Work Calculations)
+          </button>
 
-      <div class="topic-content">
-        <div class="video-wrapper">
-          <iframe id="phyVideoFrame" src="" allowfullscreen></iframe>
+          <button class="topic-btn" data-target="#ft-topic-2" type="button">
+            Week 2: Work, Energy and Power II (Kinetic and Potential Energy Calculations)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-3" type="button">
+            Week 3: Work, Energy and Power III (Power Calculations)
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-4" type="button">
+            Week 4: Kinetic Theory – Assumptions of the Kinetic Theory
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-5" type="button">
+            Week 5: Explanation of Some Phenomena Using Kinetic Theory
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-6" type="button">
+            Week 6: Boiling and Evaporation
+          </button>
+
+          <button class="topic-btn" data-target="#ft-topic-7" type="button">
+            Week 7: Measuring Temperature
+          </button>
         </div>
 
-        <h3 id="phyTopicTitle">Select a Topic</h3>
+        <!-- SECOND TERM TOPICS -->
+        <div class="term-topics" id="second-term" style="display:none;">
+          <!-- ADD SECOND TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#st-topic-1" type="button">
+            Week 1: Heat Transfer
+          </button>
 
-        <div class="worksheet">
-          <h4>Worksheet Questions</h4>
-          <ul id="phyWorksheetQuestions"></ul>
+          <button class="topic-btn" data-target="#st-topic-2" type="button">
+            Week 2: Introduction to Light Energy
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-3" type="button">
+            Week 3: Transmission of Light
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-4" type="button">
+            Week 4: Reflection of Light
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-5" type="button">
+            Week 5: Refraction of Light
+          </button>
+          
+          <button class="topic-btn" data-target="#st-topic-6" type="button">
+            Week 6: Dispersion of White Light
+          </button>
+
+          <button class="topic-btn" data-target="#st-topic-7" type="button">
+            Week 7: Additive Mixing of Colors
+          </button>
         </div>
-      </div>
+
+        <!-- THIRD TERM TOPICS -->
+        <div class="term-topics" id="third-term" style="display:none;">
+          <!-- ADD THIRD TERM TOPICS HERE -->
+          <button class="topic-btn" data-target="#tt-topic-1" type="button">
+            Week 1: Sound and Vibration
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-2" type="button">
+            Week 2: Properties of Sound
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-3" type="button">
+            Week 3: Reflection and Echo
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-4" type="button">
+            Week 4: Magnetism
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-5" type="button">
+            Week 5: Magnetic Field
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-6" type="button">
+            Week 6: Electromagnets
+          </button>
+
+          <button class="topic-btn" data-target="#tt-topic-7" type="button">
+            Week 7: Electric Circuit and Components
+          </button>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Visible Topic Content -->
+      <main class="topic-display" aria-live="polite">
+        <!-- Video (iframe) -->
+        <div class="video-wrap">
+          <!-- iframe src will be replaced by JS from the selected hidden panel -->
+          <iframe id="mainVideo" src="" title="Topic video" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Summary (pre tag as requested) -->
+        <h3 class="section-title">Summarize Note</h3>
+        <pre id="mainSummary" class="note-pre">Loading...</pre>
+
+        <!-- Worksheet (pre tag as requested) -->
+        <h3 class="section-title">Evaluation Questions (10):</h3>
+        <pre id="mainWorksheet" class="note-pre">Loading...</pre>
+      </main>
     </div>
   </section>
-  <!--===================END OF LESSONS======================-->
+  <!-- ====== END SUBJECT SECTION ====== -->
+
+
+  <!-- ===========================
+       HIDDEN TOPIC PANELS (ALL DATA LIVES HERE IN HTML)
+       - For each topic you must have a corresponding .topic-panel
+       - The button's data-target attribute must point to the panel id
+       - Edit iframe src, the <pre> summary text and worksheet text directly here
+     =========================== -->
+  <div class="topic-panels" aria-hidden="true" style="display:none;">
+    <!-- FIRST TERM TOPIC PANELS -->
+    <section class="topic-panel" id="ft-topic-1">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/Bv-jxVdM0rk?si=4vpS4rApeUpI5uQJ" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Work is said to be done when a force moves an object through a distance.
+The formula for work is: Work = Force × Distance.
+The SI unit of work is Joule (J).
+If no movement occurs, no work is done.
+Force is measured in Newtons (N), and distance in metres (m)
+Work is a scalar quantity, meaning it has magnitude but no direction.
+Positive work is done when the force and motion are in the same direction.
+Negative work is done when force and motion are in opposite directions.
+Zero work occurs when there's no displacement.
+Example: If a force of 10 N moves an object 5 m, work = 10 × 5 = 50 J.
+</pre>
+      <pre class="panel-worksheet">What is physics?
+1.Define work in physics.
+—-------------------------------------------
+—-------------------------------------------
+2.State the formula for calculating work.
+—-------------------------------------------
+—-------------------------------------------
+3.What is the SI unit of work?
+—-------------------------------------------
+—-------------------------------------------
+4.Calculate the work done when a force of 20 N moves an object 4 m.
+—-------------------------------------------
+—-------------------------------------------
+5.If an object does not move, how much work is done?
+—-------------------------------------------
+—-------------------------------------------
+6.What type of quantity is work — scalar or vector?
+—-------------------------------------------
+—-------------------------------------------
+7.A force of 15 N acts over a distance of 2 m. Find the work done.
+—-------------------------------------------
+—-------------------------------------------
+8.What is meant by negative work?
+—-------------------------------------------
+—-------------------------------------------
+9.A 25 N force moves an object 3 m. Calculate the work.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-2">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/FBUoy3eM-Hc?si=j1KhqJqN8fbUKPXV" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Energy is the ability to do work.
+There are different forms of energy — kinetic and potential being key mechanical forms.
+Kinetic Energy (K.E) is the energy of a moving body: K.E = ½mv².
+Potential Energy (P.E) is stored energy due to position: P.E = mgh.
+m = mass (kg), v = velocity (m/s), g = 10 m/s², h = height (m).
+The unit for both K.E and P.E is the Joule (J).
+The faster an object moves, the greater its kinetic energy.
+The higher an object is lifted, the greater its potential energy.
+Energy can be converted between kinetic and potential forms.
+Example: A 2 kg object moving at 3 m/s has K.E = ½ × 2 × 3² = 9 J.
+</pre>
+      <pre class="panel-worksheet">
+1.What is energy?
+—-------------------------------------------
+—-------------------------------------------
+2.State the formula for kinetic energy.
+—-------------------------------------------
+—-------------------------------------------
+3.State the formula for potential energy.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the unit of energy?
+—-------------------------------------------
+—-------------------------------------------
+5.Calculate the K.E of a 4 kg object moving at 5 m/s.
+—-------------------------------------------
+—-------------------------------------------
+6.Calculate the P.E of a 3 kg object raised 2 m above the ground.
+—-------------------------------------------
+—-------------------------------------------
+7.What is the value of gravitational acceleration on Earth?
+—-------------------------------------------
+—-------------------------------------------
+8.How is kinetic energy related to velocity?
+—-------------------------------------------
+—-------------------------------------------
+9.If mass increases, how is P.E affected?
+—-------------------------------------------
+—-------------------------------------------
+10.A 1 kg object is lifted 10 m. Calculate its potential energy.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-3">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/zHbpphfvHzM?si=HUWVr3HrXpDNcyW2" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Power is the rate at which work is done or energy is used.
+The formula is: Power = Work ÷ Time.
+The SI unit of power is the Watt (W).
+1 Watt = 1 Joule per second.
+A larger unit is the kilowatt (kW): 1 kW = 1000 W.
+The faster the work is done, the greater the power.
+Power is also a scalar quantity.
+Power can be used to compare machines or human effort.
+Example: If 100 J of work is done in 20 seconds, Power = 100 ÷ 20 = 5 W.
+Machines with higher power ratings do work faster.
+</pre>
+      <pre class="panel-worksheet">
+1.Define power in physics.
+—-------------------------------------------
+—-------------------------------------------
+2.What is the formula for calculating power?
+—-------------------------------------------
+—-------------------------------------------
+3.What is the SI unit of power?
+—-------------------------------------------
+—-------------------------------------------
+4.1 kilowatt is equal to how many watts?
+—-------------------------------------------
+—-------------------------------------------
+5.A man does 200 J of work in 50 s. Calculate the power.
+—-------------------------------------------
+—-------------------------------------------
+6.Is power a vector or scalar quantity?
+—-------------------------------------------
+—-------------------------------------------
+7.If a machine uses 500 J in 10 seconds, what is its power output?
+—-------------------------------------------
+—-------------------------------------------
+8.What does it mean if a device has a power rating of 1000 W?
+—-------------------------------------------
+—-------------------------------------------
+9.State one reason why power is important in machines.
+—-------------------------------------------
+—-------------------------------------------
+10.A bulb uses 60 J in 2 seconds. Calculate the power consumed.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-4">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Kinetic theory explains the behavior of matter in terms of particles in motion.
+It is used to describe solids, liquids, and gases.
+All matter is made up of tiny particles (atoms or molecules).
+These particles are in constant random motion.
+The temperature of a substance is a measure of the average kinetic energy of its particles.
+Collisions between particles are perfectly elastic (no loss of energy).
+Particles exert no forces on each other except during collisions.
+The volume of individual particles is negligible compared to the space between them.
+The pressure of a gas results from collisions of particles with container walls.
+The theory is more accurate for ideal gases under low pressure and high temperature.
+</pre>
+      <pre class="panel-worksheet">
+1.What does the kinetic theory explain?
+—-------------------------------------------
+—-------------------------------------------
+2.What are matter particles doing according to kinetic theory?
+—-------------------------------------------
+—-------------------------------------------
+3.What does temperature represent in the kinetic theory?
+—-------------------------------------------
+—-------------------------------------------
+4.Are collisions between gas particles elastic or inelastic?
+—-------------------------------------------
+—-------------------------------------------
+5.State one assumption of the kinetic theory.
+—-------------------------------------------
+—-------------------------------------------
+6.Why is the volume of particles negligible in gases?
+—-------------------------------------------
+—-------------------------------------------
+7.How is pressure generated in gases?
+—-------------------------------------------
+—-------------------------------------------
+8.What kind of forces do gas particles exert on each other?
+—-----------------------------------------------------------------
+—-----------------------------------------------------------------
+9.For which conditions is the kinetic theory most accurate?
+—-----------------------------------------------------------------
+—-----------------------------------------------------------------
+10.Name one state of matter described by kinetic theory.
+—-----------------------------------------------------------------
+—-----------------------------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-5">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The kinetic theory explains how particles behave in solids, liquids, and gases.
+In solids, particles vibrate in fixed positions, giving solids a definite shape.
+In liquids, particles are close but can slide over each other, allowing flow.
+In gases, particles move freely and at high speed in all directions.
+Heat energy increases the speed of particle movement.
+Expansion happens when particles gain energy and move apart.
+Compression occurs when particles are forced closer together.
+Diffusion (mixing of particles) happens faster in gases due to high particle speed.
+The smell of perfume spreading is due to diffusion.
+Boiling and evaporation are explained by increased particle motion due to heat.
+</pre>
+      <pre class="panel-worksheet">
+1.What does the kinetic theory of matter explain?
+—-------------------------------------------
+—-------------------------------------------
+2.How do particles behave in solids?
+—-------------------------------------------
+—-------------------------------------------
+3.Why can liquids flow?
+—-------------------------------------------
+—-------------------------------------------
+4.What happens to gas particles when heated?
+—-------------------------------------------
+—-------------------------------------------
+5.What causes expansion in materials?
+—-------------------------------------------
+—-------------------------------------------
+6.Which state of matter has the fastest moving particles?
+—-------------------------------------------
+—-------------------------------------------
+7.What is diffusion?
+—-------------------------------------------
+—-------------------------------------------
+8.Why does a balloon expand when heated?
+—-------------------------------------------
+—-------------------------------------------
+9.How does kinetic theory explain evaporation?
+—-------------------------------------------
+—-------------------------------------------
+10.Give an everyday example of diffusion.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-6">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Boiling is the rapid vaporization of a liquid at a specific temperature (boiling point).
+It happens throughout the liquid, not just at the surface.
+Evaporation is the slow change of liquid to gas at the surface, below boiling point.
+Both involve the movement of fast-moving particles escaping into the air.
+Boiling occurs at a constant temperature, but evaporation can happen at any temperature.
+Heat energy is required for both processes.
+Wind and surface area increase the rate of evaporation.
+Evaporation causes cooling because particles with higher energy leave.
+Sweat drying on the body is an example of evaporation.
+Boiling water on fire is an example of boiling.
+</pre>
+      <pre class="panel-worksheet">
+1.What is boiling?
+—-------------------------------------------
+—-------------------------------------------
+2.What is evaporation?
+—-------------------------------------------
+—-------------------------------------------
+3.State one difference between boiling and evaporation.
+—-------------------------------------------
+—-------------------------------------------
+4.Which of the two occurs at the surface only?
+—-------------------------------------------
+—-------------------------------------------
+5.What is the boiling point of water?
+—-------------------------------------------
+—-------------------------------------------
+6.Name two factors that affect the rate of evaporation.
+—-------------------------------------------
+—-------------------------------------------
+7.Why does evaporation cause cooling?
+—-------------------------------------------
+—-------------------------------------------
+8.Give one example of evaporation in everyday life.
+—-------------------------------------------
+—-------------------------------------------
+9.How is heat involved in boiling and evaporation?
+—-------------------------------------------
+—-------------------------------------------
+10.Why does boiling occur throughout the liquid?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="ft-topic-7">
+      <!-- Put your YouTube EMBED link in the iframe src below (use /embed/VIDEO_ID) -->
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Temperature is the measure of how hot or cold something is.
+It is measured using an instrument called a thermometer.
+The common temperature units are degree Celsius (°C) and Fahrenheit (°F).
+The clinical thermometer is used to measure body temperature.
+The laboratory thermometer measures temperatures in experiments.
+Thermometers contain liquids like mercury or alcohol that expand with heat.
+Temperature affects the state and behavior of matter.
+Body temperature is about 37°C.
+Ice melts at 0°C and water boils at 100°C at sea level.
+Proper thermometer use gives accurate temperature readings.
+</pre>
+      <pre class="panel-worksheet">
+1.What is temperature?
+—-------------------------------------------
+—-------------------------------------------
+2.What instrument is used to measure temperature?
+—-------------------------------------------
+—-------------------------------------------
+3.State two units of temperature.
+—-------------------------------------------
+—-------------------------------------------
+4.What is the normal human body temperature?
+—-------------------------------------------
+—-------------------------------------------
+5.Which thermometer is used in science labs?
+—-------------------------------------------
+—-------------------------------------------
+6.Why is mercury used in thermometers?
+—-------------------------------------------
+—-------------------------------------------
+7.What is the boiling point of water in °C?
+—-------------------------------------------
+—-------------------------------------------
+8.What does a thermometer measure?
+—-------------------------------------------
+—-------------------------------------------
+9.Name two types of thermometers.
+—-------------------------------------------
+—-------------------------------------------
+10.What happens to the liquid in a thermometer when heated?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+   <!-- SECOND TERM PANELS -->
+    <section class="topic-panel" id="st-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID4" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Heat is a form of energy that moves from a hotter object to a cooler one.
+The three main methods of heat transfer are conduction, convection, and radiation.
+Conduction occurs mainly in solids, where heat moves through direct contact.
+Convection happens in liquids and gases as warm particles rise and cool ones sink.
+Radiation transfers heat through empty space using electromagnetic waves.
+Metals are good conductors of heat, while wood and plastic are poor conductors (insulators).
+A conductor allows heat to pass through easily; an insulator does not.
+Convection currents are responsible for heating water and air.
+Radiation does not need a medium; this is how the sun heats the earth.
+Everyday examples include cooking, ironing, and feeling heat from a fire.
+</pre>
+      <pre class="panel-worksheet">
+1.What is heat?
+—-------------------------------------------
+—-------------------------------------------
+2.Name the three methods of heat transfer.
+—-------------------------------------------
+—-------------------------------------------
+3.Which method of heat transfer occurs in solids?
+—-------------------------------------------
+—-------------------------------------------
+4.Define conduction.
+—-------------------------------------------
+—-------------------------------------------
+5.Why is metal a good conductor of heat?
+—-------------------------------------------
+—-------------------------------------------
+6.How does heat travel in liquids and gases?
+—-------------------------------------------
+—-------------------------------------------
+7.What is radiation?
+—-------------------------------------------
+—-------------------------------------------
+8.Give one example of heat transfer by radiation.
+—-------------------------------------------
+—-------------------------------------------
+9.What is the role of convection currents?
+—-------------------------------------------
+—-------------------------------------------
+10.Name two insulators of heat.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="st-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Light is a form of energy that enables us to see.
+It travels in a straight line and moves very fast.
+The natural source of light is the sun.
+Other sources include candles, lamps, fire, and electric bulbs.
+Light is essential for vision, photosynthesis, and solar energy.
+Light does not need a medium to travel — it can move through a vacuum.
+Light helps plants make food through photosynthesis.
+Shadows are formed when light is blocked by an object.
+Transparent, translucent, and opaque materials affect how light passes.
+The study of light is called optics.</pre>
+      <pre class="panel-worksheet">
+1.What is light?
+—-------------------------------------------
+—-------------------------------------------
+2.Name the natural source of light.
+—-------------------------------------------
+—-------------------------------------------
+3.State two artificial sources of light.
+—-------------------------------------------
+—-------------------------------------------
+4.How does light travel?
+—-------------------------------------------
+—-------------------------------------------
+5.Does light need a medium to travel?
+—-------------------------------------------
+—-------------------------------------------
+6.What is a shadow?
+—-------------------------------------------
+—-------------------------------------------
+7.What is photosynthesis?
+—-------------------------------------------
+—-------------------------------------------
+8.What type of material allows light to pass completely?
+—-------------------------------------------
+—-------------------------------------------
+9.What do we call materials that do not allow light to pass through?
+—-------------------------------------------
+—-------------------------------------------
+10.What is the study of light called?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Transmission of light means how light passes through materials
+Transparent materials allow light to pass through completely (e.g., glass).
+Translucent materials allow some light to pass through (e.g., frosted glass).
+Opaque materials do not allow any light to pass (e.g., wood).
+The ability of a material to transmit light affects visibility and shadow formation.
+Shadows are formed by opaque objects blocking light.
+Transparent objects do not form clear shadows.
+Translucent objects form faint shadows.
+Opaque objects form dark and sharp shadows.
+Understanding light transmission helps in choosing materials for windows, lamps, etc.
+</pre>
+      <pre class="panel-worksheet">
+1.What is meant by transmission of light?
+—-------------------------------------------
+—-------------------------------------------
+2.Name one example of a transparent material.
+—-------------------------------------------
+—-------------------------------------------
+3.Give one example of a translucent material.
+—-------------------------------------------
+—-------------------------------------------
+4.Mention one opaque object.
+—-------------------------------------------
+—-------------------------------------------
+5.Which type of object forms a clear shadow?
+—-------------------------------------------
+—-------------------------------------------
+6.What kind of material allows some light to pass through?
+—-------------------------------------------
+—-------------------------------------------
+7.What is the difference between translucent and opaque materials?
+—-------------------------------------------
+—-------------------------------------------
+8.How do transparent materials affect light?
+—-------------------------------------------
+—-------------------------------------------
+9.Which material type is used for window panes?
+—-------------------------------------------
+—-------------------------------------------
+10.Why do opaque objects cast dark shadows?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Reflection is the bouncing back of light from a surface.
+It helps us to see objects that do not produce their own light.
+A plane mirror reflects light regularly.
+Smooth, shiny surfaces reflect light better than rough ones.
+The angle of incidence equals the angle of reflection.
+The incident ray is the incoming light ray, and the reflected ray is the outgoing one.
+The point where the rays meet the surface is the point of incidence.
+The normal line is perpendicular to the surface at the point of incidence.
+Regular reflection produces clear images; diffuse reflection does not.
+Mirrors, polished metals, and still water are good reflectors.
+</pre>
+      <pre class="panel-worksheet">
+1.What is reflection of light?
+—-------------------------------------------
+—-------------------------------------------
+2.Name a device that reflects light.
+—-------------------------------------------
+—-------------------------------------------
+3.What is an incident ray?
+—-------------------------------------------
+—-------------------------------------------
+4.What is a reflected ray?
+—-------------------------------------------
+—-------------------------------------------
+5.What is the normal line?
+—-------------------------------------------
+—-------------------------------------------
+6.Define the angle of reflection.
+—-------------------------------------------
+—-------------------------------------------
+7.What type of surfaces reflect light best?
+—-------------------------------------------
+—-------------------------------------------
+8.What is regular reflection?
+—-------------------------------------------
+—-------------------------------------------
+9.What is diffuse reflection?
+—-------------------------------------------
+—-------------------------------------------
+10.Give two examples of good reflectors.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Refraction is the bending of light as it passes from one medium to another.
+It occurs due to a change in the speed of light between different media.
+When light travels from air into water or glass, it slows down and bends.
+If light enters a denser medium, it bends towards the normal.
+If it enters a less dense medium, it bends away from the normal.
+The angle of incidence is the angle between the incoming ray and the normal.
+The angle of refraction is the angle between the refracted ray and the normal.
+A common example of refraction is a pencil appearing bent in water.
+Refraction is used in lenses, spectacles, and optical instruments.
+The refractive index measures how much light slows down in a medium.
+</pre>
+      <pre class="panel-worksheet">
+1.What is refraction of light?
+—-------------------------------------------
+—-------------------------------------------
+2.What causes the bending of light during refraction?
+—-------------------------------------------
+—-------------------------------------------
+3.What happens to light when it enters a denser medium?
+—-------------------------------------------
+—-------------------------------------------
+4.State one example of refraction in daily life.
+—-------------------------------------------
+—-------------------------------------------
+5.What is the angle between the incident ray and the normal called?
+—-------------------------------------------
+—-------------------------------------------
+6.What is the angle between the refracted ray and the normal called?
+—-------------------------------------------
+—-------------------------------------------
+7.Why does a pencil appear bent in water?
+—-------------------------------------------
+—-------------------------------------------
+8.Which direction does light bend in a less dense medium?
+—-------------------------------------------
+—-------------------------------------------
+9.What is the use of lenses in refraction?
+—-------------------------------------------
+—-------------------------------------------
+10.Define refractive index.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Dispersion is the splitting of white light into its component colors.
+This happens when white light passes through a prism.
+The colors produced are red, orange, yellow, green, blue, indigo, and violet.
+These seven colors make up the visible spectrum.
+Violet bends the most, while red bends the least.
+Each color has a different wavelength and speed in a medium.
+The bending of light in a prism causes the colors to separate.
+Dispersion proves that white light is made up of many colors.
+It is seen in rainbows and prism experiments.
+Dispersion is used in spectroscopy and optical instruments.
+</pre>
+      <pre class="panel-worksheet">
+1.What is dispersion of white light?
+—-------------------------------------------
+—-------------------------------------------
+2.What object is commonly used to demonstrate dispersion?
+—-------------------------------------------
+—-------------------------------------------
+3.List the seven colors of white light.
+—-------------------------------------------
+—-------------------------------------------
+4.Which color bends the most during dispersion?
+—-------------------------------------------
+—-------------------------------------------
+5.Which color bends the least during dispersion?
+—-------------------------------------------
+—-------------------------------------------
+6.What causes the separation of colors in dispersion?
+—-------------------------------------------
+—-------------------------------------------
+7.What is the visible spectrum?
+—-------------------------------------------
+—-------------------------------------------
+8.Mention one natural example of dispersion.
+—-------------------------------------------
+—-------------------------------------------
+9.What does dispersion show about white light?
+—-------------------------------------------
+—-------------------------------------------
+10.Name a device where dispersion is applied.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+        <section class="topic-panel" id="st-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID5" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Additive mixing is the process of creating new colors by combining light colors.
+The primary colors of light are red, green, and blue (RGB).
+When red and green light mix, they produce yellow.
+Blue and green light produce cyan.
+Red and blue light produce magenta.
+When all three primary light colors combine, white light is formed.
+Additive mixing is different from mixing pigments or paints.
+It is used in television screens, computer monitors, and stage lighting.
+Secondary colors are formed by combining two primary colors.
+Additive color mixing deals with light, not paints or dyes.
+</pre>
+      <pre class="panel-worksheet">
+1.What is additive color mixing?
+—-------------------------------------------
+—-------------------------------------------
+2.Name the three primary colors of light.
+—-------------------------------------------
+—-------------------------------------------
+3.What color is formed by mixing red and green light?
+—-------------------------------------------
+—-------------------------------------------
+4.What color is formed by mixing green and blue light?
+—-------------------------------------------
+—-------------------------------------------
+5.What color results from mixing red and blue light?
+—-------------------------------------------
+—-------------------------------------------
+6.What color is produced when red, green, and blue light are combined?
+—-------------------------------------------
+—-------------------------------------------
+7.How is additive mixing different from mixing paints?
+—-------------------------------------------
+—-------------------------------------------
+8.Where is additive mixing used in daily life?
+—-------------------------------------------
+—-------------------------------------------
+9.What are secondary colors of light?
+—-------------------------------------------
+—-------------------------------------------
+10.Why is white light formed in additive mixing?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <!-- THIRD TERM PANELS -->
+    <section class="topic-panel" id="tt-topic-1">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID6" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Sound is a form of energy produced by vibrating objects.
+Vibration is the back-and-forth movement of an object.
+All sounds start with a source that vibrates.
+These vibrations cause particles in the air to move, creating sound waves.
+Sound waves travel through solids, liquids, and gases but not in a vacuum.
+Faster vibrations produce higher-pitched sounds.
+Slower vibrations produce lower-pitched sounds.
+Louder sounds have stronger vibrations (greater amplitude).
+The human ear detects vibrations and converts them to signals the brain can understand.
+Musical instruments produce sound through different types of vibrations.
+</pre>
+      <pre class="panel-worksheet">
+1.What is sound?
+—-------------------------------------------
+—-------------------------------------------
+2.How is sound produced?
+—-------------------------------------------
+—-------------------------------------------
+3.What is vibration?
+—-------------------------------------------
+—-------------------------------------------
+4.What medium does sound not travel through?
+—-------------------------------------------
+—-------------------------------------------
+5.What happens when an object vibrates?
+—-------------------------------------------
+—-------------------------------------------
+6.How does pitch relate to vibration?
+—-------------------------------------------
+—-------------------------------------------
+7.What is amplitude in relation to sound?
+—-------------------------------------------
+—-------------------------------------------
+8.Why can’t we hear sound in space?
+—-------------------------------------------
+—-------------------------------------------
+9.Name three materials that sound can travel through.
+—-------------------------------------------
+—-------------------------------------------
+10.Which part of the body helps us hear sound?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-2">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+The main properties of sound are pitch, loudness, and quality (timbre).
+Pitch is how high or low a sound is, depending on the frequency.
+Loudness is how strong or soft a sound is, related to amplitude.
+Quality helps us distinguish different sounds even if they have the same pitch.
+Sound travels faster in solids, slower in gases.
+The speed of sound in air is about 343 m/s at room temperature.
+Echoes occur due to the reflection of sound.
+The human ear can hear sounds from about 20 Hz to 20,000 Hz.
+Sounds below 20 Hz are called infrasonic, and above 20,000 Hz are ultrasonic.
+Sound intensity is measured in decibels (dB).
+</pre>
+      <pre class="panel-worksheet">
+1.What are the three main properties of sound?
+—-------------------------------------------
+—-------------------------------------------
+2.What does pitch depend on?
+—-------------------------------------------
+—-------------------------------------------
+3.How is loudness of sound determined?
+—-------------------------------------------
+—-------------------------------------------
+4.What is sound quality also called?
+—-------------------------------------------
+—-------------------------------------------
+5.What is the speed of sound in air?
+—-------------------------------------------
+—-------------------------------------------
+6.What type of sound has a frequency below 20 Hz?
+—-------------------------------------------
+—-------------------------------------------
+7.Which unit is used to measure sound intensity?
+—-------------------------------------------
+—-------------------------------------------
+8.What range of sound frequencies can the human ear hear?
+—-------------------------------------------
+—-------------------------------------------
+9.What is an ultrasonic sound?
+—-------------------------------------------
+—-------------------------------------------
+10.Why does sound travel faster in solids than in gases?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-3">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+ Sound can be reflected, just like light.
+Reflection of sound occurs when sound waves bounce off a surface.
+A hard, smooth surface reflects sound better than a soft surface.
+An echo is a reflected sound heard after a delay.
+For an echo to be heard, the sound must travel a distance of at least 17 meters.
+Echoes are used in sonar and ultrasound scanning.
+Reverberation occurs when reflected sounds overlap and make the sound unclear.
+Soft materials like curtains and carpets absorb sound.
+The time interval between the original sound and the echo helps measure distance.
+Bats and dolphins use echolocation to navigate.</pre>
+      <pre class="panel-worksheet">
+1.What is sound reflection?
+—-------------------------------------------
+—-------------------------------------------
+2.What type of surface reflects sound well?
+—-------------------------------------------
+—-------------------------------------------
+3.What is an echo?
+—-------------------------------------------
+—-------------------------------------------
+4.How far must sound travel before an echo is heard?
+—-------------------------------------------
+—-------------------------------------------
+5.What is reverberation?
+—-------------------------------------------
+—-------------------------------------------
+6.Give two applications of sound reflection.
+—-------------------------------------------
+—-------------------------------------------
+7.Name two animals that use echolocation.
+—-------------------------------------------
+—-------------------------------------------
+8.What is the difference between echo and reverberation?
+—-------------------------------------------
+—-------------------------------------------
+9.How do soft materials affect sound reflection?
+—-------------------------------------------
+—-------------------------------------------
+10.How is distance measured using an echo?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+Magnetism is the force by which materials attract or repel each other.
+A magnet attracts objects made of iron, nickel, or cobalt.
+Magnets have two poles: North pole and South pole.
+Like poles repel, unlike poles attract.
+Magnetic force is strongest at the poles of a magnet.
+Magnetic field is the space around a magnet where its force is felt.
+A compass uses a magnetized needle to show direction.
+Temporary magnets lose their magnetism quickly; permanent magnets retain it.
+Electromagnets are magnets made using electricity.
+Magnets are used in motors, generators, speakers, and compasses.
+</pre>
+      <pre class="panel-worksheet">
+1.What is magnetism?
+—-------------------------------------------
+—-------------------------------------------
+2.Name three magnetic materials.
+—-------------------------------------------
+—-------------------------------------------
+3.What are the two poles of a magnet?
+—-------------------------------------------
+—-------------------------------------------
+4.What happens when like poles are brought together?
+—-------------------------------------------
+—-------------------------------------------
+5.Where is magnetic force strongest?
+—-------------------------------------------
+—-------------------------------------------
+6.What is a magnetic field?
+—-------------------------------------------
+—-------------------------------------------
+7.How does a compass work?
+—-------------------------------------------
+—-------------------------------------------
+8.What is the difference between permanent and temporary magnets?
+—-------------------------------------------
+—-------------------------------------------
+9.What is an electromagnet?
+—-------------------------------------------
+—-------------------------------------------
+10.Mention two uses of magnets.
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+    <section class="topic-panel" id="tt-topic-5">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+A magnetic field is the invisible area around a magnet where magnetic forces can be felt.
+Magnetic fields are strongest at the poles of a magnet.
+The direction of a magnetic field is from the North Pole to the South Pole.
+Iron filings can be used to show the pattern of magnetic field lines.
+A compass needle aligns itself with Earth's magnetic field.
+Magnetic field lines never cross each other.
+Like poles of magnets repel each other; unlike poles attract.
+Earth behaves like a giant magnet due to its molten iron core.
+Magnetic materials include iron, cobalt, and nickel.
+Magnetic fields are important in electricity generation and electric motors.
+</pre>
+      <pre class="panel-worksheet">
+1.What is a magnetic field?
+—-------------------------------------------
+—-------------------------------------------
+2.Name two magnetic materials.
+—-------------------------------------------
+—-------------------------------------------
+3.In which direction do magnetic field lines flow?
+—-------------------------------------------
+—-------------------------------------------
+4.What happens when like poles of magnets are brought together?
+—-------------------------------------------
+—-------------------------------------------
+5.What instrument shows the direction of a magnetic field?
+—-------------------------------------------
+—-------------------------------------------
+6.How can magnetic field lines be made visible?
+—-------------------------------------------
+—-------------------------------------------
+7.Where is a magnet's magnetic field strongest?
+—-------------------------------------------
+—-------------------------------------------
+8.Why does Earth act like a giant magnet?
+—-------------------------------------------
+—-------------------------------------------
+9.Name one use of magnetic fields in real life.
+—-------------------------------------------
+—-------------------------------------------
+10.Do magnetic field lines ever cross each other?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+
+      <section class="topic-panel" id="tt-topic-6">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An electromagnet is a temporary magnet made by passing electric current through a coil of wire.
+The strength of an electromagnet increases with more coils or higher current.
+A soft iron core is often placed inside the coil to enhance magnetism.
+Electromagnets can be turned on or off, unlike permanent magnets.
+They are widely used in electric bells, motors, and cranes.
+Wrapping the coil around a nail makes a simple electromagnet.
+The magnetic field around an electromagnet disappears when the current stops.
+Electromagnets are safer and more flexible than permanent magnets.
+Electromagnetism combines electricity and magnetism.
+The strength of the field depends on the number of wire turns and current.
+      </pre>
+      <pre class="panel-worksheet">
+1.What is an electromagnet?
+—-------------------------------------------
+—-------------------------------------------
+2.How can you increase the strength of an electromagnet?
+—-------------------------------------------
+—-------------------------------------------
+3.What happens to an electromagnet when the current is turned off?
+—-------------------------------------------
+—-------------------------------------------
+4.Give one example of a device that uses an electromagnet.
+—-------------------------------------------
+—-------------------------------------------
+5.What material is commonly used as the core of an electromagnet?
+—-------------------------------------------
+—-------------------------------------------
+6.Why are electromagnets preferred over permanent magnets in some devices?
+—-------------------------------------------
+—-------------------------------------------
+7.What type of magnet is used in electric cranes?
+—-------------------------------------------
+—-------------------------------------------
+8.Name one advantage of electromagnets.
+—-------------------------------------------
+—-------------------------------------------
+9.How does the number of coils affect an electromagnet?
+—-------------------------------------------
+—-------------------------------------------
+10.What does an electric current produce around a wire?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+    </section>
+    
+    <section class="topic-panel" id="tt-topic-7">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID7" frameborder="0" allowfullscreen></iframe>
+      <pre class="panel-summary">
+An electric circuit is a path through which electric current flows.
+A complete (closed) circuit allows current to flow; an open circuit does not.
+Main components of a circuit include cell, switch, wires, and bulb.
+A cell provides the electrical energy for current flow.
+Wires connect all components and allow current flow.
+A switch is used to open or close the circuit.
+A bulb lights up when current flows through it.
+Circuits can be series or parallel.
+In a series circuit, components share the same path.
+In a parallel circuit, components have separate paths.
+</pre>
+      <pre class="panel-worksheet">
+1.What is an electric circuit?
+—-------------------------------------------
+—-------------------------------------------
+2.Name any two components of an electric circuit.
+—-------------------------------------------
+—-------------------------------------------
+3.What does a switch do in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+4.What is the function of a cell in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+5.What happens in an open circuit?
+—-------------------------------------------
+—-------------------------------------------
+6.What is the difference between series and parallel circuits?
+—-------------------------------------------
+—-------------------------------------------
+7.What component produces light in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+8.Why are wires used in a circuit?
+—-------------------------------------------
+—-------------------------------------------
+9.Give one example of a device that uses an electric circuit.
+—-------------------------------------------
+—-------------------------------------------
+10.What type of circuit has more than one path for current?
+—-------------------------------------------
+—-------------------------------------------
+</pre>
+  </section>
+</div>
+
+<!--===================END OF LESSONS======================-->
 
 <footer class="footer animate-on-scroll" id="footer">
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="index.html" class="footer__logo"><h4>ACESTUDENTS</h4></a>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatibus?
-            </p>
+            <a href="index.html" class="footer__logo"><h4>Acestudents</h4></a>
+            <p>Empowering Excellence one Student at a Time.</p>
         </div>
 
         <div class="footer__2">
@@ -223,11 +1346,12 @@
         </div>
           
         <div class="footer__3">
-            <h4>Primacy</h4>
+            <h4>Privacy</h4>
             <ul class="privacy">
                 <li><a href="privacy.html">Privacy policy</a></li>
-                <li><a href="privacy.html">Terms & conditions</a></li>
-                <li><a href="privacy.html">Refund Policy</a></li>
+                <li><a href="T&C.html">Terms & conditions</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="Pricing.html">Pricing</a></li>
             </ul>
         </div>
 
@@ -253,10 +1377,7 @@
         </div>
         <button class="back-to-top" onclick="scrollToTop()">↑</button>
 </footer>
-
-
 <!--========END OF FOOTER==========-->
-
 
 
 <script>
@@ -299,91 +1420,85 @@
 
 
 
-<script>
-    const physicsTopics = {
-      first: [
-        {
-          title: "Week 1: Introduction to Physics",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 1: Introduction to Momentum",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID1",
-          questions: ["Define Physics.", "List 3 branches of Physics."]
-        },
-        {
-          title: "Week 2: Measurement",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID2",
-          questions: ["What is measurement?", "State the SI unit of length, time, and mass."]
-        },
-        {
-          title: "Week 3: Motion",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID3",
-          questions: ["What is motion?", "State Newton's first law of motion."]
-        }
-        // Add more weeks if needed
-      ],
-      second: [
-        {
-          title: "Week 1: Force",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID4",
-          questions: ["Define force.", "Mention 2 effects of force."]
-        },
-        {
-          title: "Week 2: Energy",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID5",
-          questions: ["What is energy?", "List 3 types of energy."]
-        }
-      ],
-      third: [
-        {
-          title: "Week 1: Electricity",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID6",
-          questions: ["Define electricity.", "Mention the SI unit of electric current."]
-        },
-        {
-          title: "Week 2: Magnetism",
-          video: "https://www.youtube.com/embed/YOUR_VIDEO_ID7",
-          questions: ["What is magnetism?", "List 2 types of magnets."]
-        }
-      ]
-    };
+  <script>
+    /* physics.js
+   - Minimal JS: toggles term panels and loads topic content (video, summary, worksheet)
+   - All topic contents live in the HTML as hidden .topic-panel sections
+*/
 
-    function loadPhysicsTopics(term) {
-      const menu = document.getElementById("phyTopicsMenu");
-      const videoFrame = document.getElementById("phyVideoFrame");
-      const title = document.getElementById("phyTopicTitle");
-      const questions = document.getElementById("phyWorksheetQuestions");
+document.addEventListener('DOMContentLoaded', () => {
+  // Helpers
+  const termButtons = document.querySelectorAll('.term-btn');
+  const topicLists = document.querySelectorAll('.term-topics');
+  const topicButtons = document.querySelectorAll('.topic-btn');
 
-      menu.innerHTML = "";
-      document.querySelectorAll(".term-btn-phy").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.term-btn-phy[data-term="${term}"]`).classList.add("active");
+  const mainVideo = document.getElementById('mainVideo');
+  const mainSummary = document.getElementById('mainSummary');
+  const mainWorksheet = document.getElementById('mainWorksheet');
 
-      physicsTopics[term].forEach((topic, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = topic.title;
-        btn.onclick = () => {
-          videoFrame.src = topic.video;
-          title.textContent = topic.title;
-          questions.innerHTML = topic.questions.map(q => `<li>${q}</li>`).join('');
-        };
-        menu.appendChild(btn);
+  // Function: load content from a hidden panel into main display
+  function loadPanel(panelId){
+    const panel = document.querySelector(panelId);
+    if(!panel) return;
+    const iframe = panel.querySelector('iframe');
+    const summary = panel.querySelector('.panel-summary');
+    const worksheet = panel.querySelector('.panel-worksheet');
+
+    // Set main display values; these values live in HTML panel
+    mainVideo.src = iframe ? iframe.src : '';
+    mainSummary.textContent = summary ? summary.textContent.trim() : '';
+    mainWorksheet.textContent = worksheet ? worksheet.textContent.trim() : '';
+  }
+
+  // Term switching: show/hide topic lists
+  termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // toggle active class on term buttons
+      termButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const term = btn.dataset.term; // "first" or "second" or "third"
+      topicLists.forEach(list => {
+        if(list.id === `${term}-term`) list.style.display = 'flex';
+        else list.style.display = 'none';
       });
 
-      if (physicsTopics[term].length > 0) {
-        const first = physicsTopics[term][0];
-        videoFrame.src = first.video;
-        title.textContent = first.title;
-        questions.innerHTML = first.questions.map(q => `<li>${q}</li>`).join('');
+      // auto-select first topic in the visible term
+      const firstTopic = document.querySelector(`#${term}-term .topic-btn`);
+      if(firstTopic){
+        firstTopic.click();
+      } else {
+        // if no topics, clear main display
+        mainVideo.src = '';
+        mainSummary.textContent = '';
+        mainWorksheet.textContent = '';
       }
-    }
-
-    document.querySelectorAll(".term-btn-phy").forEach(btn => {
-      btn.addEventListener("click", () => loadPhysicsTopics(btn.dataset.term));
     });
+  });
 
-    window.addEventListener("load", () => loadPhysicsTopics("first"));
+  // Topic click: load corresponding hidden panel
+  function onTopicClick(e){
+    const btn = e.currentTarget;
+    // set active on left topic buttons (only within current term)
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const target = btn.dataset.target; // ex: "#ft-topic-1"
+    if(target) loadPanel(target);
+  }
+  topicButtons.forEach(t => t.addEventListener('click', onTopicClick));
+
+  // INITIAL LOAD: simulate click on first active elements
+  const initialTermBtn = document.querySelector('.term-btn.active') || document.querySelector('.term-btn');
+  if(initialTermBtn) initialTermBtn.click();
+
+  // if a topic in the initially visible term has active class, click it; otherwise click first
+  const initialTopic = document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn.active')
+                        || document.querySelector('.term-topics:not([style*="display: none"]) .topic-btn');
+  if(initialTopic) initialTopic.click();
+});
+
   </script>
 </body>
 </html>
